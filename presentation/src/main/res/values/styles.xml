@@ -1,0 +1,86 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">@color/dark_blue</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+
+        <!-- Overrides the list view press color-->
+        <item name="android:activatedBackgroundIndicator">@drawable/item_list_selector</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/DarkGray</item>
+    </style>
+
+
+    <style name="extraHugeText">
+        <item name="android:textSize">38sp</item>
+    </style>
+
+    <style name="hugeText">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="bigText">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="mediumBigText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="mediumText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="smallText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="smallToMiniText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="miniText">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="editText" parent="mediumText">
+        <item name="fontPath">fonts/Roboto-Light.ttf</item>
+    </style>
+
+    <style name="titleText" parent="smallText">
+        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/dark_blue</item>
+    </style>
+
+    <style name="menuItemText" parent="mediumBigText">
+        <item name="fontPath">fonts/Roboto-Light.ttf</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+    <style name="listItemText" parent="mediumText">
+        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="listSubItemText" parent="smallText">
+        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
+    </style>
+
+    <style name="button">
+        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>

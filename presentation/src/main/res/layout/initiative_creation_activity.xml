@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/titleEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding"
+            android:hint="@string/title"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="40"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:gravity="top"
+            android:hint="@string/description"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textMultiLine"
+            android:maxLength="140"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+    </LinearLayout>
+
+</RelativeLayout>

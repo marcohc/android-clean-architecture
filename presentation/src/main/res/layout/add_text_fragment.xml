@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_hint_font" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/small_padding">
+
+        <EditText
+            android:id="@+id/addCommentText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_toLeftOf="@+id/addTextImage"
+            android:layout_toStartOf="@+id/addTextImage"
+            android:background="@color/transparent"
+            android:gravity="top"
+            android:hint="@string/add_comment"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textMultiLine"
+            android:maxLength="140"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <ImageView
+            android:id="@+id/addTextImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_send" />
+
+
+    </RelativeLayout>
+</LinearLayout>

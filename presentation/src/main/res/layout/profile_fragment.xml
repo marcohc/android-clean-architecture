@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/im_building_background_white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="@dimen/image_detail_size"
+            android:layout_height="@dimen/image_detail_size"
+            android:layout_marginTop="@dimen/big_padding"
+            android:background="@color/blue"
+            android:scaleType="fitXY"
+            android:src="@drawable/im_user_place_holder"/>
+
+        <TextView
+            android:id="@+id/usernameText"
+            style="@style/bigText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_padding"
+            android:gravity="center"
+            android:text="Username"/>
+
+        <TextView
+            android:id="@+id/addressText"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding"
+            android:gravity="center"
+            android:maxWidth="@dimen/profile_width"
+            android:text="Haarlemmeermerstraat 62, 1058 KC, Amsterdam Netherlands"/>
+
+        <TextView
+            android:id="@+id/dateOfBirthAndEmailText"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding"
+            android:gravity="center"
+            android:maxWidth="@dimen/profile_width"
+            android:text="06 fabruary 1986 my_email@gmail.com"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/editProfileButton"
+        style="@style/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/padding"
+        android:layout_marginLeft="@dimen/extra_huge_padding"
+        android:layout_marginRight="@dimen/extra_huge_padding"
+        android:layout_marginTop="@dimen/padding"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:padding="@dimen/padding"
+        android:text="@string/edit_profile"
+        android:textColor="@color/White"/>
+
+
+</RelativeLayout>

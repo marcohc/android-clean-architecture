@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/small_padding">
+
+    <LinearLayout
+        android:id="@+id/userImageContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="@dimen/image_detail_size"
+            android:layout_height="@dimen/image_detail_size"
+            android:layout_margin="@dimen/small_padding"
+            android:background="@color/blue"
+            android:scaleType="fitXY"
+            android:src="@drawable/im_user_place_holder" />
+
+        <TextView
+            style="@style/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/add_photo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/userImageContainer"
+        android:layout_toRightOf="@+id/userImageContainer"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:ems="10"
+            android:hint="@string/user"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/firstNameEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:ems="10"
+            android:hint="@string/first_name"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/lastNameEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:ems="10"
+            android:hint="@string/last_name"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+    </LinearLayout>
+</RelativeLayout>

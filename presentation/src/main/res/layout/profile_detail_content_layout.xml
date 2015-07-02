@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/streetEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_weight="0.25"
+            android:hint="@string/street"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="30"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/numberEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:layout_weight="0.75"
+            android:hint="@string/number"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="3"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/zipCodeEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_weight="1"
+            android:hint="@string/zip_code"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="7"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/cityEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:layout_weight="1"
+            android:hint="@string/city"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/countryEditText"
+        style="@style/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_padding"
+        android:layout_marginLeft="@dimen/small_padding"
+        android:layout_marginRight="@dimen/small_padding"
+        android:hint="@string/country"
+        android:imeActionLabel="@string/ok"
+        android:inputType="textCapSentences"
+        android:maxLength="16"
+        android:textColor="@color/gray_font"
+        android:textColorHint="@color/gray_hint_font" />
+
+    <EditText
+        android:id="@+id/birthdayEditText"
+        style="@style/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/small_padding"
+        android:layout_marginLeft="@dimen/small_padding"
+        android:layout_marginRight="@dimen/small_padding"
+        android:hint="@string/birthday"
+        android:imeActionLabel="@string/ok"
+        android:inputType="textCapSentences"
+        android:maxLength="16"
+        android:textColor="@color/gray_font"
+        android:textColorHint="@color/gray_hint_font" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        style="@style/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_padding"
+        android:layout_marginRight="@dimen/small_padding"
+        android:hint="@string/email_address"
+        android:imeActionLabel="@string/ok"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/gray_font"
+        android:textColorHint="@color/gray_hint_font" />
+
+    <LinearLayout
+        android:id="@+id/resetPasswordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_padding"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/huge_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_padding"
+                android:layout_marginRight="@dimen/small_padding"
+                android:text="@string/change_password"
+                android:textAllCaps="true"
+                android:textColor="@color/Black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:layout_marginLeft="@dimen/small_padding"
+                android:layout_marginRight="@dimen/small_padding"
+                android:background="@color/Black" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/currentPasswordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:hint="@string/enter_your_current_password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/newPasswordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:hint="@string/enter_new_password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/confirmNewPasswordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:hint="@string/confirm_new_password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/createPasswordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/small_padding">
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:hint="@string/password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginRight="@dimen/small_padding"
+            android:hint="@string/confirm_password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+    </LinearLayout>
+
+
+</LinearLayout>
+
