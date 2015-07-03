@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="menu_text_array" translatable="false">
-        <item>@string/initiatives</item>
-        <item>@string/neighbours_chat</item>
-        <item>@string/my_profile</item>
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
     </string-array>
     <string-array name="menu_normal_icons_array" translatable="false">
         <item>@drawable/ic_initiative</item>

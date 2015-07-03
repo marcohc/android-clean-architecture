@@ -1,7 +1,7 @@
 
-package com.marcohc.android.clean.architecture.data.datasource.rest.inter;
+package com.marcohc.android.clean.architecture.data.datasource.impl.rest.inter;
 
-import com.marcohc.android.clean.architecture.common.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
 import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
 
 import java.util.HashMap;

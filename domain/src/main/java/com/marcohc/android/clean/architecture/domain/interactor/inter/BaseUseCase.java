@@ -2,7 +2,7 @@ package com.marcohc.android.clean.architecture.domain.interactor.inter;
 
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.common.bus.event.Event;
-import com.marcohc.android.clean.architecture.common.exception.DataError;
+import com.marcohc.android.clean.architecture.common.exception.DataException;
 import com.squareup.otto.Bus;
 
 public abstract class BaseUseCase implements UseCase {
@@ -19,8 +19,8 @@ public abstract class BaseUseCase implements UseCase {
         getBus().unregister(this);
     }
 
-    protected void postError(DataError error) {
-        getBus().post(error);
+    protected void postException(DataException exception) {
+        getBus().post(exception);
     }
 
     protected void post(Event event) {
@@ -30,5 +30,10 @@ public abstract class BaseUseCase implements UseCase {
     @Override
     public void execute() {
         getBus().post(createEvent());
+    }
+
+    protected void handleException(DataException exception) {
+        postException(exception);
+        unregisterFromBus();
     }
 }

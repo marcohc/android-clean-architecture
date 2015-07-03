@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/menuText"
-            style="@style/menuItemText"
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

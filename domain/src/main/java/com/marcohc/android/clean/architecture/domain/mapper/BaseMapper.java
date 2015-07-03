@@ -1,7 +1,7 @@
 package com.marcohc.android.clean.architecture.domain.mapper;
 
+import com.marcohc.android.clean.architecture.common.model.BaseModel;
 import com.marcohc.android.clean.architecture.data.entity.Entity;
-import com.marcohc.android.clean.architecture.presentation.model.BaseModel;
 
 import org.modelmapper.ModelMapper;
 

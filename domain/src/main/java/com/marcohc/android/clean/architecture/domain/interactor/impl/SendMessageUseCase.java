@@ -2,17 +2,18 @@ package com.marcohc.android.clean.architecture.domain.interactor.impl;
 
 import com.marcohc.android.clean.architecture.common.bus.event.SendMessageEvent;
 import com.marcohc.android.clean.architecture.common.bus.response.SendMessageResponse;
-import com.marcohc.android.clean.architecture.common.exception.DataError;
+import com.marcohc.android.clean.architecture.common.exception.DataException;
 import com.marcohc.android.clean.architecture.common.model.MessageModel;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.BaseUseCase;
 import com.marcohc.android.clean.architecture.domain.mapper.MessageMapper;
-import com.marcohc.android.clean.architecture.domain.repository.MessageRepository;
 import com.squareup.otto.Subscribe;
 
 import org.json.JSONObject;
 
 import java.util.Date;
 
+// TODO: Try communication with repository by bus
+// TODO: Create boundaries for presentation/domain and domain/data
 public class SendMessageUseCase extends BaseUseCase {
 
     // ************************************************************************************************************************************************************************
@@ -56,7 +57,7 @@ public class SendMessageUseCase extends BaseUseCase {
     // ************************************************************************************************************************************************************************
 
     @Subscribe
-    public void onExecuteEvent(SendMessageEvent event) {
+    public void onEventReceived(SendMessageEvent event) {
 
         message = new MessageModel();
         message.setChatId(event.getChatId());
@@ -64,23 +65,43 @@ public class SendMessageUseCase extends BaseUseCase {
         message.setCreated(new Date(System.currentTimeMillis()));
         message.setMine(true);
 
-        MessageRepository.getInstance().create(MessageMapper.transform(message), user.getToken(), new RepositoryCallback<JSONObject>() {
-            @Override
-            public void failure(DataError error) {
-                postError(error);
-                unregisterFromBus();
-            }
+        post(new SendMessageRequest(MessageMapper.transform(message)));
 
-            @Override
-            public void success(JSONObject response) {
-                DataError error = DataError.getError(response);
-                if (error == null) {
-                    post(createResponse());
-                } else {
-                    failure(error);
-                }
-                unregisterFromBus();
-            }
-        });
+//        MessageRepository.getInstance().create(MessageMapper.transform(message), "TOKEN_HERE", new RepositoryCallback<JSONObject>() {
+//            @Override
+//            public void failure(DataException error) {
+//                postException(error);
+//                unregisterFromBus();
+//            }
+//
+//            @Override
+//            public void success(JSONObject response) {
+//                DataException error = DataException.getError(response);
+//                if (error == null) {
+//                    post(createResponse());
+//                } else {
+//                    failure(error);
+//                }
+//                unregisterFromBus();
+//            }
+//        });
     }
+
+    @Subscribe
+    public void onResponseReceived(JSONObject response) {
+        DataException error = DataException.getError(response);
+        if (error == null) {
+            // TODO: PARSE OR MAP RESPONSE
+            post(createResponse());
+            unregisterFromBus();
+        } else {
+            handleException(error);
+        }
+    }
+
+    @Subscribe
+    public void onExceptionReceived(DataException error) {
+        handleException(error);
+    }
+
 }

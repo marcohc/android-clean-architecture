@@ -24,7 +24,7 @@
     <uses-sdk tools:overrideLibrary="com.hannesdorfmann.mosby, com.hannesdorfmann.mosby.mvp"/>
 
     <application
-        android:name=".MainApplication"
+        android:name="com.marcohc.android.clean.architecture.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -51,7 +51,7 @@
         <activity
             android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/initiatives"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 

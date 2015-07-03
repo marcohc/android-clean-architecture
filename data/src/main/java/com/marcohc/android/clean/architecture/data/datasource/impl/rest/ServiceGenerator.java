@@ -1,4 +1,4 @@
-package com.marcohc.android.clean.architecture.data.datasource.rest;
+package com.marcohc.android.clean.architecture.data.datasource.impl.rest;
 
 import android.util.Base64;
 

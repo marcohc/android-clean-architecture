@@ -1,15 +1,15 @@
-package com.marcohc.android.clean.architecture.data.datasource.rest.impl;
+package com.marcohc.android.clean.architecture.data.datasource.impl.rest.impl;
 
-import com.marcohc.android.clean.architecture.data.datasource.inter.MessageDal;
-import com.marcohc.android.clean.architecture.common.net.RepositoryCallback;
-import com.marcohc.android.clean.architecture.data.datasource.rest.ServiceGenerator;
-import com.marcohc.android.clean.architecture.data.datasource.rest.inter.MessageApiService;
+import com.marcohc.android.clean.architecture.data.datasource.inter.MessageDataSource;
+import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.datasource.impl.rest.ServiceGenerator;
+import com.marcohc.android.clean.architecture.data.datasource.impl.rest.inter.MessageApiService;
 import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
 
 import java.util.HashMap;
 
-public class MessageDalImpl implements MessageDal {
+public class MessageRemoteDataSource implements MessageDataSource {
 
     @Override
     public void get(Long chatId, Long lastMessageId, String token, RepositoryCallback<Object> callback) {

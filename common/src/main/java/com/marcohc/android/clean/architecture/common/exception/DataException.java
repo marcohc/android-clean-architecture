@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
-public class DataError {
+public class DataException {
 
     @SerializedName("error_code")
     private Integer code;
@@ -12,7 +12,7 @@ public class DataError {
     @SerializedName("error_detail")
     private String message;
 
-    public DataError(String message, Integer code) {
+    public DataException(String message, Integer code) {
         this.message = message;
         this.code = code;
     }
@@ -33,12 +33,12 @@ public class DataError {
         this.message = message;
     }
 
-    public static DataError getError(JSONObject response) {
+    public static DataException getError(JSONObject response) {
 
-        DataError error = null;
+        DataException error = null;
         try {
             response = (JSONObject) response.get("error");
-            error = new DataError(response.getString("error_detail"), response.getInt("error_code"));
+            error = new DataException(response.getString("error_detail"), response.getInt("error_code"));
         } catch (Exception e) {
         }
 

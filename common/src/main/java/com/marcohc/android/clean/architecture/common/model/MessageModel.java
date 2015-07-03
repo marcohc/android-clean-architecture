@@ -14,7 +14,6 @@ public class MessageModel extends BaseModel {
 
     private Long id;
     private Long chatId;
-    private Long initiativeId;
     private String text;
     private Date created;
     private boolean mine;
@@ -33,14 +32,6 @@ public class MessageModel extends BaseModel {
 
     public void setChatId(Long chatId) {
         this.chatId = chatId;
-    }
-
-    public Long getInitiativeId() {
-        return initiativeId;
-    }
-
-    public void setInitiativeId(Long initiativeId) {
-        this.initiativeId = initiativeId;
     }
 
     public String getText() {

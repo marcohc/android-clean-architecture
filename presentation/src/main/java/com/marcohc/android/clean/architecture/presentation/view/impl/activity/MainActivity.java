@@ -183,13 +183,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         switch (NavigationManager.SCREENS.values()[position]) {
             case INITIATIVES_POSITION:
-                getSupportActionBar().setTitle(R.string.initiatives);
+                toolbar.setTitle("Item 1");
                 break;
             case NEIGHBOURS_CHAT:
-                getSupportActionBar().setTitle(R.string.neighbours_chat);
+                toolbar.setTitle("Item 2");
                 break;
             case MY_PROFILE:
-                getSupportActionBar().setTitle(R.string.my_profile);
+                toolbar.setTitle("Item 2");
                 break;
         }
 

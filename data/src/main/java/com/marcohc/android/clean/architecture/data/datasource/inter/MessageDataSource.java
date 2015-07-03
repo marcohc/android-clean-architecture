@@ -1,11 +1,11 @@
 package com.marcohc.android.clean.architecture.data.datasource.inter;
 
-import com.marcohc.android.clean.architecture.common.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
 import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
 
 import java.util.HashMap;
 
-public interface MessageDal {
+public interface MessageDataSource {
 
     void get(Long chatId, Long lastMessageId, String token, RepositoryCallback<Object> callback);
 

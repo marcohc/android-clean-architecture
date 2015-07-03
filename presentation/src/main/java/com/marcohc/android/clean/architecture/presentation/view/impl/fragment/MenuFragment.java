@@ -97,20 +97,6 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     @OnClick(R.id.logOutContainer)
     protected void onLogOutContainerClick() {
 
-//        new MaterialDialog.Builder(getActivity()).content(R.string.log_out_question).positiveText(R.string.yes).negativeText(R.string.no).callback(new ButtonCallback() {
-//            @Override
-//            public void onPositive(MaterialDialog dialog) {
-//                super.onPositive(dialog);
-//                presenter.onLogOutContainerClick();
-//            }
-//
-//            @Override
-//            public void onNegative(MaterialDialog dialog) {
-//                super.onNegative(dialog);
-//                dialog.dismiss();
-//            }
-//        }).show();
-
         DialogHelper.showConfirmationDialog(R.string.log_out_question, R.string.yes, R.string.no, getActivity(), new ButtonCallback() {
             @Override
             public void onPositive(MaterialDialog dialog) {

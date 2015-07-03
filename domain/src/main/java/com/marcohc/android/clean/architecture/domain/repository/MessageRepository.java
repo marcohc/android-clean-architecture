@@ -1,18 +1,23 @@
 package com.marcohc.android.clean.architecture.domain.repository;
 
-import com.marcohc.android.clean.architecture.common.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.datasource.inter.MessageDataSource;
+import com.marcohc.android.clean.architecture.data.datasource.impl.local.MessageLocalDataSource;
+import com.marcohc.android.clean.architecture.data.datasource.impl.rest.impl.MessageRemoteDataSource;
+import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
+import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.util.NetworkManager;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class MessageRepository {
+public class MessageRepository implements Repository {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private static MessageDal messageDal;
+    private static MessageDataSource messageDataSource;
     private static MessageRepository instance;
 
     // ************************************************************************************************************************************************************************
@@ -29,9 +34,9 @@ public class MessageRepository {
 
     private void initialize() {
         if (NetworkManager.PERSISTENCE_MANAGER.equals(NetworkManager.LOCAL_PERSISTENCE)) {
-            throw new ExceptionInInitializerError("Local persistence it's not developed yet!");
+            messageDataSource = new MessageLocalDataSource();
         } else if (NetworkManager.PERSISTENCE_MANAGER.equals(NetworkManager.REMOTE_PERSISTENCE)) {
-            messageDal = new MessageDalImpl();
+            messageDataSource = new MessageRemoteDataSource();
         }
     }
 
@@ -43,7 +48,7 @@ public class MessageRepository {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDal.get(chatId, lastMessageId, token, callback);
+                messageDataSource.get(chatId, lastMessageId, token, callback);
             }
         }).start();
     }
@@ -52,7 +57,7 @@ public class MessageRepository {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDal.create(message, token, callback);
+                messageDataSource.create(message, token, callback);
             }
         }).start();
     }
@@ -61,7 +66,7 @@ public class MessageRepository {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDal.registerToPushNotifications(map, token, callback);
+                messageDataSource.registerToPushNotifications(map, token, callback);
             }
         }).start();
     }
@@ -70,7 +75,7 @@ public class MessageRepository {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDal.unregisterFromPushNotifications(map, token, callback);
+                messageDataSource.unregisterFromPushNotifications(map, token, callback);
             }
         }).start();
     }
