@@ -143,7 +143,7 @@
 
     <fragment
         android:id="@+id/addTextFragment"
-        class="com.xs2mobile.buurapp.presentation.view.impl.fragment.AddTextFragment"
+        class="com.marcohc.android.clean.architecture.presentation.view.impl.fragment.AddTextFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

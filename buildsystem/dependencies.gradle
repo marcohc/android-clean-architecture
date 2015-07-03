@@ -1,0 +1,15 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+
+    //Android
+    androidBuildToolsVersion = "22.0.1"
+    androidMinSdkVersion = 11
+    androidTargetSdkVersion = 22
+    androidCompileSdkVersion = 22
+
+}

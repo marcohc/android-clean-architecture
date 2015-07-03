@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xs2mobile.android.data">
+    package="com.marcohc.android.clean.architecture.data">
 
     <application android:allowBackup="true" />
 </manifest>

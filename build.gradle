@@ -1,3 +1,6 @@
+apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/dependencies.gradle'
+
 buildscript {
     repositories {
         jcenter()
@@ -11,16 +14,25 @@ buildscript {
 
 allprojects {
 
+    ext {
+        androidApplicationId = 'com.marcohc.android.clean.architecture'
+        androidVersionCode = 1
+        androidVersionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId = 'com.marcohc.android.clean.architecture.presentation.test'
+    }
+
     repositories {
-        jcenter {
-            url "http://jcenter.bintray.com/"
-        }
-        maven  {
-            url "http://repo1.maven.org/maven2"
-        }
+        jcenter { url "http://jcenter.bintray.com/" }
+        maven { url "http://repo1.maven.org/maven2" }
         maven { url 'https://clojars.org/repo/' }
         maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }
     }
+}
+
+task wrapper(type: Wrapper) {
+    description 'Creates the gradle wrapper.'
+    gradleVersion '2.4'
 }
