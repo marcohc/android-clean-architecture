@@ -4,7 +4,6 @@ import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
 
 public class SendMessageRequest implements Request {
 
-
     public SendMessageRequest(MessageEntity transform) {
 
     }

@@ -6,7 +6,7 @@ import com.marcohc.android.clean.architecture.common.exception.DataException;
 import com.marcohc.android.clean.architecture.common.model.MessageModel;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.BaseUseCase;
 import com.marcohc.android.clean.architecture.domain.mapper.MessageMapper;
-import com.squareup.otto.Subscribe;
+import com.marcohc.android.clean.architecture.domain.request.SendMessageRequest;
 
 import org.json.JSONObject;
 
@@ -56,8 +56,7 @@ public class SendMessageUseCase extends BaseUseCase {
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
-    @Subscribe
-    public void onEventReceived(SendMessageEvent event) {
+    public void onEvent(SendMessageEvent event) {
 
         message = new MessageModel();
         message.setChatId(event.getChatId());
@@ -87,8 +86,7 @@ public class SendMessageUseCase extends BaseUseCase {
 //        });
     }
 
-    @Subscribe
-    public void onResponseReceived(JSONObject response) {
+    public void onEvent(JSONObject response) {
         DataException error = DataException.getError(response);
         if (error == null) {
             // TODO: PARSE OR MAP RESPONSE
@@ -98,10 +96,4 @@ public class SendMessageUseCase extends BaseUseCase {
             handleException(error);
         }
     }
-
-    @Subscribe
-    public void onExceptionReceived(DataException error) {
-        handleException(error);
-    }
-
 }

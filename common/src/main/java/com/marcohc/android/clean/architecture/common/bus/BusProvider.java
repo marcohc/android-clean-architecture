@@ -1,12 +1,12 @@
 package com.marcohc.android.clean.architecture.common.bus;
 
-import com.squareup.otto.Bus;
+import de.greenrobot.event.EventBus;
 
 public final class BusProvider {
 
-    private static final Bus BUS = new Bus();
+    private static final EventBus BUS = EventBus.getDefault();
 
-    public static Bus getInstance() {
+    public static EventBus getInstance() {
         return BUS;
     }
 

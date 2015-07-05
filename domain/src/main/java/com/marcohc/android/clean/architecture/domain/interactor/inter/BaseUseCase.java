@@ -3,11 +3,12 @@ package com.marcohc.android.clean.architecture.domain.interactor.inter;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.common.bus.event.Event;
 import com.marcohc.android.clean.architecture.common.exception.DataException;
-import com.squareup.otto.Bus;
+
+import de.greenrobot.event.EventBus;
 
 public abstract class BaseUseCase implements UseCase {
 
-    private Bus getBus() {
+    private EventBus getBus() {
         return BusProvider.getInstance();
     }
 
@@ -30,6 +31,10 @@ public abstract class BaseUseCase implements UseCase {
     @Override
     public void execute() {
         getBus().post(createEvent());
+    }
+
+    public void onEvent(DataException exception) {
+        handleException(exception);
     }
 
     protected void handleException(DataException exception) {
