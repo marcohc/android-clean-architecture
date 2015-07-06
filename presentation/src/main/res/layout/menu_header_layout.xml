@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/logoMenuImage"
-        android:background="@color/White" />
+        android:background="@android:color/white" />
 
     <TextView
         android:id="@+id/isDevelopmentText"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding"
         android:text="IS DEVELOPMENT!"
-        android:textColor="@color/Red"
+        android:textColor="@android:color/white"
         android:visibility="gone" />
 
 </RelativeLayout>

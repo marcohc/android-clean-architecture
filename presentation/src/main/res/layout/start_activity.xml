@@ -1,57 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/im_splash_background"/>
+        android:src="@drawable/im_splash_background" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/logo_size"
-        android:layout_height="@dimen/logo_size"
+    <TextView
+        android:layout_marginTop="@dimen/huge_padding"
+        android:id="@+id/textView"
+        style="@style/mediumText"
+        fontPath="fonts/Roboto-Medium.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/logo_top_padding"
-        android:src="@drawable/im_logo"/>
+        android:text="Super awesome and useless splash screen"
+        android:textColor="@android:color/white" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/logInButton"
-            style="@style/button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/extra_huge_padding"
-            android:layout_marginRight="@dimen/extra_huge_padding"
-            android:background="@drawable/button_selector"
-            android:gravity="center"
-            android:padding="@dimen/padding"
-            android:text="@string/log_in"
-            android:textColor="@color/White"/>
-
-        <Button
-            android:id="@+id/signUpButton"
-            style="@style/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding"
-            android:layout_marginLeft="@dimen/extra_huge_padding"
-            android:layout_marginRight="@dimen/extra_huge_padding"
-            android:layout_marginTop="@dimen/padding"
-            android:background="@drawable/button_selector"
-            android:gravity="center"
-            android:padding="@dimen/padding"
-            android:text="@string/sign_up"
-            android:textColor="@color/White"/>
-    </LinearLayout>
 
 </RelativeLayout>

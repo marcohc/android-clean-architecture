@@ -9,15 +9,13 @@ import com.marcohc.android.clean.architecture.presentation.presenter.impl.StartP
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.StartView;
 
-import butterknife.OnClick;
-
 public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> implements StartView {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private static int SPLASH_TIME_OUT = 500;
+    private static final int SPLASH_TIME_OUT = 500;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -34,6 +32,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
         super.onCreate(savedInstanceState);
 
         if (presenter.isUserLoggedIn()) {
+            // Skip login
             goToMain();
         } else {
             // Login
@@ -41,9 +40,10 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    Intent intent = new Intent(StartActivity.this, MainMvpActivity.class);
-//                    startActivity(intent);
-//                    finish();
+                    goToLogin();
+                    Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }, SPLASH_TIME_OUT);
         }
@@ -61,22 +61,18 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
         }
     }
 
-    @OnClick(R.id.logInButton)
-    void onLogInButtonClick() {
-        presenter.onLogInButtonClick();
-    }
-
-    @OnClick(R.id.signUpButton)
-    void onSignUpButtonClick() {
-        presenter.onSignUpButtonClick();
-    }
-
     // ************************************************************************************************************************************************************************
     // * View interface methods
     // ************************************************************************************************************************************************************************
 
     private void goToMain() {
         Intent intent = new Intent(StartActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void goToLogin() {
+        Intent intent = new Intent(StartActivity.this, LogInActivity.class);
         startActivity(intent);
         finish();
     }

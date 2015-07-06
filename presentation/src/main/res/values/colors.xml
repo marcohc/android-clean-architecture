@@ -2,44 +2,15 @@
 <resources>
 
     <!-- App -->
-    <color name="blue">#91cfd6</color>
-    <color name="dark_blue">#9ac1c5</color>
-    <color name="blue_button">#516a6d</color>
+    <color name="primary">#91cfd6</color>
+    <color name="primary_dark">#9ac1c5</color>
+    <color name="accent">#516a6d</color>
     <color name="dark_blue_button">#44595b</color>
-    <color name="gray_hint_font">#CCCCCB</color>
-    <color name="time_font">#9fa1a1</color>
-    <color name="gray_font">#676767</color>
     <color name="list_item_selected">#86b9bf</color>
-
-    <color name="White">#FFFFFF</color>
-    <color name="Red">#E56248</color>
-    <color name="RedAccount">#ef5959</color>
-    <color name="WhiteSmoke">#EDEFEF</color>
-    <color name="Silver">#e6e7e8</color>
-    <!--<color name="Silver">#C0C0C0</color>-->
-    <color name="Gray">#CCCCCB</color>
-    <color name="DarkGray">#676767</color>
-    <color name="MenuItem">#849ba9</color>
-    <color name="GraySeparator">#e6e7e8</color>
-    <color name="TitlePage">#a7a9ac</color>
-    <!--<color name="Green">#339DB5</color>-->
-    <color name="Green">#2A99BC</color>
-    <color name="Blue">#33b5e5</color>
-    <color name="Black">#000000</color>
-    <color name="color_use_for_icons">#676767</color>
+    <color name="dark_gray">#ff515658</color>
     <!-- AppMsg -->
     <color name="alert">#E56248</color>
     <color name="confirm">#2A99BC</color>
     <color name="info">#1E90FF</color>
-    <!-- Logo -->
-    <color name="logo_background">#323232</color>
-    <color name="home_fragment_month_title">#7F7F7F</color>
-    <color name="home_fragment_month_amount">#339DB5</color>
-    <!-- RobotoCalendar -->
-    <color name="currentDayOfMonthSelectorColor">#339DB5</color>
-    <!-- Carousel -->
-    <color name="red_carousel">#C0272D</color>
-    <color name="blue_carousel">#1D6C93</color>
-    <color name="transparent">#00000000</color>
 
 </resources>

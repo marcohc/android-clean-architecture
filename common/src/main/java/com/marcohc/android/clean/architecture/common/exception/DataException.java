@@ -39,7 +39,7 @@ public class DataException {
         try {
             response = (JSONObject) response.get("error");
             error = new DataException(response.getString("error_detail"), response.getInt("error_code"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         return error;

@@ -52,14 +52,14 @@ public abstract class RepositoryCallback<T> implements Callback<T> {
             JSONObject jsonResponse = new JSONObject(new Gson().toJson(type));
             Log.d(NetworkManager.LOG_TAG, "Response: " + jsonResponse.toString());
             success((T) jsonResponse);
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
         }
 
         try {
             JSONArray jsonArray = new JSONArray(new Gson().toJson(type));
             Log.d(NetworkManager.LOG_TAG, "Response: " + jsonArray.toString());
             success((T) jsonArray);
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
         }
     }
 }

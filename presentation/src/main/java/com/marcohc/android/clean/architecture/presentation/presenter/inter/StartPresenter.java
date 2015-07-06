@@ -5,10 +5,5 @@ import com.marcohc.android.clean.architecture.presentation.view.inter.StartView;
 
 public interface StartPresenter extends MvpPresenter<StartView> {
 
-    void onLogInButtonClick();
-
-    void onSignUpButtonClick();
-
     boolean isUserLoggedIn();
-
 }

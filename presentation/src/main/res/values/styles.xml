@@ -1,9 +1,9 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/dark_blue</item>
-        <item name="colorAccent">@color/dark_blue</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:textViewStyle">@style/MyTextViewStyle</item>
 
@@ -18,12 +18,12 @@
 
     <style name="MyTextViewStyle" parent="android:Widget.TextView">
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/DarkGray</item>
+        <item name="android:textColor">@color/dark_gray</item>
     </style>
 
     <style name="menuItemText" parent="mediumBigText">
         <item name="fontPath">fonts/Roboto-Light.ttf</item>
-        <item name="android:textColor">@color/White</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="extraHugeText">

@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_full_name">Buur App</string>
-    <string name="app_name">Buur</string>
-    <string name="user">Username</string>
+    <string name="app_name">Clean ARQ sample</string>
     <string name="ok">OK</string>
     <string name="password">Password</string>
     <string name="accept">Accept</string>
@@ -18,4 +16,5 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="log_out_question">Do you want to log out?</string>
+    <string name="username">Username</string>
 </resources>

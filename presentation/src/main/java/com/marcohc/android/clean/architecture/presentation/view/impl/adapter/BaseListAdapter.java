@@ -23,7 +23,6 @@ public class BaseListAdapter extends ArrayAdapter<BaseModel> {
 
     private OnSubViewClickListener mCaller;
     private Class<? extends ViewHolderAbstractClass> viewHolderClass;
-//    private Constants.DATA_TYPE mItemType;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -45,9 +44,7 @@ public class BaseListAdapter extends ArrayAdapter<BaseModel> {
                 convertView = LayoutInflater.from(getContext()).inflate(viewHolder.getLayout(), null);
                 viewHolder.findViewsById(convertView);
                 convertView.setTag(viewHolder);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
@@ -65,14 +62,6 @@ public class BaseListAdapter extends ArrayAdapter<BaseModel> {
             mCaller.onSubViewItemClick(view, position, null);
         }
     }
-
-//    public DATA_TYPE getType() {
-//        return mItemType;
-//    }
-//
-//    public void setType(DATA_TYPE type) {
-//        mItemType = type;
-//    }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void addThemAll(List<? extends BaseModel> items) {
