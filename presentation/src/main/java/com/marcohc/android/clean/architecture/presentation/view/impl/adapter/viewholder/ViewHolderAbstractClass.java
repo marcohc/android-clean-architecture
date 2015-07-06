@@ -3,7 +3,7 @@ package com.marcohc.android.clean.architecture.presentation.view.impl.adapter.vi
 import android.content.Context;
 import android.view.View;
 
-import com.marcohc.android.clean.architecture.common.model.BaseModel;
+import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.BaseListAdapter;
 
 public abstract class ViewHolderAbstractClass {

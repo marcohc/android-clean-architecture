@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-import com.marcohc.android.clean.architecture.common.bus.response.SendMessageResponse;
+import com.google.android.gms.wearable.internal.SendMessageResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.SendMessageUseCase;
 import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainPresenter;

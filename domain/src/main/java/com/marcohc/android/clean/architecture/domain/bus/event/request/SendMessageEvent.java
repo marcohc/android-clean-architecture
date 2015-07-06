@@ -1,6 +1,9 @@
-package com.marcohc.android.clean.architecture.common.bus.event;
+package com.marcohc.android.clean.architecture.domain.bus.event.request;
 
-public class SendMessageEvent implements Event {
+
+import com.marcohc.android.clean.architecture.domain.bus.event.BaseEvent;
+
+public class SendMessageEvent extends BaseEvent {
 
     private Long chatId;
     private String text;

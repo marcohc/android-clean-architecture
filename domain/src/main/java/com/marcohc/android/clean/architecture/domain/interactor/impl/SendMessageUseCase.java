@@ -1,12 +1,12 @@
 package com.marcohc.android.clean.architecture.domain.interactor.impl;
 
-import com.marcohc.android.clean.architecture.common.bus.event.SendMessageEvent;
-import com.marcohc.android.clean.architecture.common.bus.response.SendMessageResponse;
 import com.marcohc.android.clean.architecture.common.exception.DataException;
-import com.marcohc.android.clean.architecture.common.model.MessageModel;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.SendMessageEvent;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.SendMessageRequest;
+import com.marcohc.android.clean.architecture.domain.bus.event.response.SendMessageEventResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.BaseUseCase;
 import com.marcohc.android.clean.architecture.domain.mapper.MessageMapper;
-import com.marcohc.android.clean.architecture.domain.request.SendMessageRequest;
+import com.marcohc.android.clean.architecture.domain.model.MessageModel;
 
 import org.json.JSONObject;
 
@@ -48,8 +48,8 @@ public class SendMessageUseCase extends BaseUseCase {
     // ************************************************************************************************************************************************************************
 
     @Override
-    public SendMessageResponse createResponse() {
-        return new SendMessageResponse(message);
+    public SendMessageEventResponse createResponse() {
+        return new SendMessageEventResponse(message);
     }
 
     // ************************************************************************************************************************************************************************

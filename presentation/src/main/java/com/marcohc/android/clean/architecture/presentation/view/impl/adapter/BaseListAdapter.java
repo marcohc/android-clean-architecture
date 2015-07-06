@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.marcohc.android.clean.architecture.common.model.BaseModel;
+import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.ViewHolderAbstractClass;
 
 import java.util.List;

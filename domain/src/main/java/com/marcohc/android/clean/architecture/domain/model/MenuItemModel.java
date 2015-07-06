@@ -1,4 +1,4 @@
-package com.marcohc.android.clean.architecture.common.model;
+package com.marcohc.android.clean.architecture.domain.model;
 
 public class MenuItemModel extends BaseModel {
 

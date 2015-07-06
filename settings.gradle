@@ -1,4 +1,4 @@
 include ':presentation'
-include ':common'
 include ':domain'
 include ':data'
+include ':common'

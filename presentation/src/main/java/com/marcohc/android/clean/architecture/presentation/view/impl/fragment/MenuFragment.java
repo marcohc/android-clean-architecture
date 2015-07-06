@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
 import com.marcohc.android.clean.architecture.MainApplication;
-import com.marcohc.android.clean.architecture.common.model.MenuItemModel;
+import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;

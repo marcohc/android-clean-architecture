@@ -1,10 +1,10 @@
-package com.marcohc.android.clean.architecture.data.entity.inter;
+package com.marcohc.android.clean.architecture.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
-public interface MessageEntity extends com.marcohc.android.clean.architecture.data.entity.Entity {
+public interface MessageEntity extends Entity {
 
     Long getSender();
 

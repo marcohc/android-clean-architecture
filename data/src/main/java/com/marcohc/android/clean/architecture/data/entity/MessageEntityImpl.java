@@ -1,9 +1,9 @@
-package com.marcohc.android.clean.architecture.data.entity.impl;
+package com.marcohc.android.clean.architecture.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
+import com.marcohc.android.clean.architecture.domain.entity.MessageEntity;
 
 import java.util.Date;
 

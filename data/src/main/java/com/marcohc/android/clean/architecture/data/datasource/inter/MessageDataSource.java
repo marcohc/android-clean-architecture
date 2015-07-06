@@ -1,17 +1,17 @@
 package com.marcohc.android.clean.architecture.data.datasource.inter;
 
-import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
-import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
+
+import com.marcohc.android.clean.architecture.domain.entity.MessageEntity;
 
 import java.util.HashMap;
 
 public interface MessageDataSource {
 
-    void get(Long chatId, Long lastMessageId, String token, RepositoryCallback<Object> callback);
+    void get(Long chatId, Long lastMessageId, String token);
 
-    void create(MessageEntity message, String token, RepositoryCallback callback);
+    void create(MessageEntity message, String token);
 
-    void registerToPushNotifications(HashMap<String, String> map, String token, RepositoryCallback callback);
+    void registerToPushNotifications(HashMap<String, String> map, String token);
 
-    void unregisterFromPushNotifications(HashMap<String, Object> map, String token, RepositoryCallback callback);
+    void unregisterFromPushNotifications(HashMap<String, Object> map, String token);
 }

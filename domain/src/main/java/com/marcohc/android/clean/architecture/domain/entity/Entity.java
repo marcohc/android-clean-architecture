@@ -1,4 +1,4 @@
-package com.marcohc.android.clean.architecture.data.entity;
+package com.marcohc.android.clean.architecture.domain.entity;
 
 public interface Entity {
 

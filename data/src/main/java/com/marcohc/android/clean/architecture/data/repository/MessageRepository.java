@@ -1,13 +1,11 @@
-package com.marcohc.android.clean.architecture.domain.repository;
+package com.marcohc.android.clean.architecture.data.repository;
 
-import com.marcohc.android.clean.architecture.data.datasource.inter.MessageDataSource;
+
 import com.marcohc.android.clean.architecture.data.datasource.impl.local.MessageLocalDataSource;
 import com.marcohc.android.clean.architecture.data.datasource.impl.rest.impl.MessageRemoteDataSource;
-import com.marcohc.android.clean.architecture.data.entity.inter.MessageEntity;
-import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.datasource.inter.MessageDataSource;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
-
-import org.json.JSONObject;
+import com.marcohc.android.clean.architecture.domain.entity.MessageEntity;
 
 import java.util.HashMap;
 
@@ -44,38 +42,38 @@ public class MessageRepository implements Repository {
     // * Remote data
     // ************************************************************************************************************************************************************************
 
-    public void get(final Long chatId, final Long lastMessageId, final String token, final RepositoryCallback<Object> callback) {
+    public void get(final Long chatId, final Long lastMessageId, final String token) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDataSource.get(chatId, lastMessageId, token, callback);
+                messageDataSource.get(chatId, lastMessageId, token);
             }
         }).start();
     }
 
-    public void create(final MessageEntity message, final String token, final RepositoryCallback<JSONObject> callback) {
+    public void create(final MessageEntity message, final String token) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDataSource.create(message, token, callback);
+                messageDataSource.create(message, token);
             }
         }).start();
     }
 
-    public void registerToPushNotifications(final HashMap<String, String> map, final String token, final RepositoryCallback callback) {
+    public void registerToPushNotifications(final HashMap<String, String> map, final String token) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDataSource.registerToPushNotifications(map, token, callback);
+                messageDataSource.registerToPushNotifications(map, token);
             }
         }).start();
     }
 
-    public void unregisterFromPushNotifications(final HashMap<String, Object> map, final String token, final RepositoryCallback callback) {
+    public void unregisterFromPushNotifications(final HashMap<String, Object> map, final String token) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                messageDataSource.unregisterFromPushNotifications(map, token, callback);
+                messageDataSource.unregisterFromPushNotifications(map, token);
             }
         }).start();
     }
