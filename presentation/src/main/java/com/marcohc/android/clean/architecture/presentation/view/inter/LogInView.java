@@ -10,4 +10,5 @@ public interface LogInView extends BaseView {
 
     void invalidatePassword();
 
+    void goToMain();
 }

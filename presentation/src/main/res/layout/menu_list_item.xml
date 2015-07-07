@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/padding"
         android:layout_marginRight="@dimen/padding"
-        android:src="@drawable/ic_profile" />
+        android:src="@drawable/ic_cast_dark" />
 
     <TextView
         android:id="@+id/menuText"

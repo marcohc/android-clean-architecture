@@ -1,8 +1,10 @@
 package com.marcohc.android.clean.architecture;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
+import com.marcohc.android.clean.architecture.common.bus.BusProvider;
+import com.marcohc.android.clean.architecture.data.repository.UserRepository;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
@@ -13,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 @SuppressLint({"SimpleDateFormat", "DefaultLocale"})
-public class MainApplication extends Application {
+public class MainApplication extends MultiDexApplication {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -50,6 +52,18 @@ public class MainApplication extends Application {
 
         initializeAnalytics();
 
+        initializeBus();
+
+        initializeRepositories();
+
+    }
+
+    private void initializeBus() {
+        BusProvider.getInstance();
+    }
+
+    private void initializeRepositories() {
+        UserRepository.initialize();
     }
 
     private void initializeNotificationManager() {

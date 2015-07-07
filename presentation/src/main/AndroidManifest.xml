@@ -1,5 +1,4 @@
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.marcohc.android.clean.architecture.presentation">
 
@@ -49,6 +48,13 @@
 
         <activity
             android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

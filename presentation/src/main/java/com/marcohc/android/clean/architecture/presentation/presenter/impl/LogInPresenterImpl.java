@@ -1,6 +1,8 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
 
+import com.marcohc.android.clean.architecture.domain.bus.event.response.LogInEventResponse;
+import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
 import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
@@ -16,15 +18,19 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
     @Override
     public void onActionDoneClick() {
         if (isValidaForm()) {
-            getView().showLoading(true);
-            // TODO: LOG IN USE CASE
-//            getInteractor().logIn(getView().getUsername(), getView().getPassword());
+            showLoading(true);
+            new LogInUseCase(getView().getUsername(), getView().getPassword()).execute();
         }
     }
 
     // ************************************************************************************************************************************************************************
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
+
+    public void onEventMainThread(LogInEventResponse event) {
+        showLoading(false);
+        getView().goToMain();
+    }
 
     // ************************************************************************************************************************************************************************
     // * Presenter methods

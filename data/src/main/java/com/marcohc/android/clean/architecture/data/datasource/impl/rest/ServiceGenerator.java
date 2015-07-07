@@ -22,7 +22,6 @@ public class ServiceGenerator {
     private ServiceGenerator() {
     }
 
-
     public static <S> S createService(Class<S> serviceClass, String baseUrl) {
         // call basic auth generator method without user and pass
         return createService(serviceClass, baseUrl, null, null, null);

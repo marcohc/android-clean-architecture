@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginRight="@dimen/padding"
-            android:src="@drawable/ic_log_out" />
+            android:src="@drawable/abc_ic_commit_search_api_mtrl_alpha" />
 
         <TextView
             android:id="@+id/menuText"

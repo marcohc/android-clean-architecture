@@ -12,7 +12,7 @@ public class NavigationManager {
     public static int currentViewPosition;
 
     public enum SCREENS {
-        INITIATIVES_POSITION, NEIGHBOURS_CHAT, MY_PROFILE
+        POSITION_1, POSITION_2
     }
 
 }

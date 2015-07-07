@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -16,14 +16,14 @@
             <include
                 layout="@layout/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/contentFrameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
-                android:visibility="visible"/>
+                android:visibility="visible" />
         </LinearLayout>
 
         <FrameLayout
@@ -37,7 +37,7 @@
                 class="com.marcohc.android.clean.architecture.presentation.view.impl.fragment.MenuFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/menu_fragment"/>
+                tools:layout="@layout/menu_fragment" />
         </FrameLayout>
 
     </android.support.v4.widget.DrawerLayout>

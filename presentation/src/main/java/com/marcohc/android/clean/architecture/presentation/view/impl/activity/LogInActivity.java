@@ -1,5 +1,6 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -59,9 +60,9 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     private void initializeActionBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_action_logo);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+//        getSupportActionBar().setIcon(R.drawable.abc_ratingbar_full_material);
     }
 
     @Override
@@ -79,7 +80,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
         MenuItem menuItem2 = menu.findItem(R.id.item_2);
         menuItem2.setVisible(true);
         menuItem2.setEnabled(true);
-        menuItem2.setIcon(R.drawable.ic_action_done);
+        menuItem2.setIcon(R.drawable.abc_ic_go_search_api_mtrl_alpha);
         menuItem2.setTitle(R.string.accept);
         return true;
     }
@@ -129,6 +130,13 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
     @Override
     public void invalidatePassword() {
         YoYo.with(Techniques.Shake).playOn(passwordEditText);
+    }
+
+    @Override
+    public void goToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // ************************************************************************************************************************************************************************

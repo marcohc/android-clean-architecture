@@ -29,7 +29,7 @@ public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter
     public void showLoading(boolean show) {
         if (show) {
             dialog = ProgressDialog.show(getActivity(), "", getString(R.string.loading), true);
-//            dialog.setCancelable(false);
+            dialog.setCancelable(true);
         } else {
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();

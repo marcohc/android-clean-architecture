@@ -62,7 +62,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     private MenuFragment menuFragment;
     private BaseMvpFragment currentFragment;
     private Fragment lastFragment;
-    private final int INITIAL_POSITION = NavigationManager.SCREENS.NEIGHBOURS_CHAT.ordinal();
+    private final int INITIAL_POSITION = NavigationManager.SCREENS.POSITION_1.ordinal();
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -182,13 +182,10 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         currentFragment = getFragmentByPosition(position);
 
         switch (NavigationManager.SCREENS.values()[position]) {
-            case INITIATIVES_POSITION:
+            case POSITION_1:
                 toolbar.setTitle("Item 1");
                 break;
-            case NEIGHBOURS_CHAT:
-                toolbar.setTitle("Item 2");
-                break;
-            case MY_PROFILE:
+            case POSITION_2:
                 toolbar.setTitle("Item 2");
                 break;
         }
@@ -232,20 +229,18 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         return currentFragment;
     }
 
+    // TODO
     private BaseMvpFragment getFragmentByPosition(int position) {
 
         if (fragmentsMap.containsKey(position)) {
             return fragmentsMap.get(position);
         } else {
             switch (NavigationManager.SCREENS.values()[position]) {
-                case INITIATIVES_POSITION:
-//                    fragmentsMap.put(NavigationManager.SCREENS.INITIATIVES_POSITION.ordinal(), new InitiativesListFragment());
+                case POSITION_1:
+//                    fragmentsMap.put(NavigationManager.SCREENS.POSITION_1.ordinal(), new InitiativesListFragment());
                     break;
-                case NEIGHBOURS_CHAT:
-//                    fragmentsMap.put(NavigationManager.SCREENS.NEIGHBOURS_CHAT.ordinal(), new NeighboursListFragment());
-                    break;
-                case MY_PROFILE:
-//                    fragmentsMap.put(NavigationManager.SCREENS.MY_PROFILE.ordinal(), new ProfileFragment());
+                case POSITION_2:
+//                    fragmentsMap.put(NavigationManager.SCREENS.POSITION_2.ordinal(), new NeighboursListFragment());
                     break;
             }
             return getFragmentByPosition(position);
@@ -260,7 +255,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_action_logo);
+        getSupportActionBar().setIcon(R.drawable.abc_ratingbar_full_material);
     }
 
     @Override

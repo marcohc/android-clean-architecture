@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 
 buildscript {
@@ -25,12 +25,12 @@ android {
     defaultConfig {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
-
         applicationId globalConfiguration.getAt("androidApplicationId")
         versionCode globalConfiguration.getAt("androidVersionCode")
         versionName globalConfiguration.getAt("androidVersionName")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         testApplicationId globalConfiguration.getAt("testApplicationId")
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -71,6 +71,7 @@ dependencies {
 
     compile project(':common')
     compile project(':domain')
+    compile project(':data')
 
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.android.support:appcompat-v7:22.2.0'

@@ -41,9 +41,6 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
                 @Override
                 public void run() {
                     goToLogin();
-                    Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
             }, SPLASH_TIME_OUT);
         }

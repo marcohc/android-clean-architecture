@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.NotificationReceivedEvent;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
 
@@ -100,6 +101,10 @@ public class NotificationManager {
     // * Bus events methods
     // ************************************************************************************************************************************************************************
 
+    public void onEvent(NotificationReceivedEvent event) {
+        displayMessageInNotificationTray();
+    }
+
     // ************************************************************************************************************************************************************************
     // * Notification in app methods
     // ************************************************************************************************************************************************************************
@@ -115,7 +120,7 @@ public class NotificationManager {
 
         PendingIntent contentIntent = PendingIntent.getActivity(context, pushId.intValue(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setSmallIcon(R.drawable.ic_logo_notification);
+        builder.setSmallIcon(R.drawable.abc_ratingbar_full_material);
         builder.setContentTitle("");
         builder.setContentText("");
         Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

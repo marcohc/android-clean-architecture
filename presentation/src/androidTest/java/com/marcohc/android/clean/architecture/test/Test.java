@@ -61,7 +61,7 @@ public class Test extends ActivityInstrumentationTestCase2<StartActivity> {
 
         waitForIt(1000);
 
-        clickOnWithShortPause(R.id.signUpButton);
+//        clickOnWithShortPause(R.id.signUpButton);
 //
 //        typeOnWithShortPause(R.id.usernameEditText, "MyUsername");
 //
