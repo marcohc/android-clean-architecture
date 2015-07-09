@@ -46,4 +46,7 @@ dependencies {
     // Gson
     compile 'com.google.code.gson:gson:2.3.1'
 
+    // String utils
+    compile 'org.apache.commons:commons-lang3:3.0'
+
 }

@@ -19,16 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.marcohc.android.clean.architecture.presentation.R;
-import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
-import com.marcohc.android.clean.architecture.presentation.util.PreferencesManager;
 import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.BaseMvpFragment;
 import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.MenuFragment;
+import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.ProfileFragment;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MainView;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,9 +97,10 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         menuClick(INITIAL_POSITION);
 
-        if (StringUtils.isBlank(PreferencesManager.getRegistrationId())) {
-            NotificationManager.getInstance().registerInBackground();
-        }
+//        // Register GCM
+//        if (StringUtils.isBlank(PreferencesManager.getRegistrationId())) {
+//            NotificationManager.getInstance().registerInBackground();
+//        }
 
         presenter.onViewCreated();
     }
@@ -183,10 +181,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         switch (NavigationManager.SCREENS.values()[position]) {
             case POSITION_1:
-                toolbar.setTitle("Item 1");
-                break;
-            case POSITION_2:
-                toolbar.setTitle("Item 2");
+                toolbar.setTitle("My profile");
                 break;
         }
 
@@ -237,10 +232,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         } else {
             switch (NavigationManager.SCREENS.values()[position]) {
                 case POSITION_1:
-//                    fragmentsMap.put(NavigationManager.SCREENS.POSITION_1.ordinal(), new InitiativesListFragment());
-                    break;
-                case POSITION_2:
-//                    fragmentsMap.put(NavigationManager.SCREENS.POSITION_2.ordinal(), new NeighboursListFragment());
+                    fragmentsMap.put(NavigationManager.SCREENS.POSITION_1.ordinal(), new ProfileFragment());
                     break;
             }
             return getFragmentByPosition(position);
@@ -255,7 +247,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.abc_ratingbar_full_material);
     }
 
     @Override

@@ -13,12 +13,13 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
 import com.marcohc.android.clean.architecture.MainApplication;
+import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
-import com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.BaseListAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
@@ -113,7 +114,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     @Override
-    public void onSubViewItemClick(View view, int position, Object data) {
+    public void onSubViewItemClick(View view, int position, BaseModel data) {
     }
 
     @Override
@@ -128,8 +129,8 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void goToStart() {
-        Intent intent = new Intent(getActivity(), StartActivity.class);
+    public void goToLogin() {
+        Intent intent = new Intent(getActivity(), LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();

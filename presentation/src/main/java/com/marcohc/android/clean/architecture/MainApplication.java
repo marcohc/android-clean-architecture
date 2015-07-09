@@ -5,10 +5,10 @@ import android.support.multidex.MultiDexApplication;
 
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
+import com.marcohc.android.clean.architecture.data.util.PreferencesManager;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
-import com.marcohc.android.clean.architecture.presentation.util.PreferencesManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
 
@@ -63,6 +63,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void initializeRepositories() {
+        // TODO: Get all repositories by reflection and initialize them in order to connect to the bus
         UserRepository.initialize();
     }
 

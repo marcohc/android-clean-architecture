@@ -17,4 +17,6 @@
     <string name="close">Close</string>
     <string name="log_out_question">Do you want to log out?</string>
     <string name="username">Username</string>
+    <string name="users">Users</string>
+    <string name="no_users">No users</string>
 </resources>

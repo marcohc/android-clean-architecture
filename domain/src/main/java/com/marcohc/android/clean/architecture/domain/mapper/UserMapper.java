@@ -14,8 +14,7 @@ import java.util.List;
 public class UserMapper extends BaseMapper {
 
     public static List<UserModel> parseUsersList(JSONArray response) {
-        List<UserEntity> list = ParserHelper.parseJsonArray(response, UserEntity.class);
-        return getUsersList(list);
+        return ParserHelper.parseJsonArray(response, UserModel.class);
     }
 
     private static List<UserModel> getUsersList(List<? extends UserEntity> entitiesList) {
@@ -26,19 +25,11 @@ public class UserMapper extends BaseMapper {
         return modelsList;
     }
 
-    public static UserModel parseUser(String userJson) {
-        return ParserHelper.parseJson(userJson, UserModel.class);
-    }
-
     public static UserModel parseUser(JSONObject jsonResponse) {
         return transform(ParserHelper.parseJson(jsonResponse, UserEntityImpl.class));
     }
 
     public static UserModel transform(UserEntity entity) {
         return transform(entity, UserModel.class);
-    }
-
-    public static UserEntity transform(UserModel model) {
-        return transform(model, UserEntityImpl.class);
     }
 }

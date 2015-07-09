@@ -10,11 +10,8 @@ public class PreferencesManager {
     // * Constants
     // ************************************************************************************************************************************************************************
 
-    public static final String SHARED_PREFERENCES_NAME = "com.xs2mobile.buurapp_preferences";
-    private static final String USERS_LIST = "users_list";
-    private static final String CHATS_LIST = "chats_list";
+    public static final String SHARED_PREFERENCES_NAME = "com.marcohc.android.clean.architecture_preferences";
     private static final String CURRENT_USER = "current_user";
-    private static final String CHAT_COUNT_MAP = "chat_count_map";
     private static final String REGISTRATION_ID = "registration_id";
 
     // ************************************************************************************************************************************************************************
@@ -35,11 +32,6 @@ public class PreferencesManager {
 
     public static String getUser() {
         return PreferencesHelper.getString(CURRENT_USER, "");
-    }
-
-    public static void removeUserData() {
-        PreferencesManager.removeRegistrationId();
-        removeUser();
     }
 
     public static void removeUser() {

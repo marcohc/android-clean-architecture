@@ -113,7 +113,4 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.1'
     androidTestCompile 'com.android.support:support-annotations:22.2.0'
     testCompile 'junit:junit:4.6'
-
-    // String utils
-    compile 'org.apache.commons:commons-lang3:3.0'
 }

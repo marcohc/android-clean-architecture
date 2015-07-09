@@ -4,7 +4,9 @@ import com.marcohc.android.clean.architecture.domain.bus.event.Event;
 
 public abstract class AsynchronousUseCase extends BusHandler implements UseCase {
 
-    public abstract void execute();
+    public void execute() {
+        getBus().post(createRequest());
+    }
 
     protected abstract Event createRequest();
 

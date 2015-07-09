@@ -2,13 +2,9 @@
 <resources>
 
     <string-array name="menu_text_array" translatable="false">
-        <item>Item 1</item>
-        <item>Item 2</item>
-        <item>Item 3</item>
+        <item>My profile</item>
     </string-array>
     <string-array name="menu_normal_icons_array" translatable="false">
         <item>@drawable/ic_cast_on_0_light</item>
-        <item>@drawable/ic_cast_on_1_light</item>
-        <item>@drawable/ic_cast_on_2_light</item>
     </string-array>
 </resources>

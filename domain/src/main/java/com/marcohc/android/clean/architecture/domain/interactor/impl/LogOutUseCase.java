@@ -1,25 +1,20 @@
 package com.marcohc.android.clean.architecture.domain.interactor.impl;
 
-import com.marcohc.android.clean.architecture.domain.bus.event.request.IsUserLoggedInRequest;
-import com.marcohc.android.clean.architecture.domain.bus.event.response.IsUserLoggedInResponse;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.LogOutRequest;
+import com.marcohc.android.clean.architecture.domain.bus.event.response.BaseResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.SynchronousUseCase;
 
-public class IsUserLoggedInUseCase extends SynchronousUseCase {
+public class LogOutUseCase extends SynchronousUseCase {
 
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
-    private IsUserLoggedInRequest request;
-    private IsUserLoggedInResponse response;
+    private BaseResponse response;
 
     // ************************************************************************************************************************************************************************
     // * Bus events factory methods
     // ************************************************************************************************************************************************************************
 
     @Override
-    protected IsUserLoggedInRequest createRequest() {
-        return new IsUserLoggedInRequest();
+    protected LogOutRequest createRequest() {
+        return new LogOutRequest();
     }
 
     // ************************************************************************************************************************************************************************
@@ -28,17 +23,15 @@ public class IsUserLoggedInUseCase extends SynchronousUseCase {
 
     @Override
     public Boolean execute() {
-        request = createRequest();
-        post(request);
-        assert response != null;
-        return response.isUserLoggedIn();
+        post(createRequest());
+        return !response.hasError();
     }
 
     // ************************************************************************************************************************************************************************
     // * Bus event event handlers
     // ************************************************************************************************************************************************************************
 
-    public void onEvent(IsUserLoggedInResponse event) {
+    public void onEvent(BaseResponse event) {
         this.response = event;
     }
 }

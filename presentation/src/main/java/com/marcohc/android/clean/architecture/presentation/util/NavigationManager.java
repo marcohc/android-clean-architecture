@@ -12,7 +12,7 @@ public class NavigationManager {
     public static int currentViewPosition;
 
     public enum SCREENS {
-        POSITION_1, POSITION_2
+        POSITION_1
     }
 
 }

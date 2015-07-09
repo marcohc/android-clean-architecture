@@ -38,7 +38,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/menuImage"
             android:gravity="center_vertical"
-            android:text="@string/log_out" />
+            android:text="@string/log_out"
+            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 

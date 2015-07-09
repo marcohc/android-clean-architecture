@@ -1,10 +1,9 @@
 package com.marcohc.android.clean.architecture.domain.interactor.impl;
 
-import com.marcohc.android.clean.architecture.common.exception.DataException;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.LogInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.SaveUserRequest;
+import com.marcohc.android.clean.architecture.domain.bus.event.response.BaseResponse;
 import com.marcohc.android.clean.architecture.domain.bus.event.response.LogInEventResponse;
-import com.marcohc.android.clean.architecture.domain.bus.event.response.LogInResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.AsynchronousUseCase;
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
@@ -17,7 +16,8 @@ public class LogInUseCase extends AsynchronousUseCase {
 
     private final String username;
     private final String password;
-    private LogInResponse response;
+    private final UserModel user;
+    private BaseResponse response;
 
     // ************************************************************************************************************************************************************************
     // * Constructor
@@ -25,8 +25,16 @@ public class LogInUseCase extends AsynchronousUseCase {
 
     public LogInUseCase(String username, String password) {
         super();
+        this.user = null;
         this.username = username;
         this.password = password;
+    }
+
+    public LogInUseCase(UserModel user) {
+        super();
+        this.user = user;
+        this.username = user.getUsername();
+        this.password = user.getPassword();
     }
 
     // ************************************************************************************************************************************************************************
@@ -44,25 +52,27 @@ public class LogInUseCase extends AsynchronousUseCase {
         return new LogInEventResponse(userModel);
     }
 
-    @Override
-    public void execute() {
-        getBus().post(createRequest());
-    }
-
     // ************************************************************************************************************************************************************************
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
-    public void onEventAsync(LogInResponse event) {
+    public void onEventAsync(BaseResponse event) {
+
         this.response = event;
-        DataException error = DataException.getError(event.getResponse());
-        if (error == null) {
+        if (!event.hasError()) {
             LogInEventResponse response = createResponse();
-            post(new SaveUserRequest(response.getUser()));
+
+//            // TODO: Save current user in background
+//            post(new SaveUserRequest(response.getUser()));
+
+            // THIS IS THE FAKE SAVE WITH THE SAME USER
+            post(new SaveUserRequest(user));
+
+            // Return the current user
             post(response);
             unregisterFromBus();
         } else {
-            handleException(error);
+            handleException(event.getError());
         }
     }
 }

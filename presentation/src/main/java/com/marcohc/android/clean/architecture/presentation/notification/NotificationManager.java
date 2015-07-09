@@ -9,8 +9,6 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.marcohc.android.clean.architecture.common.bus.BusProvider;
-import com.marcohc.android.clean.architecture.domain.bus.event.request.NotificationReceivedEvent;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
 
@@ -25,7 +23,7 @@ public class NotificationManager {
     public static final String MESSAGE = "message";
     public static final String PUSH_TAG = "pushType";
     public static final String PUSH_UNIQUE_ID_TAG = "push_unique_id";
-    private final static String APPLICATION_GCM_ID = "226626566963";
+    private final static String APPLICATION_GCM_ID = "XXXXXXXXXXXXXXX";
     private static final String MESSAGE_TYPE = "message_type";
 
     public enum NOTIFICATION_KEY {
@@ -52,7 +50,6 @@ public class NotificationManager {
 
     public static void initialize(Context context) {
         instance = new NotificationManager(context);
-        BusProvider.getInstance().register(instance);
     }
 
     public static NotificationManager getInstance() {
@@ -101,9 +98,9 @@ public class NotificationManager {
     // * Bus events methods
     // ************************************************************************************************************************************************************************
 
-    public void onEvent(NotificationReceivedEvent event) {
-        displayMessageInNotificationTray();
-    }
+//    public void onEvent(NotificationReceivedEvent event) {
+//        displayMessageInNotificationTray();
+//    }
 
     // ************************************************************************************************************************************************************************
     // * Notification in app methods

@@ -40,7 +40,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
         Log.e(Constants.LOG_TAG, "Exception: " + error.getMessage());
     }
 
-    public void onEvent(DataException exception) {
+    public void onEventMainThread(DataException exception) {
         handleException(exception);
     }
 }

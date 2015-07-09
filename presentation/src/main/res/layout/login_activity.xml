@@ -38,12 +38,33 @@
             android:maxLength="16" />
 
         <TextView
-            android:id="@+id/forgottenPasswordText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding"
             android:gravity="center"
-            android:text="Tip: Admin / 1234" />
+            android:text="@string/users" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/noDataText"
+                style="@style/bigText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:text="@string/no_users"
+                android:textColor="@color/primary" />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -10,7 +10,7 @@ public class NetworkManager {
     public static String PERSISTENCE_MANAGER = REMOTE_PERSISTENCE;
 
     // Base API url
-    public static String BASE_API_URL = "https://buurapp.xs2theworld.com";
+    public static String BASE_API_URL = "http://api.randomuser.me";
 
     public enum SERVER_ERRORS {
         UNKNOWN, AUTHENTICATION;

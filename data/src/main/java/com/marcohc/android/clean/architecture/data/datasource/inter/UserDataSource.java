@@ -6,4 +6,5 @@ public interface UserDataSource {
 
     void logIn(String username, String password, RepositoryCallback callback);
 
+    void get(RepositoryCallback callback);
 }

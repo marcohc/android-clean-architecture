@@ -4,12 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
-    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
-    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS"/>-->
-    <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
-    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
-    <!--<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>-->
 
     <permission
         android:name="com.example.gcm.permission.C2D_MESSAGE"
@@ -27,10 +21,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <!--<meta-data-->
-        <!--android:name="io.fabric.ApiKey"-->
-        <!--android:value="b30192df02b906c1a35cff520fa4cbc5bae78a75"/>-->
 
         <activity
             android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity"
@@ -58,7 +48,8 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
 
         <receiver
             android:name="com.marcohc.android.clean.architecture.presentation.notification.NotificationBroadcastReceiver"

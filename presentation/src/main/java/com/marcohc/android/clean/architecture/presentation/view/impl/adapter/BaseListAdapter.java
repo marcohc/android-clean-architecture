@@ -76,7 +76,7 @@ public class BaseListAdapter extends ArrayAdapter<BaseModel> {
 
     public interface OnSubViewClickListener {
 
-        void onSubViewItemClick(View view, int position, Object data);
+        void onSubViewItemClick(View view, int position, BaseModel data);
 
         Context getContext();
     }

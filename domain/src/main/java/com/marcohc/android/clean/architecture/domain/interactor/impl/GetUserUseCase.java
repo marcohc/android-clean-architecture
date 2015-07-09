@@ -1,25 +1,26 @@
 package com.marcohc.android.clean.architecture.domain.interactor.impl;
 
-import com.marcohc.android.clean.architecture.domain.bus.event.request.IsUserLoggedInRequest;
-import com.marcohc.android.clean.architecture.domain.bus.event.response.IsUserLoggedInResponse;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.GetUserRequest;
+import com.marcohc.android.clean.architecture.domain.bus.event.response.GetUserResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.SynchronousUseCase;
+import com.marcohc.android.clean.architecture.domain.model.UserModel;
 
-public class IsUserLoggedInUseCase extends SynchronousUseCase {
+public class GetUserUseCase extends SynchronousUseCase {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private IsUserLoggedInRequest request;
-    private IsUserLoggedInResponse response;
+    private GetUserRequest request;
+    private GetUserResponse response;
 
     // ************************************************************************************************************************************************************************
     // * Bus events factory methods
     // ************************************************************************************************************************************************************************
 
     @Override
-    protected IsUserLoggedInRequest createRequest() {
-        return new IsUserLoggedInRequest();
+    protected GetUserRequest createRequest() {
+        return new GetUserRequest();
     }
 
     // ************************************************************************************************************************************************************************
@@ -27,18 +28,18 @@ public class IsUserLoggedInUseCase extends SynchronousUseCase {
     // ************************************************************************************************************************************************************************
 
     @Override
-    public Boolean execute() {
+    public UserModel execute() {
         request = createRequest();
         post(request);
         assert response != null;
-        return response.isUserLoggedIn();
+        return response.getUser();
     }
 
     // ************************************************************************************************************************************************************************
     // * Bus event event handlers
     // ************************************************************************************************************************************************************************
 
-    public void onEvent(IsUserLoggedInResponse event) {
+    public void onEvent(GetUserResponse event) {
         this.response = event;
     }
 }
