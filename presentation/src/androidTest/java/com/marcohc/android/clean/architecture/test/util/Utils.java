@@ -1,23 +1,5 @@
 package com.marcohc.android.clean.architecture.test.util;
 
-import android.support.test.espresso.PerformException;
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.util.HumanReadables;
-import android.support.test.espresso.util.TreeIterables;
-import android.view.View;
-
-import org.hamcrest.Matcher;
-
-import java.util.concurrent.TimeoutException;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-
 public class Utils {
 
     /**
@@ -67,7 +49,6 @@ public class Utils {
     public static void typeOnWithShortPause(int viewId, String text) {
         onViewWithId(viewId).perform(typeText(text));
     }
-
 
     public static void clickOnWithShortPause(int viewId) {
         onViewWithId(viewId).perform(click());

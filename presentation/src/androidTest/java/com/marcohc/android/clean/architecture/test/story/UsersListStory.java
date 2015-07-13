@@ -14,15 +14,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class UsersListStory {
 
     private StartActivity mActivity;
-
-    public UsersListStory() {
-//        super(StartActivity.class);
-    }
 
     @Before
     public void setUp() throws Exception {
@@ -30,7 +24,6 @@ public class UsersListStory {
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         mActivity = getActivity();
     }
-
 
     @Test
     public void testTheListIsLoaded() {
@@ -89,7 +82,6 @@ public class UsersListStory {
         }
 
     }
-
 
     // ************************************************************************************************************************************************************************
     // * Util methods --> To Library

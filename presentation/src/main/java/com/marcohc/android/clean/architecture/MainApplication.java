@@ -36,11 +36,11 @@ public class MainApplication extends MultiDexApplication {
 
         super.onCreate();
 
-        if (!isDevelopment()) {
+        if (isDevelopment()) {
+            LeakCanary.install(this);
+        } else {
             initializeCrashlytics();
         }
-
-        LeakCanary.install(this);
 
         initializeNotificationManager();
 
