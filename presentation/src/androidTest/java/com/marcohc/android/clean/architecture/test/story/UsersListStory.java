@@ -33,6 +33,7 @@ public class UsersListStory {
     @Test
     public void testTheListIsLoaded() {
 
+        // OTHER!
         showMessage("testTheListIsLoaded");
 
         Given.theUserIsNotLoggedIn();
