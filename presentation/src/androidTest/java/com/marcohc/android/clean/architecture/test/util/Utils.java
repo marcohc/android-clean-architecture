@@ -1,5 +1,21 @@
 package com.marcohc.android.clean.architecture.test.util;
 
+import android.support.test.espresso.PerformException;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.util.HumanReadables;
+import android.support.test.espresso.util.TreeIterables;
+import android.view.View;
+
+import org.hamcrest.Matcher;
+
+import java.util.concurrent.TimeoutException;
+
+import static android.support.test.espresso.Espresso.*;
+import static android.support.test.espresso.action.ViewActions.*;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
+
 public class Utils {
 
     /**
