@@ -1,20 +1,28 @@
 package com.marcohc.android.clean.architecture.test.util;
 
+import android.app.Activity;
 import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.core.deps.guava.collect.Iterables;
 import android.support.test.espresso.util.HumanReadables;
 import android.support.test.espresso.util.TreeIterables;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.support.test.runner.lifecycle.Stage;
 import android.view.View;
+import android.widget.Toast;
 
 import org.hamcrest.Matcher;
 
 import java.util.concurrent.TimeoutException;
 
-import static android.support.test.espresso.Espresso.*;
-import static android.support.test.espresso.action.ViewActions.*;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 public class Utils {
 
@@ -23,9 +31,10 @@ public class Utils {
      */
     public static ViewAction waitId(final int viewId, final long millis) {
         return new ViewAction() {
+
             @Override
             public Matcher<View> getConstraints() {
-                return isRoot();
+                return isDisplayed();
             }
 
             @Override
@@ -60,6 +69,35 @@ public class Utils {
                         .build();
             }
         };
+    }
+
+    public static Activity getCurrentActivity(final Activity context) {
+        getInstrumentation().waitForIdleSync();
+        final Activity[] activity = new Activity[1];
+        try {
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    java.util.Collection<Activity> activites = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                    activity[0] = Iterables.getOnlyElement(activites);
+                }
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return activity[0];
+    }
+
+    public static void showMessage(final Activity activity, final String message) {
+        try {
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     public static void typeOnWithShortPause(int viewId, String text) {

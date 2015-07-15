@@ -1,6 +1,8 @@
 package com.marcohc.android.clean.architecture;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
@@ -30,6 +32,12 @@ public class MainApplication extends MultiDexApplication {
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {
