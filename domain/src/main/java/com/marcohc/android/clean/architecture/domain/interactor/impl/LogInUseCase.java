@@ -16,7 +16,6 @@ public class LogInUseCase extends AsynchronousUseCase {
 
     private final String username;
     private final String password;
-    private final UserModel user;
     private BaseResponse response;
 
     // ************************************************************************************************************************************************************************
@@ -25,16 +24,8 @@ public class LogInUseCase extends AsynchronousUseCase {
 
     public LogInUseCase(String username, String password) {
         super();
-        this.user = null;
         this.username = username;
         this.password = password;
-    }
-
-    public LogInUseCase(UserModel user) {
-        super();
-        this.user = user;
-        this.username = user.getUsername();
-        this.password = user.getPassword();
     }
 
     // ************************************************************************************************************************************************************************
@@ -62,11 +53,8 @@ public class LogInUseCase extends AsynchronousUseCase {
         if (!event.hasError()) {
             LogInEventResponse response = createResponse();
 
-//            // TODO: Save current user in background
-//            post(new SaveUserRequest(response.getUser()));
-
-            // THIS IS THE FAKE SAVE WITH THE SAME USER
-            post(new SaveUserRequest(user));
+            // Save current user
+            post(new SaveUserRequest(response.getUser()));
 
             // Return the current user
             post(response);

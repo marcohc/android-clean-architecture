@@ -1,36 +1,25 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.LogInPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
-import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.BaseListAdapter;
-import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.UserViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.ScreenHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.InjectView;
 
-public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> implements LogInView, BaseListAdapter.OnSubViewClickListener, AdapterView.OnItemClickListener {
+public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> implements LogInView {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -46,13 +35,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
     @InjectView(R.id.passwordEditText)
     EditText passwordEditText;
 
-    @InjectView(R.id.listView)
-    ListView listView;
-
-    @InjectView(R.id.noDataText)
-    TextView noDataText;
-
-    private BaseListAdapter listViewAdapter;
+    // Class
     private UserModel user;
 
     // ************************************************************************************************************************************************************************
@@ -73,21 +56,12 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
         initializeActionBar();
 
-        initializeListView();
-
-        presenter.onViewCreated();
     }
 
     private void initializeActionBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
-    }
-
-    private void initializeListView() {
-        listViewAdapter = new BaseListAdapter(this, R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
-        listView.setOnItemClickListener(this);
-        listView.setAdapter(listViewAdapter);
     }
 
     @Override
@@ -133,22 +107,6 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
         return false;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        user = (UserModel) listViewAdapter.getItem(position);
-        usernameEditText.setText(user.getUsername());
-        passwordEditText.setText(user.getPassword());
-    }
-
-    @Override
-    public void onSubViewItemClick(View view, int position, BaseModel data) {
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
     // ************************************************************************************************************************************************************************
     // * View interface methods
     // ************************************************************************************************************************************************************************
@@ -171,20 +129,6 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
     @Override
     public void invalidatePassword() {
         YoYo.with(Techniques.Shake).playOn(passwordEditText);
-    }
-
-    @Override
-    public void loadData(List<UserModel> modelList) {
-        if (modelList.isEmpty()) {
-            noDataText.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
-        } else {
-            noDataText.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-            listViewAdapter.clear();
-            listViewAdapter.addThemAll(modelList);
-            listViewAdapter.notifyDataSetChanged();
-        }
     }
 
     @Override

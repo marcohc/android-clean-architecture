@@ -1,9 +1,6 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-
-import com.marcohc.android.clean.architecture.domain.bus.event.response.GetUsersResponse;
 import com.marcohc.android.clean.architecture.domain.bus.event.response.LogInEventResponse;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.GetUsersUseCase;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
 import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
@@ -18,21 +15,10 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void onViewCreated() {
-        showLoading(true);
-        new GetUsersUseCase().execute();
-    }
-
-    @Override
     public void onActionDoneClick() {
         if (isValidaForm()) {
             showLoading(true);
-
-            // SHOULD BE THIS
-//            new LogInUseCase(getView().getUsername(), getView().getPassword()).execute();
-
-            // FAKE USER
-            new LogInUseCase(getView().getUser()).execute();
+            new LogInUseCase(getView().getUsername(), getView().getPassword()).execute();
         }
     }
 
@@ -43,11 +29,6 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
     public void onEventMainThread(LogInEventResponse event) {
         showLoading(false);
         getView().goToMain();
-    }
-
-    public void onEventMainThread(GetUsersResponse event) {
-        showLoading(false);
-        getView().loadData(event.getUsersList());
     }
 
     // ************************************************************************************************************************************************************************

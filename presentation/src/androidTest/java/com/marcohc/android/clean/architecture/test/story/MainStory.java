@@ -9,12 +9,9 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.marcohc.android.clean.architecture.data.util.PreferencesManager;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
-import com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity;
 import com.marcohc.android.clean.architecture.test.util.Utils;
 
 import org.junit.Before;
@@ -23,30 +20,36 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class StartStory extends ActivityInstrumentationTestCase2<StartActivity> {
+public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private Given given;
     private When when;
     private Then then;
-    private StartActivity mActivity;
-    private static int testCounter = 0;
 
-    public StartStory() {
-        super(StartActivity.class);
+    private MainActivity mActivity;
+
+    public MainStory() {
+        super(MainActivity.class);
     }
 
     @Before
     public void setUp() throws Exception {
+
         // Basic initialization stuff
         super.setUp();
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -59,13 +62,6 @@ public class StartStory extends ActivityInstrumentationTestCase2<StartActivity> 
         given = new Given();
         when = new When();
         then = new Then();
-
-        if (testCounter == 3) {
-            given.theUserLogsIn();
-            Utils.waitForIt(3000);
-        } else {
-            testCounter++;
-        }
     }
 
     @Test
@@ -75,67 +71,106 @@ public class StartStory extends ActivityInstrumentationTestCase2<StartActivity> 
     }
 
     @Test
-    public void test1TheSplashIsShown() {
+    public void test1TheListIsLoaded() {
 
-        Utils.showMessage(mActivity, "test1TheSplashIsShown");
+        Utils.showMessage(mActivity, "testTheListIsLoaded");
 
-        given.theUserIsNotLoggedIn();
+        Utils.waitForIt(1000);
 
-        then.theSplashScreenIsShown();
+        then.theListIsLoaded();
     }
 
     @Test
-    public void test2TheUserIsNotLoggedInAndGoesToLogin() {
+    public void test2TapOnListAndFillData() {
 
-        Utils.showMessage(mActivity, "test2TheUserIsNotLoggedInAndGoesToLogin");
+        Utils.showMessage(mActivity, "test2TapOnListAndFillData");
 
-        given.theUserIsNotLoggedIn();
+        Utils.waitForIt(1000);
 
-        Utils.waitForIt(1500);
+        when.theUserTapOnTheList();
 
-        then.theUserGoesToLogin();
+        then.theListIsLoaded();
+
+        then.dataIsFilled();
     }
 
     @Test
-    public void test3TheUserIsLoggedInAndGoesToMain() {
+    public void testLogOutCancel() {
 
-        Utils.showMessage(mActivity, "test3TheUserIsLoggedInAndGoesToMain");
+        Utils.showMessage(mActivity, "testLogOutCancel");
 
-        given.theUserIsLoggedIn();
+        Utils.waitForIt(1000);
 
-        then.theUserGoesToMain();
+        when.userTapOnMenu();
+
+        when.userTapOnLogOut();
+
+        when.userCancelDialog();
+
+        then.userStaysInScreen();
+
+    }
+
+    @Test
+    public void testLogOutOk() {
+
+        Utils.showMessage(mActivity, "testLogOutCancel");
+
+        Utils.waitForIt(1000);
+
+        when.userTapOnMenu();
+
+        when.userTapOnLogOut();
+
+        when.userAcceptDialog();
+
+        then.userGoesToLogin();
+
     }
 
     public class Given {
 
-        public void theUserIsNotLoggedIn() {
-            assertFalse(new IsUserLoggedInUseCase().execute());
-        }
-
-        public void theUserIsLoggedIn() {
-            assertTrue(new IsUserLoggedInUseCase().execute());
-        }
-
-        public void theUserLogsIn() {
-            new LogInUseCase("admin", "admin").execute();
-        }
     }
 
     public class When {
+
+        public void theUserTapOnTheList() {
+            onView(withId(R.id.listView)).perform(click());
+        }
+
+        public void userTapOnMenu() {
+            onView(withId(R.id.drawerLayout)).perform(Utils.actionOpenDrawer());
+        }
+
+        public void userTapOnLogOut() {
+            onView(withId(R.id.logOutContainer)).perform(click());
+        }
+
+        public void userCancelDialog() {
+            onView(withId(R.id.buttonDefaultNegative)).perform(click());
+        }
+
+        public void userAcceptDialog() {
+            onView(withId(R.id.buttonDefaultPositive)).perform(click());
+        }
     }
 
     public class Then {
 
-        public void theSplashScreenIsShown() {
-            onView(withId(R.id.splashImage)).check(matches(isDisplayed()));
+        public void theListIsLoaded() {
+            onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(0).check(matches(isDisplayed()));
         }
 
-        public void theUserGoesToLogin() {
-            Utils.assertThatIsOnActivity(LogInActivity.class);
+        public void dataIsFilled() {
+            onView(withId(R.id.addressText)).check(matches(not(withText(""))));
         }
 
-        public void theUserGoesToMain() {
+        public void userStaysInScreen() {
             Utils.assertThatIsOnActivity(MainActivity.class);
+        }
+
+        public void userGoesToLogin() {
+            Utils.assertThatIsOnActivity(LogInActivity.class);
         }
     }
 }

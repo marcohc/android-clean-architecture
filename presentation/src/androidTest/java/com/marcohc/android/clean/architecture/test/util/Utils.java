@@ -10,19 +10,25 @@ import android.support.test.espresso.util.HumanReadables;
 import android.support.test.espresso.util.TreeIterables;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.Toast;
 
 import org.hamcrest.Matcher;
 
+import java.util.Collection;
 import java.util.concurrent.TimeoutException;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.runner.lifecycle.Stage.RESUMED;
+import static junit.framework.Assert.assertTrue;
 
 public class Utils {
 
@@ -124,5 +130,63 @@ public class Utils {
 
     public static ViewInteraction onViewWithId(int viewId) {
         return onView(withId(viewId));
+    }
+
+    public static ViewAction actionOpenDrawer() {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(DrawerLayout.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "open drawer";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((DrawerLayout) view).openDrawer(GravityCompat.START);
+            }
+        };
+    }
+
+    public static ViewAction actionCloseDrawer() {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(DrawerLayout.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "close drawer";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((DrawerLayout) view).closeDrawer(GravityCompat.START);
+            }
+        };
+    }
+
+    public static void assertThatIsOnActivity(Class clazz) {
+        Activity currentActivity = getActivityInstance();
+        assertTrue(currentActivity != null);
+        assertTrue(currentActivity.getClass().equals(clazz));
+    }
+
+    private static Activity getActivityInstance() {
+        final Activity[] currentActivity = new Activity[1];
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
+                if (resumedActivities.iterator().hasNext()) {
+                    currentActivity[0] = (Activity) resumedActivities.iterator().next();
+                }
+            }
+        });
+
+        return currentActivity[0];
     }
 }

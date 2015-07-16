@@ -6,7 +6,7 @@ import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileVie
 
 public interface ProfilePresenter extends MvpPresenter<ProfileView> {
 
-    void onEditProfileButtonClick();
+    void onViewCreated();
 
     UserModel getUser();
 

@@ -12,6 +12,7 @@ import com.marcohc.android.clean.architecture.data.util.PreferencesManager;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
+import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
 import com.marcohc.android.clean.architecture.test.util.Utils;
 
 import org.junit.Before;
@@ -20,17 +21,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -71,53 +67,71 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
     }
 
     @Test
-    public void test1TheListIsLoaded() {
+    public void test1UsernameValidation() {
 
-        Utils.showMessage(mActivity, "testTheListIsLoaded");
-
-        Utils.waitForIt(1000);
-
-        given.theUserIsNotLoggedIn();
-
-        when.theUserWaitUntilListIsLoaded();
-
-        then.theListIsLoaded();
-    }
-
-    @Test
-    public void test2CredentialsAreFilledWithDataWhenUserTapOnTheList() {
-
-        Utils.showMessage(mActivity, "testCredentialsAreFilledWithDataWhenUserTapOnTheList");
+        Utils.showMessage(mActivity, "test1UsernameValidation");
 
         Utils.waitForIt(1000);
 
         given.theUserIsNotLoggedIn();
 
-        when.theUserWaitUntilListIsLoaded();
-
-        when.theUserTapOnTheList();
-
-        then.theListIsLoaded();
-
-        then.credentialsAreFilled();
-    }
-
-    @Test
-    public void test3LogIn() {
-
-        Utils.showMessage(mActivity, "testLogIn");
-
-        Utils.waitForIt(1000);
-
-        given.theUserIsNotLoggedIn();
-
-        when.theUserWaitUntilListIsLoaded();
-
-        when.theUserTapOnTheList();
+        when.userWritesOnPassword();
 
         when.userClickOnAction();
 
-        then.theUserIsLoggedIn();
+        then.theUserStaysOnScreen();
+    }
+
+    @Test
+    public void test2PasswordValidation() {
+
+        Utils.showMessage(mActivity, "test2PasswordValidation");
+
+        Utils.waitForIt(1000);
+
+        given.theUserIsNotLoggedIn();
+
+        when.userWritesOnUsername();
+
+        when.userClickOnAction();
+
+        then.theUserStaysOnScreen();
+    }
+
+    @Test
+    public void test3LogInWrong() {
+
+        Utils.showMessage(mActivity, "test3LogInWrong");
+
+        Utils.waitForIt(1000);
+
+        given.theUserIsNotLoggedIn();
+
+        when.userWritesOnUsernameWrongly();
+
+        when.userWritesOnPassword();
+
+        when.userClickOnAction();
+
+        then.theUserStaysOnScreen();
+    }
+
+    @Test
+    public void test4LogInOk() {
+
+        Utils.showMessage(mActivity, "test4LogInOk");
+
+        Utils.waitForIt(1000);
+
+        given.theUserIsNotLoggedIn();
+
+        when.userWritesOnUsername();
+
+        when.userWritesOnPassword();
+
+        when.userClickOnAction();
+
+        then.theUserGoesToMain();
     }
 
     public class Given {
@@ -130,32 +144,32 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
 
     public class When {
 
-        public void theUserWaitUntilListIsLoaded() {
-            onView(withId(R.id.listView)).perform(Utils.waitId(R.id.listView, 3000));
-        }
-
-        public void theUserTapOnTheList() {
-            onView(withId(R.id.listView)).perform(click());
-        }
-
         public void userClickOnAction() {
             onView(withId(R.id.item_2)).perform(click());
+        }
+
+        public void userWritesOnUsername() {
+            onView(withId(R.id.usernameEditText)).perform(typeText("admin"));
+        }
+
+        public void userWritesOnPassword() {
+            onView(withId(R.id.passwordEditText)).perform(typeText("admin"));
+        }
+
+        public void userWritesOnUsernameWrongly() {
+            onView(withId(R.id.usernameEditText)).perform(typeText("BadUsername"));
         }
     }
 
     public class Then {
 
-        public void theListIsLoaded() {
-            onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(0).check(matches(isDisplayed()));
+        public void theUserStaysOnScreen() {
+            Utils.assertThatIsOnActivity(LogInActivity.class);
         }
 
-        public void credentialsAreFilled() {
-            onView(withId(R.id.usernameEditText)).check(matches(not(withText(""))));
-            onView(withId(R.id.passwordEditText)).check(matches(not(withText(""))));
+        public void theUserGoesToMain() {
+            Utils.assertThatIsOnActivity(MainActivity.class);
         }
 
-        public void theUserIsLoggedIn() {
-            assertTrue(new IsUserLoggedInUseCase().execute());
-        }
     }
 }

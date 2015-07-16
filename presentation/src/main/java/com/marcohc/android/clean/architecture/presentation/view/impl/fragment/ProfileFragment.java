@@ -1,25 +1,32 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.ProfilePresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.ProfilePresenter;
+import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.BaseListAdapter;
+import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.UserViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileView;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.InjectView;
 
-public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresenter> implements ProfileView {
+public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresenter> implements ProfileView, BaseListAdapter.OnSubViewClickListener, AdapterView.OnItemClickListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -35,6 +42,15 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
 
     @InjectView(R.id.dateOfBirthAndEmailText)
     TextView dateOfBirthAndEmailText;
+
+    @InjectView(R.id.listView)
+    ListView listView;
+
+    @InjectView(R.id.noDataText)
+    TextView noDataText;
+
+    private BaseListAdapter listViewAdapter;
+    private UserModel user;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -53,7 +69,14 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
-        setUserData(presenter.getUser());
+        initializeListView();
+        presenter.onViewCreated();
+    }
+
+    private void initializeListView() {
+        listViewAdapter = new BaseListAdapter(this, R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
+        listView.setOnItemClickListener(this);
+        listView.setAdapter(listViewAdapter);
     }
 
     // ************************************************************************************************************************************************************************
@@ -61,16 +84,37 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            setUserData(presenter.getUser());
-        }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        user = (UserModel) listViewAdapter.getItem(position);
+        setUserData(user);
+    }
+
+    @Override
+    public void onSubViewItemClick(View view, int position, BaseModel data) {
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 
     // ************************************************************************************************************************************************************************
     // * View interface methods
     // ************************************************************************************************************************************************************************
 
+    @Override
+    public void loadData(List<UserModel> modelList) {
+        if (modelList.isEmpty()) {
+            noDataText.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        } else {
+            noDataText.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            listViewAdapter.clear();
+            listViewAdapter.addThemAll(modelList);
+            listViewAdapter.notifyDataSetChanged();
+        }
+    }
 
     // ************************************************************************************************************************************************************************
     // * UI methods

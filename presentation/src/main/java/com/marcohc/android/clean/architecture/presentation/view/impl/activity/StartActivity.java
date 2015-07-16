@@ -31,19 +31,19 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
         super.onCreate(savedInstanceState);
 
-        if (presenter.isUserLoggedIn()) {
-            // Skip login
-            goToMain();
-        } else {
-            // Login
-            setContentView(R.layout.start_activity);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+        // Login
+        setContentView(R.layout.start_activity);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Skip login
+                if (presenter.isUserLoggedIn()) {
+                    goToMain();
+                } else {
                     goToLogin();
                 }
-            }, SPLASH_TIME_OUT);
-        }
+            }
+        }, SPLASH_TIME_OUT);
     }
 
     // ************************************************************************************************************************************************************************
