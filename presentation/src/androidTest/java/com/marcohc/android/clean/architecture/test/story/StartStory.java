@@ -62,7 +62,7 @@ public class StartStory extends ActivityInstrumentationTestCase2<StartActivity> 
 
         if (testCounter == 3) {
             given.theUserLogsIn();
-            Utils.waitForIt(3000);
+            Utils.waitSleeping(3000);
         } else {
             testCounter++;
         }
@@ -91,7 +91,7 @@ public class StartStory extends ActivityInstrumentationTestCase2<StartActivity> 
 
         given.theUserIsNotLoggedIn();
 
-        Utils.waitForIt(1500);
+        Utils.waitSleeping(1500);
 
         then.theUserGoesToLogin();
     }

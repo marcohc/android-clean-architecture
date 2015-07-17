@@ -25,7 +25,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
@@ -35,12 +35,11 @@ public class Utils {
     /**
      * Perform action of waiting for a specific view id.
      */
-    public static ViewAction waitId(final int viewId, final long millis) {
+    public static ViewAction waitForId(final int viewId, final long millis) {
         return new ViewAction() {
-
             @Override
             public Matcher<View> getConstraints() {
-                return isDisplayed();
+                return isRoot();
             }
 
             @Override
@@ -112,15 +111,15 @@ public class Utils {
 
     public static void clickOnWithShortPause(int viewId) {
         onViewWithId(viewId).perform(click());
-        waitForIt(750);
+        waitSleeping(750);
     }
 
     public static void clickOnWithLongPause(int viewId) {
         onViewWithId(viewId).perform(click());
-        waitForIt(3000);
+        waitSleeping(3000);
     }
 
-    public static void waitForIt(long milliseconds) {
+    public static void waitSleeping(long milliseconds) {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {

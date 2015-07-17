@@ -71,7 +71,7 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
 
         Utils.showMessage(mActivity, "test1UsernameValidation");
 
-        Utils.waitForIt(1000);
+        Utils.waitSleeping(1000);
 
         given.theUserIsNotLoggedIn();
 
@@ -87,7 +87,7 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
 
         Utils.showMessage(mActivity, "test2PasswordValidation");
 
-        Utils.waitForIt(1000);
+        Utils.waitSleeping(1000);
 
         given.theUserIsNotLoggedIn();
 
@@ -103,7 +103,7 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
 
         Utils.showMessage(mActivity, "test3LogInWrong");
 
-        Utils.waitForIt(1000);
+        Utils.waitSleeping(1000);
 
         given.theUserIsNotLoggedIn();
 
@@ -121,7 +121,7 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
 
         Utils.showMessage(mActivity, "test4LogInOk");
 
-        Utils.waitForIt(1000);
+        Utils.waitSleeping(1000);
 
         given.theUserIsNotLoggedIn();
 

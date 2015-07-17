@@ -4,6 +4,8 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingResource;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -28,8 +30,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsAnything.anything;
 
 @RunWith(AndroidJUnit4.class)
@@ -42,6 +42,7 @@ public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
     private Then then;
 
     private MainActivity mActivity;
+    private IdlingResource.ResourceCallback callback;
 
     public MainStory() {
         super(MainActivity.class);
@@ -62,67 +63,87 @@ public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
         given = new Given();
         when = new When();
         then = new Then();
+
+        Espresso.registerIdlingResources(new IdlingResource() {
+
+            @Override
+            public String getName() {
+                return "Dialog idling resource";
+            }
+
+            @Override
+            public boolean isIdleNow() {
+                // ???
+                return getActivity().findViewById(R.id.buttonDefaultPositive) == null;
+            }
+
+            @Override
+            public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
+                // ???
+                callback = resourceCallback;
+            }
+        });
     }
 
-    @Test
-    public void checkPreconditions() {
-        assertThat(mActivity, notNullValue());
-        assertThat(getInstrumentation(), notNullValue());
-    }
+//    @Test
+//    public void checkPreconditions() {
+//        assertThat(mActivity, notNullValue());
+//        assertThat(getInstrumentation(), notNullValue());
+//    }
+//
+//    @Test
+//    public void test1TheListIsLoaded() {
+//
+//        Utils.showMessage(mActivity, "testTheListIsLoaded");
+//
+//        Utils.waitSleeping(1000);
+//
+//        then.theListIsLoaded();
+//    }
+//
+//    @Test
+//    public void test2TapOnListAndFillData() {
+//
+//        Utils.showMessage(mActivity, "test2TapOnListAndFillData");
+//
+//        Utils.waitSleeping(1000);
+//
+//        when.theUserTapOnTheList();
+//
+//        then.theListIsLoaded();
+//
+//        then.dataIsFilled();
+//    }
 
     @Test
-    public void test1TheListIsLoaded() {
+    public void test3LogOutCancel() {
 
-        Utils.showMessage(mActivity, "testTheListIsLoaded");
+        Utils.showMessage(mActivity, "test3LogOutCancel");
 
-        Utils.waitForIt(1000);
+        Utils.waitSleeping(1000);
 
-        then.theListIsLoaded();
-    }
+        when.tapOnMenu();
 
-    @Test
-    public void test2TapOnListAndFillData() {
+        when.tapOnLogOut();
 
-        Utils.showMessage(mActivity, "test2TapOnListAndFillData");
-
-        Utils.waitForIt(1000);
-
-        when.theUserTapOnTheList();
-
-        then.theListIsLoaded();
-
-        then.dataIsFilled();
-    }
-
-    @Test
-    public void testLogOutCancel() {
-
-        Utils.showMessage(mActivity, "testLogOutCancel");
-
-        Utils.waitForIt(1000);
-
-        when.userTapOnMenu();
-
-        when.userTapOnLogOut();
-
-        when.userCancelDialog();
+        when.tapOnCancelDialog();
 
         then.userStaysInScreen();
 
     }
 
     @Test
-    public void testLogOutOk() {
+    public void test4LogOutOk() {
 
-        Utils.showMessage(mActivity, "testLogOutCancel");
+        Utils.showMessage(mActivity, "test4LogOutOk");
 
-        Utils.waitForIt(1000);
+        Utils.waitSleeping(1000);
 
-        when.userTapOnMenu();
+        when.tapOnMenu();
 
-        when.userTapOnLogOut();
+        when.tapOnLogOut();
 
-        when.userAcceptDialog();
+        when.tapOnAcceptDialog();
 
         then.userGoesToLogin();
 
@@ -138,19 +159,19 @@ public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
             onView(withId(R.id.listView)).perform(click());
         }
 
-        public void userTapOnMenu() {
+        public void tapOnMenu() {
             onView(withId(R.id.drawerLayout)).perform(Utils.actionOpenDrawer());
         }
 
-        public void userTapOnLogOut() {
+        public void tapOnLogOut() {
             onView(withId(R.id.logOutContainer)).perform(click());
         }
 
-        public void userCancelDialog() {
+        public void tapOnCancelDialog() {
             onView(withId(R.id.buttonDefaultNegative)).perform(click());
         }
 
-        public void userAcceptDialog() {
+        public void tapOnAcceptDialog() {
             onView(withId(R.id.buttonDefaultPositive)).perform(click());
         }
     }
@@ -172,5 +193,6 @@ public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
         public void userGoesToLogin() {
             Utils.assertThatIsOnActivity(LogInActivity.class);
         }
+
     }
 }

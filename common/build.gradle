@@ -38,7 +38,7 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
 
     // Helperoid
-    compile 'com.github.marcohc:helperoid:1.1.4'
+    compile 'com.github.marcohc:helperoid:1.2.0.1'
 
     // Joda time
     compile 'joda-time:joda-time:2.3'

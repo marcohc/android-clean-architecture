@@ -33,9 +33,5 @@ android {
 }
 
 dependencies {
-
     compile project(':common')
-
-    // Model mapper
-    compile 'org.modelmapper:modelmapper:0.7.4'
 }
