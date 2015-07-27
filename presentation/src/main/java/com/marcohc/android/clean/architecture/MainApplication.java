@@ -2,6 +2,7 @@ package com.marcohc.android.clean.architecture;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -45,6 +46,20 @@ public class MainApplication extends MultiDexApplication {
         super.onCreate();
 
         if (isDevelopment()) {
+
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectDiskReads()
+                    .detectDiskWrites()
+                    .detectNetwork()   // or .detectAll() for all detectable problems
+                    .penaltyLog()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .penaltyLog()
+                    .penaltyDeath()
+                    .build());
+
             LeakCanary.install(this);
         } else {
             initializeCrashlytics();
