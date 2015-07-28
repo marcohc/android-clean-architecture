@@ -24,29 +24,29 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 
 public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresenter> implements ProfileView, BaseListAdapter.OnSubViewClickListener, AdapterView.OnItemClickListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
-    @InjectView(R.id.userImage)
+    @Bind(R.id.userImage)
     ImageView userImage;
 
-    @InjectView(R.id.usernameText)
+    @Bind(R.id.usernameText)
     TextView usernameText;
 
-    @InjectView(R.id.addressText)
+    @Bind(R.id.addressText)
     TextView addressText;
 
-    @InjectView(R.id.dateOfBirthAndEmailText)
+    @Bind(R.id.dateOfBirthAndEmailText)
     TextView dateOfBirthAndEmailText;
 
-    @InjectView(R.id.listView)
+    @Bind(R.id.listView)
     ListView listView;
 
-    @InjectView(R.id.noDataText)
+    @Bind(R.id.noDataText)
     TextView noDataText;
 
     private BaseListAdapter listViewAdapter;

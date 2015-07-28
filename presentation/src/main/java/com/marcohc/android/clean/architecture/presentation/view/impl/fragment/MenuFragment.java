@@ -28,7 +28,7 @@ import com.marcohc.helperoid.DialogHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements BaseListAdapter.OnSubViewClickListener, MenuView, AdapterView.OnItemClickListener {
@@ -38,11 +38,11 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     // ************************************************************************************************************************************************************************
 
     // Header
-    @InjectView(R.id.isDevelopmentText)
+    @Bind(R.id.isDevelopmentText)
     TextView isDevelopmentText;
 
     // Content
-    @InjectView(R.id.menuListView)
+    @Bind(R.id.menuListView)
     ListView menuListView;
 
     private MenuFragmentListener listener;

@@ -17,7 +17,7 @@ import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogIn
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.ScreenHelper;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 
 public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> implements LogInView {
 
@@ -26,13 +26,13 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
     // ************************************************************************************************************************************************************************
 
     // View
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @InjectView(R.id.usernameEditText)
+    @Bind(R.id.usernameEditText)
     EditText usernameEditText;
 
-    @InjectView(R.id.passwordEditText)
+    @Bind(R.id.passwordEditText)
     EditText passwordEditText;
 
     // Class

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,8 +31,8 @@ import com.marcohc.android.clean.architecture.presentation.view.inter.MainView;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MenuFragment.MenuFragmentListener, MainView {
 
@@ -40,13 +41,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     // ************************************************************************************************************************************************************************
 
     // View
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @InjectView(R.id.drawerLayout)
+    @Bind(R.id.drawerLayout)
     DrawerLayout drawerLayout;
 
-    @InjectView(R.id.leftDrawerContainer)
+    @Bind(R.id.leftDrawerContainer)
     ViewGroup leftDrawerContainer;
 
     // Class
@@ -65,6 +66,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
+    @NonNull
     @Override
     public MainPresenter createPresenter() {
         return new MainPresenterImpl();
@@ -77,7 +79,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         setContentView(R.layout.main_activity);
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         findFragmentsById();
 
@@ -275,7 +277,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -295,7 +297,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     @Override
     public void onBackPressed() {
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         // If the menu is opened, close it
         if (drawerLayout.isDrawerOpen(GravityCompat.START) || drawerLayout.isDrawerOpen(GravityCompat.END)) {

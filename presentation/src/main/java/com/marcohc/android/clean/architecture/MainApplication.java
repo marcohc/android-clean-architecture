@@ -47,20 +47,9 @@ public class MainApplication extends MultiDexApplication {
 
         if (isDevelopment()) {
 
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectNetwork()   // or .detectAll() for all detectable problems
-                    .penaltyLog()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
+            initializeStrictMode();
 
-            LeakCanary.install(this);
+            initializaLeakCanary();
         } else {
             initializeCrashlytics();
         }
@@ -79,6 +68,25 @@ public class MainApplication extends MultiDexApplication {
 
         initializeRepositories();
 
+    }
+
+    private void initializaLeakCanary() {
+        LeakCanary.install(this);
+    }
+
+    private void initializeStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectAll()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
     }
 
     private void initializeBus() {
