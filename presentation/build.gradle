@@ -35,8 +35,15 @@ android {
 
     buildTypes {
 
-        release {
+        debug {
+            debuggable true
             minifyEnabled false
+        }
+
+        release {
+            debuggable false
+            minifyEnabled false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,11 +53,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-    // To increase compilation speed?
     dexOptions {
+        // Not allow with multidex
+        incremental false
         preDexLibraries = false
         javaMaxHeapSize "4g"
-        incremental false
     }
 
     packagingOptions {
@@ -75,7 +82,7 @@ dependencies {
     compile project(':data')
 
     // Google
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:support-v4:22.2.1'

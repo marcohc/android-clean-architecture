@@ -11,14 +11,15 @@
         android:src="@drawable/im_splash_background" />
 
     <TextView
-        android:layout_marginTop="@dimen/huge_padding"
-        style="@style/mediumText"
+        style="@style/bigText"
         fontPath="fonts/Roboto-Medium.ttf"
         android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/big_padding"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Super awesome and useless splash screen"
+        android:text="My cool app"
+        android:textAllCaps="true"
         android:textColor="@android:color/white" />
 
 

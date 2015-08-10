@@ -1,9 +1,7 @@
 package com.marcohc.android.clean.architecture;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.StrictMode;
-import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
@@ -24,21 +22,13 @@ public class MainApplication extends MultiDexApplication {
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private static boolean IS_DEVELOPMENT = true;
-
     public static boolean isDevelopment() {
-        return IS_DEVELOPMENT;
+        return BuildConfig.DEBUG;
     }
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
 
     @Override
     public void onCreate() {
@@ -49,7 +39,8 @@ public class MainApplication extends MultiDexApplication {
 
             initializeStrictMode();
 
-            initializaLeakCanary();
+            initializeLeakCanary();
+
         } else {
             initializeCrashlytics();
         }
@@ -70,7 +61,7 @@ public class MainApplication extends MultiDexApplication {
 
     }
 
-    private void initializaLeakCanary() {
+    private void initializeLeakCanary() {
         LeakCanary.install(this);
     }
 
