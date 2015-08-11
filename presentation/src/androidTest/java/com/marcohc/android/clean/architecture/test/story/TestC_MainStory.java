@@ -30,12 +30,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsAnything.anything;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
+public class TestC_MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private Given given;
     private When when;
@@ -44,7 +46,7 @@ public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
     private MainActivity mActivity;
     private IdlingResource.ResourceCallback callback;
 
-    public MainStory() {
+    public TestC_MainStory() {
         super(MainActivity.class);
     }
 
@@ -85,35 +87,35 @@ public class MainStory extends ActivityInstrumentationTestCase2<MainActivity> {
         });
     }
 
-//    @Test
-//    public void checkPreconditions() {
-//        assertThat(mActivity, notNullValue());
-//        assertThat(getInstrumentation(), notNullValue());
-//    }
-//
-//    @Test
-//    public void test1TheListIsLoaded() {
-//
-//        Utils.showMessage(mActivity, "testTheListIsLoaded");
-//
-//        Utils.waitSleeping(1000);
-//
-//        then.theListIsLoaded();
-//    }
-//
-//    @Test
-//    public void test2TapOnListAndFillData() {
-//
-//        Utils.showMessage(mActivity, "test2TapOnListAndFillData");
-//
-//        Utils.waitSleeping(1000);
-//
-//        when.theUserTapOnTheList();
-//
-//        then.theListIsLoaded();
-//
-//        then.dataIsFilled();
-//    }
+    @Test
+    public void checkPreconditions() {
+        assertThat(mActivity, notNullValue());
+        assertThat(getInstrumentation(), notNullValue());
+    }
+
+    @Test
+    public void test1TheListIsLoaded() {
+
+        Utils.showMessage(mActivity, "testTheListIsLoaded");
+
+        Utils.waitSleeping(1000);
+
+        then.theListIsLoaded();
+    }
+
+    @Test
+    public void test2TapOnListAndFillData() {
+
+        Utils.showMessage(mActivity, "test2TapOnListAndFillData");
+
+        Utils.waitSleeping(1000);
+
+        when.theUserTapOnTheList();
+
+        then.theListIsLoaded();
+
+        then.dataIsFilled();
+    }
 
     @Test
     public void test3LogOutCancel() {

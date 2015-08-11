@@ -44,7 +44,8 @@ android {
             debuggable false
             minifyEnabled false
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules.pro'
         }
     }
 
@@ -54,7 +55,7 @@ android {
     }
 
     dexOptions {
-        // Not allow with multidex
+        // Not allowed with multidex
         incremental false
         preDexLibraries = false
         javaMaxHeapSize "4g"

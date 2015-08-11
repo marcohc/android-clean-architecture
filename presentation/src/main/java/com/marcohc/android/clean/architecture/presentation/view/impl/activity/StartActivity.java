@@ -1,9 +1,12 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 
+import com.marcohc.android.clean.architecture.MainApplication;
+import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.StartPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
@@ -31,19 +34,38 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
         super.onCreate(savedInstanceState);
 
-        // Login
         setContentView(R.layout.start_activity);
-        new Handler().postDelayed(new Runnable() {
+
+        // Show splash screen and wait until MainApplication has finished loading stuff
+        AsyncTask task = new AsyncTask() {
             @Override
-            public void run() {
-                // Skip login
+            protected Object doInBackground(Object[] params) {
+
+                try {
+                    Thread.sleep(SPLASH_TIME_OUT);
+                } catch (InterruptedException ignored) {
+                }
+
+                Log.d(Constants.LOG_TAG, "2 - StartActivity: Waiting for MainApplication to finish loading data");
+                MainApplication.waitUntilMainApplicationIsInitialized();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                Log.d(Constants.LOG_TAG, "3 - StartActivity: Going to main");
+
                 if (presenter.isUserLoggedIn()) {
                     goToMain();
                 } else {
                     goToLogin();
                 }
             }
-        }, SPLASH_TIME_OUT);
+        };
+        task.execute();
+
+        Log.d(Constants.LOG_TAG, "1 - StartActivity: Showing splash screen");
     }
 
     // ************************************************************************************************************************************************************************

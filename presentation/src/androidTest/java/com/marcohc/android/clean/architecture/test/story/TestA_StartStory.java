@@ -10,9 +10,11 @@ import android.test.suitebuilder.annotation.LargeTest;
 
 import com.marcohc.android.clean.architecture.data.util.PreferencesManager;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
+import com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity;
 import com.marcohc.android.clean.architecture.test.util.Utils;
 
 import org.junit.Before;
@@ -22,8 +24,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,21 +33,20 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> {
+public class TestA_StartStory extends ActivityInstrumentationTestCase2<StartActivity> {
 
     private Given given;
     private When when;
     private Then then;
+    private StartActivity mActivity;
+    private static int testCounter = 0;
 
-    private LogInActivity mActivity;
-
-    public LoginStory() {
-        super(LogInActivity.class);
+    public TestA_StartStory() {
+        super(StartActivity.class);
     }
 
     @Before
     public void setUp() throws Exception {
-
         // Basic initialization stuff
         super.setUp();
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -58,6 +59,13 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
         given = new Given();
         when = new When();
         then = new Then();
+
+        if (testCounter == 2) {
+            given.theUserLogsIn();
+            Utils.waitSleeping(3000);
+        } else {
+            testCounter++;
+        }
     }
 
     @Test
@@ -67,69 +75,23 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
     }
 
     @Test
-    public void test1UsernameValidation() {
+    public void test1TheUserIsNotLoggedInAndGoesToLogin() {
 
-        Utils.showMessage(mActivity, "test1UsernameValidation");
-
-        Utils.waitSleeping(1000);
+        Utils.showMessage(mActivity, "test2TheUserIsNotLoggedInAndGoesToLogin");
 
         given.theUserIsNotLoggedIn();
 
-        when.userWritesOnPassword();
+        Utils.waitSleeping(3000);
 
-        when.userClickOnAction();
-
-        then.theUserStaysOnScreen();
+        then.theUserGoesToLogin();
     }
 
     @Test
-    public void test2PasswordValidation() {
+    public void test2TheUserIsLoggedInAndGoesToMain() {
 
-        Utils.showMessage(mActivity, "test2PasswordValidation");
+        Utils.showMessage(mActivity, "test3TheUserIsLoggedInAndGoesToMain");
 
-        Utils.waitSleeping(1000);
-
-        given.theUserIsNotLoggedIn();
-
-        when.userWritesOnUsername();
-
-        when.userClickOnAction();
-
-        then.theUserStaysOnScreen();
-    }
-
-    @Test
-    public void test3LogInWrong() {
-
-        Utils.showMessage(mActivity, "test3LogInWrong");
-
-        Utils.waitSleeping(1000);
-
-        given.theUserIsNotLoggedIn();
-
-        when.userWritesOnUsernameWrongly();
-
-        when.userWritesOnPassword();
-
-        when.userClickOnAction();
-
-        then.theUserStaysOnScreen();
-    }
-
-    @Test
-    public void test4LogInOk() {
-
-        Utils.showMessage(mActivity, "test4LogInOk");
-
-        Utils.waitSleeping(1000);
-
-        given.theUserIsNotLoggedIn();
-
-        when.userWritesOnUsername();
-
-        when.userWritesOnPassword();
-
-        when.userClickOnAction();
+        given.theUserIsLoggedIn();
 
         then.theUserGoesToMain();
     }
@@ -140,36 +102,30 @@ public class LoginStory extends ActivityInstrumentationTestCase2<LogInActivity> 
             assertFalse(new IsUserLoggedInUseCase().execute());
         }
 
+        public void theUserIsLoggedIn() {
+            assertTrue(new IsUserLoggedInUseCase().execute());
+        }
+
+        public void theUserLogsIn() {
+            new LogInUseCase("admin", "admin").execute();
+        }
     }
 
     public class When {
-
-        public void userClickOnAction() {
-            onView(withId(R.id.item_2)).perform(click());
-        }
-
-        public void userWritesOnUsername() {
-            onView(withId(R.id.usernameEditText)).perform(typeText("admin"));
-        }
-
-        public void userWritesOnPassword() {
-            onView(withId(R.id.passwordEditText)).perform(typeText("admin"));
-        }
-
-        public void userWritesOnUsernameWrongly() {
-            onView(withId(R.id.usernameEditText)).perform(typeText("BadUsername"));
-        }
     }
 
     public class Then {
 
-        public void theUserStaysOnScreen() {
+        public void theSplashScreenIsShown() {
+            onView(withId(R.id.splashImage)).check(matches(isDisplayed()));
+        }
+
+        public void theUserGoesToLogin() {
             Utils.assertThatIsOnActivity(LogInActivity.class);
         }
 
         public void theUserGoesToMain() {
             Utils.assertThatIsOnActivity(MainActivity.class);
         }
-
     }
 }
