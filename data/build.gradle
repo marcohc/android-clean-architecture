@@ -45,4 +45,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
 
+    // Stetho
+    compile 'com.facebook.stetho:stetho-okhttp:1.1.1'
+
 }

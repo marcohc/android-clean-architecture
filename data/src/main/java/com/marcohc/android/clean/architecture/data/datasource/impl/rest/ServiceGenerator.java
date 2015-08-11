@@ -2,11 +2,12 @@ package com.marcohc.android.clean.architecture.data.datasource.impl.rest;
 
 import android.util.Base64;
 
+import com.facebook.stetho.okhttp.StethoInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.OkHttpClient;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +47,7 @@ public class ServiceGenerator {
                 .create();
 
         final OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.networkInterceptors().add(new StethoInterceptor());
         okHttpClient.setReadTimeout(8, TimeUnit.SECONDS);
         okHttpClient.setConnectTimeout(8, TimeUnit.SECONDS);
 

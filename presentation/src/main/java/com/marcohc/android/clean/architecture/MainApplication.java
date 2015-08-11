@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.facebook.stetho.Stetho;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
@@ -64,6 +65,7 @@ public class MainApplication extends MultiDexApplication {
                 initializeAnalytics();
                 initializeBus();
                 initializeRepositories();
+                initializeStetho();
 
                 // Notify load finished
                 Log.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
@@ -78,6 +80,13 @@ public class MainApplication extends MultiDexApplication {
         };
         task.execute();
 
+    }
+
+    private void initializeStetho() {
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build());
     }
 
     private void initializeLeakCanary() {
