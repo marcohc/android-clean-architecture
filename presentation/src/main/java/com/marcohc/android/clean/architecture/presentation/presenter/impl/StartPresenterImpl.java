@@ -1,5 +1,6 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
+import com.marcohc.android.clean.architecture.domain.interactor.impl.IsFirstTimeInTheAppUseCase;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
 import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
@@ -10,5 +11,10 @@ public class StartPresenterImpl extends BasePresenter<StartView> implements Star
     @Override
     public boolean isUserLoggedIn() {
         return new IsUserLoggedInUseCase().execute();
+    }
+
+    @Override
+    public boolean isFirstTimeInTheApp() {
+        return new IsFirstTimeInTheAppUseCase().execute();
     }
 }

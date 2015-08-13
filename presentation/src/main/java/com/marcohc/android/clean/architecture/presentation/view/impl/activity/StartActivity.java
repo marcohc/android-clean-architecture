@@ -56,7 +56,9 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
             protected void onPostExecute(Object o) {
                 Log.d(Constants.LOG_TAG, "3 - StartActivity: Going to main");
 
-                if (presenter.isUserLoggedIn()) {
+                if (presenter.isFirstTimeInTheApp()) {
+                    goToTutorial();
+                } else if (presenter.isUserLoggedIn()) {
                     goToMain();
                 } else {
                     goToLogin();
@@ -83,6 +85,12 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
     // ************************************************************************************************************************************************************************
     // * View interface methods
     // ************************************************************************************************************************************************************************
+
+    private void goToTutorial() {
+        Intent intent = new Intent(StartActivity.this, TutorialActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     private void goToMain() {
         Intent intent = new Intent(StartActivity.this, MainActivity.class);

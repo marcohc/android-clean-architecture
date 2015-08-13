@@ -120,6 +120,9 @@ dependencies {
     // Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 
+    // View pager indicator
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
+
     // Espresso
     androidTestCompile 'com.android.support.test:runner:0.3'
     androidTestCompile 'com.android.support.test:rules:0.3'

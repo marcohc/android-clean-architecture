@@ -19,4 +19,9 @@
     <string name="username">Username</string>
     <string name="users">Users</string>
     <string name="no_users">No users</string>
+    <string name="skip_tutorial">skip_tutorial</string>
+    <string name="tutorial_1">This is the first sample text, do you like it?</string>
+    <string name="tutorial_2">And now it comes the second one! Wow, awesome!</string>
+    <string name="tutorial_3">I never liked the third text, just ignore it...</string>
+    <string name="tutorial_4">And finally, the last one, hope you enjoyed it!</string>
 </resources>
