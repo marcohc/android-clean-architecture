@@ -1,17 +1,17 @@
 package com.marcohc.android.clean.architecture.domain.bus.event.response;
 
 import com.marcohc.android.clean.architecture.domain.bus.event.BaseEvent;
-import com.marcohc.android.clean.architecture.domain.model.UserModel;
+import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
 
 public class GetUserResponse extends BaseEvent {
 
-    private final UserModel user;
+    private final UserEntity user;
 
-    public GetUserResponse(UserModel user) {
+    public GetUserResponse(UserEntity user) {
         this.user = user;
     }
 
-    public UserModel getUser() {
+    public UserEntity getUser() {
         return user;
     }
 }

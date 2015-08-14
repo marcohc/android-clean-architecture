@@ -1,6 +1,7 @@
 package com.marcohc.android.clean.architecture;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
@@ -10,13 +11,16 @@ import com.facebook.stetho.Stetho;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
-import com.marcohc.android.clean.architecture.data.util.PreferencesManager;
 import com.marcohc.android.clean.architecture.presentation.BuildConfig;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
+import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
+import com.marcohc.helperoid.PreferencesHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
+import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
+import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
 
 import java.util.concurrent.Semaphore;
 
@@ -66,6 +70,7 @@ public class MainApplication extends MultiDexApplication {
                 initializeBus();
                 initializeRepositories();
                 initializeStetho();
+                initializeCache();
 
                 // Notify load finished
                 Log.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
@@ -80,6 +85,13 @@ public class MainApplication extends MultiDexApplication {
         };
         task.execute();
 
+    }
+
+    private void initializeCache() {
+        if (isDevelopment()) {
+            DualCacheLogUtils.enableLog();
+        }
+        DualCacheContextUtils.setContext(getApplicationContext());
     }
 
     private void initializeStetho() {
@@ -130,7 +142,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void initializePreferences() {
-        PreferencesManager.initialize(getApplicationContext());
+        PreferencesHelper.initialize(getSharedPreferences(PreferencesConstants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE));
     }
 
     private void initializePicasso() {

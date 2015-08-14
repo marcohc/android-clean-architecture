@@ -1,4 +1,4 @@
-package com.marcohc.android.clean.architecture.data.datasource.impl.rest;
+package com.marcohc.android.clean.architecture.data.repository.datastore.cloud.util;
 
 import android.util.Base64;
 

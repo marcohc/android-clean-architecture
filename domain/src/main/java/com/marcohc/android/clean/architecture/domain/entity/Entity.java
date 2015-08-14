@@ -6,4 +6,5 @@ public interface Entity {
 
     void setId(Long id);
 
+    String toJsonString();
 }

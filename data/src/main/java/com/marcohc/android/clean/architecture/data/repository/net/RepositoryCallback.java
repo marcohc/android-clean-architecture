@@ -1,4 +1,4 @@
-package com.marcohc.android.clean.architecture.data.net;
+package com.marcohc.android.clean.architecture.data.repository.net;
 
 import android.util.Log;
 

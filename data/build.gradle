@@ -37,8 +37,8 @@ dependencies {
     compile project(':common')
     compile project(':domain')
 
-    // Test and implement the cache
-//    compile 'com.vincentbrison.openlibraries.android:dualcache:2.1.0@jar'
+    // Cache
+    compile 'com.vincentbrison.openlibraries.android:dualcache:2.1.0@jar'
 
     // Retrofit
     compile 'com.squareup.retrofit:retrofit:1.9.0'

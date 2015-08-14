@@ -1,24 +1,20 @@
-package com.marcohc.android.clean.architecture.data.datasource.impl.rest.impl;
-
+package com.marcohc.android.clean.architecture.data.repository.datastore.cloud;
 
 import com.marcohc.android.clean.architecture.common.exception.DataException;
-import com.marcohc.android.clean.architecture.data.datasource.impl.rest.ServiceGenerator;
-import com.marcohc.android.clean.architecture.data.datasource.impl.rest.inter.UserApiService;
-import com.marcohc.android.clean.architecture.data.datasource.inter.UserDataSource;
-import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.repository.datastore.UserDataStore;
+import com.marcohc.android.clean.architecture.data.repository.datastore.cloud.util.ServiceGenerator;
+import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
+import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserRemoteDataSource implements UserDataSource {
+public class UserCloudDataStore implements UserDataStore, CloudRestDataSource<UserEntity> {
 
     @Override
     public void logIn(String username, String password, RepositoryCallback callback) {
-//        UserApiService userApiService = ServiceGenerator.createService(UserApiService.class, NetworkManager.BASE_API_URL, username, password);
-//        userApiService.logIn(callback);
-
         // Fake response
         if (!StringUtils.isBlank(username) && !StringUtils.isBlank(password) && username.equals("admin") && password.equals("admin")) {
             try {
@@ -31,8 +27,24 @@ public class UserRemoteDataSource implements UserDataSource {
     }
 
     @Override
-    public void get(RepositoryCallback callback) {
-        UserApiService userApiService = ServiceGenerator.createService(UserApiService.class, NetworkManager.BASE_API_URL);
-        userApiService.get(callback);
+    public void getAll(RepositoryCallback callback) {
+        UserRestService userRestService = ServiceGenerator.createService(UserRestService.class, NetworkManager.BASE_API_URL);
+        userRestService.getAll(callback);
     }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("This method must be implemented!!!");
+    }
+
+    @Override
+    public void put(UserEntity entity) {
+        throw new UnsupportedOperationException("This method must be implemented!!!");
+    }
+
+    @Override
+    public void get(RepositoryCallback callback) {
+        throw new UnsupportedOperationException("This method must be implemented!!!");
+    }
+
 }

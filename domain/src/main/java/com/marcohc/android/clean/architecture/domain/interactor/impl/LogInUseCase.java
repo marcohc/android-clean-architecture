@@ -54,7 +54,7 @@ public class LogInUseCase extends AsynchronousUseCase {
             LogInEventResponse response = createResponse();
 
             // Save current user
-            post(new SaveUserRequest(response.getUser()));
+            post(new SaveUserRequest(UserMapper.transform(response.getUser())));
 
             // Return the current user
             post(response);

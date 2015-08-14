@@ -1,14 +1,11 @@
 package com.marcohc.android.clean.architecture.data.repository;
 
 import com.marcohc.android.clean.architecture.common.exception.DataException;
-import com.marcohc.android.clean.architecture.data.cache.impl.UserCacheImpl;
-import com.marcohc.android.clean.architecture.data.cache.inter.UserCache;
-import com.marcohc.android.clean.architecture.data.datasource.impl.rest.impl.UserRemoteDataSource;
-import com.marcohc.android.clean.architecture.data.datasource.inter.UserDataSource;
-import com.marcohc.android.clean.architecture.data.net.RepositoryCallback;
-import com.marcohc.android.clean.architecture.data.util.NetworkManager;
+import com.marcohc.android.clean.architecture.data.repository.datastore.factory.UserDataStoreFactory;
+import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.GetUserRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.GetUsersRequest;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.IsFirstTimeInTheAppRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.IsUserLoggedInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.LogInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.LogOutRequest;
@@ -20,30 +17,27 @@ import com.marcohc.android.clean.architecture.domain.interactor.inter.BusHandler
 
 import org.json.JSONObject;
 
-// TODO: Implement UserCache
+/**
+ * All the data management must be here. Nothing related to business logic
+ */
 public class UserRepository extends BusHandler {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private static UserDataSource userDataSource;
-    private static UserCache userCache;
     private static UserRepository repository;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
+    /**
+     * This method must be called when starting the app to connect to the EventBus
+     */
     public static void initialize() {
         if (repository == null) {
             repository = new UserRepository();
-            if (NetworkManager.PERSISTENCE_MANAGER.equals(NetworkManager.LOCAL_PERSISTENCE)) {
-                throw new ExceptionInInitializerError("Local persistence it's not developed yet!");
-            } else if (NetworkManager.PERSISTENCE_MANAGER.equals(NetworkManager.REMOTE_PERSISTENCE)) {
-                userDataSource = new UserRemoteDataSource();
-                userCache = new UserCacheImpl();
-            }
         }
     }
 
@@ -52,15 +46,19 @@ public class UserRepository extends BusHandler {
     // ************************************************************************************************************************************************************************
 
     public void onEvent(IsUserLoggedInRequest request) {
-        post(new IsUserLoggedInResponse(userCache.get() != null));
+        post(new IsUserLoggedInResponse(UserDataStoreFactory.getInstance().getCurrentUser() != null));
+    }
+
+    public void onEvent(IsFirstTimeInTheAppRequest request) {
+        post(new IsUserLoggedInResponse(UserDataStoreFactory.getInstance().getCurrentUser() != null));
     }
 
     public void onEvent(GetUserRequest request) {
-        post(new GetUserResponse(userCache.get()));
+        post(new GetUserResponse(UserDataStoreFactory.getInstance().getCurrentUser()));
     }
 
     public void onEvent(LogOutRequest request) {
-        userCache.remove();
+        UserDataStoreFactory.getInstance().logOut();
         post(new BaseResponse());
     }
 
@@ -69,7 +67,7 @@ public class UserRepository extends BusHandler {
     // ************************************************************************************************************************************************************************
 
     public void onEventBackgroundThread(LogInRequest request) {
-        userDataSource.logIn(request.getUsername(), request.getPassword(), new RepositoryCallback<JSONObject>() {
+        UserDataStoreFactory.getInstance().logIn(request.getUsername(), request.getPassword(), new RepositoryCallback<JSONObject>() {
             @Override
             public void failure(DataException error) {
                 postException(error);
@@ -83,7 +81,7 @@ public class UserRepository extends BusHandler {
     }
 
     public void onEventBackgroundThread(GetUsersRequest request) {
-        userDataSource.get(new RepositoryCallback<JSONObject>() {
+        UserDataStoreFactory.getInstance().getAll(new RepositoryCallback<JSONObject>() {
             @Override
             public void failure(DataException error) {
                 postException(error);
@@ -97,6 +95,7 @@ public class UserRepository extends BusHandler {
     }
 
     public void onEventBackgroundThread(SaveUserRequest request) {
-        userCache.put(request.getUser());
+        UserDataStoreFactory.getInstance().put(request.getUser());
     }
+
 }

@@ -28,6 +28,7 @@ allprojects {
         maven { url 'https://clojars.org/repo/' }
         maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://oss.sonatype.org/content/groups/public/' }
         maven { url "https://jitpack.io" }
     }
 }

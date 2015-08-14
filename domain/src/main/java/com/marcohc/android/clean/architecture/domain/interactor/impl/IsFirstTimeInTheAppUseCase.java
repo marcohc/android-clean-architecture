@@ -1,7 +1,7 @@
 package com.marcohc.android.clean.architecture.domain.interactor.impl;
 
-import com.marcohc.android.clean.architecture.domain.bus.event.request.IsUserLoggedInRequest;
-import com.marcohc.android.clean.architecture.domain.bus.event.response.IsUserLoggedInResponse;
+import com.marcohc.android.clean.architecture.domain.bus.event.request.IsFirstTimeInTheAppRequest;
+import com.marcohc.android.clean.architecture.domain.bus.event.response.IsFirstTimeInTheAppResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.SynchronousUseCase;
 
 public class IsFirstTimeInTheAppUseCase extends SynchronousUseCase {
@@ -10,16 +10,16 @@ public class IsFirstTimeInTheAppUseCase extends SynchronousUseCase {
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private IsUserLoggedInRequest request;
-    private IsUserLoggedInResponse response;
+    private IsFirstTimeInTheAppRequest request;
+    private IsFirstTimeInTheAppResponse response;
 
     // ************************************************************************************************************************************************************************
     // * Bus events factory methods
     // ************************************************************************************************************************************************************************
 
     @Override
-    protected IsUserLoggedInRequest createRequest() {
-        return new IsUserLoggedInRequest();
+    protected IsFirstTimeInTheAppRequest createRequest() {
+        return new IsFirstTimeInTheAppRequest();
     }
 
     // ************************************************************************************************************************************************************************
@@ -31,14 +31,15 @@ public class IsFirstTimeInTheAppUseCase extends SynchronousUseCase {
         request = createRequest();
         post(request);
         assert response != null;
-        return response.isUserLoggedIn();
+        return response.isFirstTimeInTheApp();
     }
 
     // ************************************************************************************************************************************************************************
     // * Bus event event handlers
     // ************************************************************************************************************************************************************************
 
-    public void onEvent(IsUserLoggedInResponse event) {
+    public void onEvent(IsFirstTimeInTheAppResponse event) {
         this.response = event;
     }
+
 }

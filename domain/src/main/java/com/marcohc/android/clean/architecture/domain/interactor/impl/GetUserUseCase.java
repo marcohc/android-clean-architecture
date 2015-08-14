@@ -3,6 +3,7 @@ package com.marcohc.android.clean.architecture.domain.interactor.impl;
 import com.marcohc.android.clean.architecture.domain.bus.event.request.GetUserRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.response.GetUserResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.SynchronousUseCase;
+import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 
 public class GetUserUseCase extends SynchronousUseCase {
@@ -32,7 +33,7 @@ public class GetUserUseCase extends SynchronousUseCase {
         request = createRequest();
         post(request);
         assert response != null;
-        return response.getUser();
+        return UserMapper.transform(response.getUser());
     }
 
     // ************************************************************************************************************************************************************************

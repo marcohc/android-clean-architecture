@@ -3,11 +3,13 @@ package com.marcohc.android.clean.architecture.domain.entity.impl;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.marcohc.android.clean.architecture.domain.entity.BaseEntity;
 import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.helperoid.ParserHelper;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class UserEntityImpl implements UserEntity {
+public class UserEntityImpl extends BaseEntity implements UserEntity {
 
     private Long id;
     private String username;
@@ -27,6 +29,11 @@ public class UserEntityImpl implements UserEntity {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toJsonString() {
+        return ParserHelper.toJsonString(this);
     }
 
     @Override

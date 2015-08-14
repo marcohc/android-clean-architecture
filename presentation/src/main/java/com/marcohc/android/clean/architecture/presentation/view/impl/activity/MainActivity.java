@@ -100,7 +100,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         menuClick(INITIAL_POSITION);
 
 //        // Register GCM
-//        if (StringUtils.isBlank(PreferencesManager.getRegistrationId())) {
+//        if (StringUtils.isBlank(UserDiskDataSource.getRegistrationId())) {
 //            NotificationManager.getInstance().registerInBackground();
 //        }
 

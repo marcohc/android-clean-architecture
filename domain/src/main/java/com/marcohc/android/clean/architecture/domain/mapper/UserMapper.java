@@ -32,4 +32,8 @@ public class UserMapper extends BaseMapper {
     public static UserModel transform(UserEntity entity) {
         return transform(entity, UserModel.class);
     }
+
+    public static UserEntity transform(UserModel model) {
+        return transform(model, UserEntityImpl.class);
+    }
 }
