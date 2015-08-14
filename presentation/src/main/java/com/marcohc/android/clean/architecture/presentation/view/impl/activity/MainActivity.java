@@ -52,14 +52,14 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     // Class
     @SuppressLint("UseSparseArrays")
-    private Map<Integer, BaseMvpFragment> fragmentsMap = new HashMap<>();
+    private Map<Integer, BaseMvpFragment> fragmentsMap;
     private MenuItem menuItem1;
     private MenuItem menuItem2;
     private int positionToGo;
     private ActionBarDrawerToggle mDrawerToggle;
     private MenuFragment menuFragment;
     private BaseMvpFragment currentFragment;
-    private Fragment lastFragment;
+    private BaseMvpFragment lastFragment;
     private final int INITIAL_POSITION = NavigationManager.SCREENS.POSITION_1.ordinal();
 
     // ************************************************************************************************************************************************************************
@@ -98,11 +98,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         initializeNavigationDrawer();
 
         menuClick(INITIAL_POSITION);
-
-//        // Register GCM
-//        if (StringUtils.isBlank(UserDiskDataSource.getRegistrationId())) {
-//            NotificationManager.getInstance().registerInBackground();
-//        }
 
         presenter.onViewCreated();
     }
@@ -192,7 +187,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         Log.v(NavigationManager.LOG_TAG, "Position to go: " + position);
         Log.v(NavigationManager.LOG_TAG, "NavigationManager.lastViewPosition: " + NavigationManager.lastViewPosition);
-        Log.v(NavigationManager.LOG_TAG, "MainApplication.currentViewPosition: " + NavigationManager.currentViewPosition);
+        Log.v(NavigationManager.LOG_TAG, "NavigationManager.currentViewPosition: " + NavigationManager.currentViewPosition);
 
         if (currentFragment != null) {
 
@@ -209,6 +204,14 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             // Select menu item
             menuFragment.setSelectedMenuPosition(position);
 
+        } else {
+            currentFragment = lastFragment;
+            switch (NavigationManager.SCREENS.values()[position]) {
+                case POSITION_2:
+                    Intent intent = new Intent(this, TutorialActivity.class);
+                    startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
+                    break;
+            }
         }
     }
 
@@ -226,19 +229,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         return currentFragment;
     }
 
-    // TODO
     private BaseMvpFragment getFragmentByPosition(int position) {
 
-        if (fragmentsMap.containsKey(position)) {
-            return fragmentsMap.get(position);
-        } else {
-            switch (NavigationManager.SCREENS.values()[position]) {
-                case POSITION_1:
-                    fragmentsMap.put(NavigationManager.SCREENS.POSITION_1.ordinal(), new ProfileFragment());
-                    break;
-            }
-            return getFragmentByPosition(position);
+        if (fragmentsMap == null || fragmentsMap.isEmpty()) {
+            fragmentsMap = new HashMap<>();
+            fragmentsMap.put(NavigationManager.SCREENS.POSITION_1.ordinal(), new ProfileFragment());
         }
+        return fragmentsMap.get(position);
     }
 
     // ************************************************************************************************************************************************************************
@@ -260,24 +257,17 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        try {
-            menuItem1 = menu.findItem(R.id.item_1);
-            menuItem1.setVisible(false);
-            menuItem1.setEnabled(false);
-            menuItem2 = menu.findItem(R.id.item_2);
-            menuItem2.setVisible(false);
-            menuItem2.setEnabled(false);
-        } catch (Exception e) {
-//            Crashlytics.log(android.util.Log.ERROR, "MainMvpActivity.onPrepareOptionsMenu", String.format("Exception under control"));
-//            Crashlytics.logException(e);
-        }
+        menuItem1 = menu.findItem(R.id.item_1);
+        menuItem1.setVisible(false);
+        menuItem1.setEnabled(false);
+        menuItem2 = menu.findItem(R.id.item_2);
+        menuItem2.setVisible(false);
+        menuItem2.setEnabled(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        ButterKnife.bind(this);
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -296,8 +286,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     public void onBackPressed() {
-
-        ButterKnife.bind(this);
 
         // If the menu is opened, close it
         if (drawerLayout.isDrawerOpen(GravityCompat.START) || drawerLayout.isDrawerOpen(GravityCompat.END)) {

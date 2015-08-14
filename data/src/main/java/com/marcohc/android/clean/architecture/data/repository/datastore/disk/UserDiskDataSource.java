@@ -2,6 +2,7 @@ package com.marcohc.android.clean.architecture.data.repository.datastore.disk;
 
 import com.marcohc.android.clean.architecture.data.repository.datastore.UserDataStore;
 import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.domain.entity.impl.UserEntityImpl;
 import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
 import com.marcohc.helperoid.ParserHelper;
 import com.marcohc.helperoid.PreferencesHelper;
@@ -22,7 +23,7 @@ public class UserDiskDataSource implements UserDataStore, DiskRestDataSource<Use
 
     @Override
     public UserEntity get() {
-        return ParserHelper.parseJson(PreferencesHelper.getString(USER, ""), UserEntity.class);
+        return ParserHelper.parseJson(PreferencesHelper.getString(USER, ""), UserEntityImpl.class);
     }
 
     @Override
@@ -33,6 +34,11 @@ public class UserDiskDataSource implements UserDataStore, DiskRestDataSource<Use
     @Override
     public void logIn(String username, String password, RepositoryCallback callback) {
         throw new UnsupportedOperationException("Operation is not available!!!");
+    }
+
+    @Override
+    public boolean isFirstTimeInApp() {
+        return PreferencesHelper.isFirstAppInstallation();
     }
 
     @Override

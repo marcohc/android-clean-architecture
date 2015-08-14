@@ -12,6 +12,7 @@ import com.marcohc.android.clean.architecture.domain.bus.event.request.LogOutReq
 import com.marcohc.android.clean.architecture.domain.bus.event.request.SaveUserRequest;
 import com.marcohc.android.clean.architecture.domain.bus.event.response.BaseResponse;
 import com.marcohc.android.clean.architecture.domain.bus.event.response.GetUserResponse;
+import com.marcohc.android.clean.architecture.domain.bus.event.response.IsFirstTimeInTheAppResponse;
 import com.marcohc.android.clean.architecture.domain.bus.event.response.IsUserLoggedInResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.inter.BusHandler;
 
@@ -50,7 +51,7 @@ public class UserRepository extends BusHandler {
     }
 
     public void onEvent(IsFirstTimeInTheAppRequest request) {
-        post(new IsUserLoggedInResponse(UserDataStoreFactory.getInstance().getCurrentUser() != null));
+        post(new IsFirstTimeInTheAppResponse(UserDataStoreFactory.getInstance().isFirstTimeInApp()));
     }
 
     public void onEvent(GetUserRequest request) {

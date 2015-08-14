@@ -6,6 +6,10 @@ public class IsFirstTimeInTheAppResponse extends BaseEvent {
 
     private boolean firstTimeInTheApp;
 
+    public IsFirstTimeInTheAppResponse(boolean firstTimeInApp) {
+        this.firstTimeInTheApp = firstTimeInApp;
+    }
+
     public boolean isFirstTimeInTheApp() {
         return firstTimeInTheApp;
     }

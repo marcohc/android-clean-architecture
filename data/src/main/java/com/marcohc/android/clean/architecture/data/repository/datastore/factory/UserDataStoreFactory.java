@@ -64,4 +64,8 @@ public class UserDataStoreFactory {
     public void put(UserEntity user) {
         userDiskDataSource.put(user);
     }
+
+    public boolean isFirstTimeInApp() {
+        return userDiskDataSource.isFirstTimeInApp();
+    }
 }

@@ -1,19 +1,24 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.presentation.presenter.impl.TutorialPresenterImpl;
+import com.marcohc.android.clean.architecture.presentation.presenter.inter.TutorialPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.TutorialViewPagerAdapter;
+import com.marcohc.android.clean.architecture.presentation.view.inter.TutorialView;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class TutorialActivity extends AppCompatActivity {
+public class TutorialActivity extends BaseMvpActivity<TutorialView, TutorialPresenter> implements TutorialView {
+
+
+    public static final int REQUEST_CODE = 1;
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -29,6 +34,12 @@ public class TutorialActivity extends AppCompatActivity {
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
+
+    @NonNull
+    @Override
+    public TutorialPresenter createPresenter() {
+        return new TutorialPresenterImpl();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,12 +68,10 @@ public class TutorialActivity extends AppCompatActivity {
     // * Event handler methods
     // ************************************************************************************************************************************************************************
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
+    @OnClick(R.id.skipButton)
+    protected void onSkipButtonClick() {
+        setResult(RESULT_OK);
+        finish();
     }
 
     // ************************************************************************************************************************************************************************

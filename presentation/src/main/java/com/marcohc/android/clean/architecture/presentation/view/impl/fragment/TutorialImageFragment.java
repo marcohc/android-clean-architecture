@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.marcohc.android.clean.architecture.presentation.R;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class TutorialImageFragment extends Fragment {
 
@@ -46,6 +47,7 @@ public class TutorialImageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tutorial_image_fragment, container, false);
+        ButterKnife.bind(this, view);
         initializeComponentBehavior();
         return view;
     }

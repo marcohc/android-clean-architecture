@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.LogInPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
@@ -18,6 +17,7 @@ import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.ScreenHelper;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> implements LogInView {
 
@@ -34,9 +34,6 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     @Bind(R.id.passwordEditText)
     EditText passwordEditText;
-
-    // Class
-    private UserModel user;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -88,6 +85,12 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
     // * Event handler methods
     // ************************************************************************************************************************************************************************
 
+    @OnClick(R.id.tipText)
+    protected void onTipTextClick() {
+        usernameEditText.setText("admin");
+        passwordEditText.setText("admin");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -136,11 +139,6 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public UserModel getUser() {
-        return user;
     }
 
     // ************************************************************************************************************************************************************************

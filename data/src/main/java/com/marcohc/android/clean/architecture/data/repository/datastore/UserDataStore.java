@@ -9,4 +9,5 @@ public interface UserDataStore {
 
     void logIn(String username, String password, RepositoryCallback callback);
 
+    boolean isFirstTimeInApp();
 }

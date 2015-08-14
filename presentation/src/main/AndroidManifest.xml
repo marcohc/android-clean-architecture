@@ -1,11 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.marcohc.android.clean.architecture.presentation">
+<manifest package="com.marcohc.android.clean.architecture.presentation"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <uses-sdk tools:overrideLibrary="com.hannesdorfmann.mosby, com.hannesdorfmann.mosby.mvp" />
+    <uses-sdk tools:overrideLibrary="com.hannesdorfmann.mosby, com.hannesdorfmann.mosby.mvp"/>
 
     <application
         android:name="com.marcohc.android.clean.architecture.MainApplication"
@@ -22,38 +22,42 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity
             android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.TutorialActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
 
         <activity
             android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"/>
 
         <receiver
             android:name="com.marcohc.android.clean.architecture.presentation.notification.NotificationBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
 
-                <category android:name="com.marcohc.android.clean.architecture" />
+                <category android:name="com.marcohc.android.clean.architecture"/>
             </intent-filter>
         </receiver>
 
-        <service android:name="com.marcohc.android.clean.architecture.presentation.notification.NotificationIntentService" />
+        <service android:name="com.marcohc.android.clean.architecture.presentation.notification.NotificationIntentService"/>
 
     </application>
 </manifest>

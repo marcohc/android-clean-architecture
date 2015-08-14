@@ -47,4 +47,9 @@ public class UserCloudDataStore implements UserDataStore, CloudRestDataSource<Us
         throw new UnsupportedOperationException("This method must be implemented!!!");
     }
 
+    @Override
+    public boolean isFirstTimeInApp() {
+        throw new UnsupportedOperationException("Operation is not available!!!");
+    }
+
 }

@@ -1,4 +1,6 @@
 <resources>
+    <string name="see_tutorial">See tutorial</string>
+    <string name="my_profile">My profile</string>
     <string name="app_name">Clean ARQ sample</string>
     <string name="ok">OK</string>
     <string name="password">Password</string>
@@ -19,9 +21,9 @@
     <string name="username">Username</string>
     <string name="users">Users</string>
     <string name="no_users">No users</string>
-    <string name="skip_tutorial">skip_tutorial</string>
+    <string name="skip_tutorial">skip tutorial!</string>
     <string name="tutorial_1">This is the first sample text, do you like it?</string>
     <string name="tutorial_2">And now it comes the second one! Wow, awesome!</string>
-    <string name="tutorial_3">I never liked the third text, just ignore it...</string>
+    <string name="tutorial_3">I never liked the third text, just ignore it…</string>
     <string name="tutorial_4">And finally, the last one, hope you enjoyed it!</string>
 </resources>

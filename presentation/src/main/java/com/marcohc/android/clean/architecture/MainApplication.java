@@ -74,11 +74,8 @@ public class MainApplication extends MultiDexApplication {
 
                 // Notify load finished
                 Log.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
+                isAlreadyInitialized = true;
                 MainApplication.SEMAPHORE_1.release();
-
-                synchronized (isAlreadyInitialized) {
-                    isAlreadyInitialized = true;
-                }
 
                 return null;
             }
@@ -171,13 +168,11 @@ public class MainApplication extends MultiDexApplication {
      */
     public static void waitUntilMainApplicationIsInitialized() {
         try {
-            synchronized (isAlreadyInitialized) {
-                if (!isAlreadyInitialized) {
-                    Log.d(Constants.LOG_TAG, "Waiting for MainApplication to finish loading data...");
-                    MainApplication.SEMAPHORE_1.acquire();
-                } else {
-                    Log.d(Constants.LOG_TAG, "MainApplication already initialized");
-                }
+            if (!isAlreadyInitialized) {
+                Log.d(Constants.LOG_TAG, "Waiting for MainApplication to finish loading data...");
+                MainApplication.SEMAPHORE_1.acquire();
+            } else {
+                Log.d(Constants.LOG_TAG, "MainApplication already initialized");
             }
         } catch (InterruptedException ignored) {
         }

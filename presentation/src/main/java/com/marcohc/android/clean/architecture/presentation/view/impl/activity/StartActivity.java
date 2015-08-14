@@ -76,9 +76,10 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
+        if (requestCode == TutorialActivity.REQUEST_CODE) {
+            goToLogin();
+        } else {
             goToMain();
-            finish();
         }
     }
 
@@ -88,8 +89,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
     private void goToTutorial() {
         Intent intent = new Intent(StartActivity.this, TutorialActivity.class);
-        startActivity(intent);
-        finish();
+        startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
     }
 
     private void goToMain() {

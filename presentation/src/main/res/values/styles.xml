@@ -6,9 +6,18 @@
         <item name="colorAccent">@color/accent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:textViewStyle">@style/MyTextViewStyle</item>
-
+        <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicator</item>
         <!-- Overrides the list view press color-->
         <item name="android:activatedBackgroundIndicator">@drawable/item_list_selector</item>
+    </style>
+
+    <style name="CustomCirclePageIndicator">
+        <item name="fillColor">@android:color/white</item>
+        <item name="strokeColor">@android:color/white</item>
+        <item name="pageColor">@android:color/transparent</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="radius">4dp</item>
+        <item name="centered">true</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">

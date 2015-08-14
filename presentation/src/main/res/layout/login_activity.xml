@@ -40,7 +40,7 @@
     </LinearLayout>
     <TextView
         style="@style/bigText"
-        android:id="@+id/textView"
+        android:id="@+id/tipText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
