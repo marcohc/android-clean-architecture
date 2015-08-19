@@ -8,10 +8,10 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.marcohc.android.clean.architecture.data.util.PreferencesManager;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
 import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
 import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity;
@@ -35,11 +35,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestA_StartStory extends ActivityInstrumentationTestCase2<StartActivity> {
 
+    private static int testCounter = 0;
     private Given given;
     private When when;
     private Then then;
     private StartActivity mActivity;
-    private static int testCounter = 0;
 
     public TestA_StartStory() {
         super(StartActivity.class);
@@ -54,7 +54,7 @@ public class TestA_StartStory extends ActivityInstrumentationTestCase2<StartActi
         mActivity = getActivity();
 
         // Delete previous preferences
-        SharedPreferences preferences = instrumentation.getTargetContext().getSharedPreferences(PreferencesManager.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = instrumentation.getTargetContext().getSharedPreferences(PreferencesConstants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         preferences.edit().clear().apply();
         given = new Given();
         when = new When();
