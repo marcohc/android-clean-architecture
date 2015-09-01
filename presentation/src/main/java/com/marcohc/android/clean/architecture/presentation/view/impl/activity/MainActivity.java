@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -61,6 +62,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     private BaseMvpFragment currentFragment;
     private BaseMvpFragment lastFragment;
     private final int INITIAL_POSITION = NavigationManager.SCREENS.POSITION_1.ordinal();
+    private ActionBar actionBar;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -176,11 +178,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         // Update the main content by replacing fragments
         currentFragment = getFragmentByPosition(position);
 
-        switch (NavigationManager.SCREENS.values()[position]) {
-            case POSITION_1:
-                toolbar.setTitle("My profile");
-                break;
-        }
+        setTitleByPosition(NavigationManager.SCREENS.values()[position]);
 
         NavigationManager.lastViewPosition = NavigationManager.currentViewPosition;
         NavigationManager.currentViewPosition = position;
@@ -215,6 +213,14 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         }
     }
 
+    private void setTitleByPosition(NavigationManager.SCREENS screens) {
+        switch (screens) {
+            case POSITION_1:
+                actionBar.setTitle(getString(R.string.my_profile));
+                break;
+        }
+    }
+
     private void loadFragment(Fragment currentFragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -244,8 +250,11 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     private void initializeActionBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
     }
 
     @Override

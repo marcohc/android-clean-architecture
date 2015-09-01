@@ -9,10 +9,10 @@ ext {
     androidBuildToolsVersion = "23.0.0"
 
     // Use this one for your release version
-//    androidMinSdkVersion = 15
+    androidMinSdkVersion = 15
 
-    // Use this one for development time. It increase the compile and execution gradle time
-    androidMinSdkVersion = 22
+//    // Use this one for development time. It increase the compile and execution gradle time
+//    androidMinSdkVersion = 22
 
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
