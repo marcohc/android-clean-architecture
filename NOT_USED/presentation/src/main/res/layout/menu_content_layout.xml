@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ListView
+        android:id="@+id/menuListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/logOutContainer"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/logOutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_item_height"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/listChoiceBackgroundIndicator">
+
+        <ImageView
+            android:id="@+id/menuImage"
+            android:layout_width="@dimen/image_big"
+            android:layout_height="@dimen/image_big"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:src="@drawable/abc_ic_commit_search_api_mtrl_alpha" />
+
+        <TextView
+            android:id="@+id/menuText"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/menuImage"
+            android:gravity="center_vertical"
+            android:text="@string/log_out"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

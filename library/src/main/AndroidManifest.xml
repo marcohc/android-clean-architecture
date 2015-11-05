@@ -1,0 +1,5 @@
+<manifest package="com.marcohc.android.clean.architecture"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application android:allowBackup="true"/>
+</manifest>

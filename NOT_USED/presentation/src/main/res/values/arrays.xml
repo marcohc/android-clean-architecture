@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="menu_text_array" translatable="false">
+        <item>@string/my_profile</item>
+        <item>@string/see_tutorial</item>
+    </string-array>
+    <string-array name="menu_normal_icons_array" translatable="false">
+        <item>@drawable/ic_cast_dark</item>
+        <item>@drawable/ic_media_play</item>
+    </string-array>
+</resources>
