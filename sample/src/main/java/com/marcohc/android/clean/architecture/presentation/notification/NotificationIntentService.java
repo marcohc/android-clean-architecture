@@ -26,7 +26,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.marcohc.android.clean.architecture.bus.BusProvider;
+import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 
 import java.util.List;
 
@@ -101,11 +101,11 @@ public class NotificationIntentService extends IntentService {
         List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
         ComponentName componentInfo = taskInfo.get(0).topActivity;
 
-        BusProvider.getInstance().register(this);
+        BusProvider.register(this);
 
 //        if (componentInfo.getClassName().equals(MainActivity.class.getName())) {
 //        }
 
-        BusProvider.getInstance().unregister(this);
+        BusProvider.unregister(this);
     }
 }

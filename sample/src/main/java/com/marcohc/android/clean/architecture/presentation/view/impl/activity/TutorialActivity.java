@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.TutorialPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.TutorialPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.TutorialViewPagerAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.TutorialView;
 import com.viewpagerindicator.CirclePageIndicator;

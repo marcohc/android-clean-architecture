@@ -1,12 +1,10 @@
 package com.marcohc.android.clean.architecture.domain.mapper;
 
-import com.marcohc.android.clean.architecture.domain.entity.impl.UserEntityImpl;
-import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.helperoid.ParserHelper;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +18,21 @@ public class UserMapper extends BaseMapper {
     private static List<UserModel> getUsersList(List<? extends UserEntity> entitiesList) {
         List<UserModel> modelsList = new ArrayList<>();
         for (UserEntity item : entitiesList) {
-            modelsList.add(transform(item, UserModel.class));
+            UserModel model = transform(item, UserModel.class);
+            modelsList.add(model);
         }
         return modelsList;
     }
 
-    public static UserModel parseUser(JSONObject jsonResponse) {
-        return transform(ParserHelper.parseJson(jsonResponse, UserEntityImpl.class));
+    public static UserModel parseUser(String jsonResponse) {
+        return transform(ParserHelper.parse(jsonResponse, UserEntity.class), UserModel.class);
     }
 
-    public static UserModel transform(UserEntity entity) {
-        return transform(entity, UserModel.class);
+    public static UserModel parse(UserEntity user) {
+        return transform(user, UserModel.class);
     }
 
-    public static UserEntity transform(UserModel model) {
-        return transform(model, UserEntityImpl.class);
+    public static UserEntity parse(UserModel user) {
+        return transform(user, UserEntity.class);
     }
 }

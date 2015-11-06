@@ -1,8 +1,8 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-import com.marcohc.android.clean.architecture.domain.bus.event.response.LogInEventResponse;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
-import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
+import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogInDomainResponse;
+import com.marcohc.android.clean.architecture.domain.interactor.LogInUseCase;
+import com.marcohc.android.clean.architecture.presentation.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.StringHelper;
@@ -15,8 +15,8 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
 
     @Override
     public void onActionDoneClick() {
-        if (isValidaForm()) {
-            showLoading(true);
+        if (isFormValid()) {
+            showLoadingDialog();
             new LogInUseCase(getView().getUsername(), getView().getPassword()).execute();
         }
     }
@@ -25,8 +25,8 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
-    public void onEventMainThread(LogInEventResponse event) {
-        showLoading(false);
+    public void onEventMainThread(LogInDomainResponse event) {
+        hideDialog();
         getView().goToMain();
     }
 
@@ -34,7 +34,7 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
     // * Presenter methods
     // ************************************************************************************************************************************************************************
 
-    private boolean isValidaForm() {
+    private boolean isFormValid() {
 
         if (StringHelper.isEmpty(getView().getUsername())) {
             getView().invalidateUsername();

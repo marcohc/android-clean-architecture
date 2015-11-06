@@ -3,7 +3,7 @@ package com.marcohc.android.clean.architecture.data.repository.net;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.marcohc.android.clean.architecture.exception.DataException;
+import com.marcohc.android.clean.architecture.common.exception.JsonDataException;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
 
 import org.json.JSONArray;
@@ -16,32 +16,32 @@ import retrofit.client.Response;
 
 public abstract class RepositoryCallback<T> implements Callback<T> {
 
-    public abstract void failure(DataException error);
+    public abstract void failure(JsonDataException error);
 
     public abstract void success(T response);
 
     @Override
     public void failure(RetrofitError retrofitError) {
         try {
-            DataException error = new DataException("Error unknown", -1);
+            JsonDataException error = new JsonDataException("Error unknown", -1);
             switch (retrofitError.getKind()) {
                 case NETWORK:
-                    error = new DataException("Network error: Check internet connection!", -1);
+                    error = new JsonDataException("Network error: Check internet connection!", -1);
                     break;
                 case CONVERSION:
-                    error = new DataException("Conversion error: Check correct parsing!", -1);
+                    error = new JsonDataException("Conversion error: Check correct parsing!", -1);
                     break;
                 case HTTP:
-                    error = new DataException("Server error: " + retrofitError.getMessage(), retrofitError.getResponse() != null ? retrofitError.getResponse().getStatus() : -1);
+                    error = new JsonDataException("Server error: " + retrofitError.getMessage(), retrofitError.getResponse() != null ? retrofitError.getResponse().getStatus() : -1);
                     break;
                 case UNEXPECTED:
-                    error = new DataException("Unexpected error: " + retrofitError.getMessage(), retrofitError.getResponse() != null ? retrofitError.getResponse().getStatus() : -1);
+                    error = new JsonDataException("Unexpected error: " + retrofitError.getMessage(), retrofitError.getResponse() != null ? retrofitError.getResponse().getStatus() : -1);
                     break;
             }
             failure(error);
         } catch (Exception e) {
             Log.wtf(NetworkManager.LOG_TAG, "Error when parsing response: " + e.getMessage());
-            DataException error = new DataException("Check internet connection", -1);
+            JsonDataException error = new JsonDataException("Check internet connection", -1);
             failure(error);
         }
     }

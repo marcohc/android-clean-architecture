@@ -10,6 +10,7 @@ import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.StartPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.StartView;
 
 public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> implements StartView {

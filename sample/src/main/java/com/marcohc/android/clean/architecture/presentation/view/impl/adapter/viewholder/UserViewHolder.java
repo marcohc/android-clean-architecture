@@ -5,14 +5,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.presentation.view.adapter.ViewHolderAbstractClass;
+import com.marcohc.helperoid.StringHelper;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
 
-public class UserViewHolder extends ViewHolderAbstractClass {
+public class UserViewHolder extends ViewHolderAbstractClass<UserModel> {
 
     ImageView userImage;
     TextView usernameText;
@@ -31,9 +32,7 @@ public class UserViewHolder extends ViewHolderAbstractClass {
     }
 
     @Override
-    public void initializeComponentBehavior(BaseModel item, Context context, int position) {
-
-        UserModel model = (UserModel) item;
+    public void setUpView(Context context, UserModel model, int position) {
 
         String image = model.getPicture().getThumbnail();
         if (!StringHelper.isEmpty(image)) {
@@ -44,4 +43,5 @@ public class UserViewHolder extends ViewHolderAbstractClass {
         usernameText.setText(model.getUsername());
         passwordText.setText(model.getPassword());
     }
+
 }

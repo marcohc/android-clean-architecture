@@ -1,6 +1,5 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,12 +8,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.ProfilePresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.ProfilePresenter;
-import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.BaseListAdapter;
+import com.marcohc.android.clean.architecture.presentation.view.adapter.BaseListAdapter;
+import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.UserViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileView;
 import com.marcohc.helperoid.StringHelper;
@@ -25,7 +24,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresenter> implements ProfileView, BaseListAdapter.OnSubViewClickListener, AdapterView.OnItemClickListener {
+public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresenter> implements ProfileView, AdapterView.OnItemClickListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -48,7 +47,7 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
     @Bind(R.id.noDataText)
     TextView noDataText;
 
-    private BaseListAdapter listViewAdapter;
+    private BaseListAdapter<UserModel> listViewAdapter;
     private UserModel user;
 
     // ************************************************************************************************************************************************************************
@@ -73,7 +72,7 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
     }
 
     private void initializeListView() {
-        listViewAdapter = new BaseListAdapter(this, R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
+        listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
         listView.setOnItemClickListener(this);
         listView.setAdapter(listViewAdapter);
     }
@@ -86,15 +85,6 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         user = (UserModel) listViewAdapter.getItem(position);
         setUserData(user);
-    }
-
-    @Override
-    public void onSubViewItemClick(View view, int position, BaseModel data) {
-    }
-
-    @Override
-    public Context getContext() {
-        return getActivity();
     }
 
     // ************************************************************************************************************************************************************************

@@ -2,9 +2,14 @@ package com.marcohc.android.clean.architecture.presentation;
 
 import android.util.Log;
 
+import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
+import com.marcohc.android.clean.architecture.common.exception.DataError;
+import com.marcohc.android.clean.architecture.presentation.view.BaseView;
 
 @SuppressWarnings("ConstantConditions")
 public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter<V> {
+
+    protected static final String LOG_TAG = "BasePresenter";
 
     /**
      * Shows or hides dialog with "Loading..." text by default
@@ -98,14 +103,9 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
     public void handleException(DataError error) {
         hideDialog();
         if (isViewAttached()) {
-            if (error.getCode() == FirebaseError.NETWORK_ERROR) {
-                showError(getView().getResourceString(R.string.internet_error));
-            } else {
-                showError(error.getMessage());
-            }
+            showError(error.getMessage());
         }
-
-        Log.e(Constants.LOG_TAG, "Exception: " + error.getMessage());
+        Log.e(LOG_TAG, "Exception: " + error.getMessage());
     }
 
     public void onEventMainThread(DataError exception) {

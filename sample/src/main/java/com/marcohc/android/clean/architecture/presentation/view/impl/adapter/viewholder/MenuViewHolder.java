@@ -6,13 +6,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.presentation.view.adapter.ViewHolderAbstractClass;
 
 import butterknife.ButterKnife;
 
-public class MenuViewHolder extends ViewHolderAbstractClass {
+public class MenuViewHolder extends ViewHolderAbstractClass<MenuItemModel> {
 
     ImageView menuImage;
     TextView menuText;
@@ -31,10 +31,9 @@ public class MenuViewHolder extends ViewHolderAbstractClass {
     }
 
     @Override
-    public void initializeComponentBehavior(BaseModel item, Context context, int position) {
-        MenuItemModel menuItemModel = (MenuItemModel) item;
-        menuText.setText(menuItemModel.getText());
-        menuImage.setImageResource(menuItemModel.getIconId());
+    public void setUpView(Context context, MenuItemModel model, int position) {
+        menuText.setText(model.getText());
+        menuImage.setImageResource(model.getIconId());
     }
 
 }

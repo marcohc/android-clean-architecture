@@ -1,13 +1,14 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-import com.marcohc.android.clean.architecture.domain.bus.event.response.GetUsersResponse;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.GetUserUseCase;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.GetUsersUseCase;
+import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
+import com.marcohc.android.clean.architecture.domain.interactor.GetUserUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.GetUsersUseCase;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.ProfilePresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileView;
 
+@SuppressWarnings("ConstantConditions")
 public class ProfilePresenterImpl extends BasePresenter<ProfileView> implements ProfilePresenter {
 
     // ************************************************************************************************************************************************************************
@@ -16,7 +17,7 @@ public class ProfilePresenterImpl extends BasePresenter<ProfileView> implements 
 
     @Override
     public void onViewCreated() {
-        showLoading(true);
+        showLoadingDialog();
         new GetUsersUseCase().execute();
     }
 
@@ -29,8 +30,10 @@ public class ProfilePresenterImpl extends BasePresenter<ProfileView> implements 
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
-    public void onEventMainThread(GetUsersResponse event) {
-        showLoading(false);
-        getView().loadData(event.getUsersList());
+    public void onEventMainThread(GetUsersDomainResponse event) {
+        hideDialog();
+        if (isViewAttached()) {
+            getView().loadData(event.getUsersList());
+        }
     }
 }

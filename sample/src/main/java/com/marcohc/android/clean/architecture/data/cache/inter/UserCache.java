@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.data.cache.inter;
 
-import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 
 /**
  * An interface representing a user Cache.

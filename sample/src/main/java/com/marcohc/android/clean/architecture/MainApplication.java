@@ -144,7 +144,11 @@ public class MainApplication extends MultiDexApplication {
     // ************************************************************************************************************************************************************************
 
     public static boolean isDevelopment() {
-        return BuildConfig.DEBUG;
+        return BuildConfig.BUILD_TYPE.equals("debug");
+    }
+
+    public static boolean isAcceptance() {
+        return BuildConfig.BUILD_TYPE.equals("acceptance");
     }
 
     /**
@@ -162,7 +166,7 @@ public class MainApplication extends MultiDexApplication {
         }
     }
 
-    //    private static long timer;
+//    private static long timer;
 //    private static int stepNumber;
 //
 //    public static void startTimer() {

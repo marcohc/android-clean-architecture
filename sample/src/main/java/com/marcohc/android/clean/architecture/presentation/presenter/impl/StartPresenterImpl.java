@@ -1,8 +1,8 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-import com.marcohc.android.clean.architecture.domain.interactor.impl.IsFirstTimeInTheAppUseCase;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
-import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
+import com.marcohc.android.clean.architecture.domain.interactor.IsFirstTimeInTheAppUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.IsUserLoggedInUseCase;
+import com.marcohc.android.clean.architecture.presentation.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.StartView;
 

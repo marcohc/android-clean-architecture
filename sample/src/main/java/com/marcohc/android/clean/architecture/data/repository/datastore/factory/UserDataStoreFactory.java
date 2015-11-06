@@ -5,7 +5,7 @@ import com.marcohc.android.clean.architecture.data.cache.inter.UserCache;
 import com.marcohc.android.clean.architecture.data.repository.datastore.cloud.UserCloudDataStore;
 import com.marcohc.android.clean.architecture.data.repository.datastore.disk.UserDiskDataSource;
 import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
-import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 
 import org.json.JSONObject;
 

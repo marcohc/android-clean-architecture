@@ -1,7 +1,7 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-import com.marcohc.android.clean.architecture.domain.interactor.impl.LogOutUseCase;
-import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
+import com.marcohc.android.clean.architecture.domain.interactor.LogOutUseCase;
+import com.marcohc.android.clean.architecture.presentation.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
 

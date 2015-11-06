@@ -14,7 +14,7 @@
     <string name="log_out">Log out</string>
     <string name="log_in">Log in</string>
     <string name="sign_up">Sign up</string>
-    <string name="loading">Loading</string>
+    <string name="loading">Loading…</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="log_out_question">Do you want to log out?</string>

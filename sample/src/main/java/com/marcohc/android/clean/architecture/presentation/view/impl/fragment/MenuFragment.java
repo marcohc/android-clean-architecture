@@ -12,15 +12,16 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
+import com.marcohc.android.clean.architecture.BuildConfig;
 import com.marcohc.android.clean.architecture.MainApplication;
-import com.marcohc.android.clean.architecture.domain.model.BaseModel;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.adapter.BaseListAdapter;
+import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
-import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.BaseListAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
 import com.marcohc.helperoid.DialogHelper;
@@ -31,7 +32,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements BaseListAdapter.OnSubViewClickListener, MenuView, AdapterView.OnItemClickListener {
+public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements MenuView, AdapterView.OnItemClickListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -46,7 +47,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     ListView menuListView;
 
     private MenuFragmentListener listener;
-    private BaseListAdapter menuListViewAdapter;
+    private BaseListAdapter<MenuItemModel> menuListViewAdapter;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -65,13 +66,16 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
-        initializeComponentBehavior();
+        setUpView();
     }
 
-    public void initializeComponentBehavior() {
+    public void setUpView() {
 
-        if (MainApplication.isDevelopment()) {
+        if (MainApplication.isDevelopment() || MainApplication.isAcceptance()) {
+            isDevelopmentText.setText(String.format("%s / %s / %s", MainApplication.isDevelopment() ? "Development" : "Acceptance", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
             isDevelopmentText.setVisibility(View.VISIBLE);
+        } else {
+            isDevelopmentText.setVisibility(View.GONE);
         }
 
         initializeMenuListView();
@@ -86,7 +90,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
         }
         normalIconsTypedArray.recycle();
 
-        menuListViewAdapter = new BaseListAdapter(this, R.layout.menu_list_item, itemsList, MenuViewHolder.class);
+        menuListViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.menu_list_item, itemsList, MenuViewHolder.class);
         menuListView.setOnItemClickListener(this);
         menuListView.setAdapter(menuListViewAdapter);
     }
@@ -111,10 +115,6 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
                 dialog.dismiss();
             }
         });
-    }
-
-    @Override
-    public void onSubViewItemClick(View view, int position, BaseModel data) {
     }
 
     @Override

@@ -8,8 +8,8 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.marcohc.android.clean.architecture.domain.interactor.impl.IsUserLoggedInUseCase;
-import com.marcohc.android.clean.architecture.domain.interactor.impl.LogInUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.IsUserLoggedInUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.LogInUseCase;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;

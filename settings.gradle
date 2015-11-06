@@ -1,6 +1,2 @@
-//include ':presentation'
-//include ':domain'
-//include ':data'
-//include ':common'
-include ':sample'
 include ':library'
+include ':sample'

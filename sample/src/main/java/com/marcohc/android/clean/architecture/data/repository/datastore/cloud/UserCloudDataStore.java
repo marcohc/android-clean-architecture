@@ -4,7 +4,7 @@ import com.marcohc.android.clean.architecture.data.repository.datastore.UserData
 import com.marcohc.android.clean.architecture.data.repository.datastore.cloud.util.ServiceGenerator;
 import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
-import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

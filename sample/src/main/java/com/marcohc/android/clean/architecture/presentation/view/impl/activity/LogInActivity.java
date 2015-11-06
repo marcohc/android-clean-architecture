@@ -13,6 +13,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.LogInPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.ScreenHelper;
 

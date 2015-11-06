@@ -2,8 +2,7 @@ package com.marcohc.android.clean.architecture.data.repository.datastore.disk;
 
 import com.marcohc.android.clean.architecture.data.repository.datastore.UserDataStore;
 import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
-import com.marcohc.android.clean.architecture.domain.entity.impl.UserEntityImpl;
-import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 import com.marcohc.helperoid.ParserHelper;
 import com.marcohc.helperoid.PreferencesHelper;
 
@@ -23,7 +22,7 @@ public class UserDiskDataSource implements UserDataStore, DiskRestDataSource<Use
 
     @Override
     public UserEntity get() {
-        return ParserHelper.parseJson(PreferencesHelper.getString(USER, ""), UserEntityImpl.class);
+        return ParserHelper.parse(PreferencesHelper.getString(USER, ""), UserEntity.class);
     }
 
     @Override

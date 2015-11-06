@@ -2,7 +2,7 @@ package com.marcohc.android.clean.architecture.data.cache.impl;
 
 import com.marcohc.android.clean.architecture.BuildConfig;
 import com.marcohc.android.clean.architecture.data.cache.inter.UserCache;
-import com.marcohc.android.clean.architecture.domain.entity.inter.UserEntity;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCache;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheBuilder;
 
