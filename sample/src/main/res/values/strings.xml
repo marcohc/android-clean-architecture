@@ -1,4 +1,5 @@
 <resources>
+    <string name="google_analytics_id" translatable="false">UA-XXXXXXXX-Y</string>
     <string name="see_tutorial">See tutorial</string>
     <string name="my_profile">My profile</string>
     <string name="app_name">Clean ARQ sample</string>

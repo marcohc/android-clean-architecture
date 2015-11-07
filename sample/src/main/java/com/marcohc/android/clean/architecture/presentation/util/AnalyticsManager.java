@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.HitBuilders.EventBuilder;
 import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.Tracker;
 import com.marcohc.android.clean.architecture.MainApplication;
@@ -16,22 +15,30 @@ public class AnalyticsManager {
 
     public static void initialize(Context context) {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
+        analytics.setLocalDispatchPeriod(1800);
         analytics.getLogger().setLogLevel(LogLevel.VERBOSE);
         if (MainApplication.isDevelopment()) {
             analytics.setDryRun(true);
         }
-        // Set the log level to verbose.
-        analyticsTracker = analytics.newTracker(R.xml.global_tracker);
+        analyticsTracker = analytics.newTracker(context.getResources().getString(R.string.google_analytics_id));
+        analyticsTracker.enableExceptionReporting(true);
+        analyticsTracker.enableAdvertisingIdCollection(false);
+        analyticsTracker.enableAutoActivityTracking(true);
     }
 
     public static void trackAnalyticsEvent(String screenName, String actionName, String value) {
-        EventBuilder builder = new HitBuilders.EventBuilder();
-        builder.setCategory(screenName);
-        builder.setAction(actionName);
-        builder.setLabel(value);
-        analyticsTracker.setScreenName(screenName);
-        analyticsTracker.send(builder.build());
-        analyticsTracker.setScreenName(null);
+        try {
+            HitBuilders.EventBuilder builder = new HitBuilders.EventBuilder();
+            builder.setCategory(screenName);
+            builder.setAction(actionName);
+            builder.setLabel(value);
+            analyticsTracker.setScreenName(screenName);
+            analyticsTracker.send(builder.build());
+            analyticsTracker.setScreenName(null);
+        } catch (Exception e) {
+//            Crashlytics.log(android.util.Log.ERROR, String.format("AnalyticsHelper.trackAnalyticsEvent: %s / %s / %s", screenName, actionName, value), "Exception under control");
+//            Crashlytics.logException(e);
+        }
     }
 
     public static void trackAnalyticsEvent(String screenName, String actionName) {
