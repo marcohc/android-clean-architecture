@@ -55,4 +55,7 @@ dependencies {
     // Calligraphy
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
+    // Custom crash
+    compile 'cat.ereza:customactivityoncrash:1.4.0'
+
 }

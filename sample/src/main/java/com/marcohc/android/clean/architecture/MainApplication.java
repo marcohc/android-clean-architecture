@@ -21,6 +21,7 @@ import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
 
 import java.util.concurrent.Semaphore;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 @SuppressLint({"SimpleDateFormat", "DefaultLocale"})
@@ -66,6 +67,7 @@ public class MainApplication extends MultiDexApplication {
                 initializeAnalytics();
                 initializeRepositories();
                 initializeCache();
+                initializeCustomCrash();
 
                 // Notify load finished
                 Log.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
@@ -77,6 +79,10 @@ public class MainApplication extends MultiDexApplication {
         };
         task.execute();
 
+    }
+
+    private void initializeCustomCrash() {
+        CustomActivityOnCrash.install(this);
     }
 
     private void initializeCache() {
