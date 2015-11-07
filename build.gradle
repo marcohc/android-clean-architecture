@@ -1,9 +1,11 @@
 buildscript {
+
     repositories {
         jcenter()
         mavenCentral()
     }
-    dependencies {gi
+
+    dependencies {
         classpath 'com.android.tools.build:gradle:1.3.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
     }
@@ -18,7 +20,7 @@ allprojects {
         androidTargetSdkVersion = 23
         androidCompileSdkVersion = 23
         androidVersionCode = 1
-        androidVersionName = "1.0"
+        androidVersionName = "1.0.1"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.marcohc.android.clean.architecture.presentation.test'
     }
