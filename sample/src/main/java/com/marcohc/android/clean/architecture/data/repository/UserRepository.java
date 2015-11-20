@@ -74,7 +74,7 @@ public class UserRepository extends BusHandler {
         UserDataStoreFactory.getInstance().logIn(request.getUsername(), request.getPassword(), new RepositoryCallback<JSONObject>() {
             @Override
             public void failure(JsonDataException error) {
-                postException(new DataError(error.getMessage(), error.getCode()));
+                postDataError(new DataError(error.getMessage(), error.getCode()));
             }
 
             @Override
@@ -88,7 +88,7 @@ public class UserRepository extends BusHandler {
         UserDataStoreFactory.getInstance().getAll(new RepositoryCallback<JSONObject>() {
             @Override
             public void failure(JsonDataException error) {
-                postException(new DataError(error.getMessage(), error.getCode()));
+                postDataError(new DataError(error.getMessage(), error.getCode()));
             }
 
             @Override

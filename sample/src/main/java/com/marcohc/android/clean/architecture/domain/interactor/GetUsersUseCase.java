@@ -1,5 +1,6 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
+import com.marcohc.android.clean.architecture.common.exception.AppError;
 import com.marcohc.android.clean.architecture.domain.bus.request.GetUsersRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
@@ -53,7 +54,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
             post(createResponse());
             unregisterFromBus();
         } else {
-            handleException(responseFromServer.getError());
+            postAppError(new AppError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
         }
     }
 

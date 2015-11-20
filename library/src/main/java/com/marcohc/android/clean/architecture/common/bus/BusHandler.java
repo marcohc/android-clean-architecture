@@ -1,6 +1,7 @@
 package com.marcohc.android.clean.architecture.common.bus;
 
 import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
+import com.marcohc.android.clean.architecture.common.exception.AppError;
 import com.marcohc.android.clean.architecture.common.exception.DataError;
 
 public abstract class BusHandler {
@@ -29,28 +30,19 @@ public abstract class BusHandler {
     // * Post methods
     // ************************************************************************************************************************************************************************
 
-    protected void postException(DataError exception) {
-        BusProvider.post(exception);
+    protected void post(BusEvent busEvent) {
+        BusProvider.post(busEvent);
     }
 
     protected void postSticky(BusEvent busEvent) {
         BusProvider.postSticky(busEvent);
     }
 
-    protected void post(BusEvent busEvent) {
-        BusProvider.post(busEvent);
+    protected void postDataError(DataError dataError) {
+        BusProvider.post(dataError);
     }
 
-    // ************************************************************************************************************************************************************************
-    // * Exception handler methods
-    // ************************************************************************************************************************************************************************
-
-    public void onEventAsync(DataError exception) {
-        handleException(exception);
-    }
-
-    protected void handleException(DataError exception) {
-        postException(exception);
-        unregisterFromBus();
+    protected void postAppError(AppError appError) {
+        BusProvider.post(appError);
     }
 }

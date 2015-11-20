@@ -1,5 +1,6 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
+import com.marcohc.android.clean.architecture.common.exception.AppError;
 import com.marcohc.android.clean.architecture.domain.bus.request.LogInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.request.SaveUserRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogInDataResponse;
@@ -59,7 +60,7 @@ public class LogInUseCase extends AsynchronousUseCase {
             post(response);
             unregisterFromBus();
         } else {
-            handleException(event.getError());
+            postAppError(new AppError(event.getError().getMessage(), event.getError().getCode()));
         }
     }
 }

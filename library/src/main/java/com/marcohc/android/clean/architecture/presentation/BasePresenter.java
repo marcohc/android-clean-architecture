@@ -3,7 +3,7 @@ package com.marcohc.android.clean.architecture.presentation;
 import android.util.Log;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-import com.marcohc.android.clean.architecture.common.exception.DataError;
+import com.marcohc.android.clean.architecture.common.exception.AppError;
 import com.marcohc.android.clean.architecture.presentation.view.BaseView;
 
 @SuppressWarnings("ConstantConditions")
@@ -95,12 +95,16 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
         }
     }
 
+    public void onEventMainThread(AppError exception) {
+        handleException(exception);
+    }
+
     /**
      * Handles the error showing a fancy Toasteroid and logging the error
      *
      * @param error the data exception error
      */
-    public void handleException(DataError error) {
+    public void handleException(AppError error) {
         hideDialog();
         if (isViewAttached()) {
             showError(error.getMessage());
@@ -108,7 +112,4 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
         Log.e(LOG_TAG, "Exception: " + error.getMessage());
     }
 
-    public void onEventMainThread(DataError exception) {
-        handleException(exception);
-    }
 }
