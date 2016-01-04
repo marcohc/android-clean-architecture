@@ -19,7 +19,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private static final int SPLASH_TIME_OUT = 2000;
+    private static final int SPLASH_TIME_OUT = 1000;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods

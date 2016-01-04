@@ -1,45 +1,34 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
-import com.marcohc.android.clean.architecture.presentation.presenter.impl.ProfilePresenterImpl;
-import com.marcohc.android.clean.architecture.presentation.presenter.inter.ProfilePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.impl.UsersPresenterImpl;
+import com.marcohc.android.clean.architecture.presentation.presenter.inter.UsersPresenter;
+import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
 import com.marcohc.android.clean.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
+import com.marcohc.android.clean.architecture.presentation.view.impl.activity.UserDetailActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.UserViewHolder;
-import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileView;
-import com.marcohc.helperoid.StringHelper;
-import com.squareup.picasso.Picasso;
+import com.marcohc.android.clean.architecture.presentation.view.inter.UsersView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 
-public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresenter> implements ProfileView, AdapterView.OnItemClickListener {
+public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, AdapterView.OnItemClickListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
-    @Bind(R.id.userImage)
-    ImageView userImage;
-
-    @Bind(R.id.usernameText)
-    TextView usernameText;
-
-    @Bind(R.id.addressText)
-    TextView addressText;
-
-    @Bind(R.id.dateOfBirthAndEmailText)
-    TextView dateOfBirthAndEmailText;
 
     @Bind(R.id.listView)
     ListView listView;
@@ -56,12 +45,12 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.profile_fragment;
+        return R.layout.users_fragment;
     }
 
     @Override
-    public ProfilePresenter createPresenter() {
-        return new ProfilePresenterImpl();
+    public UsersPresenter createPresenter() {
+        return new UsersPresenterImpl();
     }
 
     @Override
@@ -83,8 +72,10 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        user = (UserModel) listViewAdapter.getItem(position);
-        setUserData(user);
+        user = listViewAdapter.getItem(position);
+        Intent intent = new Intent(getActivity(), UserDetailActivity.class);
+        intent.putExtra(NavigationManager.USER, user.toJsonString());
+        startActivity(intent);
     }
 
     // ************************************************************************************************************************************************************************
@@ -109,12 +100,4 @@ public class ProfileFragment extends BaseMvpFragment<ProfileView, ProfilePresent
     // * UI methods
     // ************************************************************************************************************************************************************************
 
-    private void setUserData(UserModel user) {
-        if (!StringHelper.isEmpty(user.getPicture().getThumbnail())) {
-            Picasso.with(getActivity()).load(user.getPicture().getThumbnail()).into(userImage);
-        }
-        usernameText.setText(user.getUsername());
-        addressText.setText(user.getLocation().getStreet());
-        dateOfBirthAndEmailText.setText(user.getEmail());
-    }
 }

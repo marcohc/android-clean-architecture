@@ -15,7 +15,6 @@ import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager
 import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
 import com.marcohc.helperoid.PreferencesHelper;
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.picasso.Picasso;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
 
@@ -63,7 +62,6 @@ public class MainApplication extends MultiDexApplication {
                 initializeNotificationManager();
                 initializePreferences();
                 initializeCalligraphy();
-                initializePicasso();
                 initializeAnalytics();
                 initializeRepositories();
                 initializeCache();
@@ -130,11 +128,6 @@ public class MainApplication extends MultiDexApplication {
 
     private void initializePreferences() {
         PreferencesHelper.initialize(this, PreferencesConstants.SHARED_PREFERENCES_NAME);
-    }
-
-    private void initializePicasso() {
-        Picasso picasso = Picasso.with(getApplicationContext());
-        picasso.setIndicatorsEnabled(isDevelopment());
     }
 
     private void initializeCalligraphy() {

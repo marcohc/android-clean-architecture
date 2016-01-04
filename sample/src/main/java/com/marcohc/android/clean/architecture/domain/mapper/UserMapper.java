@@ -25,7 +25,7 @@ public class UserMapper extends BaseMapper {
     }
 
     public static UserModel parseUser(String jsonResponse) {
-        return transform(ParserHelper.parse(jsonResponse, UserEntity.class), UserModel.class);
+        return ParserHelper.parse(jsonResponse, UserModel.class);
     }
 
     public static UserModel parse(UserEntity user) {

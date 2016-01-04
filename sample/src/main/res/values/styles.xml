@@ -30,28 +30,42 @@
         <item name="android:textColor">@color/dark_gray</item>
     </style>
 
-    <style name="menuItemText" parent="mediumBigText">
+    <style name="menuItemText" parent="mediumToBigText">
         <item name="fontPath">fonts/Roboto-Light.ttf</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="button">
+        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
+    </style>
+
+    <!-- Standard font sizes -->
+
     <style name="extraHugeText">
-        <item name="android:textSize">38sp</item>
+        <item name="android:textSize">36sp</item>
     </style>
 
     <style name="hugeText">
         <item name="android:textSize">32sp</item>
     </style>
 
+    <style name="bigToHugeText">
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <style name="bigText">
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="mediumBigText">
-        <item name="android:textSize">18sp</item>
+    <style name="mediumToBigText">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="mediumText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="smallToMediumText">
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -59,16 +73,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="smallToMiniText">
+    <style name="miniToSmallText">
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="miniText">
         <item name="android:textSize">10sp</item>
-    </style>
-
-    <style name="button">
-        <item name="fontPath">fonts/Roboto-Medium.ttf</item>
     </style>
 
 </resources>

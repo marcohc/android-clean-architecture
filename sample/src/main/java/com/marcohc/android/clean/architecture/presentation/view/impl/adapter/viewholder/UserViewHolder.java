@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.adapter.ViewHolderAbstractClass;
 import com.marcohc.helperoid.StringHelper;
-import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
 
@@ -36,7 +36,7 @@ public class UserViewHolder extends ViewHolderAbstractClass<UserModel> {
 
         String image = model.getPicture().getThumbnail();
         if (!StringHelper.isEmpty(image)) {
-            Picasso.with(context).load(image).error(R.drawable.im_user_place_holder).fit().into(userImage);
+            Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(userImage);
         } else {
             userImage.setImageResource(R.drawable.im_user_place_holder);
         }

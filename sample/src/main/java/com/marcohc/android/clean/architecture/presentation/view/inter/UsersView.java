@@ -5,7 +5,7 @@ import com.marcohc.android.clean.architecture.presentation.view.BaseView;
 
 import java.util.List;
 
-public interface ProfileView extends BaseView {
+public interface UsersView extends BaseView {
 
     void loadData(List<UserModel> modelList);
 }

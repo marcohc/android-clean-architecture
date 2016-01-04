@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding">
+
+        <TextView
+            android:id="@+id/nameText"
+            style="@style/smallToMediumText"
+            fontPath="fonts/Roboto-Medium.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="18"
+            android:text="Store name"
+            android:textStyle="bold" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/pointsText"-->
+            <!--style="@style/smallToMediumText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="X Points" />-->
+    </LinearLayout>
+
+</RelativeLayout>

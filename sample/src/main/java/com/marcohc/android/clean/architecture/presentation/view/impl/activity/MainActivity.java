@@ -26,17 +26,17 @@ import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainP
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.MenuFragment;
-import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.ProfileFragment;
+import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.MyMapFragment;
+import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.UsersFragment;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MainView;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MenuFragment.MenuFragmentListener, MainView {
+public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MainView {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -59,10 +59,9 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     private MenuItem menuItem2;
     private int positionToGo;
     private ActionBarDrawerToggle mDrawerToggle;
-    private MenuFragment menuFragment;
     private BaseMvpFragment currentFragment;
     private BaseMvpFragment lastFragment;
-    private final int INITIAL_POSITION = NavigationManager.SCREENS.POSITION_1.ordinal();
+    private final int INITIAL_POSITION = NavigationManager.SCREENS.USERS_LIST.ordinal();
     private ActionBar actionBar;
 
     // ************************************************************************************************************************************************************************
@@ -77,46 +76,37 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.main_activity);
-
         ButterKnife.bind(this);
-
-        findFragmentsById();
-
-        initializeComponentBehavior();
+        setUpActionBar();
+        setUpView();
     }
 
-    private void findFragmentsById() {
-        menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
-        menuFragment.setListener(this);
+    private void setUpActionBar() {
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
     }
 
-    public void initializeComponentBehavior() {
-
-        initializeActionBar();
-
-        initializeNavigationDrawer();
-
+    public void setUpView() {
+        setUpNavigationDrawer();
         menuClick(INITIAL_POSITION);
-
         presenter.onViewCreated();
     }
 
-    private void initializeNavigationDrawer() {
+    private void setUpNavigationDrawer() {
 
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
 
             public void onDrawerClosed(View view) {
-
                 super.onDrawerClosed(view);
-
                 setMenuItemsVisible(true);
-
+                // Wait for the drawer is closed to realize action
                 if (view.getId() == R.id.leftDrawerContainer) {
-                    // Wait for the drawer is closed to realize action
                     if (positionToGo != -1) {
                         menuClick(positionToGo);
                         positionToGo = -1;
@@ -131,132 +121,12 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 mDrawerToggle.syncState();
             }
         };
-
-        // Set the drawer toggle as the DrawerListener
         drawerLayout.setDrawerListener(mDrawerToggle);
-
     }
 
     // ************************************************************************************************************************************************************************
     // * Event handler methods
     // ************************************************************************************************************************************************************************
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (currentFragment != null) {
-            currentFragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    // MenuMvpFragment events
-
-    @Override
-    public void onMenuItemClick(int position) {
-        toggleLeftDrawer();
-        positionToGo = position;
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Auxiliary UI methods
-    // ************************************************************************************************************************************************************************
-
-    // Fragment loading methods
-
-    private void menuClick(int position) {
-
-        // Update the main content by replacing fragments
-        currentFragment = getFragmentByPosition(position);
-
-        setTitleByPosition(NavigationManager.SCREENS.values()[position]);
-
-        NavigationManager.lastViewPosition = NavigationManager.currentViewPosition;
-        NavigationManager.currentViewPosition = position;
-
-        Log.v(NavigationManager.LOG_TAG, "Position to go: " + position);
-        Log.v(NavigationManager.LOG_TAG, "NavigationManager.lastViewPosition: " + NavigationManager.lastViewPosition);
-        Log.v(NavigationManager.LOG_TAG, "NavigationManager.currentViewPosition: " + NavigationManager.currentViewPosition);
-
-        if (currentFragment != null) {
-
-            if (lastFragment != null && lastFragment == currentFragment) {
-                currentFragment = refreshFragment(position);
-            } else {
-                loadFragment(currentFragment);
-            }
-
-            lastFragment = currentFragment;
-
-            setTitle(currentFragment.getTag());
-
-            // Select menu item
-            menuFragment.setSelectedMenuPosition(position);
-
-        } else {
-            currentFragment = lastFragment;
-            switch (NavigationManager.SCREENS.values()[position]) {
-                case POSITION_2:
-                    Intent intent = new Intent(this, TutorialActivity.class);
-                    startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
-                    break;
-            }
-        }
-    }
-
-    private void setTitleByPosition(NavigationManager.SCREENS screens) {
-        switch (screens) {
-            case POSITION_1:
-                actionBar.setTitle(getString(R.string.my_profile));
-                break;
-        }
-    }
-
-    private void loadFragment(Fragment currentFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contentFrameLayout, currentFragment);
-        fragmentTransaction.commitAllowingStateLoss();
-    }
-
-    private BaseMvpFragment refreshFragment(int position) {
-        fragmentsMap.remove(position);
-        BaseMvpFragment currentFragment = getFragmentByPosition(position);
-        loadFragment(currentFragment);
-        return currentFragment;
-    }
-
-    private BaseMvpFragment getFragmentByPosition(int position) {
-
-        if (fragmentsMap == null || fragmentsMap.isEmpty()) {
-            fragmentsMap = new HashMap<>();
-            fragmentsMap.put(NavigationManager.SCREENS.POSITION_1.ordinal(), new ProfileFragment());
-        }
-        return fragmentsMap.get(position);
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Action bar methods
-    // ************************************************************************************************************************************************************************
-
-    private void initializeActionBar() {
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -290,10 +160,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         return false;
     }
 
-    // ************************************************************************************************************************************************************************
-    // * UI auxiliary methods
-    // ************************************************************************************************************************************************************************
-
     @Override
     public void onBackPressed() {
 
@@ -306,6 +172,124 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         else {
             finish();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v(NavigationManager.LOG_TAG, String.format("MainActivity.onActivityResult: {requestCode: %d, resultCode: %d, data: %s}", requestCode, resultCode, data != null ? data.toString() : ""));
+        if (currentFragment != null) {
+            currentFragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * View handler methods
+    // ************************************************************************************************************************************************************************
+
+    @Override
+    public void onMenuItemClick(int position) {
+        positionToGo = position;
+        toggleLeftDrawer();
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * Auxiliary UI methods
+    // ************************************************************************************************************************************************************************
+
+    // Fragment loading methods
+
+    private void menuClick(int position) {
+
+        // Update the main content by replacing fragments
+        currentFragment = getFragment(position);
+
+        setTitleByPosition(NavigationManager.SCREENS.values()[position]);
+
+        NavigationManager.lastViewPosition = NavigationManager.currentViewPosition;
+        NavigationManager.currentViewPosition = position;
+
+        if (currentFragment != null) {
+
+            if (lastFragment != null && lastFragment == currentFragment) {
+                currentFragment = refreshFragment(position);
+            } else {
+                loadFragment(currentFragment);
+            }
+
+            lastFragment = currentFragment;
+
+            setTitle(currentFragment.getTag());
+
+            // Select menu item
+            presenter.setSelectedMenuPosition(position);
+
+        } else {
+            currentFragment = lastFragment;
+            switch (NavigationManager.SCREENS.values()[position]) {
+                case TUTORIAL:
+                    Intent intent = new Intent(this, TutorialActivity.class);
+                    startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
+                    break;
+            }
+        }
+    }
+
+    private void setTitleByPosition(NavigationManager.SCREENS screens) {
+        switch (screens) {
+            case USERS_LIST:
+                actionBar.setTitle(getString(R.string.users_list));
+                break;
+            case TUTORIAL:
+                actionBar.setTitle(getString(R.string.tutorial));
+                break;
+            case MAP:
+                actionBar.setTitle(getString(R.string.map));
+                break;
+        }
+    }
+
+    private void loadFragment(Fragment currentFragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contentFrameLayout, currentFragment);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    private BaseMvpFragment refreshFragment(int position) {
+        fragmentsMap.remove(position);
+        BaseMvpFragment currentFragment = getFragment(position);
+        loadFragment(currentFragment);
+        return currentFragment;
+    }
+
+    private BaseMvpFragment getFragment(int position) {
+        if (fragmentsMap == null || fragmentsMap.isEmpty()) {
+            fragmentsMap = new WeakHashMap<>();
+        }
+
+        if (!fragmentsMap.containsKey(position)) {
+            switch (NavigationManager.SCREENS.values()[position]) {
+                case USERS_LIST:
+                    fragmentsMap.put(position, new UsersFragment());
+                    break;
+                case MAP:
+                    fragmentsMap.put(position, new MyMapFragment());
+                    break;
+            }
+        }
+        return fragmentsMap.get(position);
     }
 
     // **********************************************************************************************************************************************************************

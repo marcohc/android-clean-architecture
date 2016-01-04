@@ -1,40 +1,39 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
-import com.marcohc.android.clean.architecture.common.bus.BusProvider;
-import com.marcohc.android.clean.architecture.domain.bus.event.MenuItemClickEvent;
-import com.marcohc.android.clean.architecture.domain.bus.event.MenuSelectItemEvent;
-import com.marcohc.android.clean.architecture.domain.interactor.LogOutUseCase;
+import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
+import com.marcohc.android.clean.architecture.domain.interactor.GetUserUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.GetUsersUseCase;
+import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.BasePresenter;
-import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
-import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
+import com.marcohc.android.clean.architecture.presentation.presenter.inter.UsersPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.inter.UsersView;
 
 @SuppressWarnings("ConstantConditions")
-public class MenuPresenterImpl extends BasePresenter<MenuView> implements MenuPresenter {
+public class UsersPresenterImpl extends BasePresenter<UsersView> implements UsersPresenter {
 
     // ************************************************************************************************************************************************************************
     // * View handler methods
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void onMenuItemClick(int position) {
-        BusProvider.post(new MenuItemClickEvent(position));
+    public void onViewCreated() {
+        showLoadingDialog();
+        new GetUsersUseCase().execute();
     }
 
     @Override
-    public void onLogOutContainerClick() {
-        if (isViewAttached()) {
-            getView().goToLogin();
-            new LogOutUseCase().execute();
-        }
+    public UserModel getUser() {
+        return new GetUserUseCase().execute();
     }
 
     // ************************************************************************************************************************************************************************
-    // * Presenter methods
+    // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
-    public void onEventMainThread(MenuSelectItemEvent event) {
+    public void onEventMainThread(GetUsersDomainResponse event) {
+        hideDialog();
         if (isViewAttached()) {
-            getView().setSelectedMenuItem(event.getPosition());
+            getView().loadData(event.getUsersList());
         }
     }
 }

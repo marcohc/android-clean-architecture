@@ -6,5 +6,5 @@ public interface MenuView extends BaseView {
 
     void goToLogin();
 
-    void dispatchMenuItemClick(int position);
+    void setSelectedMenuItem(int position);
 }

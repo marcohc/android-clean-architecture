@@ -7,4 +7,5 @@ public interface MainPresenter extends MvpPresenter<MainView> {
 
     void onViewCreated();
 
+    void setSelectedMenuPosition(int position);
 }

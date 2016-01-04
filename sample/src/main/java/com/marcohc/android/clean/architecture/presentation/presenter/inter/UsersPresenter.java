@@ -2,9 +2,9 @@ package com.marcohc.android.clean.architecture.presentation.presenter.inter;
 
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileView;
+import com.marcohc.android.clean.architecture.presentation.view.inter.UsersView;
 
-public interface ProfilePresenter extends MvpPresenter<ProfileView> {
+public interface UsersPresenter extends MvpPresenter<UsersView> {
 
     void onViewCreated();
 

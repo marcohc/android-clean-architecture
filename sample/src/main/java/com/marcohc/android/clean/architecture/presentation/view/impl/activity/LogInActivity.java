@@ -2,6 +2,8 @@ package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +42,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
+    @NonNull
     @Override
     public LogInPresenter createPresenter() {
         return new LogInPresenterImpl();
@@ -47,19 +50,18 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.login_activity);
-
-        initializeActionBar();
-
+        setUpActionBar();
     }
 
-    private void initializeActionBar() {
+    private void setUpActionBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
+        }
     }
 
     @Override
@@ -77,7 +79,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
         MenuItem menuItem2 = menu.findItem(R.id.item_2);
         menuItem2.setVisible(true);
         menuItem2.setEnabled(true);
-        menuItem2.setIcon(R.drawable.abc_ic_go_search_api_mtrl_alpha);
+        menuItem2.setIcon(R.drawable.ic_action_action_done);
         menuItem2.setTitle(R.string.accept);
         return true;
     }

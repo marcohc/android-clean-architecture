@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding"
             android:layout_marginRight="@dimen/padding"
-            android:src="@drawable/abc_ic_commit_search_api_mtrl_alpha" />
+            android:src="@drawable/log_out_selector" />
 
         <TextView
             android:id="@+id/menuText"
@@ -39,7 +39,7 @@
             android:layout_toRightOf="@+id/menuImage"
             android:gravity="center_vertical"
             android:text="@string/log_out"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black" />
 
     </RelativeLayout>
 

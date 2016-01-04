@@ -1,29 +1,32 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
+import android.location.Location;
+
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
-import com.marcohc.android.clean.architecture.domain.interactor.GetUserUseCase;
 import com.marcohc.android.clean.architecture.domain.interactor.GetUsersUseCase;
-import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.presentation.BasePresenter;
-import com.marcohc.android.clean.architecture.presentation.presenter.inter.ProfilePresenter;
-import com.marcohc.android.clean.architecture.presentation.view.inter.ProfileView;
+import com.marcohc.android.clean.architecture.presentation.presenter.inter.MapPresenter;
+import com.marcohc.android.clean.architecture.presentation.view.inter.MapView;
 
 @SuppressWarnings("ConstantConditions")
-public class ProfilePresenterImpl extends BasePresenter<ProfileView> implements ProfilePresenter {
+public class MapPresenterImpl extends BasePresenter<MapView> implements MapPresenter {
 
     // ************************************************************************************************************************************************************************
     // * View handler methods
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void onViewCreated() {
-        showLoadingDialog();
-        new GetUsersUseCase().execute();
+    public void onMapIsReady(Location location, int sizeOfClusterItem) {
+        if (isViewAttached()) {
+            onMapRefresh(location, sizeOfClusterItem);
+        }
     }
 
     @Override
-    public UserModel getUser() {
-        return new GetUserUseCase().execute();
+    public void onMapRefresh(Location location, int sizeOfClusterItem) {
+        if (isViewAttached()) {
+            new GetUsersUseCase().execute();
+        }
     }
 
     // ************************************************************************************************************************************************************************
@@ -31,9 +34,9 @@ public class ProfilePresenterImpl extends BasePresenter<ProfileView> implements 
     // ************************************************************************************************************************************************************************
 
     public void onEventMainThread(GetUsersDomainResponse event) {
-        hideDialog();
         if (isViewAttached()) {
-            getView().loadData(event.getUsersList());
+            getView().setMapItems(event.getUsersList());
         }
     }
+
 }

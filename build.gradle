@@ -15,9 +15,9 @@ allprojects {
 
     ext {
         androidApplicationId = 'com.marcohc.android.clean.architecture'
-        androidBuildToolsVersion = "23.0.1"
+        androidBuildToolsVersion = "23.0.2"
         androidMinSdkVersion = 15
-        androidTargetSdkVersion = 23
+        androidTargetSdkVersion = 22
         androidCompileSdkVersion = 23
         androidVersionCode = 1
         androidVersionName = "1.1.1"

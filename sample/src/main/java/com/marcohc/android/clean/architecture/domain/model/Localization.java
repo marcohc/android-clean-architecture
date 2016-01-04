@@ -9,7 +9,7 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Location extends BaseModel {
+public class Localization extends BaseModel {
 
     private String street;
     private String city;

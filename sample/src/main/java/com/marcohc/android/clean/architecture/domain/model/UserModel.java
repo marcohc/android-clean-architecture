@@ -1,19 +1,23 @@
 
 package com.marcohc.android.clean.architecture.domain.model;
 
+import android.location.Location;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+import com.marcohc.android.clean.architecture.presentation.util.LocationHelper;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class UserModel extends BaseModel {
+public class UserModel extends BaseModel implements ClusterItem {
 
     private String gender;
     private Name name;
-    private Location location;
+    private Localization location;
     private String email;
     private String username;
     private String password;
@@ -25,11 +29,20 @@ public class UserModel extends BaseModel {
     private String dob;
     private String phone;
     private String cell;
-    private String TFN;
+    private String tfn;
     private Picture picture;
     private String version;
-    private String nationality;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @Override
+    public LatLng getPosition() {
+        Random random = new Random(System.currentTimeMillis());
+        Location location = LocationHelper.getLatestLocation();
+        if (location != null) {
+            return new LatLng(location.getLatitude() + (double) (random.nextInt(10) / 100), location.getLongitude());
+        } else {
+            return null;
+        }
+    }
 
     /**
      * @return The gender
@@ -62,14 +75,14 @@ public class UserModel extends BaseModel {
     /**
      * @return The location
      */
-    public Location getLocation() {
+    public Localization getLocation() {
         return location;
     }
 
     /**
      * @param location The location
      */
-    public void setLocation(Location location) {
+    public void setLocation(Localization location) {
         this.location = location;
     }
 
@@ -228,17 +241,17 @@ public class UserModel extends BaseModel {
     }
 
     /**
-     * @return The TFN
+     * @return The tfn
      */
-    public String getTFN() {
-        return TFN;
+    public String getTfn() {
+        return tfn;
     }
 
     /**
-     * @param TFN The TFN
+     * @param tfn The tfn
      */
-    public void setTFN(String TFN) {
-        this.TFN = TFN;
+    public void setTfn(String tfn) {
+        this.tfn = tfn;
     }
 
     /**
@@ -267,28 +280,6 @@ public class UserModel extends BaseModel {
      */
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    /**
-     * @return The nationality
-     */
-    public String getNationality() {
-        return nationality;
-    }
-
-    /**
-     * @param nationality The nationality
-     */
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

@@ -21,7 +21,6 @@ import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuP
 import com.marcohc.android.clean.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
-import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
 import com.marcohc.helperoid.DialogHelper;
@@ -31,23 +30,23 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
-public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements MenuView, AdapterView.OnItemClickListener {
+public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements MenuView {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    // Header
+    // View
+
     @Bind(R.id.isDevelopmentText)
     TextView isDevelopmentText;
 
-    // Content
     @Bind(R.id.menuListView)
     ListView menuListView;
 
-    private MenuFragmentListener listener;
-    private BaseListAdapter<MenuItemModel> menuListViewAdapter;
+    // Class
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -70,18 +69,11 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     public void setUpView() {
-
-        if (MainApplication.isDevelopment() || MainApplication.isAcceptance()) {
-            isDevelopmentText.setText(String.format("%s / %s / %s", MainApplication.isDevelopment() ? "Development" : "Acceptance", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
-            isDevelopmentText.setVisibility(View.VISIBLE);
-        } else {
-            isDevelopmentText.setVisibility(View.GONE);
-        }
-
-        initializeMenuListView();
+        setDevelopmentText();
+        setUpMenuListView();
     }
 
-    private void initializeMenuListView() {
+    private void setUpMenuListView() {
         List<MenuItemModel> itemsList = new ArrayList<>();
         String[] textsStringArray = getResources().getStringArray(R.array.menu_text_array);
         TypedArray normalIconsTypedArray = getResources().obtainTypedArray(R.array.menu_normal_icons_array);
@@ -90,14 +82,19 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
         }
         normalIconsTypedArray.recycle();
 
-        menuListViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.menu_list_item, itemsList, MenuViewHolder.class);
-        menuListView.setOnItemClickListener(this);
-        menuListView.setAdapter(menuListViewAdapter);
+        menuListView.setAdapter(new BaseListAdapter<>(getActivity(), R.layout.menu_list_item, itemsList, MenuViewHolder.class));
     }
 
     // ************************************************************************************************************************************************************************
     // * Event handler methods
     // ************************************************************************************************************************************************************************
+
+    @OnItemClick(R.id.menuListView)
+    protected void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+        view.setSelected(true);
+        menuListView.setItemChecked(position, true);
+        presenter.onMenuItemClick(position);
+    }
 
     @OnClick(R.id.logOutContainer)
     protected void onLogOutContainerClick() {
@@ -117,13 +114,6 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        view.setSelected(true);
-        menuListView.setItemChecked(position, true);
-        presenter.onMenuItemClick(position);
-    }
-
     // ************************************************************************************************************************************************************************
     // * View interface methods
     // ************************************************************************************************************************************************************************
@@ -137,8 +127,8 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     @Override
-    public void dispatchMenuItemClick(int position) {
-        listener.onMenuItemClick(position);
+    public void setSelectedMenuItem(int position) {
+        menuListView.setItemChecked(position, true);
     }
 
     // ************************************************************************************************************************************************************************
@@ -150,15 +140,12 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
         return getActivity();
     }
 
-    public void setListener(MainActivity listener) {
-        this.listener = listener;
-    }
-
-    public void setSelectedMenuPosition(int position) {
-        menuListView.setItemChecked(position, true);
-    }
-
-    public interface MenuFragmentListener {
-        void onMenuItemClick(int position);
+    private void setDevelopmentText() {
+        if (MainApplication.isDevelopment() || MainApplication.isAcceptance()) {
+            isDevelopmentText.setText(String.format("%s / %s / %s", MainApplication.isDevelopment() ? "Development" : "Acceptance", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+            isDevelopmentText.setVisibility(View.VISIBLE);
+        } else {
+            isDevelopmentText.setVisibility(View.GONE);
+        }
     }
 }
