@@ -15,14 +15,14 @@ import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
 import com.marcohc.android.clean.architecture.BuildConfig;
 import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
-import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.android.clean.architecture.presentation.view.impl.activity.LogInActivity;
+import com.marcohc.android.clean.architecture.presentation.view.impl.activity.AuthenticationActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.DialogHelper;
 
 import java.util.ArrayList;
@@ -119,8 +119,8 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void goToLogin() {
-        Intent intent = new Intent(getActivity(), LogInActivity.class);
+    public void gotToAuthentication() {
+        Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();

@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.MainActivity;
+import com.marcohc.android.clean.architecture.sample.R;
 
 import java.io.IOException;
+
+import timber.log.Timber;
 
 public class NotificationManager {
 
@@ -73,7 +74,7 @@ public class NotificationManager {
                     }
                     registrationId = gcm.register(APPLICATION_GCM_ID);
                 } catch (IOException ex) {
-                    Log.e(LOG_TAG, ex.getMessage());
+                    Timber.e(LOG_TAG, ex.getMessage());
                 }
             }
         }).start();

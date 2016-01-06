@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.UsersPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.UsersPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;

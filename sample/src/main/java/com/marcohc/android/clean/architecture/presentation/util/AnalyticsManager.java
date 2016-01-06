@@ -7,7 +7,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.Tracker;
 import com.marcohc.android.clean.architecture.MainApplication;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 
 public class AnalyticsManager {
 
@@ -36,7 +36,7 @@ public class AnalyticsManager {
             analyticsTracker.send(builder.build());
             analyticsTracker.setScreenName(null);
         } catch (Exception e) {
-//            Crashlytics.log(android.util.Log.ERROR, String.format("AnalyticsHelper.trackAnalyticsEvent: %s / %s / %s", screenName, actionName, value), "Exception under control");
+//            Crashlytics.log(android.util.Timber.ERROR, String.format("AnalyticsHelper.trackAnalyticsEvent: %s / %s / %s", screenName, actionName, value), "Exception under control");
 //            Crashlytics.logException(e);
         }
     }

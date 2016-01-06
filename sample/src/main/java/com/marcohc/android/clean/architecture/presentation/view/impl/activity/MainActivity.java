@@ -13,14 +13,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
@@ -29,12 +27,14 @@ import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvp
 import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.MyMapFragment;
 import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.UsersFragment;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MainView;
+import com.marcohc.android.clean.architecture.sample.R;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MainView {
 
@@ -176,7 +176,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v(NavigationManager.LOG_TAG, String.format("MainActivity.onActivityResult: {requestCode: %d, resultCode: %d, data: %s}", requestCode, resultCode, data != null ? data.toString() : ""));
+        Timber.v(NavigationManager.LOG_TAG, String.format("MainActivity.onActivityResult: {requestCode: %d, resultCode: %d, data: %s}", requestCode, resultCode, data != null ? data.toString() : ""));
         if (currentFragment != null) {
             currentFragment.onActivityResult(requestCode, resultCode, data);
         }
@@ -212,6 +212,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     private void menuClick(int position) {
 
+        switch (NavigationManager.SCREENS.values()[position]) {
+            case TUTORIAL:
+                Intent intent = new Intent(this, TutorialActivity.class);
+                startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
+                return;
+        }
+
         // Update the main content by replacing fragments
         currentFragment = getFragment(position);
 
@@ -235,14 +242,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             // Select menu item
             presenter.setSelectedMenuPosition(position);
 
-        } else {
-            currentFragment = lastFragment;
-            switch (NavigationManager.SCREENS.values()[position]) {
-                case TUTORIAL:
-                    Intent intent = new Intent(this, TutorialActivity.class);
-                    startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
-                    break;
-            }
         }
     }
 
@@ -306,7 +305,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 setMenuItemsVisible(false);
             }
         } catch (Exception e) {
-            Log.wtf(NavigationManager.LOG_TAG, "Exception in toggleLeftDrawer: " + e.getMessage());
+            Timber.wtf(NavigationManager.LOG_TAG, "Exception in toggleLeftDrawer: " + e.getMessage());
         }
     }
 

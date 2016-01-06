@@ -12,12 +12,15 @@ import com.marcohc.android.clean.architecture.domain.bus.request.IsUserLoggedInR
 import com.marcohc.android.clean.architecture.domain.bus.request.LogInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.request.LogOutRequest;
 import com.marcohc.android.clean.architecture.domain.bus.request.SaveUserRequest;
+import com.marcohc.android.clean.architecture.domain.bus.request.SignUpRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.GetUserDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.IsFirstTimeInTheAppDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.IsUserLoggedInDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogInDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogOutDataResponse;
+import com.marcohc.android.clean.architecture.domain.bus.response.data.SaveUserDataResponse;
+import com.marcohc.android.clean.architecture.domain.bus.response.data.SignUpDataResponse;
 
 import org.json.JSONObject;
 
@@ -70,7 +73,7 @@ public class UserRepository extends BusHandler {
     // * Asynchronous event handler methods
     // ************************************************************************************************************************************************************************
 
-    public void onEventBackgroundThread(LogInRequest request) {
+    public void onEventAsync(LogInRequest request) {
         UserDataStoreFactory.getInstance().logIn(request.getUsername(), request.getPassword(), new RepositoryCallback<JSONObject>() {
             @Override
             public void failure(JsonDataException error) {
@@ -84,7 +87,22 @@ public class UserRepository extends BusHandler {
         });
     }
 
-    public void onEventBackgroundThread(GetUsersRequest request) {
+    public void onEventAsync(SignUpRequest request) {
+        UserDataStoreFactory.getInstance().signUp(request.getUsername(), request.getPassword(),
+                new RepositoryCallback<JSONObject>() {
+                    @Override
+                    public void failure(JsonDataException error) {
+                        postDataError(new DataError(error.getMessage(), error.getCode()));
+                    }
+
+                    @Override
+                    public void success(JSONObject response) {
+                        post(new SignUpDataResponse(response));
+                    }
+                });
+    }
+
+    public void onEventAsync(GetUsersRequest request) {
         UserDataStoreFactory.getInstance().getAll(new RepositoryCallback<JSONObject>() {
             @Override
             public void failure(JsonDataException error) {
@@ -98,8 +116,9 @@ public class UserRepository extends BusHandler {
         });
     }
 
-    public void onEventBackgroundThread(SaveUserRequest request) {
+    public void onEventAsync(SaveUserRequest request) {
         UserDataStoreFactory.getInstance().put(request.getUser());
+        post(new SaveUserDataResponse());
     }
 
 }

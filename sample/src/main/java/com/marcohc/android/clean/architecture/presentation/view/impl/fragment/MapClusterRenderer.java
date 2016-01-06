@@ -23,7 +23,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.StringHelper;
 
 import java.util.Hashtable;

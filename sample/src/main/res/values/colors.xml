@@ -8,6 +8,8 @@
     <color name="dark_blue_button">#44595b</color>
     <color name="list_item_selected">#86b9bf</color>
     <color name="dark_gray">#ff515658</color>
+    <color name="gray_hint_font">#9e9e9e</color>
+    <color name="gray_font">#404040</color>
 
     <!-- AppMsg -->
     <color name="alert">#E56248</color>

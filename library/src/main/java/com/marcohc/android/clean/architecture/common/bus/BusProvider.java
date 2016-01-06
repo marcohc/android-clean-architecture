@@ -1,13 +1,11 @@
 package com.marcohc.android.clean.architecture.common.bus;
 
-import android.util.Log;
-
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.EventBusException;
+import timber.log.Timber;
 
 public final class BusProvider {
 
-    private static final String LOG_TAG = "Event";
     private static final EventBus BUS = EventBus.getDefault();
 
     public static void post(Object event) {
@@ -32,7 +30,7 @@ public final class BusProvider {
         try {
             getInstance().register(subscriber);
         } catch (EventBusException e) {
-            Log.i(BusProvider.LOG_TAG, String.format("register: %s", e.getMessage()));
+            Timber.i("register: %s", e.getMessage());
             getInstance().unregister(subscriber);
             getInstance().register(subscriber);
         }
@@ -42,7 +40,7 @@ public final class BusProvider {
         try {
             getInstance().registerSticky(subscriber);
         } catch (EventBusException e) {
-            Log.i(BusProvider.LOG_TAG, String.format("registerSticky: %s", e.getMessage()));
+            Timber.i("registerSticky: %s", e.getMessage());
             getInstance().unregister(subscriber);
             getInstance().registerSticky(subscriber);
         }
@@ -63,13 +61,13 @@ public final class BusProvider {
     private static void log(Object event) {
         String name = event.getClass().getSimpleName();
         if (name.contains("Request")) {
-            Log.v(BusProvider.LOG_TAG, String.format("Request: %s", name));
+            Timber.v("Request: %s", name);
         } else if (name.contains("DataResponse")) {
-            Log.v(BusProvider.LOG_TAG, String.format("DataResponse: %s", name));
+            Timber.v("DataResponse: %s", name);
         } else if (name.contains("DomainResponse")) {
-            Log.v(BusProvider.LOG_TAG, String.format("DomainResponse: %s", name));
+            Timber.v("DomainResponse: %s", name);
         } else {
-            Log.v(BusProvider.LOG_TAG, String.format("Posting to bus: %s", name));
+            Timber.v("Posting to bus: %s", name);
         }
     }
 }

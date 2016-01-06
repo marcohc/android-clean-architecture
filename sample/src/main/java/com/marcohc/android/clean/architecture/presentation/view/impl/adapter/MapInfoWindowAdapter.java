@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.view.impl.fragment.MapClusterRenderer;
 
 import java.lang.ref.WeakReference;

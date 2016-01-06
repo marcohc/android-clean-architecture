@@ -1,11 +1,11 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.common.bus.response.data.BaseDataResponse;
+import com.marcohc.android.clean.architecture.data.cache.impl.UserCache;
 import com.marcohc.android.clean.architecture.domain.bus.request.LogOutRequest;
+import com.marcohc.android.clean.architecture.domain.bus.response.data.LogOutDataResponse;
+import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogOutDomainResponse;
 
-public class LogOutUseCase extends SynchronousUseCase {
-
-    private BaseDataResponse response;
+public class LogOutUseCase extends AsynchronousUseCase {
 
     // ************************************************************************************************************************************************************************
     // * Bus events factory methods
@@ -16,21 +16,18 @@ public class LogOutUseCase extends SynchronousUseCase {
         return new LogOutRequest();
     }
 
+    @Override
+    protected LogOutDomainResponse createResponse() {
+        return new LogOutDomainResponse();
+    }
+
     // ************************************************************************************************************************************************************************
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
-    @Override
-    public Boolean execute() {
-        post(createRequest());
-        return !response.hasError();
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Bus event event handlers
-    // ************************************************************************************************************************************************************************
-
-    public void onEvent(BaseDataResponse event) {
-        this.response = event;
+    public void onEventAsync(LogOutDataResponse event) {
+        UserCache.getInstance().removeCurrentUser();
+        post(createResponse());
+        unregisterFromBus();
     }
 }

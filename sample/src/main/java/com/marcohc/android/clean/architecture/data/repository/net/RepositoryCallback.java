@@ -1,7 +1,5 @@
 package com.marcohc.android.clean.architecture.data.repository.net;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.marcohc.android.clean.architecture.common.exception.JsonDataException;
 import com.marcohc.android.clean.architecture.data.util.NetworkManager;
@@ -13,6 +11,7 @@ import org.json.JSONObject;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import timber.log.Timber;
 
 public abstract class RepositoryCallback<T> implements Callback<T> {
 
@@ -40,7 +39,7 @@ public abstract class RepositoryCallback<T> implements Callback<T> {
             }
             failure(error);
         } catch (Exception e) {
-            Log.wtf(NetworkManager.LOG_TAG, "Error when parsing response: " + e.getMessage());
+            Timber.wtf(NetworkManager.LOG_TAG, "Error when parsing response: " + e.getMessage());
             JsonDataException error = new JsonDataException("Check internet connection", -1);
             failure(error);
         }
@@ -50,14 +49,14 @@ public abstract class RepositoryCallback<T> implements Callback<T> {
     public void success(T type, Response response) {
         try {
             JSONObject jsonResponse = new JSONObject(new Gson().toJson(type));
-            Log.d(NetworkManager.LOG_TAG, "Response: " + jsonResponse.toString());
+            Timber.d(NetworkManager.LOG_TAG, "Response: " + jsonResponse.toString());
             success((T) jsonResponse);
         } catch (JSONException ignored) {
         }
 
         try {
             JSONArray jsonArray = new JSONArray(new Gson().toJson(type));
-            Log.d(NetworkManager.LOG_TAG, "Response: " + jsonArray.toString());
+            Timber.d(NetworkManager.LOG_TAG, "Response: " + jsonArray.toString());
             success((T) jsonArray);
         } catch (JSONException ignored) {
         }

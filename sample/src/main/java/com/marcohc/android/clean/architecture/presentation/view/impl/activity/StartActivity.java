@@ -3,15 +3,17 @@ package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.common.util.Constants;
-import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.StartPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.StartView;
+import com.marcohc.android.clean.architecture.sample.R;
+
+import timber.log.Timber;
 
 public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> implements StartView {
 
@@ -25,6 +27,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
+    @NonNull
     @Override
     public StartPresenter createPresenter() {
         return new StartPresenterImpl();
@@ -47,7 +50,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
                 } catch (InterruptedException ignored) {
                 }
 
-                Log.d(Constants.LOG_TAG, "2 - StartActivity: Waiting for MainApplication to finish loading data");
+                Timber.d(Constants.LOG_TAG, "2 - StartActivity: Waiting for MainApplication to finish loading data");
                 MainApplication.waitUntilMainApplicationIsInitialized();
 
                 return null;
@@ -55,20 +58,20 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
             @Override
             protected void onPostExecute(Object o) {
-                Log.d(Constants.LOG_TAG, "3 - StartActivity: Going to main");
+                Timber.d(Constants.LOG_TAG, "3 - StartActivity: Going to main");
 
                 if (presenter.isFirstTimeInTheApp()) {
                     goToTutorial();
                 } else if (presenter.isUserLoggedIn()) {
                     goToMain();
                 } else {
-                    goToLogin();
+                    goToAuthentication();
                 }
             }
         };
         task.execute();
 
-        Log.d(Constants.LOG_TAG, "1 - StartActivity: Showing splash screen");
+        Timber.d(Constants.LOG_TAG, "1 - StartActivity: Showing splash screen");
     }
 
     // ************************************************************************************************************************************************************************
@@ -78,7 +81,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == TutorialActivity.REQUEST_CODE) {
-            goToLogin();
+            goToAuthentication();
         } else {
             goToMain();
         }
@@ -99,8 +102,8 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
         finish();
     }
 
-    private void goToLogin() {
-        Intent intent = new Intent(StartActivity.this, LogInActivity.class);
+    private void goToAuthentication() {
+        Intent intent = new Intent(StartActivity.this, AuthenticationActivity.class);
         startActivity(intent);
         finish();
     }

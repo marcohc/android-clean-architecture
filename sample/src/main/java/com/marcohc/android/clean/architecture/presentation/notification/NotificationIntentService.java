@@ -23,12 +23,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * This {@code IntentService} does the actual handling of the GCM message. {@code GcmBroadcastReceiver} (a {@code WakefulBroadcastReceiver}) holds a partial wake lock for this service while the service does its work. When the service is finished, it
@@ -60,7 +61,7 @@ public class NotificationIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i(LOG_TAG, "NotificationIntentService: Notification received");
+        Timber.i(LOG_TAG, "NotificationIntentService: Notification received");
         Bundle extras = intent.getExtras();
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
         String messageType = gcm.getMessageType(intent);
@@ -71,7 +72,7 @@ public class NotificationIntentService extends IntentService {
                 onReceiveNotification(extras);
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 onReceiveNotification(extras);
-                Log.d(LOG_TAG, "Received: " + extras.toString());
+                Timber.d(LOG_TAG, "Received: " + extras.toString());
             }
         }
         NotificationBroadcastReceiver.completeWakefulIntent(intent);
@@ -79,7 +80,7 @@ public class NotificationIntentService extends IntentService {
 
     private void onReceiveNotification(final Bundle extras) {
 
-        Log.d(LOG_TAG, "NotificationIntentService.onReceiveNotification");
+        Timber.d(LOG_TAG, "NotificationIntentService.onReceiveNotification");
 
         Handler handler = new Handler(Looper.getMainLooper());
         Runnable runner = new Runnable() {

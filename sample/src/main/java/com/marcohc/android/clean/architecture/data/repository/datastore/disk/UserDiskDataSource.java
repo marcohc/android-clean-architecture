@@ -36,6 +36,11 @@ public class UserDiskDataSource implements UserDataStore, DiskRestDataSource<Use
     }
 
     @Override
+    public void signUp(String username, String password, RepositoryCallback callback) {
+        throw new UnsupportedOperationException("Operation is not available!!!");
+    }
+
+    @Override
     public boolean isFirstTimeInApp() {
         return PreferencesHelper.isFirstAppInstallation();
     }

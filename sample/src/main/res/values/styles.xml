@@ -39,6 +39,10 @@
         <item name="fontPath">fonts/Roboto-Medium.ttf</item>
     </style>
 
+    <style name="editText" parent="smallToMediumText">
+        <item name="fontPath">fonts/Roboto-Light.ttf</item>
+    </style>
+
     <!-- Standard font sizes -->
 
     <style name="extraHugeText">

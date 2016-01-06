@@ -12,11 +12,12 @@ import android.widget.EditText;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.LogInPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.ScreenHelper;
 
 import butterknife.Bind;
@@ -37,6 +38,9 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     @Bind(R.id.passwordEditText)
     EditText passwordEditText;
+
+    // Class
+    private int timesTapped = 1;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -59,8 +63,8 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
         }
     }
 
@@ -79,7 +83,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
         MenuItem menuItem2 = menu.findItem(R.id.item_2);
         menuItem2.setVisible(true);
         menuItem2.setEnabled(true);
-        menuItem2.setIcon(R.drawable.ic_action_action_done);
+        menuItem2.setIcon(R.drawable.ic_action_done);
         menuItem2.setTitle(R.string.accept);
         return true;
     }
@@ -90,8 +94,12 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     @OnClick(R.id.tipText)
     protected void onTipTextClick() {
-        usernameEditText.setText("admin");
-        passwordEditText.setText("admin");
+        if (!MainApplication.isProduction()) {
+            if (timesTapped++ == 5) {
+                timesTapped = 1;
+                fillFormWithFakeData();
+            }
+        }
     }
 
     @Override
@@ -150,6 +158,11 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     private void hideKeyBoard() {
         ScreenHelper.hideKeyboard(this);
+    }
+
+    private void fillFormWithFakeData() {
+        usernameEditText.setText("admin");
+        passwordEditText.setText("admin");
     }
 
 }

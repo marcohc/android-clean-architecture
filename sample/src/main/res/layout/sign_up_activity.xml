@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentPanel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/firstNameEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding"
+            android:hint="@string/first_name"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="254"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/lastNameEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:hint="@string/last_name"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textCapSentences"
+            android:maxLength="254"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:hint="@string/email"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textEmailAddress"
+            android:maxLength="254"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:hint="@string/password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="254"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:hint="@string/confirm_password"
+            android:imeActionLabel="@string/ok"
+            android:inputType="textPassword"
+            android:maxLength="254"
+            android:textColor="@color/gray_font"
+            android:textColorHint="@color/gray_hint_font" />
+
+
+        <TextView
+            android:id="@+id/tipText"
+            style="@style/bigText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/big_padding"
+            android:gravity="center"
+            android:text="Tip: tap 5 times"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

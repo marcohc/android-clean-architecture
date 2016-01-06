@@ -4,12 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
-import com.marcohc.android.clean.architecture.presentation.BuildConfig;
-import com.marcohc.android.clean.architecture.presentation.R;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
 import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
@@ -17,10 +14,12 @@ import com.marcohc.helperoid.PreferencesHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
+import com.marcohc.android.clean.architecture.sample.BuildConfig;
 
 import java.util.concurrent.Semaphore;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 @SuppressLint({"SimpleDateFormat", "DefaultLocale"})
@@ -43,11 +42,8 @@ public class MainApplication extends MultiDexApplication {
         super.onCreate();
 
         if (isDevelopment()) {
-
             initializeStrictMode();
-
             initializeLeakCanary();
-
         }
 
         // Loading task. Other classes must wait until the app is initialized
@@ -55,20 +51,22 @@ public class MainApplication extends MultiDexApplication {
             @Override
             protected Object doInBackground(Object[] params) {
 
-                // Load all data
-                Log.d(Constants.LOG_TAG, "1 - MainApplication - Start loading data");
+                initializeTimber();
 
-                initializeCrashlytics();
+                // Load all data
+                Timber.d(Constants.LOG_TAG, "1 - MainApplication - Start loading data");
+
+                initializeCustomCrash();
+                initializeFabric();
                 initializeNotificationManager();
                 initializePreferences();
                 initializeCalligraphy();
                 initializeAnalytics();
                 initializeRepositories();
                 initializeCache();
-                initializeCustomCrash();
 
                 // Notify load finished
-                Log.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
+                Timber.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
                 isAlreadyInitialized = true;
                 MainApplication.SEMAPHORE_1.release();
 
@@ -118,9 +116,47 @@ public class MainApplication extends MultiDexApplication {
         NotificationManager.initialize(getApplicationContext());
     }
 
-    private void initializeCrashlytics() {
-//        Fabric.with(this, new Crashlytics());
+    private void initializeFabric() {
+        // TODO: Uncomment this to make Fabric work
+//        CrashlyticsCore core = new CrashlyticsCore.Builder()
+//                .disabled(isDevelopment())
+//                .build();
+//        Fabric.with(this, new Crashlytics.Builder().core(core).build());
     }
+
+    private void initializeTimber() {
+        if (isDevelopment()) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            // TODO: Uncomment this to make Timber and Fabric work together
+//            Timber.plant(new CrashlyticsTree());
+        }
+    }
+
+    // TODO: Uncomment this to make Timber and Fabric work together
+//    public class CrashlyticsTree extends Timber.Tree {
+//
+//        private static final String CRASHLYTICS_KEY_PRIORITY = "priority";
+//        private static final String CRASHLYTICS_KEY_TAG = "tag";
+//        private static final String CRASHLYTICS_KEY_MESSAGE = "message";
+//
+//        @Override
+//        protected void log(int priority, @Nullable String tag, @Nullable String message, @Nullable Throwable t) {
+//            if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
+//                return;
+//            }
+//
+//            Crashlytics.setInt(CRASHLYTICS_KEY_PRIORITY, priority);
+//            Crashlytics.setString(CRASHLYTICS_KEY_TAG, tag);
+//            Crashlytics.setString(CRASHLYTICS_KEY_MESSAGE, message);
+//
+//            if (t == null) {
+//                Crashlytics.logException(new Exception(message));
+//            } else {
+//                Crashlytics.logException(t);
+//            }
+//        }
+//    }
 
     private void initializeAnalytics() {
         AnalyticsManager.initialize(this);
@@ -150,33 +186,22 @@ public class MainApplication extends MultiDexApplication {
         return BuildConfig.BUILD_TYPE.equals("acceptance");
     }
 
+    public static boolean isProduction() {
+        return BuildConfig.BUILD_TYPE.equals("release");
+    }
+
     /**
      * Used from other
      */
     public static void waitUntilMainApplicationIsInitialized() {
         try {
             if (!isAlreadyInitialized) {
-                Log.d(Constants.LOG_TAG, "Waiting for MainApplication to finish loading data...");
+                Timber.d(Constants.LOG_TAG, "Waiting for MainApplication to finish loading data...");
                 MainApplication.SEMAPHORE_1.acquire();
             } else {
-                Log.d(Constants.LOG_TAG, "MainApplication already initialized");
+                Timber.d(Constants.LOG_TAG, "MainApplication already initialized");
             }
         } catch (InterruptedException ignored) {
         }
     }
-
-//    private static long timer;
-//    private static int stepNumber;
-//
-//    public static void startTimer() {
-//        Log.d(NavigationHelper.LOG_TAG, String.format("Starting timer..."));
-//        timer = System.currentTimeMillis();
-//        stepNumber = 0;
-//    }
-//
-//    public static void logTimer() {
-//        Long difference = System.currentTimeMillis() - timer;
-//        Log.d(NavigationHelper.LOG_TAG, String.format("%d - Time: %d", stepNumber++, difference));
-//        timer = System.currentTimeMillis();
-//    }
 }

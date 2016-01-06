@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.TutorialPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.TutorialPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;

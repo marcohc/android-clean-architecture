@@ -4,7 +4,7 @@ import com.marcohc.android.clean.architecture.presentation.view.BaseView;
 
 public interface MenuView extends BaseView {
 
-    void goToLogin();
+    void gotToAuthentication();
 
     void setSelectedMenuItem(int position);
 }

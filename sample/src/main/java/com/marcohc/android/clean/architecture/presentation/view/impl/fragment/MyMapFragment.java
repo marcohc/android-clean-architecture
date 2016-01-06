@@ -23,7 +23,7 @@ import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MapPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MapPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.LocationHelper;

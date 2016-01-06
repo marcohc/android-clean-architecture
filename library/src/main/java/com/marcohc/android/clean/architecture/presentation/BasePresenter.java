@@ -1,10 +1,10 @@
 package com.marcohc.android.clean.architecture.presentation;
 
-import android.util.Log;
-
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.marcohc.android.clean.architecture.common.exception.AppError;
 import com.marcohc.android.clean.architecture.presentation.view.BaseView;
+
+import timber.log.Timber;
 
 @SuppressWarnings("ConstantConditions")
 public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter<V> {
@@ -109,7 +109,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
         if (isViewAttached()) {
             showError(error.getMessage());
         }
-        Log.e(LOG_TAG, "Exception: " + error.getMessage());
+        Timber.e("Exception: %s", error.getMessage());
     }
 
 }

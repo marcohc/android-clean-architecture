@@ -5,7 +5,7 @@ android {
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
-    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
@@ -57,5 +57,8 @@ dependencies {
 
     // Custom crash
     compile 'cat.ereza:customactivityoncrash:1.4.0'
+
+    // Logging
+    compile 'com.jakewharton.timber:timber:4.1.0'
 
 }

@@ -1,7 +1,5 @@
 package com.marcohc.android.clean.architecture.data.repository.datastore.factory;
 
-import com.marcohc.android.clean.architecture.data.cache.impl.UserCacheImpl;
-import com.marcohc.android.clean.architecture.data.cache.inter.UserCache;
 import com.marcohc.android.clean.architecture.data.repository.datastore.cloud.UserCloudDataStore;
 import com.marcohc.android.clean.architecture.data.repository.datastore.disk.UserDiskDataSource;
 import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
@@ -21,7 +19,6 @@ public class UserDataStoreFactory {
 
     private static UserDataStoreFactory instance;
     private final UserCloudDataStore userCloudDataStore;
-    private final UserCache userCache;
     private final UserDiskDataSource userDiskDataSource;
 
     // ************************************************************************************************************************************************************************
@@ -29,7 +26,6 @@ public class UserDataStoreFactory {
     // ************************************************************************************************************************************************************************
 
     public UserDataStoreFactory() {
-        userCache = new UserCacheImpl();
         userCloudDataStore = new UserCloudDataStore();
         userDiskDataSource = new UserDiskDataSource();
     }
@@ -57,6 +53,10 @@ public class UserDataStoreFactory {
         userCloudDataStore.logIn(username, password, callback);
     }
 
+    public void signUp(String username, String password, RepositoryCallback<JSONObject> callback) {
+        userCloudDataStore.signUp(username, password, callback);
+    }
+
     public void logOut() {
         userDiskDataSource.delete();
     }
@@ -68,4 +68,6 @@ public class UserDataStoreFactory {
     public boolean isFirstTimeInApp() {
         return userDiskDataSource.isFirstTimeInApp();
     }
+
+
 }

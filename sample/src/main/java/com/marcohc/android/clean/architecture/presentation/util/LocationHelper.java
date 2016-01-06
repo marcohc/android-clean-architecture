@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.marcohc.android.clean.architecture.common.util.Constants;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.DialogHelper;
+
+import timber.log.Timber;
 
 public class LocationHelper {
 
@@ -40,12 +41,12 @@ public class LocationHelper {
         Location networkLocation = getLocationByProvider(context, LocationManager.NETWORK_PROVIDER);
         // if we have only one location available, the choice is easy
         if (gpslocation == null) {
-            Log.d(Constants.LOG_TAG, "No GPS Localization available.");
+            Timber.d(Constants.LOG_TAG, "No GPS Localization available.");
             lastKnownLocation = networkLocation;
             return networkLocation;
         }
         if (networkLocation == null) {
-            Log.d(Constants.LOG_TAG, "No Network Localization available");
+            Timber.d(Constants.LOG_TAG, "No Network Localization available");
             lastKnownLocation = gpslocation;
             return gpslocation;
         }
@@ -57,23 +58,23 @@ public class LocationHelper {
         boolean networkIsOld = (networkLocation.getTime() < old);
         // gps is current and available, gps is better than network
         if (!gpsIsOld) {
-            Log.d(Constants.LOG_TAG, "Returning current GPS Localization");
+            Timber.d(Constants.LOG_TAG, "Returning current GPS Localization");
             lastKnownLocation = gpslocation;
             return gpslocation;
         }
         // gps is old, we can't trust it. use network location
         if (!networkIsOld) {
-            Log.d(Constants.LOG_TAG, "GPS is old, Network is current, returning network");
+            Timber.d(Constants.LOG_TAG, "GPS is old, Network is current, returning network");
             lastKnownLocation = networkLocation;
             return networkLocation;
         }
         // both are old return the newer of those two
         if (gpslocation.getTime() > networkLocation.getTime()) {
-            Log.d(Constants.LOG_TAG, "Both are old, returning gps(newer)");
+            Timber.d(Constants.LOG_TAG, "Both are old, returning gps(newer)");
             lastKnownLocation = gpslocation;
             return gpslocation;
         } else {
-            Log.d(Constants.LOG_TAG, "Both are old, returning network(newer)");
+            Timber.d(Constants.LOG_TAG, "Both are old, returning network(newer)");
             lastKnownLocation = networkLocation;
             return networkLocation;
         }
@@ -90,7 +91,7 @@ public class LocationHelper {
                 location = locationManager.getLastKnownLocation(provider);
             }
         } catch (IllegalArgumentException e) {
-            Log.d(Constants.LOG_TAG, "Cannot access Provider " + provider);
+            Timber.d(Constants.LOG_TAG, "Cannot access Provider " + provider);
         }
         return location;
     }

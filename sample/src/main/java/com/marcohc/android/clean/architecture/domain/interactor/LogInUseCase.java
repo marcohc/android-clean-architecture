@@ -4,6 +4,7 @@ import com.marcohc.android.clean.architecture.common.exception.AppError;
 import com.marcohc.android.clean.architecture.domain.bus.request.LogInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.request.SaveUserRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogInDataResponse;
+import com.marcohc.android.clean.architecture.domain.bus.response.data.SaveUserDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogInDomainResponse;
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
@@ -17,6 +18,7 @@ public class LogInUseCase extends AsynchronousUseCase {
     private final String username;
     private final String password;
     private LogInDataResponse response;
+    private UserModel userModel;
 
     // ************************************************************************************************************************************************************************
     // * Constructor
@@ -39,7 +41,6 @@ public class LogInUseCase extends AsynchronousUseCase {
 
     @Override
     protected LogInDomainResponse createResponse() {
-        UserModel userModel = UserMapper.parseUser(response.getResponse().toString());
         return new LogInDomainResponse(userModel);
     }
 
@@ -47,20 +48,24 @@ public class LogInUseCase extends AsynchronousUseCase {
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
-    public void onEventAsync(LogInDataResponse event) {
+    public void onEventAsync(LogInDataResponse dataResponse) {
 
-        this.response = event;
-        if (!event.hasError()) {
-            LogInDomainResponse response = createResponse();
+        this.response = dataResponse;
+        if (!dataResponse.hasError()) {
+
+            userModel = UserMapper.parseUser(response.getResponse().toString());
 
             // Save current user
-            post(new SaveUserRequest(UserMapper.parse(response.getUser())));
+            post(new SaveUserRequest(UserMapper.parse(userModel)));
 
-            // Return the current user
-            post(response);
-            unregisterFromBus();
         } else {
-            postAppError(new AppError(event.getError().getMessage(), event.getError().getCode()));
+            postAppError(new AppError(dataResponse.getError().getMessage(), dataResponse.getError().getCode()));
+            unregisterFromBus();
         }
+    }
+
+    public void onEventAsync(SaveUserDataResponse responseFromServer) {
+        post(createResponse());
+        unregisterFromBus();
     }
 }

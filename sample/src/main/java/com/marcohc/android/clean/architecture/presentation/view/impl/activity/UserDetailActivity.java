@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.R;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.UserDetailPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.UserDetailPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
