@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.marcohc.android.clean.architecture.MainApplication;
+import com.marcohc.android.clean.architecture.presentation.notification.NotificareAppReceiver;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
@@ -34,6 +36,7 @@ import java.util.WeakHashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import re.notifica.Notificare;
 import timber.log.Timber;
 
 public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MainView {
@@ -95,7 +98,15 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     public void setUpView() {
         setUpNavigationDrawer();
         menuClick(INITIAL_POSITION);
+        setUpNotificare();
         presenter.onViewCreated();
+    }
+
+    private void setUpNotificare() {
+        // Set our own intent receiver
+        Notificare.shared().setDebugLogging(MainApplication.isDevelopment());
+        Notificare.shared().launch(getApplication());
+        Notificare.shared().setIntentReceiver(NotificareAppReceiver.class);
     }
 
     private void setUpNavigationDrawer() {

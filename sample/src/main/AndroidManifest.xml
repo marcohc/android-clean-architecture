@@ -31,6 +31,42 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="YOUR_API_KEY_HERE" />
 
+        <!--NOTIFICARE-->
+
+        <!-- Main receiver + intent service for incoming Notifications -->
+        <receiver
+            android:name="re.notifica.push.gcm.PushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.loyaltyhousebv.fanly.presentation" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="re.notifica.push.gcm.PushService"
+            android:label="Notificare Push Service">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="re.notifica.push.gcm.InstanceIDService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="re.notifica.push.gcm.RegistrationService"
+            android:exported="false" />
+
+        <receiver android:name="com.marcohc.android.clean.architecture.presentation.notification.NotificareAppReceiver" />
+
         <!--ACTIVITIES-->
 
         <activity
@@ -45,6 +81,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="re.notifica.ui.NotificationActivity"
+            android:parentActivityName="com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.marcohc.android.clean.architecture.presentation.view.impl.activity.StartActivity" />
         </activity>
 
         <activity
