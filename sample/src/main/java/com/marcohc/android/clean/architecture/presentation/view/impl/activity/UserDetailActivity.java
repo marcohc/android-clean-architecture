@@ -10,15 +10,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.UserDetailPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.UserDetailPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.UserDetailView;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.StringHelper;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class UserDetailActivity extends BaseMvpActivity<UserDetailView, UserDetailPresenter> implements UserDetailView {
 
@@ -86,6 +87,10 @@ public class UserDetailActivity extends BaseMvpActivity<UserDetailView, UserDeta
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    @OnClick(R.id.userImage)
+    protected void onUserImageClick() {
     }
 
     // ************************************************************************************************************************************************************************

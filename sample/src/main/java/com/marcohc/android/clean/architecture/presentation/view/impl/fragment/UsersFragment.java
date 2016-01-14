@@ -23,8 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnItemClick;
 
-public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, AdapterView.OnItemClickListener {
+public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -62,7 +63,6 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
 
     private void initializeListView() {
         listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
-        listView.setOnItemClickListener(this);
         listView.setAdapter(listViewAdapter);
     }
 
@@ -70,8 +70,8 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     // * Event handler methods
     // ************************************************************************************************************************************************************************
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    @OnItemClick(R.id.listView)
+    protected void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         user = listViewAdapter.getItem(position);
         Intent intent = new Intent(getActivity(), UserDetailActivity.class);
         intent.putExtra(NavigationManager.USER, user.toJsonString());
