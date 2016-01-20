@@ -5,11 +5,21 @@
         <item>@string/users_list</item>
         <item>@string/see_tutorial</item>
         <item>@string/map</item>
+        <item>@string/report</item>
     </string-array>
+
     <string-array name="menu_normal_icons_array" translatable="false">
         <item>@drawable/ic_toasteroid_info</item>
         <item>@drawable/ic_toasteroid_info</item>
         <item>@drawable/ic_location_white</item>
+        <item>@drawable/ic_toasteroid_info</item>
+    </string-array>
+
+    <string-array name="report_array" translatable="false">
+        <item>@string/select_type</item>
+        <item>@string/enhancement</item>
+        <item>@string/help</item>
+        <item>@string/error</item>
     </string-array>
 
 </resources>

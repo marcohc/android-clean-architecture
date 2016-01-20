@@ -18,9 +18,6 @@ import butterknife.OnClick;
 
 public class TutorialActivity extends BaseMvpActivity<TutorialView, TutorialPresenter> implements TutorialView {
 
-
-    public static final int REQUEST_CODE = 1;
-
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************

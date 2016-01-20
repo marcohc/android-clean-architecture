@@ -9,6 +9,7 @@ import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.StartPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
+import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.StartView;
 import com.marcohc.android.clean.architecture.sample.R;
@@ -80,7 +81,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == TutorialActivity.REQUEST_CODE) {
+        if (requestCode == NavigationManager.TUTORIAL_REQUEST_CODE) {
             goToAuthentication();
         } else {
             goToMain();
@@ -93,7 +94,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
     private void goToTutorial() {
         Intent intent = new Intent(StartActivity.this, TutorialActivity.class);
-        startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
+        startActivityForResult(intent, NavigationManager.TUTORIAL_REQUEST_CODE);
     }
 
     private void goToMain() {

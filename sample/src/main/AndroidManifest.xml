@@ -110,6 +110,12 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.ReportActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name="com.marcohc.android.clean.architecture.presentation.view.impl.activity.AuthenticationActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"

@@ -38,5 +38,12 @@
     <string name="last_name">Last name</string>
     <string name="email">Email</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="description">Description</string>
+    <string name="enhancement">Enhancement</string>
+    <string name="select_type">Select type</string>
+    <string name="help">Help</string>
+    <string name="error">Error</string>
+    <string name="report">Report</string>
+    <string name="report_sent">Report sent</string>
 
 </resources>

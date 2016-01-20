@@ -225,8 +225,10 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         switch (NavigationManager.SCREENS.values()[position]) {
             case TUTORIAL:
-                Intent intent = new Intent(this, TutorialActivity.class);
-                startActivityForResult(intent, TutorialActivity.REQUEST_CODE);
+                startActivityForResult(new Intent(this, TutorialActivity.class), NavigationManager.TUTORIAL_REQUEST_CODE);
+                return;
+            case REPORT:
+                startActivityForResult(new Intent(this, ReportActivity.class), NavigationManager.REPORT_REQUEST_CODE);
                 return;
         }
 
@@ -266,6 +268,9 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 break;
             case MAP:
                 actionBar.setTitle(getString(R.string.map));
+                break;
+            case REPORT:
+                actionBar.setTitle(getString(R.string.report));
                 break;
         }
     }
