@@ -14,7 +14,7 @@ Usage
 
 Take a look on the sample app or check the diagram:
 
-![screenshot][1]
+![Diagram] (https://github.com/marcohc/android-clean-architecture/blob/master/structure.png)
 
 Compatibility
 -------------
@@ -69,5 +69,3 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
-[1]: https://github.com/marcohc/android-clean-architecture/structure.png
