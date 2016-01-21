@@ -1,20 +1,20 @@
 package com.marcohc.android.clean.architecture.common.bus.response.domain;
 
 import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
-import com.marcohc.android.clean.architecture.common.exception.DomainError;
+import com.marcohc.android.clean.architecture.presentation.error.AppError;
 
 /**
- * Common methods for responses
+ * Common methods for domain responses
  */
 public abstract class BaseDomainResponse implements BusEvent {
 
-    protected DomainError error;
+    protected AppError error;
 
     public BaseDomainResponse() {
         this.error = null;
     }
 
-    public BaseDomainResponse(DomainError error) {
+    public BaseDomainResponse(AppError error) {
         this.error = error;
     }
 
@@ -22,11 +22,11 @@ public abstract class BaseDomainResponse implements BusEvent {
         return error != null;
     }
 
-    public DomainError getError() {
+    public AppError getError() {
         return error;
     }
 
-    public void setError(DomainError error) {
+    public void setError(AppError error) {
         this.error = error;
     }
 }

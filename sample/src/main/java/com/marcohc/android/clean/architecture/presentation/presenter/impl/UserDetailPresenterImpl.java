@@ -2,7 +2,7 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.UserDetailPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.UserDetailView;
 

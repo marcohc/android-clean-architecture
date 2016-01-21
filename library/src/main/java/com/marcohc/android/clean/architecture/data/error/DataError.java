@@ -1,5 +1,8 @@
-package com.marcohc.android.clean.architecture.common.exception;
+package com.marcohc.android.clean.architecture.data.error;
 
+/**
+ * An error which occurs on the data layer
+ */
 public class DataError {
 
     private String message;

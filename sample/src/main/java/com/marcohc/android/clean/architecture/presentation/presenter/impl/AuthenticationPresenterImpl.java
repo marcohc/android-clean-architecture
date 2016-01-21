@@ -3,9 +3,8 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogInDomainResponse;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.AuthenticationPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.AuthenticationView;
 import com.marcohc.android.clean.architecture.sample.R;
@@ -48,12 +47,12 @@ public class AuthenticationPresenterImpl extends BasePresenter<AuthenticationVie
 
             @Override
             public void onException(Throwable arg0) {
-                Timber.w(Constants.LOG_TAG, String.format("onException: %s", arg0.getMessage()));
+                Timber.w("onException: %s", arg0.getMessage());
             }
 
             @Override
             public void onFail(String errorText) {
-                Timber.w(Constants.LOG_TAG, String.format("onFail: %s", errorText));
+                Timber.w("onFail: %s", errorText);
             }
         });
     }

@@ -3,9 +3,8 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.domain.bus.event.MenuItemClickEvent;
 import com.marcohc.android.clean.architecture.domain.bus.event.MenuSelectItemEvent;
-import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogOutDomainResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.LogOutUseCase;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
 
@@ -23,7 +22,9 @@ public class MenuPresenterImpl extends BasePresenter<MenuView> implements MenuPr
 
     @Override
     public void onLogOutContainerClick() {
-        new LogOutUseCase().execute();
+        if (new LogOutUseCase().execute()) {
+            getView().gotToAuthentication();
+        }
     }
 
     // ************************************************************************************************************************************************************************
@@ -33,12 +34,6 @@ public class MenuPresenterImpl extends BasePresenter<MenuView> implements MenuPr
     public void onEventMainThread(MenuSelectItemEvent event) {
         if (isViewAttached()) {
             getView().setSelectedMenuItem(event.getPosition());
-        }
-    }
-
-    public void onEventMainThread(LogOutDomainResponse event) {
-        if (isViewAttached()) {
-            getView().gotToAuthentication();
         }
     }
 }

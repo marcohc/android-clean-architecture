@@ -5,16 +5,15 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
-import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
 import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
+import com.marcohc.android.clean.architecture.sample.BuildConfig;
 import com.marcohc.helperoid.PreferencesHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
-import com.marcohc.android.clean.architecture.sample.BuildConfig;
 
 import java.util.concurrent.Semaphore;
 
@@ -42,8 +41,8 @@ public class MainApplication extends MultiDexApplication {
         super.onCreate();
 
         if (isDevelopment()) {
-            initializeStrictMode();
-            initializeLeakCanary();
+            setUpStrictMode();
+            setUpLeakCanary();
         }
 
         // Loading task. Other classes must wait until the app is initialized
@@ -51,22 +50,22 @@ public class MainApplication extends MultiDexApplication {
             @Override
             protected Object doInBackground(Object[] params) {
 
-                initializeTimber();
+                setUpTimber();
 
                 // Load all data
-                Timber.d(Constants.LOG_TAG, "1 - MainApplication - Start loading data");
+                Timber.d("1 - MainApplication - Start loading data");
 
-                initializeCustomCrash();
-                initializeFabric();
-                initializeNotificationManager();
-                initializePreferences();
-                initializeCalligraphy();
-                initializeAnalytics();
-                initializeRepositories();
-                initializeCache();
+                setUpCustomCrash();
+                setUpFabric();
+                setUpNotificationManager();
+                setUpPreferences();
+                setUpCalligraphy();
+                setUpAnalytics();
+                setUpRepositories();
+                setUpCache();
 
                 // Notify load finished
-                Timber.d(Constants.LOG_TAG, "2 - MainApplication - Finish loading data");
+                Timber.d("2 - MainApplication - Finish loading data");
                 isAlreadyInitialized = true;
                 MainApplication.SEMAPHORE_1.release();
 
@@ -77,22 +76,22 @@ public class MainApplication extends MultiDexApplication {
 
     }
 
-    private void initializeCustomCrash() {
+    private void setUpCustomCrash() {
         CustomActivityOnCrash.install(this);
     }
 
-    private void initializeCache() {
+    private void setUpCache() {
         if (isDevelopment()) {
             DualCacheLogUtils.enableLog();
         }
         DualCacheContextUtils.setContext(getApplicationContext());
     }
 
-    private void initializeLeakCanary() {
+    private void setUpLeakCanary() {
         LeakCanary.install(this);
     }
 
-    private void initializeStrictMode() {
+    private void setUpStrictMode() {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()
@@ -107,16 +106,16 @@ public class MainApplication extends MultiDexApplication {
                 .build());
     }
 
-    private void initializeRepositories() {
-        // TODO: Get all repositories by reflection and initialize them in order to connect to the bus
-        UserRepository.initialize();
+    private void setUpRepositories() {
+        // TODO: Get all repositories by reflection and setUp them in order to connect to the bus
+        UserRepository.setUp();
     }
 
-    private void initializeNotificationManager() {
-        NotificationManager.initialize(getApplicationContext());
+    private void setUpNotificationManager() {
+        NotificationManager.setUp(getApplicationContext());
     }
 
-    private void initializeFabric() {
+    private void setUpFabric() {
         // TODO: Uncomment this to make Fabric work
 //        CrashlyticsCore core = new CrashlyticsCore.Builder()
 //                .disabled(isDevelopment())
@@ -124,7 +123,7 @@ public class MainApplication extends MultiDexApplication {
 //        Fabric.with(this, new Crashlytics.Builder().core(core).build());
     }
 
-    private void initializeTimber() {
+    private void setUpTimber() {
         if (isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
         } else {
@@ -158,15 +157,15 @@ public class MainApplication extends MultiDexApplication {
 //        }
 //    }
 
-    private void initializeAnalytics() {
-        AnalyticsManager.initialize(this);
+    private void setUpAnalytics() {
+        AnalyticsManager.setUp(this);
     }
 
-    private void initializePreferences() {
+    private void setUpPreferences() {
         PreferencesHelper.initialize(this, PreferencesConstants.SHARED_PREFERENCES_NAME);
     }
 
-    private void initializeCalligraphy() {
+    private void setUpCalligraphy() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                         .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                         .setFontAttrId(R.attr.fontPath)
@@ -196,10 +195,10 @@ public class MainApplication extends MultiDexApplication {
     public static void waitUntilMainApplicationIsInitialized() {
         try {
             if (!isAlreadyInitialized) {
-                Timber.d(Constants.LOG_TAG, "Waiting for MainApplication to finish loading data...");
+                Timber.d("Waiting for MainApplication to finish loading data...");
                 MainApplication.SEMAPHORE_1.acquire();
             } else {
-                Timber.d(Constants.LOG_TAG, "MainApplication already initialized");
+                Timber.d("MainApplication already setUp");
             }
         } catch (InterruptedException ignored) {
         }

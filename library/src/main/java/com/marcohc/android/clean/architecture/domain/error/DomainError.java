@@ -1,11 +1,14 @@
-package com.marcohc.android.clean.architecture.common.exception;
+package com.marcohc.android.clean.architecture.domain.error;
 
-public class AppError {
+/**
+ * An error which occurs on the domain layer
+ */
+public class DomainError {
 
     private String message;
     private int code;
 
-    public AppError(String message, int code) {
+    public DomainError(String message, int code) {
         this.message = message;
         this.code = code;
     }

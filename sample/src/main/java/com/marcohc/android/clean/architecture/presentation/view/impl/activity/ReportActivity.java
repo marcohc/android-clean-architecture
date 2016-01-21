@@ -1,6 +1,7 @@
 package com.marcohc.android.clean.architecture.presentation.view.impl.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -115,13 +116,18 @@ public class ReportActivity extends BaseMvpActivity<ReportView, ReportPresenter>
                 onBackPressed();
                 break;
             case R.id.item_2:
-                presenter.onActionDoneClick();
+                onActionButtonClick();
                 break;
             default:
                 break;
         }
 
         return false;
+    }
+
+    private void onActionButtonClick() {
+        String deviceValues = String.format("{brand: %s, model: %s, androidVersion: %s}", Build.BRAND, Build.MODEL, Build.VERSION.RELEASE);
+        presenter.onActionDoneClick(deviceValues);
     }
 
     // ************************************************************************************************************************************************************************
@@ -170,8 +176,8 @@ public class ReportActivity extends BaseMvpActivity<ReportView, ReportPresenter>
     // ************************************************************************************************************************************************************************
 
     private void fillFormWithFakeData() {
-        typeOnWithShortPause(R.id.firstNameEditText, "MyFirstName");
-        typeOnWithShortPause(R.id.lastNameEditText, "MyLastName");
+        reportSpinner.setSelection(1);
+        typeOnWithShortPause(R.id.descriptionText, "Hi, I had this awful problem when I was using the app, it's about bla, bla, bla...");
     }
 
     private void typeOnWithShortPause(int viewId, String value) {

@@ -1,11 +1,10 @@
-package com.marcohc.android.clean.architecture.data.repository.datastore.cloud.util;
+package com.marcohc.android.clean.architecture.data.repository.datastore.datastores.rest.util;
 
 import android.util.Base64;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.marcohc.android.clean.architecture.data.util.NetworkManager;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
@@ -17,6 +16,8 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 public class ServiceGenerator {
+
+    private static final String LOG_TAG = "ServiceGenerator";
 
     // No need to instantiate this class.
     private ServiceGenerator() {
@@ -53,7 +54,7 @@ public class ServiceGenerator {
         RestAdapter.Builder builder = new RestAdapter.Builder()
                 .setEndpoint(baseUrl)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setLog(new AndroidLog(NetworkManager.LOG_TAG))
+                .setLog(new AndroidLog(LOG_TAG))
                 .setConverter(new GsonConverter(gson))
                 .setClient(new OkClient(okHttpClient));
 

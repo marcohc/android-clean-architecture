@@ -4,7 +4,7 @@ import android.location.Location;
 
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.GetUsersUseCase;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MapPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MapView;
 

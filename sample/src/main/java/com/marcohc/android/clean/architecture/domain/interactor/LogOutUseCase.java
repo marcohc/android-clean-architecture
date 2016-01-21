@@ -1,33 +1,12 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.data.cache.impl.UserCache;
-import com.marcohc.android.clean.architecture.domain.bus.request.LogOutRequest;
-import com.marcohc.android.clean.architecture.domain.bus.response.data.LogOutDataResponse;
-import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogOutDomainResponse;
+import com.marcohc.android.clean.architecture.domain.util.AuthenticationManager;
 
-public class LogOutUseCase extends AsynchronousUseCase {
-
-    // ************************************************************************************************************************************************************************
-    // * Bus events factory methods
-    // ************************************************************************************************************************************************************************
+public class LogOutUseCase extends SynchronousUseCase {
 
     @Override
-    protected LogOutRequest createRequest() {
-        return new LogOutRequest();
-    }
-
-    @Override
-    protected LogOutDomainResponse createResponse() {
-        return new LogOutDomainResponse();
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Use case execution
-    // ************************************************************************************************************************************************************************
-
-    public void onEventAsync(LogOutDataResponse event) {
-        UserCache.getInstance().removeCurrentUser();
-        post(createResponse());
-        unregisterFromBus();
+    public Boolean execute() {
+        AuthenticationManager.getInstance().logOut();
+        return true;
     }
 }

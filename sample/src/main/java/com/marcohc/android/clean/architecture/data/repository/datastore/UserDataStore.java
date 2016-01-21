@@ -1,15 +1,16 @@
 package com.marcohc.android.clean.architecture.data.repository.datastore;
 
-import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
+import com.marcohc.android.clean.architecture.data.repository.datastore.datastores.rest.RestDataSource;
+import com.marcohc.android.clean.architecture.data.net.RestCallback;
+import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 
 /**
- * TODO: Specific methods for this model goes here. REST methods are excluded
+ * Specific methods for this model go here. REST methods are excluded
  */
-public interface UserDataStore {
+public interface UserDataStore extends RestDataSource<UserEntity> {
 
-    void logIn(String username, String password, RepositoryCallback callback);
+    void logIn(String username, String password, RestCallback callback);
 
-    void signUp(String username, String password, RepositoryCallback callback);
+    void signUp(String username, String password, RestCallback callback);
 
-    boolean isFirstTimeInApp();
 }

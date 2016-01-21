@@ -2,16 +2,11 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
 import android.os.Handler;
 
-import com.marcohc.android.clean.architecture.domain.bus.response.domain.SignUpDomainResponse;
-import com.marcohc.android.clean.architecture.domain.interactor.SignUpUseCase;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.ReportPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.ReportView;
 import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.StringHelper;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
 public class ReportPresenterImpl extends BasePresenter<ReportView> implements ReportPresenter {
@@ -21,7 +16,7 @@ public class ReportPresenterImpl extends BasePresenter<ReportView> implements Re
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void onActionDoneClick() {
+    public void onActionDoneClick(final String deviceValues) {
         if (isViewAttached()) {
             if (isFormValid()) {
                 showDialog(getView().getResourceString(R.string.report), getView().getResourceString(R.string.loading), false);
@@ -30,7 +25,7 @@ public class ReportPresenterImpl extends BasePresenter<ReportView> implements Re
                     @Override
                     public void run() {
                         hideDialog();
-                        showInfo(getView().getResourceString(R.string.report_sent));
+                        showInfo(String.format("%s: %s", getView().getResourceString(R.string.report_sent), deviceValues));
                     }
                 }, 1500);
             }

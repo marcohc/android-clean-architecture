@@ -49,13 +49,13 @@ public class NotificationManager {
         this.context = context;
     }
 
-    public static void initialize(Context context) {
+    public static void setUp(Context context) {
         instance = new NotificationManager(context);
     }
 
     public static NotificationManager getInstance() {
         if (instance == null) {
-            throw new ExceptionInInitializerError("Call initialize first!");
+            throw new ExceptionInInitializerError("Call setUp first!");
         }
         return instance;
     }

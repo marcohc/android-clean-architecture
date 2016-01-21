@@ -1,13 +1,13 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.common.exception.AppError;
+import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.bus.request.LogInRequest;
-import com.marcohc.android.clean.architecture.domain.bus.request.SaveUserRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogInDataResponse;
-import com.marcohc.android.clean.architecture.domain.bus.response.data.SaveUserDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogInDomainResponse;
+import com.marcohc.android.clean.architecture.domain.error.DomainError;
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
+import com.marcohc.android.clean.architecture.domain.util.AuthenticationManager;
 
 public class LogInUseCase extends AsynchronousUseCase {
 
@@ -44,6 +44,11 @@ public class LogInUseCase extends AsynchronousUseCase {
         return new LogInDomainResponse(userModel);
     }
 
+    @Override
+    protected void handleDataError(DataError dataError) {
+        defaultDataErrorHandler(dataError);
+    }
+
     // ************************************************************************************************************************************************************************
     // * Use case execution
     // ************************************************************************************************************************************************************************
@@ -56,16 +61,15 @@ public class LogInUseCase extends AsynchronousUseCase {
             userModel = UserMapper.parseUser(response.getResponse().toString());
 
             // Save current user
-            post(new SaveUserRequest(UserMapper.parse(userModel)));
+            userModel.setKey(userModel.getEmail());
+            AuthenticationManager.getInstance().logIn(userModel.getKey(), userModel);
+
+            post(createResponse());
+            unregisterFromBus();
 
         } else {
-            postAppError(new AppError(dataResponse.getError().getMessage(), dataResponse.getError().getCode()));
+            postAppError(new DomainError(dataResponse.getError().getMessage(), dataResponse.getError().getCode()));
             unregisterFromBus();
         }
-    }
-
-    public void onEventAsync(SaveUserDataResponse responseFromServer) {
-        post(createResponse());
-        unregisterFromBus();
     }
 }

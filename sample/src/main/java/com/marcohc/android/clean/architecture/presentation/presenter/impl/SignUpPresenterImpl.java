@@ -2,7 +2,7 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.SignUpDomainResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.SignUpUseCase;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.SignUpPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.SignUpView;

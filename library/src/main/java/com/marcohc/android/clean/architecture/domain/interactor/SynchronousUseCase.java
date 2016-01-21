@@ -1,14 +1,10 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.common.bus.BusHandler;
-import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
-
 /**
- * Some use cases could be executed without any synchronization
+ * This class represents an synchronous use case.
  */
-public abstract class SynchronousUseCase extends BusHandler implements UseCase {
-
-    protected abstract BusEvent createRequest();
+public abstract class SynchronousUseCase implements UseCase {
 
     public abstract Object execute();
+
 }

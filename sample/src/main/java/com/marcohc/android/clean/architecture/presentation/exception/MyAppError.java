@@ -1,6 +1,11 @@
-package com.marcohc.android.clean.architecture.common.exception;
+package com.marcohc.android.clean.architecture.presentation.exception;
 
-public enum DomainError {
+import com.marcohc.android.clean.architecture.presentation.error.AppError;
+
+/**
+ * A representation error of the app in high level
+ */
+public enum MyAppError implements AppError {
 
     UNKNOWN(1, "unknown"),
     AUTHENTICATION(2, "authentication");
@@ -8,7 +13,7 @@ public enum DomainError {
     private final int code;
     private final String text;
 
-    DomainError(final int code, final String text) {
+    MyAppError(final int code, final String text) {
         this.code = code;
         this.text = text;
     }

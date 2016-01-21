@@ -1,8 +1,9 @@
-package com.marcohc.android.clean.architecture.presentation;
+package com.marcohc.android.clean.architecture.presentation.presenter;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-import com.marcohc.android.clean.architecture.common.exception.AppError;
+import com.marcohc.android.clean.architecture.domain.error.DomainError;
 import com.marcohc.android.clean.architecture.presentation.view.BaseView;
+import com.marcohc.toasteroid.Toasteroid;
 
 import timber.log.Timber;
 
@@ -10,6 +11,15 @@ import timber.log.Timber;
 public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter<V> {
 
     protected static final String LOG_TAG = "BasePresenter";
+
+    @Override
+    /**
+     * To avoid toasts memory leaks
+     */
+    public void detachView(boolean retainInstance) {
+        Toasteroid.dismiss();
+        super.detachView(retainInstance);
+    }
 
     /**
      * Shows or hides dialog with "Loading..." text by default
@@ -95,7 +105,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
         }
     }
 
-    public void onEventMainThread(AppError exception) {
+    public void onEventMainThread(DomainError exception) {
         handleException(exception);
     }
 
@@ -104,7 +114,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
      *
      * @param error the data exception error
      */
-    public void handleException(AppError error) {
+    public void handleException(DomainError error) {
         hideDialog();
         if (isViewAttached()) {
             showError(error.getMessage());

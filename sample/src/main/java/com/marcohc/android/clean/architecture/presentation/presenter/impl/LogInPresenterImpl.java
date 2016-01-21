@@ -2,7 +2,7 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogInDomainResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.LogInUseCase;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.StringHelper;

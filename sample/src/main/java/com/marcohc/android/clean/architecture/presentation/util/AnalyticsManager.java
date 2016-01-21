@@ -13,7 +13,7 @@ public class AnalyticsManager {
 
     private static Tracker analyticsTracker;
 
-    public static void initialize(Context context) {
+    public static void setUp(Context context) {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
         analytics.setLocalDispatchPeriod(1800);
         analytics.getLogger().setLogLevel(LogLevel.VERBOSE);

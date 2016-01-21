@@ -1,6 +1,7 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.common.exception.AppError;
+import com.marcohc.android.clean.architecture.domain.error.DomainError;
+import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.bus.request.GetUsersRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
@@ -43,6 +44,11 @@ public class GetUsersUseCase extends AsynchronousUseCase {
         return new GetUsersDomainResponse(usersList);
     }
 
+    @Override
+    protected void handleDataError(DataError dataError) {
+        defaultDataErrorHandler(dataError);
+    }
+
     // ************************************************************************************************************************************************************************
     // * Use case execution
     // ************************************************************************************************************************************************************************
@@ -54,7 +60,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
             post(createResponse());
             unregisterFromBus();
         } else {
-            postAppError(new AppError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
+            postAppError(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
         }
     }
 

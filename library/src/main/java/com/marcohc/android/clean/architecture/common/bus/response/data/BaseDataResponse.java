@@ -1,7 +1,7 @@
 package com.marcohc.android.clean.architecture.common.bus.response.data;
 
 import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
-import com.marcohc.android.clean.architecture.common.exception.DataError;
+import com.marcohc.android.clean.architecture.data.error.DataError;
 
 /**
  * Common methods for responses

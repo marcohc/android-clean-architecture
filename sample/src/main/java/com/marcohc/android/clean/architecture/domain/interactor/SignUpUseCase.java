@@ -1,15 +1,15 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
 
-import com.marcohc.android.clean.architecture.common.exception.DomainError;
-import com.marcohc.android.clean.architecture.domain.bus.request.SaveUserRequest;
+import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.bus.request.SignUpRequest;
-import com.marcohc.android.clean.architecture.domain.bus.response.data.SaveUserDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.SignUpDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.SignUpDomainResponse;
 import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
+import com.marcohc.android.clean.architecture.domain.util.AuthenticationManager;
+import com.marcohc.android.clean.architecture.presentation.exception.MyAppError;
 
 import java.util.Map;
 
@@ -20,7 +20,6 @@ public class SignUpUseCase extends AsynchronousUseCase {
     // ************************************************************************************************************************************************************************
 
     private final Map<String, Object> parametersMap;
-    private UserModel userModel;
 
     // ************************************************************************************************************************************************************************
     // * Constructor
@@ -45,6 +44,11 @@ public class SignUpUseCase extends AsynchronousUseCase {
         return new SignUpDomainResponse();
     }
 
+    @Override
+    protected void handleDataError(DataError dataError) {
+        defaultDataErrorHandler(dataError);
+    }
+
     // ************************************************************************************************************************************************************************
     // * Use case execution
     // ************************************************************************************************************************************************************************
@@ -62,13 +66,12 @@ public class SignUpUseCase extends AsynchronousUseCase {
             userEntity.setEmail((String) parametersMap.get("email"));
 //            userEntity.setCreatedAt(System.currentTimeMillis() * 1000);
 
-            userModel = UserMapper.parse(userEntity);
+            UserModel userModel = UserMapper.parse(userEntity);
 
             // Save current user
-            post(new SaveUserRequest(UserMapper.parse(userModel)));
+            userModel.setKey(userModel.getEmail());
+            AuthenticationManager.getInstance().logIn(userModel.getKey(), userModel);
 
-            // Create user
-            // TODO: MANAGE THIS
             post(createResponse());
             unregisterFromBus();
 
@@ -76,14 +79,9 @@ public class SignUpUseCase extends AsynchronousUseCase {
 
             // Send error to inform user
             SignUpDomainResponse response = createResponse();
-            response.setError(DomainError.AUTHENTICATION);
+            response.setError(MyAppError.AUTHENTICATION);
             post(response);
             unregisterFromBus();
         }
-    }
-
-    public void onEventAsync(SaveUserDataResponse responseFromServer) {
-        post(createResponse());
-        unregisterFromBus();
     }
 }

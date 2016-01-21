@@ -1,4 +1,4 @@
-package com.marcohc.android.clean.architecture.data.repository.datastore.cloud.util;
+package com.marcohc.android.clean.architecture.data.repository.datastore.datastores.rest.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

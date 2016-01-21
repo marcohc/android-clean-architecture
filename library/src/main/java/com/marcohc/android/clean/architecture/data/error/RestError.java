@@ -1,10 +1,13 @@
-package com.marcohc.android.clean.architecture.common.exception;
+package com.marcohc.android.clean.architecture.data.error;
 
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
-public class JsonDataException {
+/**
+ * Representation of a Rest error. Happens in data layer
+ */
+public class RestError {
 
     @SerializedName("error_code")
     private Integer code;
@@ -12,7 +15,7 @@ public class JsonDataException {
     @SerializedName("error_detail")
     private String message;
 
-    public JsonDataException(String message, Integer code) {
+    public RestError(String message, Integer code) {
         this.message = message;
         this.code = code;
     }
@@ -33,12 +36,12 @@ public class JsonDataException {
         this.message = message;
     }
 
-    public static JsonDataException getError(JSONObject response) {
+    public static RestError getError(JSONObject response) {
 
-        JsonDataException error = null;
+        RestError error = null;
         try {
             response = (JSONObject) response.get("error");
-            error = new JsonDataException(response.getString("error_detail"), response.getInt("error_code"));
+            error = new RestError(response.getString("error_detail"), response.getInt("error_code"));
         } catch (Exception ignored) {
         }
 

@@ -1,9 +1,9 @@
 package com.marcohc.android.clean.architecture.data.repository.datastore.factory;
 
-import com.marcohc.android.clean.architecture.data.repository.datastore.cloud.UserCloudDataStore;
-import com.marcohc.android.clean.architecture.data.repository.datastore.disk.UserDiskDataSource;
-import com.marcohc.android.clean.architecture.data.repository.net.RepositoryCallback;
-import com.marcohc.android.clean.architecture.domain.entity.UserEntity;
+import com.marcohc.android.clean.architecture.data.repository.datastore.UserDataStore;
+import com.marcohc.android.clean.architecture.data.repository.datastore.datastores.disk.UserDiskDataSource;
+import com.marcohc.android.clean.architecture.data.repository.datastore.datastores.rest.UserRestDataStore;
+import com.marcohc.android.clean.architecture.data.net.RestCallback;
 
 import org.json.JSONObject;
 
@@ -18,15 +18,15 @@ public class UserDataStoreFactory {
     // ************************************************************************************************************************************************************************
 
     private static UserDataStoreFactory instance;
-    private final UserCloudDataStore userCloudDataStore;
-    private final UserDiskDataSource userDiskDataSource;
+    private final UserDataStore userCloudDataStore;
+    private final UserDataStore userDiskDataSource;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
     public UserDataStoreFactory() {
-        userCloudDataStore = new UserCloudDataStore();
+        userCloudDataStore = new UserRestDataStore();
         userDiskDataSource = new UserDiskDataSource();
     }
 
@@ -41,33 +41,24 @@ public class UserDataStoreFactory {
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public UserEntity getCurrentUser() {
-        return userDiskDataSource.get();
-    }
-
-    public void getAll(RepositoryCallback<JSONObject> callback) {
-        userCloudDataStore.getAll(callback);
-    }
-
-    public void logIn(String username, String password, RepositoryCallback<JSONObject> callback) {
+    public void logIn(String username, String password, RestCallback<JSONObject> callback) {
         userCloudDataStore.logIn(username, password, callback);
     }
 
-    public void signUp(String username, String password, RepositoryCallback<JSONObject> callback) {
+    public void signUp(String username, String password, RestCallback<JSONObject> callback) {
         userCloudDataStore.signUp(username, password, callback);
     }
 
-    public void logOut() {
-        userDiskDataSource.delete();
+    public void getAll(RestCallback<JSONObject> callback) {
+        userCloudDataStore.getAll(callback);
     }
 
-    public void put(UserEntity user) {
-        userDiskDataSource.put(user);
-    }
-
-    public boolean isFirstTimeInApp() {
-        return userDiskDataSource.isFirstTimeInApp();
-    }
-
+//    public void logOut() {
+//        userDiskDataSource.delete();
+//    }
+//
+//    public void put(UserEntity user) {
+//        userDiskDataSource.put(user);
+//    }
 
 }

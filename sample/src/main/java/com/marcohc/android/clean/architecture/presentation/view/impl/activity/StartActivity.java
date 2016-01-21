@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.marcohc.android.clean.architecture.MainApplication;
-import com.marcohc.android.clean.architecture.common.util.Constants;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.StartPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.StartPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
@@ -43,6 +42,10 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
         // Show splash screen and wait until MainApplication has finished loading stuff
         AsyncTask task = new AsyncTask() {
+
+            public boolean isUserLoggedIn;
+            public boolean isFirstTimeInTheApp;
+
             @Override
             protected Object doInBackground(Object[] params) {
 
@@ -51,28 +54,44 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
                 } catch (InterruptedException ignored) {
                 }
 
-                Timber.d(Constants.LOG_TAG, "2 - StartActivity: Waiting for MainApplication to finish loading data");
+                Timber.d("2 - StartActivity: Waiting for MainApplication to finish loading data");
                 MainApplication.waitUntilMainApplicationIsInitialized();
+
+                isFirstTimeInTheApp = presenter.isFirstTimeInTheApp();
+                isUserLoggedIn = presenter.isUserLoggedIn();
 
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                Timber.d(Constants.LOG_TAG, "3 - StartActivity: Going to main");
 
-                if (presenter.isFirstTimeInTheApp()) {
-                    goToTutorial();
-                } else if (presenter.isUserLoggedIn()) {
-                    goToMain();
+                Timber.d("3 - StartActivity: Going to main");
+
+                if (isFirstTimeInTheApp) {
+                    // First app opening and then tap on notification
+                    if (isUserLoggedIn) {
+                        goToMain();
+                    }
+                    // First app opening
+                    else {
+                        goToTutorial();
+                    }
                 } else {
-                    goToAuthentication();
+                    // User logged in
+                    if (isUserLoggedIn) {
+                        goToMain();
+                    }
+                    // User logged out
+                    else {
+                        goToAuthentication();
+                    }
                 }
             }
         };
         task.execute();
 
-        Timber.d(Constants.LOG_TAG, "1 - StartActivity: Showing splash screen");
+        Timber.d("1 - StartActivity: Showing splash screen");
     }
 
     // ************************************************************************************************************************************************************************

@@ -1,10 +1,10 @@
 package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
-import com.marcohc.android.clean.architecture.domain.interactor.GetUserUseCase;
+import com.marcohc.android.clean.architecture.domain.interactor.GetCurrentUserUseCase;
 import com.marcohc.android.clean.architecture.domain.interactor.GetUsersUseCase;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
-import com.marcohc.android.clean.architecture.presentation.BasePresenter;
+import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.UsersPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.UsersView;
 
@@ -23,7 +23,7 @@ public class UsersPresenterImpl extends BasePresenter<UsersView> implements User
 
     @Override
     public UserModel getUser() {
-        return new GetUserUseCase().execute();
+        return new GetCurrentUserUseCase().execute();
     }
 
     // ************************************************************************************************************************************************************************

@@ -1,9 +1,12 @@
 package com.marcohc.android.clean.architecture.common.bus;
 
 import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
-import com.marcohc.android.clean.architecture.common.exception.AppError;
-import com.marcohc.android.clean.architecture.common.exception.DataError;
+import com.marcohc.android.clean.architecture.domain.error.DomainError;
+import com.marcohc.android.clean.architecture.data.error.DataError;
 
+/**
+ * Extend from this class to get access to all useful bus methods
+ */
 public abstract class BusHandler {
 
     // ************************************************************************************************************************************************************************
@@ -42,7 +45,7 @@ public abstract class BusHandler {
         BusProvider.post(dataError);
     }
 
-    protected void postAppError(AppError appError) {
-        BusProvider.post(appError);
+    protected void postAppError(DomainError appError2) {
+        BusProvider.post(appError2);
     }
 }

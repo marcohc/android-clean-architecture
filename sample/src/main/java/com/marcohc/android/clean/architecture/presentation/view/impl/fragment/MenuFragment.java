@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
-import com.marcohc.android.clean.architecture.BuildConfig;
 import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
@@ -22,6 +21,7 @@ import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvp
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.AuthenticationActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
+import com.marcohc.android.clean.architecture.sample.BuildConfig;
 import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.DialogHelper;
 
