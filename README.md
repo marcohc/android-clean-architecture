@@ -52,7 +52,7 @@ Credits
 * [Helperoid] [5]
 * [Calligraphy] [6]
 * [Custom crash] [7]
-* [Logging] [8]
+* [Timber] [8]
 * [Retrofit] [9]
 
 License
