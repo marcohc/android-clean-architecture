@@ -1,13 +1,7 @@
 Android Clean Architecture
 ==============
 
-Following Uncle Bob's clean architecture approach over a communication bus and using a bunch of useful libraries:
-
-- Mosby (MVP)
-- ButterKnife
-- EventBus
-- Retrofit
-- (...)
+Following Uncle Bob's clean architecture approach over a communication bus and using a bunch of useful libraries (see credits).
 
 Usage
 -----
@@ -50,8 +44,16 @@ Developed By
 Credits
 -------
 
- * [Fernando Rojas - Android Clean Architecture] (https://github.com/android10/Android-CleanArchitecture)
- * [Mosby MVP] (http://hannesdorfmann.com/android/mosby)
+* [Fernando Rojas - Android Clean Architecture] [0]
+* [Event bus] [1]
+* [Mosby MVP] [2]
+* [Butter knife] [3]
+* [Toasteroid] [4]
+* [Helperoid] [5]
+* [Calligraphy] [6]
+* [Custom crash] [7]
+* [Logging] [8]
+* [Retrofit] [9]
 
 License
 -------
@@ -69,3 +71,14 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+    
+[0]: https://github.com/android10/Android-CleanArchitecture
+[1]: https://github.com/greenrobot/eventbus
+[2]: https://github.com/sockeqwe/mosby
+[3]: https://github.com/jakewharton/butterknife
+[4]: https://github.com/marcohc/toasteroid
+[5]: https://github.com/marcohc/helperoid
+[6]: https://github.com/chrisjenx/calligraphy
+[7]: https://github.com/Ereza/CustomActivityOnCrash
+[8]: https://github.com/JakeWharton/timber
+[9]: https://github.com/square/retrofit

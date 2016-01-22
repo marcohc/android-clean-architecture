@@ -19,8 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.marcohc.android.clean.architecture.MainApplication;
-import com.marcohc.android.clean.architecture.presentation.notification.NotificareAppReceiver;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainPresenter;
 import com.marcohc.android.clean.architecture.presentation.util.NavigationManager;
@@ -35,8 +33,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import re.notifica.Notificare;
 import timber.log.Timber;
 
 public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MainView {
@@ -63,7 +59,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     private int positionToGo;
     private ActionBarDrawerToggle mDrawerToggle;
     private BaseMvpFragment currentFragment;
-    private BaseMvpFragment lastFragment;
     private final int INITIAL_POSITION = NavigationManager.SCREENS.USERS_LIST.ordinal();
     private ActionBar actionBar;
 
@@ -81,9 +76,14 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        ButterKnife.bind(this);
-        setUpActionBar();
         setUpView();
+    }
+
+    public void setUpView() {
+        setUpActionBar();
+        setUpNavigationDrawer();
+        menuClick(INITIAL_POSITION);
+        presenter.onViewCreated();
     }
 
     private void setUpActionBar() {
@@ -95,22 +95,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         }
     }
 
-    public void setUpView() {
-        setUpNavigationDrawer();
-        menuClick(INITIAL_POSITION);
-        setUpNotificare();
-        presenter.onViewCreated();
-    }
-
-    private void setUpNotificare() {
-        // Set our own intent receiver
-        Notificare.shared().setDebugLogging(MainApplication.isDevelopment());
-        Notificare.shared().launch(getApplication());
-        Notificare.shared().setIntentReceiver(NotificareAppReceiver.class);
-    }
-
     private void setUpNavigationDrawer() {
-
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
 
             public void onDrawerClosed(View view) {
@@ -173,21 +158,18 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     @Override
     public void onBackPressed() {
-
         // If the menu is opened, close it
         if (drawerLayout.isDrawerOpen(GravityCompat.START) || drawerLayout.isDrawerOpen(GravityCompat.END)) {
             drawerLayout.closeDrawers();
             setMenuItemsVisible(true);
-        }
-        // If the back button comes from AddRecordActivity
-        else {
+        } else {
             finish();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Timber.v(NavigationManager.LOG_TAG, String.format("MainActivity.onActivityResult: {requestCode: %d, resultCode: %d, data: %s}", requestCode, resultCode, data != null ? data.toString() : ""));
+        Timber.v("{requestCode: %d, resultCode: %d, data: %s}", requestCode, resultCode, data != null ? data.toString() : "");
         if (currentFragment != null) {
             currentFragment.onActivityResult(requestCode, resultCode, data);
         }
@@ -241,20 +223,10 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         NavigationManager.currentViewPosition = position;
 
         if (currentFragment != null) {
-
-            if (lastFragment != null && lastFragment == currentFragment) {
-                currentFragment = refreshFragment(position);
-            } else {
-                loadFragment(currentFragment);
-            }
-
-            lastFragment = currentFragment;
-
+            loadFragment(currentFragment);
             setTitle(currentFragment.getTag());
-
             // Select menu item
             presenter.setSelectedMenuPosition(position);
-
         }
     }
 
@@ -282,13 +254,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         fragmentTransaction.commitAllowingStateLoss();
     }
 
-    private BaseMvpFragment refreshFragment(int position) {
-        fragmentsMap.remove(position);
-        BaseMvpFragment currentFragment = getFragment(position);
-        loadFragment(currentFragment);
-        return currentFragment;
-    }
-
     private BaseMvpFragment getFragment(int position) {
         if (fragmentsMap == null || fragmentsMap.isEmpty()) {
             fragmentsMap = new WeakHashMap<>();
@@ -307,11 +272,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
         return fragmentsMap.get(position);
     }
 
-    // **********************************************************************************************************************************************************************
-    // * UI management methods
-    // **********************************************************************************************************************************************************************
-
-    public void toggleLeftDrawer() {
+    private void toggleLeftDrawer() {
         try {
             if (drawerLayout.isDrawerOpen(leftDrawerContainer)) {
                 drawerLayout.closeDrawers();
@@ -321,7 +282,7 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
                 setMenuItemsVisible(false);
             }
         } catch (Exception e) {
-            Timber.wtf(NavigationManager.LOG_TAG, "Exception in toggleLeftDrawer: " + e.getMessage());
+            Timber.wtf("Exception in toggleLeftDrawer: %s", e.getMessage());
         }
     }
 

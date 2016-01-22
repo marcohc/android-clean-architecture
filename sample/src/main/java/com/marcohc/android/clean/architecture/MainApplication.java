@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
+import com.marcohc.android.clean.architecture.common.util.TimerLog;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
+import com.marcohc.android.clean.architecture.presentation.notification.NotificareAppReceiver;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
 import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
@@ -18,6 +20,7 @@ import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
 import java.util.concurrent.Semaphore;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+import re.notifica.Notificare;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -45,19 +48,22 @@ public class MainApplication extends MultiDexApplication {
             setUpLeakCanary();
         }
 
+        setUpTimber();
+
         // Loading task. Other classes must wait until the app is initialized
         AsyncTask task = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
 
-                setUpTimber();
+                TimerLog timer = new TimerLog("MainApplication.setUp");
+                timer.start();
 
                 // Load all data
                 Timber.d("1 - MainApplication - Start loading data");
 
                 setUpCustomCrash();
                 setUpFabric();
-                setUpNotificationManager();
+                setUpCustomNotifications();
                 setUpPreferences();
                 setUpCalligraphy();
                 setUpAnalytics();
@@ -69,11 +75,14 @@ public class MainApplication extends MultiDexApplication {
                 isAlreadyInitialized = true;
                 MainApplication.SEMAPHORE_1.release();
 
+                timer.log();
+
                 return null;
             }
         };
         task.execute();
 
+        setUpNotificare();
     }
 
     private void setUpCustomCrash() {
@@ -111,7 +120,18 @@ public class MainApplication extends MultiDexApplication {
         UserRepository.setUp();
     }
 
-    private void setUpNotificationManager() {
+    private void setUpNotificare() {
+        TimerLog timer = new TimerLog("Notificare");
+        timer.start();
+        // Notificare library
+        Notificare.shared().setDebugLogging(MainApplication.isDevelopment());
+        Notificare.shared().launch(MainApplication.this);
+        Notificare.shared().setIntentReceiver(NotificareAppReceiver.class);
+        timer.log();
+    }
+
+    private void setUpCustomNotifications() {
+        // Used for custom notifications
         NotificationManager.setUp(getApplicationContext());
     }
 
@@ -167,9 +187,9 @@ public class MainApplication extends MultiDexApplication {
 
     private void setUpCalligraphy() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/Roboto-Regular.ttf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
         );
     }
 

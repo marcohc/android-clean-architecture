@@ -21,8 +21,6 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private static final int SPLASH_TIME_OUT = 1000;
-
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
@@ -48,11 +46,6 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
 
             @Override
             protected Object doInBackground(Object[] params) {
-
-                try {
-                    Thread.sleep(SPLASH_TIME_OUT);
-                } catch (InterruptedException ignored) {
-                }
 
                 Timber.d("2 - StartActivity: Waiting for MainApplication to finish loading data");
                 MainApplication.waitUntilMainApplicationIsInitialized();
