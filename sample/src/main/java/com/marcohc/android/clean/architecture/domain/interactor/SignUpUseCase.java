@@ -1,7 +1,6 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
 
-import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.bus.request.SignUpRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.SignUpDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.SignUpDomainResponse;
@@ -42,11 +41,6 @@ public class SignUpUseCase extends AsynchronousUseCase {
     @Override
     protected SignUpDomainResponse createResponse() {
         return new SignUpDomainResponse();
-    }
-
-    @Override
-    protected void handleDataError(DataError dataError) {
-        defaultDataErrorHandler(dataError);
     }
 
     // ************************************************************************************************************************************************************************

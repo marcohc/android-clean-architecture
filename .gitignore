@@ -67,4 +67,6 @@ tmp
 .gradle
 /build
 /out
+*.hprof
+
 

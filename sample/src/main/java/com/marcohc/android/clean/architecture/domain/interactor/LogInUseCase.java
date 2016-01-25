@@ -1,6 +1,5 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.bus.request.LogInRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogInDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.LogInDomainResponse;
@@ -42,11 +41,6 @@ public class LogInUseCase extends AsynchronousUseCase {
     @Override
     protected LogInDomainResponse createResponse() {
         return new LogInDomainResponse(userModel);
-    }
-
-    @Override
-    protected void handleDataError(DataError dataError) {
-        defaultDataErrorHandler(dataError);
     }
 
     // ************************************************************************************************************************************************************************

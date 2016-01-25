@@ -1,10 +1,9 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
-import com.marcohc.android.clean.architecture.domain.error.DomainError;
-import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.bus.request.GetUsersRequest;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.GetUsersDomainResponse;
+import com.marcohc.android.clean.architecture.domain.error.DomainError;
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 
@@ -42,11 +41,6 @@ public class GetUsersUseCase extends AsynchronousUseCase {
         usersArray = clearUsersArray(usersArray);
         List<UserModel> usersList = UserMapper.parseUsersList(usersArray);
         return new GetUsersDomainResponse(usersList);
-    }
-
-    @Override
-    protected void handleDataError(DataError dataError) {
-        defaultDataErrorHandler(dataError);
     }
 
     // ************************************************************************************************************************************************************************

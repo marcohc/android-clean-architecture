@@ -15,11 +15,6 @@ public abstract class AsynchronousUseCase extends BusHandler implements UseCase 
 
     protected abstract BusEvent createResponse();
 
-    /**
-     * Force use case to handle data errors
-     */
-    protected abstract void handleDataError(DataError dataError);
-
     public void execute() {
         BusEvent request = createRequest();
         if (request != null) {
@@ -32,11 +27,12 @@ public abstract class AsynchronousUseCase extends BusHandler implements UseCase 
     }
 
     /**
-     * Converts the {@link DataError} to {@link DomainError} to be handle by presenter
+     * Converts the {@link DataError} to {@link DomainError} to be handle by presenter.
+     * Override this method if you want to customize your data error handling
      */
-    protected void defaultDataErrorHandler(DataError dataError) {
-        DomainError appError2 = new DomainError(dataError.getMessage(), dataError.getCode());
-        postAppError(appError2);
+    protected void handleDataError(DataError dataError) {
+        DomainError appError = new DomainError(dataError.getMessage(), dataError.getCode());
+        postAppError(appError);
         unregisterFromBus();
     }
 
