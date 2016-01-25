@@ -1,7 +1,8 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
 /**
- * This class represents an synchronous use case.
+ * This class represents an synchronous use case not connected to the bus.
+ * Used for simple business logic
  */
 public abstract class SynchronousUseCase implements UseCase {
 
