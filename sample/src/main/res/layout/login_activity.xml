@@ -13,30 +13,44 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/small_padding"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/usernameEditText"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding"
-            android:ems="10"
-            android:hint="@string/username"
-            android:imeActionLabel="@string/ok"
-            android:inputType="textCapSentences"
-            android:maxLength="16" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/passwordEditText"
+            <EditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding"
+                android:ems="10"
+                android:hint="@string/username"
+                android:imeActionLabel="@string/ok"
+                android:inputType="textCapSentences"
+                android:maxLength="16" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
-            android:layout_marginRight="@dimen/padding"
-            android:ems="10"
-            android:hint="@string/password"
-            android:imeActionLabel="@string/ok"
-            android:inputType="textPassword"
-            android:maxLength="16" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding"
+                android:layout_marginRight="@dimen/padding"
+                android:ems="10"
+                android:hint="@string/password"
+                android:imeActionLabel="@string/ok"
+                android:inputType="textPassword"
+                android:maxLength="16" />
+
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
