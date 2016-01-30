@@ -73,13 +73,35 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
     }
 
     /**
-     * Shows error message
+     * Shows success message
      *
-     * @param errorMessage the error message to be shown
+     * @param message the message to be shown
      */
-    public void showError(String errorMessage) {
+    public void showSuccess(String message) {
         if (isViewAttached()) {
-            getView().showError(errorMessage);
+            getView().showSuccess(message);
+        }
+    }
+
+    /**
+     * Shows message
+     *
+     * @param message the message to be shown
+     */
+    public void showInfo(String message) {
+        if (isViewAttached()) {
+            getView().showInfo(message);
+        }
+    }
+
+    /**
+     * Shows delete message
+     *
+     * @param message the message to be shown
+     */
+    public void showDelete(String message) {
+        if (isViewAttached()) {
+            getView().showDelete(message);
         }
     }
 
@@ -95,13 +117,13 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
     }
 
     /**
-     * Shows message
+     * Shows error message
      *
-     * @param message the message to be shown
+     * @param errorMessage the error message to be shown
      */
-    public void showInfo(String message) {
+    public void showError(String errorMessage) {
         if (isViewAttached()) {
-            getView().showInfo(message);
+            getView().showError(errorMessage);
         }
     }
 

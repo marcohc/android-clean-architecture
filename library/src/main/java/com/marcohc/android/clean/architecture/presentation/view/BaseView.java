@@ -22,7 +22,11 @@ public interface BaseView extends MvpView {
 
     // Toast
 
+    void showSuccess(String message);
+
     void showInfo(String message);
+
+    void showDelete(String message);
 
     void showWarning(String error);
 
@@ -33,4 +37,6 @@ public interface BaseView extends MvpView {
     String getResourceString(int stringId);
 
     String getResourceString(int stringId, Object... formatArgs);
+
+
 }

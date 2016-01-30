@@ -68,8 +68,18 @@ public abstract class BaseMvpActivity<V extends BaseView, P extends MvpPresenter
     }
 
     @Override
+    public void showSuccess(String message) {
+        Toasteroid.show(this, message, Toasteroid.STYLES.SUCCESS);
+    }
+
+    @Override
     public void showInfo(String message) {
         Toasteroid.show(this, message, Toasteroid.STYLES.INFO);
+    }
+
+    @Override
+    public void showDelete(String message) {
+        Toasteroid.show(this, message, Toasteroid.STYLES.DELETE);
     }
 
     @Override
