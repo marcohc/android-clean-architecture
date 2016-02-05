@@ -10,8 +10,8 @@ import com.marcohc.android.clean.architecture.data.repository.UserRepository;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificareAppReceiver;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
+import com.marcohc.android.clean.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
-import com.marcohc.android.clean.architecture.sample.BuildConfig;
 import com.marcohc.helperoid.PreferencesHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
@@ -43,7 +43,7 @@ public class MainApplication extends MultiDexApplication {
 
         super.onCreate();
 
-        if (isDevelopment()) {
+        if (AppConfigHelper.isDevelopment()) {
             setUpStrictMode();
             setUpLeakCanary();
         }
@@ -90,7 +90,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void setUpCache() {
-        if (isDevelopment()) {
+        if (AppConfigHelper.isDevelopment()) {
             DualCacheLogUtils.enableLog();
         }
         DualCacheContextUtils.setContext(getApplicationContext());
@@ -124,7 +124,7 @@ public class MainApplication extends MultiDexApplication {
         TimerLog timer = new TimerLog("Notificare");
         timer.start();
         // Notificare library
-        Notificare.shared().setDebugLogging(MainApplication.isDevelopment());
+        Notificare.shared().setDebugLogging(AppConfigHelper.isDevelopment());
         Notificare.shared().launch(MainApplication.this);
         Notificare.shared().setIntentReceiver(NotificareAppReceiver.class);
         timer.log();
@@ -144,7 +144,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void setUpTimber() {
-        if (isDevelopment()) {
+        if (AppConfigHelper.isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
         } else {
             // TODO: Uncomment this to make Timber and Fabric work together
@@ -196,18 +196,6 @@ public class MainApplication extends MultiDexApplication {
     // ************************************************************************************************************************************************************************
     // * Other methods
     // ************************************************************************************************************************************************************************
-
-    public static boolean isDevelopment() {
-        return BuildConfig.BUILD_TYPE.equals("debug");
-    }
-
-    public static boolean isAcceptance() {
-        return BuildConfig.BUILD_TYPE.equals("acceptance");
-    }
-
-    public static boolean isProduction() {
-        return BuildConfig.BUILD_TYPE.equals("release");
-    }
 
     /**
      * Used from other

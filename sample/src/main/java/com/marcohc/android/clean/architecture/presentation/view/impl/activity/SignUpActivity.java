@@ -12,12 +12,12 @@ import android.widget.EditText;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.marcohc.android.clean.architecture.MainApplication;
-import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.SignUpPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.SignUpPresenter;
+import com.marcohc.android.clean.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.SignUpView;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.ScreenHelper;
 
 import butterknife.Bind;
@@ -126,7 +126,7 @@ public class SignUpActivity extends BaseMvpActivity<SignUpView, SignUpPresenter>
 
     @OnClick(R.id.parentPanel)
     protected void onParentPanelClick() {
-        if (!MainApplication.isProduction()) {
+        if (!AppConfigHelper.isProduction()) {
             if (timesTapped++ == 5) {
                 timesTapped = 1;
                 fillFormWithFakeData();

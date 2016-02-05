@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
-import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
+import com.marcohc.android.clean.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.android.clean.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.android.clean.architecture.presentation.view.impl.activity.AuthenticationActivity;
@@ -141,8 +141,8 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     private void setDevelopmentText() {
-        if (MainApplication.isDevelopment() || MainApplication.isAcceptance()) {
-            isDevelopmentText.setText(String.format("%s / %s / %s", MainApplication.isDevelopment() ? "Development" : "Acceptance", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+        if (AppConfigHelper.isDevelopment() || AppConfigHelper.isAcceptance()) {
+            isDevelopmentText.setText(String.format("%s / %s / %s", AppConfigHelper.isDevelopment() ? "Development" : "Acceptance", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
             isDevelopmentText.setVisibility(View.VISIBLE);
         } else {
             isDevelopmentText.setVisibility(View.GONE);

@@ -12,9 +12,9 @@ import android.widget.EditText;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.LogInPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogInPresenter;
+import com.marcohc.android.clean.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.android.clean.architecture.sample.R;
@@ -94,7 +94,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     @OnClick(R.id.tipText)
     protected void onTipTextClick() {
-        if (!MainApplication.isProduction()) {
+        if (!AppConfigHelper.isProduction()) {
             if (timesTapped++ == 5) {
                 timesTapped = 1;
                 fillFormWithFakeData();
