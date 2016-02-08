@@ -22,7 +22,7 @@
     <string name="log_out_question">Do you want to log out?</string>
     <string name="username">Username</string>
     <string name="users">Users</string>
-    <string name="no_users">No users</string>
+    <string name="no_users_title">No users</string>
     <string name="gps_question">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="skip_tutorial">skip tutorial!</string>
     <string name="map">Map</string>
@@ -45,5 +45,6 @@
     <string name="error">Error</string>
     <string name="report">Report</string>
     <string name="report_sent">Report sent</string>
+    <string name="no_users_subtitle">Add a new user tapping on + button</string>
 
 </resources>

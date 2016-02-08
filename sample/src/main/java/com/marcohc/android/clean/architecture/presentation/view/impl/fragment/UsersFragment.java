@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.sample.R;
@@ -34,11 +33,9 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     @Bind(R.id.listView)
     ListView listView;
 
-    @Bind(R.id.noDataText)
-    TextView noDataText;
-
     private BaseListAdapter<UserModel> listViewAdapter;
     private UserModel user;
+    private EmptyStateFragment emptyStateFragment;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -57,11 +54,19 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
-        initializeListView();
+        setUpListView();
+        setUpEmptyStateFragment();
         presenter.onViewCreated();
     }
 
-    private void initializeListView() {
+    private void setUpEmptyStateFragment() {
+        emptyStateFragment = (EmptyStateFragment) getChildFragmentManager().findFragmentById(R.id.emptyStateFragment);
+        emptyStateFragment.setTitle(getString(R.string.no_users_title));
+        emptyStateFragment.setSubTitle(getString(R.string.no_users_subtitle));
+        emptyStateFragment.setImage(R.drawable.im_user_place_holder);
+    }
+
+    private void setUpListView() {
         listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
         listView.setAdapter(listViewAdapter);
     }
@@ -85,19 +90,14 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     @Override
     public void loadData(List<UserModel> modelList) {
         if (modelList.isEmpty()) {
-            noDataText.setVisibility(View.VISIBLE);
+            emptyStateFragment.setVisible(true);
             listView.setVisibility(View.GONE);
         } else {
-            noDataText.setVisibility(View.GONE);
+            emptyStateFragment.setVisible(false);
             listView.setVisibility(View.VISIBLE);
             listViewAdapter.clear();
             listViewAdapter.addThemAll(modelList);
             listViewAdapter.notifyDataSetChanged();
         }
     }
-
-    // ************************************************************************************************************************************************************************
-    // * UI methods
-    // ************************************************************************************************************************************************************************
-
 }
