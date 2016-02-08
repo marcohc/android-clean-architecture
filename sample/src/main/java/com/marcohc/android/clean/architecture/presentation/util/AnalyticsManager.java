@@ -6,7 +6,6 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.Tracker;
-import com.marcohc.android.clean.architecture.MainApplication;
 import com.marcohc.android.clean.architecture.sample.R;
 
 public class AnalyticsManager {
@@ -17,7 +16,7 @@ public class AnalyticsManager {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
         analytics.setLocalDispatchPeriod(1800);
         analytics.getLogger().setLogLevel(LogLevel.VERBOSE);
-        if (MainApplication.isDevelopment()) {
+        if (AppConfigHelper.isDevelopment()) {
             analytics.setDryRun(true);
         }
         analyticsTracker = analytics.newTracker(context.getResources().getString(R.string.google_analytics_id));
