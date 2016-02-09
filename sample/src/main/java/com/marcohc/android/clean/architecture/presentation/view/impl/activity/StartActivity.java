@@ -105,8 +105,7 @@ public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> im
     // ************************************************************************************************************************************************************************
 
     private void goToTutorial() {
-        Intent intent = new Intent(StartActivity.this, TutorialActivity.class);
-        startActivityForResult(intent, NavigationManager.TUTORIAL_REQUEST_CODE);
+        startActivityForResult(new Intent(StartActivity.this, TutorialActivity.class), NavigationManager.TUTORIAL_REQUEST_CODE);
     }
 
     private void goToMain() {

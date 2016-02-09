@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 
-import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.TutorialPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.TutorialPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.TutorialViewPagerAdapter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.TutorialView;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TutorialActivity extends BaseMvpActivity<TutorialView, TutorialPresenter> implements TutorialView {
@@ -41,21 +40,16 @@ public class TutorialActivity extends BaseMvpActivity<TutorialView, TutorialPres
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.tutorial_activity);
-
-        ButterKnife.bind(this);
-
-        initializeComponentBehavior();
+        setUpView();
     }
 
-    public void initializeComponentBehavior() {
-        initializeViewPager();
+    public void setUpView() {
+        setUpAdapter();
     }
 
-    private void initializeViewPager() {
+    private void setUpAdapter() {
         TutorialViewPagerAdapter viewPagerAdapter = new TutorialViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         pageIndicator.setViewPager(viewPager);

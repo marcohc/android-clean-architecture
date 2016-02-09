@@ -11,7 +11,7 @@ public class GetCurrentUserUseCase extends SynchronousUseCase {
 
     @Override
     public UserModel execute() {
-        return UserMapper.parse(ParserHelper.parse(PreferencesHelper.getString(PreferencesConstants.USER, ""), UserEntity.class));
+        return UserMapper.parse(ParserHelper.parse(PreferencesHelper.getString(PreferencesConstants.USER, null), UserEntity.class));
     }
 
 }
