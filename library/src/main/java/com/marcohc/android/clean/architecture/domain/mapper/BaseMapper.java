@@ -5,6 +5,8 @@ import com.marcohc.android.clean.architecture.domain.model.Model;
 import com.marcohc.helperoid.MapperHelper;
 import com.marcohc.helperoid.ParserHelper;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,14 @@ public abstract class BaseMapper<M extends Model, E extends Entity> {
             }
         }
         return entitiesList;
+    }
+
+    public List<M> parseModelJsonArray(JSONArray modelJsonArray) {
+        return ParserHelper.parseJsonArray(modelJsonArray, modelClass);
+    }
+
+    public List<E> parseEntityJsonArray(JSONArray entityJsonArray) {
+        return ParserHelper.parseJsonArray(entityJsonArray, entityClass);
     }
 
     public M parseModel(String json) {

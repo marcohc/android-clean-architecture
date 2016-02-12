@@ -38,7 +38,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
         } catch (JSONException e) {
         }
         usersArray = clearUsersArray(usersArray);
-        List<UserModel> usersList = UserMapper.getInstance().parseUsersList(usersArray);
+        List<UserModel> usersList = UserMapper.getInstance().parseModelJsonArray(usersArray);
         return new GetUsersDomainResponse(usersList);
     }
 
