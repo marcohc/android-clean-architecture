@@ -18,7 +18,7 @@ This library is compatible from API 15.
 Gradle
 ------
 
-This library uses the awesome tool [Jitpack] (https://jitpack.io/#marcohc/android-clean-architecture)
+This library uses the awesome tool [![](https://jitpack.io/v/marcohc/android-clean-architecture.svg)](https://jitpack.io/#marcohc/android-clean-architecture)
 
 Add the repository to your general build.gradle:
 
