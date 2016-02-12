@@ -15,7 +15,7 @@ public class UserDetailPresenterImpl extends BasePresenter<UserDetailView> imple
 
     @Override
     public void onViewCreated(String userJson) {
-        UserModel user = UserMapper.parseUser(userJson);
+        UserModel user = UserMapper.getInstance().parseModel(userJson);
         if (isViewAttached()) {
             getView().setUserData(user);
         }

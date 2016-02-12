@@ -6,33 +6,24 @@ import com.marcohc.helperoid.ParserHelper;
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserMapper extends BaseMapper {
+public class UserMapper extends BaseMapper<UserModel, UserEntity> {
 
-    public static List<UserModel> parseUsersList(JSONArray response) {
-        return ParserHelper.parseJsonArray(response, UserModel.class);
+    private static UserMapper instance;
+
+    private UserMapper(Class<UserModel> modelClass, Class<UserEntity> entityClass) {
+        super(modelClass, entityClass);
     }
 
-    private static List<UserModel> getUsersList(List<? extends UserEntity> entitiesList) {
-        List<UserModel> modelsList = new ArrayList<>();
-        for (UserEntity item : entitiesList) {
-            UserModel model = transform(item, UserModel.class);
-            modelsList.add(model);
+    public static UserMapper getInstance() {
+        if (instance == null) {
+            instance = new UserMapper(UserModel.class, UserEntity.class);
         }
-        return modelsList;
+        return instance;
     }
 
-    public static UserModel parseUser(String jsonResponse) {
-        return ParserHelper.parse(jsonResponse, UserModel.class);
-    }
-
-    public static UserModel parse(UserEntity user) {
-        return transform(user, UserModel.class);
-    }
-
-    public static UserEntity parse(UserModel user) {
-        return transform(user, UserEntity.class);
+    public List<UserModel> parseUsersList(JSONArray response) {
+        return ParserHelper.parseJsonArray(response, UserModel.class);
     }
 }

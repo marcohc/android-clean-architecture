@@ -45,7 +45,7 @@ public class UserDiskDataSource implements UserDataStore {
 
 //    @Override
 //    public UserEntity get() {
-//        return ParserHelper.parse(PreferencesHelper.getString(PreferencesConstants.USER, ""), UserEntity.class);
+//        return ParserHelper.parseModel(PreferencesHelper.getString(PreferencesConstants.USER, ""), UserEntity.class);
 //    }
 //
 //    @Override

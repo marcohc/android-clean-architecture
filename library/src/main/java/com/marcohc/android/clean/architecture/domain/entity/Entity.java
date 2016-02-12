@@ -1,10 +1,10 @@
 package com.marcohc.android.clean.architecture.domain.entity;
 
+import java.util.Map;
+
 public interface Entity {
 
-    Long getId();
-
-    void setId(Long id);
-
     String toJsonString();
+
+    Map<String, Object> toMap();
 }

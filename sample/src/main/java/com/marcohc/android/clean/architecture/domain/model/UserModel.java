@@ -15,6 +15,7 @@ import java.util.Random;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class UserModel extends BaseModel implements ClusterItem {
 
+    private String key;
     private String gender;
     private Name name;
     private Localization location;
@@ -282,4 +283,11 @@ public class UserModel extends BaseModel implements ClusterItem {
         this.version = version;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }

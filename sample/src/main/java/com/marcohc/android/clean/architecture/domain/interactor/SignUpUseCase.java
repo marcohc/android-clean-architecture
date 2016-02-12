@@ -60,7 +60,7 @@ public class SignUpUseCase extends AsynchronousUseCase {
             userEntity.setEmail((String) parametersMap.get("email"));
 //            userEntity.setCreatedAt(System.currentTimeMillis() * 1000);
 
-            UserModel userModel = UserMapper.parse(userEntity);
+            UserModel userModel = UserMapper.getInstance().transform(userEntity);
 
             // Save current user
             userModel.setKey(userModel.getEmail());

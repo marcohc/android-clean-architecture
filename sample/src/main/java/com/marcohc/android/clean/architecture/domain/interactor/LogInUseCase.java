@@ -52,7 +52,7 @@ public class LogInUseCase extends AsynchronousUseCase {
         this.response = dataResponse;
         if (!dataResponse.hasError()) {
 
-            userModel = UserMapper.parseUser(response.getResponse().toString());
+            userModel = UserMapper.getInstance().parseModel(response.getResponse().toString());
 
             // Save current user
             userModel.setKey(userModel.getEmail());
