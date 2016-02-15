@@ -65,7 +65,7 @@ public abstract class RestCallback<T> implements Callback<T> {
 
         // For empty responses
         try {
-            success((T) new JSONObject(""));
+            success((T) new JSONObject("{}"));
         } catch (JSONException ignored) {
         }
     }
