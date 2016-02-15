@@ -52,6 +52,7 @@ public abstract class RestCallback<T> implements Callback<T> {
             JSONArray jsonArray = new JSONArray(new Gson().toJson(type));
             Timber.d("Response: " + jsonArray.toString());
             success((T) jsonArray);
+            return;
         } catch (JSONException ignored) {
         }
 
@@ -60,6 +61,7 @@ public abstract class RestCallback<T> implements Callback<T> {
             JSONObject jsonResponse = new JSONObject(new Gson().toJson(type));
             Timber.d("Response: " + jsonResponse.toString());
             success((T) jsonResponse);
+            return;
         } catch (JSONException ignored) {
         }
 
