@@ -1,9 +1,12 @@
 package com.marcohc.android.clean.architecture.presentation.presenter;
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.marcohc.android.clean.architecture.domain.error.DomainError;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpBasePresenter;
 import com.marcohc.android.clean.architecture.presentation.view.BaseView;
 import com.marcohc.toasteroid.Toasteroid;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import timber.log.Timber;
 
@@ -127,6 +130,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(DomainError exception) {
         handleException(exception);
     }

@@ -12,6 +12,8 @@ import com.marcohc.android.clean.architecture.domain.bus.response.data.GetUsersD
 import com.marcohc.android.clean.architecture.domain.bus.response.data.LogInDataResponse;
 import com.marcohc.android.clean.architecture.domain.bus.response.data.SignUpDataResponse;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 /**
@@ -42,6 +44,7 @@ public class UserRepository extends BusHandler {
     // * Event handler methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(LogInRequest request) {
         UserDataStoreFactory.getInstance().logIn(request.getUsername(), request.getPassword(), new RestCallback<JSONObject>() {
             @Override
@@ -56,6 +59,7 @@ public class UserRepository extends BusHandler {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(SignUpRequest request) {
         UserDataStoreFactory.getInstance().signUp(request.getUsername(), request.getPassword(),
                 new RestCallback<JSONObject>() {
@@ -71,6 +75,7 @@ public class UserRepository extends BusHandler {
                 });
     }
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(GetUsersRequest request) {
         UserDataStoreFactory.getInstance().getAll(new RestCallback<JSONObject>() {
             @Override

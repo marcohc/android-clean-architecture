@@ -37,11 +37,9 @@ android {
 
 dependencies {
 
-    // Event bus
-    compile 'de.greenrobot:eventbus:2.4.1'
-
-    // Mosby
-    compile 'com.hannesdorfmann.mosby:mvp:1.3.1'
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // PRESENTATION
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Butter knife
     compile 'com.jakewharton:butterknife:7.0.1'
@@ -49,21 +47,42 @@ dependencies {
     // Toasteroid
     compile 'com.github.marcohc:toasteroid:2.1.4'
 
-    // Helperoid
-    compile 'com.github.marcohc:helperoid:1.2.6.6'
-
     // Calligraphy
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
-    // Custom crash
-    compile 'cat.ereza:customactivityoncrash:1.4.0'
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // DOMAIN
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Logging
-    compile 'com.jakewharton.timber:timber:4.1.0'
+    // For parsing
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
+
+    // Model mapper
+    compile 'org.modelmapper:modelmapper:0.7.5'
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // DATA
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Rest
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // COMMON
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Event bus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    // Logging
+    compile 'com.jakewharton.timber:timber:4.1.0'
+
+    // Custom crash
+    compile 'cat.ereza:customactivityoncrash:1.4.0'
+
+    // Helperoid
+    compile 'com.github.marcohc:helperoid:1.3.0'
 
 }

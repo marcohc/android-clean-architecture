@@ -7,6 +7,9 @@ import com.marcohc.android.clean.architecture.presentation.presenter.inter.LogIn
 import com.marcohc.android.clean.architecture.presentation.view.inter.LogInView;
 import com.marcohc.helperoid.StringHelper;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogInPresenter {
 
     // ************************************************************************************************************************************************************************
@@ -25,6 +28,7 @@ public class LogInPresenterImpl extends BasePresenter<LogInView> implements LogI
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(LogInDomainResponse event) {
         hideDialog();
         getView().goToMain();

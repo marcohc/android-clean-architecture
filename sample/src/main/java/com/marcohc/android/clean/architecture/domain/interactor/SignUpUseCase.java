@@ -10,6 +10,9 @@ import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.domain.util.AuthenticationManager;
 import com.marcohc.android.clean.architecture.presentation.exception.MyAppError;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Map;
 
 public class SignUpUseCase extends AsynchronousUseCase {
@@ -47,6 +50,7 @@ public class SignUpUseCase extends AsynchronousUseCase {
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(SignUpDataResponse responseFromServer) {
 
         if (!responseFromServer.hasError()) {

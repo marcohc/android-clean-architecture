@@ -2,8 +2,8 @@ package com.marcohc.android.clean.architecture.presentation.view.fragment;
 
 import android.app.ProgressDialog;
 
-import com.hannesdorfmann.mosby.mvp.MvpFragment;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpFragment;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.android.clean.architecture.R;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.presentation.view.BaseView;

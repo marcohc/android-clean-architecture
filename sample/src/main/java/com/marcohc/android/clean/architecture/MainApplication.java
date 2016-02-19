@@ -7,7 +7,6 @@ import android.support.multidex.MultiDexApplication;
 
 import com.marcohc.android.clean.architecture.common.util.TimerLog;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
-import com.marcohc.android.clean.architecture.presentation.notification.NotificareAppReceiver;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
 import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
 import com.marcohc.android.clean.architecture.presentation.util.AppConfigHelper;
@@ -20,7 +19,6 @@ import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
 import java.util.concurrent.Semaphore;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
-import re.notifica.Notificare;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -81,8 +79,6 @@ public class MainApplication extends MultiDexApplication {
             }
         };
         task.execute();
-
-        setUpNotificare();
     }
 
     private void setUpCustomCrash() {
@@ -118,16 +114,6 @@ public class MainApplication extends MultiDexApplication {
     private void setUpRepositories() {
         // TODO: Get all repositories by reflection and setUp them in order to connect to the bus
         UserRepository.setUp();
-    }
-
-    private void setUpNotificare() {
-        TimerLog timer = new TimerLog("Notificare");
-        timer.start();
-        // Notificare library
-        Notificare.shared().setDebugLogging(AppConfigHelper.isDevelopment());
-        Notificare.shared().launch(MainApplication.this);
-        Notificare.shared().setIntentReceiver(NotificareAppReceiver.class);
-        timer.log();
     }
 
     private void setUpCustomNotifications() {

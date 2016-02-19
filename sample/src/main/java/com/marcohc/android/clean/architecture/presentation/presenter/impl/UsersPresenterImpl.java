@@ -8,6 +8,9 @@ import com.marcohc.android.clean.architecture.presentation.presenter.BasePresent
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.UsersPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.UsersView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 @SuppressWarnings("ConstantConditions")
 public class UsersPresenterImpl extends BasePresenter<UsersView> implements UsersPresenter {
 
@@ -30,6 +33,7 @@ public class UsersPresenterImpl extends BasePresenter<UsersView> implements User
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(GetUsersDomainResponse event) {
         hideDialog();
         if (isViewAttached()) {

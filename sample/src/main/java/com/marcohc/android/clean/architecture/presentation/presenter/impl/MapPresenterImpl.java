@@ -8,6 +8,9 @@ import com.marcohc.android.clean.architecture.presentation.presenter.BasePresent
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MapPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MapView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 @SuppressWarnings("ConstantConditions")
 public class MapPresenterImpl extends BasePresenter<MapView> implements MapPresenter {
 
@@ -33,6 +36,7 @@ public class MapPresenterImpl extends BasePresenter<MapView> implements MapPrese
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(GetUsersDomainResponse event) {
         if (isViewAttached()) {
             getView().setMapItems(event.getUsersList());

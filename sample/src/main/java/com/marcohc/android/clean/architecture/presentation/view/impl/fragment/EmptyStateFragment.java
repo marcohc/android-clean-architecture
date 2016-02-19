@@ -41,7 +41,7 @@ public class EmptyStateFragment extends BaseMvpFragment<EmptyStateView, EmptySta
     // ************************************************************************************************************************************************************************
 
     @Override
-    protected int getLayoutRes() {
+    public int getLayoutRes() {
         return R.layout.empty_state_fragment;
     }
 

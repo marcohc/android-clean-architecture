@@ -4,7 +4,7 @@ package com.marcohc.android.clean.architecture.presentation.presenter.inter;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.AuthenticationView;
 
 

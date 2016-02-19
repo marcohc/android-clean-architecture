@@ -8,6 +8,9 @@ import com.marcohc.android.clean.architecture.presentation.presenter.BasePresent
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 @SuppressWarnings("ConstantConditions")
 public class MenuPresenterImpl extends BasePresenter<MenuView> implements MenuPresenter {
 
@@ -31,6 +34,7 @@ public class MenuPresenterImpl extends BasePresenter<MenuView> implements MenuPr
     // * Presenter methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(MenuSelectItemEvent event) {
         if (isViewAttached()) {
             getView().setSelectedMenuItem(event.getPosition());

@@ -74,12 +74,6 @@ public class MyMapFragment extends BaseMvpFragment<MapView, MapPresenter>
     // ************************************************************************************************************************************************************************
 
     @Override
-    public void onStart() {
-        super.onStart();
-        BusProvider.registerSticky(presenter);
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.map_fragment;
     }

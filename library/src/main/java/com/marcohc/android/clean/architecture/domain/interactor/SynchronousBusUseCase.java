@@ -5,6 +5,9 @@ import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
 import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.error.DomainError;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * This class represents an synchronous use case connected to the bus.
  */
@@ -12,7 +15,8 @@ public abstract class SynchronousBusUseCase extends BusHandler implements UseCas
 
     protected abstract BusEvent createRequest();
 
-    public void onEventAsync(DataError dataError) {
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onDataError(DataError dataError) {
         handleDataError(dataError);
     }
 

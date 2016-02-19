@@ -3,8 +3,8 @@ package com.marcohc.android.clean.architecture.presentation.view.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.hannesdorfmann.mosby.mvp.MvpActivity;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpActivity;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.android.clean.architecture.R;
 import com.marcohc.android.clean.architecture.common.bus.BusProvider;
 import com.marcohc.android.clean.architecture.presentation.view.BaseView;

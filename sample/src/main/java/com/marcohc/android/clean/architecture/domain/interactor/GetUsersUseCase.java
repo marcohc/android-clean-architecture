@@ -7,6 +7,8 @@ import com.marcohc.android.clean.architecture.domain.error.DomainError;
 import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +48,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(GetUsersDataResponse responseFromServer) {
 
         this.responseFromServer = responseFromServer;

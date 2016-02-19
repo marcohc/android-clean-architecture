@@ -8,6 +8,9 @@ import com.marcohc.android.clean.architecture.domain.mapper.UserMapper;
 import com.marcohc.android.clean.architecture.domain.model.UserModel;
 import com.marcohc.android.clean.architecture.domain.util.AuthenticationManager;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public class LogInUseCase extends AsynchronousUseCase {
 
     // ************************************************************************************************************************************************************************
@@ -47,6 +50,7 @@ public class LogInUseCase extends AsynchronousUseCase {
     // * Use case execution
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(LogInDataResponse dataResponse) {
 
         this.response = dataResponse;

@@ -3,10 +3,13 @@ package com.marcohc.android.clean.architecture.presentation.presenter.impl;
 import com.marcohc.android.clean.architecture.domain.bus.response.domain.SignUpDomainResponse;
 import com.marcohc.android.clean.architecture.domain.interactor.SignUpUseCase;
 import com.marcohc.android.clean.architecture.presentation.presenter.BasePresenter;
-import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.SignUpPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.SignUpView;
+import com.marcohc.android.clean.architecture.sample.R;
 import com.marcohc.helperoid.StringHelper;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class SignUpPresenterImpl extends BasePresenter<SignUpView> implements Si
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(SignUpDomainResponse response) {
         hideDialog();
         if (isViewAttached()) {

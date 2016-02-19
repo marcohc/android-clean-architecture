@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Logger.LogLevel;
 import com.google.android.gms.analytics.Tracker;
 import com.marcohc.android.clean.architecture.sample.R;
 
@@ -15,7 +14,6 @@ public class AnalyticsManager {
     public static void setUp(Context context) {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
         analytics.setLocalDispatchPeriod(1800);
-        analytics.getLogger().setLogLevel(LogLevel.VERBOSE);
         if (AppConfigHelper.isDevelopment()) {
             analytics.setDryRun(true);
         }
@@ -34,9 +32,7 @@ public class AnalyticsManager {
             analyticsTracker.setScreenName(screenName);
             analyticsTracker.send(builder.build());
             analyticsTracker.setScreenName(null);
-        } catch (Exception e) {
-//            Crashlytics.log(android.util.Timber.ERROR, String.format("AnalyticsHelper.trackAnalyticsEvent: %s / %s / %s", screenName, actionName, value), "Exception under control");
-//            Crashlytics.logException(e);
+        } catch (Exception ignored) {
         }
     }
 

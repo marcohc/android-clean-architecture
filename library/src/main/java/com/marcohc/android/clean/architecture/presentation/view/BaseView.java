@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.presentation.view;
 
-import com.hannesdorfmann.mosby.mvp.MvpView;
+import com.marcohc.android.clean.architecture.presentation.mosby.mvp.MvpView;
 
 public interface BaseView extends MvpView {
 

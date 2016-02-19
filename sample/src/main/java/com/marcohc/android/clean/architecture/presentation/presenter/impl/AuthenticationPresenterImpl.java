@@ -12,6 +12,9 @@ import com.sromku.simple.fb.Permission;
 import com.sromku.simple.fb.SimpleFacebook;
 import com.sromku.simple.fb.listeners.OnLoginListener;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import timber.log.Timber;
@@ -66,6 +69,7 @@ public class AuthenticationPresenterImpl extends BasePresenter<AuthenticationVie
     // * Interactor handler methods
     // ************************************************************************************************************************************************************************
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(LogInDomainResponse event) {
         hideDialog();
         if (isViewAttached()) {

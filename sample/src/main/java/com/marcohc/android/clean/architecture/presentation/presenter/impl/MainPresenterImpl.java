@@ -7,6 +7,9 @@ import com.marcohc.android.clean.architecture.presentation.presenter.BasePresent
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MainPresenter;
 import com.marcohc.android.clean.architecture.presentation.view.inter.MainView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 @SuppressWarnings("ConstantConditions")
 public class MainPresenterImpl extends BasePresenter<MainView> implements MainPresenter {
 
@@ -27,7 +30,8 @@ public class MainPresenterImpl extends BasePresenter<MainView> implements MainPr
     // * Presenter methods
     // ************************************************************************************************************************************************************************
 
-    public void onEventMainThread(MenuItemClickEvent event) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMenuItemClickEvent(MenuItemClickEvent event) {
         if (isViewAttached()) {
             getView().onMenuItemClick(event.getPosition());
         }

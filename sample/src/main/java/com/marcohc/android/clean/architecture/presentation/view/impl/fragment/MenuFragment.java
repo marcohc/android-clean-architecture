@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
 import com.marcohc.android.clean.architecture.domain.model.MenuItemModel;
 import com.marcohc.android.clean.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.android.clean.architecture.presentation.presenter.inter.MenuPresenter;
@@ -23,7 +24,6 @@ import com.marcohc.android.clean.architecture.presentation.view.impl.adapter.vie
 import com.marcohc.android.clean.architecture.presentation.view.inter.MenuView;
 import com.marcohc.android.clean.architecture.sample.BuildConfig;
 import com.marcohc.android.clean.architecture.sample.R;
-import com.marcohc.helperoid.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,20 +98,23 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
 
     @OnClick(R.id.logOutContainer)
     protected void onLogOutContainerClick() {
-
-        DialogHelper.showConfirmationDialog(R.string.log_out_question, R.string.yes, R.string.no, getActivity(), new ButtonCallback() {
-            @Override
-            public void onPositive(MaterialDialog dialog) {
-                super.onPositive(dialog);
-                presenter.onLogOutContainerClick();
-            }
-
-            @Override
-            public void onNegative(MaterialDialog dialog) {
-                super.onNegative(dialog);
-                dialog.dismiss();
-            }
-        });
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.log_out_question)
+                .positiveText(R.string.yes)
+                .negativeText(R.string.no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        presenter.onLogOutContainerClick();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     // ************************************************************************************************************************************************************************
