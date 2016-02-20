@@ -41,6 +41,14 @@ public final class BusProvider {
         }
     }
 
+    public static void removeStickyEvent(Object event) {
+        getInstance().removeStickyEvent(event);
+    }
+
+    public static void removeAllStickyEvents() {
+        getInstance().removeAllStickyEvents();
+    }
+
     private static void log(Object event) {
         String name = event.getClass().getSimpleName();
         if (name.contains("Request")) {
