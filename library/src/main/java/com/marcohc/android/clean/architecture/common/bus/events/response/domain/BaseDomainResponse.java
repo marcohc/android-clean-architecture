@@ -1,6 +1,6 @@
-package com.marcohc.android.clean.architecture.common.bus.response.domain;
+package com.marcohc.android.clean.architecture.common.bus.events.response.domain;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.BusEvent;
 import com.marcohc.android.clean.architecture.presentation.error.AppError;
 
 /**

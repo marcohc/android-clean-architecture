@@ -8,11 +8,11 @@ import java.util.Map;
 public abstract class BaseEntity implements Entity {
 
     public String toJsonString() {
-        return ParserHelper.toJsonString(this);
+        return ParserHelper.getInstance().toJsonString(this);
     }
 
     public Map<String, Object> toMap() {
-        return ParserHelper.parse(this, new TypeReference<Map<String, Object>>() {
+        return ParserHelper.getInstance().parse(this, new TypeReference<Map<String, Object>>() {
         });
     }
 

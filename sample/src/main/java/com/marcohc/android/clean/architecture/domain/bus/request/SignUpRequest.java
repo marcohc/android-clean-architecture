@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.domain.bus.request;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.BusEvent;
 
 public class SignUpRequest implements BusEvent {
 

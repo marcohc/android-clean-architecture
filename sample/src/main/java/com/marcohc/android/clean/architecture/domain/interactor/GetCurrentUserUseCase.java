@@ -9,7 +9,7 @@ public class GetCurrentUserUseCase extends SynchronousUseCase {
 
     @Override
     public UserModel execute() {
-        return UserMapper.getInstance().parseModel(PreferencesHelper.getString(PreferencesConstants.USER, null));
+        return UserMapper.getInstance().parseModel(PreferencesHelper.getInstance().getString(PreferencesConstants.USER, null));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.marcohc.android.clean.architecture.domain.interactor;
 
 import com.marcohc.android.clean.architecture.common.bus.BusHandler;
-import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.BusEvent;
 import com.marcohc.android.clean.architecture.data.error.DataError;
 import com.marcohc.android.clean.architecture.domain.error.DomainError;
 

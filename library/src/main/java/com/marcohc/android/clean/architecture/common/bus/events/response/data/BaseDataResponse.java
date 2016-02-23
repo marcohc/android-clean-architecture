@@ -1,10 +1,10 @@
-package com.marcohc.android.clean.architecture.common.bus.response.data;
+package com.marcohc.android.clean.architecture.common.bus.events.response.data;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.BusEvent;
 import com.marcohc.android.clean.architecture.data.error.DataError;
 
 /**
- * Common methods for responses
+ * Common methods for data responses
  */
 public abstract class BaseDataResponse implements BusEvent {
 

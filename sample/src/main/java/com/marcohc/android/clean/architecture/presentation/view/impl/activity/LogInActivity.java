@@ -94,7 +94,7 @@ public class LogInActivity extends BaseMvpActivity<LogInView, LogInPresenter> im
 
     @OnClick(R.id.tipText)
     protected void onTipTextClick() {
-        if (!AppConfigHelper.isProduction()) {
+        if (!AppConfigHelper.getInstance().isProduction()) {
             if (timesTapped++ == 5) {
                 timesTapped = 1;
                 fillFormWithFakeData();

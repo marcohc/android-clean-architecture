@@ -1,8 +1,8 @@
 package com.marcohc.android.clean.architecture.domain.bus.request;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BaseEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.request.BaseRequest;
 
-public class LogInRequest extends BaseEvent {
+public class LogInRequest extends BaseRequest {
 
     private final String username;
     private final String password;

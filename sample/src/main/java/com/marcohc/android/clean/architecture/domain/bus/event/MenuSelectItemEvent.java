@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.domain.bus.event;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BaseUIEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.ui.BaseUIEvent;
 
 public class MenuSelectItemEvent extends BaseUIEvent {
 

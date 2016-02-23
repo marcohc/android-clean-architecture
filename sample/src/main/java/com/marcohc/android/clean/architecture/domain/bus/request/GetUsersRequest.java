@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.domain.bus.request;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BaseEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.request.BaseRequest;
 
-public class GetUsersRequest extends BaseEvent {
+public class GetUsersRequest extends BaseRequest {
 }

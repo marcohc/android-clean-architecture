@@ -136,7 +136,7 @@ public class ReportActivity extends BaseMvpActivity<ReportView, ReportPresenter>
 
     @OnClick(R.id.parentPanel)
     protected void onParentPanelClick() {
-        if (!AppConfigHelper.isProduction()) {
+        if (!AppConfigHelper.getInstance().isProduction()) {
             if (timesTapped++ == 5) {
                 timesTapped = 1;
                 fillFormWithFakeData();

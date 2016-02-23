@@ -144,8 +144,8 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     private void setDevelopmentText() {
-        if (AppConfigHelper.isDevelopment() || AppConfigHelper.isAcceptance()) {
-            isDevelopmentText.setText(String.format("%s / %s / %s", AppConfigHelper.isDevelopment() ? "Development" : "Acceptance", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+        if (!AppConfigHelper.getInstance().isProduction()) {
+            isDevelopmentText.setText(String.format("%s / %s / %s", AppConfigHelper.getInstance().getBuildVariantName(), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
             isDevelopmentText.setVisibility(View.VISIBLE);
         } else {
             isDevelopmentText.setVisibility(View.GONE);

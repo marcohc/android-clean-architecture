@@ -1,6 +1,6 @@
 package com.marcohc.android.clean.architecture.common.bus;
 
-import com.marcohc.android.clean.architecture.common.bus.event.BusEvent;
+import com.marcohc.android.clean.architecture.common.bus.events.BusEvent;
 import com.marcohc.android.clean.architecture.domain.error.DomainError;
 import com.marcohc.android.clean.architecture.data.error.DataError;
 

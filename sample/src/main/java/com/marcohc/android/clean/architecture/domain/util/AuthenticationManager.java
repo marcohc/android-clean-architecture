@@ -26,7 +26,7 @@ public class AuthenticationManager {
 
     public UserModel getCurrentUser() {
         try {
-            return ParserHelper.parse(PreferencesHelper.getString(PreferencesConstants.USER, null), UserModel.class);
+            return ParserHelper.getInstance().parse(PreferencesHelper.getInstance().getString(PreferencesConstants.USER, null), UserModel.class);
         } catch (Exception e) {
             Timber.e("User couldn't be recovered from preferences: %s", e.getMessage());
             return null;
@@ -45,10 +45,10 @@ public class AuthenticationManager {
             return;
         }
 
-        PreferencesHelper.putString(PreferencesConstants.USER, user.toJsonString());
+        PreferencesHelper.getInstance().putString(PreferencesConstants.USER, user.toJsonString());
     }
 
     public void logOut() {
-        PreferencesHelper.remove(PreferencesConstants.USER);
+        PreferencesHelper.getInstance().remove(PreferencesConstants.USER);
     }
 }

@@ -43,27 +43,27 @@ public abstract class BaseMapper<M extends Model, E extends Entity> {
     }
 
     public List<M> parseModelJsonArray(JSONArray modelJsonArray) {
-        return ParserHelper.parseJsonArray(modelJsonArray, modelClass);
+        return ParserHelper.getInstance().parseJsonArray(modelJsonArray, modelClass);
     }
 
     public List<E> parseEntityJsonArray(JSONArray entityJsonArray) {
-        return ParserHelper.parseJsonArray(entityJsonArray, entityClass);
+        return ParserHelper.getInstance().parseJsonArray(entityJsonArray, entityClass);
     }
 
     public M parseModel(String json) {
-        return ParserHelper.parse(json, modelClass);
+        return ParserHelper.getInstance().parse(json, modelClass);
     }
 
     public E parseEntity(String json) {
-        return ParserHelper.parse(json, entityClass);
+        return ParserHelper.getInstance().parse(json, entityClass);
     }
 
     public M transform(E entity) {
-        return MapperHelper.getMapper().map(entity, modelClass);
+        return MapperHelper.getInstance().map(entity, modelClass);
     }
 
     public E transform(M model) {
-        return MapperHelper.getMapper().map(model, entityClass);
+        return MapperHelper.getInstance().map(model, entityClass);
     }
 
 }

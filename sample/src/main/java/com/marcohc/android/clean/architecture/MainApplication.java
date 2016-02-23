@@ -5,13 +5,12 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
-import com.marcohc.android.clean.architecture.common.util.TimerLog;
 import com.marcohc.android.clean.architecture.data.repository.UserRepository;
 import com.marcohc.android.clean.architecture.presentation.notification.NotificationManager;
-import com.marcohc.android.clean.architecture.presentation.util.AnalyticsManager;
 import com.marcohc.android.clean.architecture.presentation.util.AppConfigHelper;
-import com.marcohc.android.clean.architecture.presentation.util.PreferencesConstants;
+import com.marcohc.helperoid.AnalyticsHelper;
 import com.marcohc.helperoid.PreferencesHelper;
+import com.marcohc.helperoid.TimerLog;
 import com.squareup.leakcanary.LeakCanary;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
 import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
@@ -41,7 +40,7 @@ public class MainApplication extends MultiDexApplication {
 
         super.onCreate();
 
-        if (AppConfigHelper.isDevelopment()) {
+        if (AppConfigHelper.getInstance().isDevelopment()) {
             setUpStrictMode();
             setUpLeakCanary();
         }
@@ -86,7 +85,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void setUpCache() {
-        if (AppConfigHelper.isDevelopment()) {
+        if (AppConfigHelper.getInstance().isDevelopment()) {
             DualCacheLogUtils.enableLog();
         }
         DualCacheContextUtils.setContext(getApplicationContext());
@@ -130,7 +129,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void setUpTimber() {
-        if (AppConfigHelper.isDevelopment()) {
+        if (AppConfigHelper.getInstance().isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
         } else {
             // TODO: Uncomment this to make Timber and Fabric work together
@@ -164,11 +163,11 @@ public class MainApplication extends MultiDexApplication {
 //    }
 
     private void setUpAnalytics() {
-        AnalyticsManager.setUp(this);
+        AnalyticsHelper.setUp(this, !AppConfigHelper.getInstance().isProduction());
     }
 
     private void setUpPreferences() {
-        PreferencesHelper.initialize(this, PreferencesConstants.SHARED_PREFERENCES_NAME);
+        PreferencesHelper.setUp(this);
     }
 
     private void setUpCalligraphy() {

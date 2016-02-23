@@ -126,7 +126,7 @@ public class SignUpActivity extends BaseMvpActivity<SignUpView, SignUpPresenter>
 
     @OnClick(R.id.parentPanel)
     protected void onParentPanelClick() {
-        if (!AppConfigHelper.isProduction()) {
+        if (!AppConfigHelper.getInstance().isProduction()) {
             if (timesTapped++ == 5) {
                 timesTapped = 1;
                 fillFormWithFakeData();
