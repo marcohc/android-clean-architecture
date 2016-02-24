@@ -1,7 +1,7 @@
 package com.marcohc.architecture.domain.entity;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.marcohc.helperoid.ParserHelper;
+import com.marcohc.architecture.common.helper.ParserHelper;
 
 import java.util.Map;
 

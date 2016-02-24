@@ -2,8 +2,8 @@ package com.marcohc.architecture.domain.mapper;
 
 import com.marcohc.architecture.domain.entity.Entity;
 import com.marcohc.architecture.domain.model.Model;
-import com.marcohc.helperoid.MapperHelper;
-import com.marcohc.helperoid.ParserHelper;
+import com.marcohc.architecture.common.helper.MapperHelper;
+import com.marcohc.architecture.common.helper.ParserHelper;
 
 import org.json.JSONArray;
 

@@ -72,7 +72,7 @@ dependencies {
 
     // Rest
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.google.code.gson:gson:2.5'
+    compile 'com.google.code.gson:gson:2.6.1'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
 
     //////////////////////////////////////////////////////////////////////////////////////////////

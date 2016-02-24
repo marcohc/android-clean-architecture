@@ -5,7 +5,7 @@ import com.marcohc.architecture.domain.interactor.LogInUseCase;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.architecture.presentation.presenter.inter.LogInPresenter;
 import com.marcohc.architecture.presentation.view.inter.LogInView;
-import com.marcohc.helperoid.StringHelper;
+import com.marcohc.architecture.common.helper.StringHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

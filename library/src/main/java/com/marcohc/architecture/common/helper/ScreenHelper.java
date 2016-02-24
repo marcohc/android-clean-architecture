@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marcohc.helperoid;
+package com.marcohc.architecture.common.helper;
 
 import android.app.Activity;
 import android.content.Context;

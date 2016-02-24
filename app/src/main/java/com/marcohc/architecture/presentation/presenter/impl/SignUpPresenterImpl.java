@@ -6,7 +6,7 @@ import com.marcohc.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.architecture.presentation.presenter.inter.SignUpPresenter;
 import com.marcohc.architecture.presentation.view.inter.SignUpView;
 import com.marcohc.architecture.sample.R;
-import com.marcohc.helperoid.StringHelper;
+import com.marcohc.architecture.common.helper.StringHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

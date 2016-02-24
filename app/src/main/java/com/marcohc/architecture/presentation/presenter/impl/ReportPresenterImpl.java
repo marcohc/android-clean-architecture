@@ -6,7 +6,7 @@ import com.marcohc.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.architecture.presentation.presenter.inter.ReportPresenter;
 import com.marcohc.architecture.presentation.view.inter.ReportView;
 import com.marcohc.architecture.sample.R;
-import com.marcohc.helperoid.StringHelper;
+import com.marcohc.architecture.common.helper.StringHelper;
 
 @SuppressWarnings("ConstantConditions")
 public class ReportPresenterImpl extends BasePresenter<ReportView> implements ReportPresenter {

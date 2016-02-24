@@ -1,7 +1,7 @@
 package com.marcohc.architecture.presentation.util;
 
 import com.marcohc.architecture.sample.BuildConfig;
-import com.marcohc.helperoid.BaseAppConfig;
+import com.marcohc.architecture.common.helper.BaseAppConfig;
 
 /**
  * Methods for managing app debug information

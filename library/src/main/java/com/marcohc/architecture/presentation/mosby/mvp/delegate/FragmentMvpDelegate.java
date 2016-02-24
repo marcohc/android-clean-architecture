@@ -17,6 +17,7 @@
 package com.marcohc.architecture.presentation.mosby.mvp.delegate;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -108,9 +109,9 @@ public interface FragmentMvpDelegate<V extends MvpView, P extends MvpPresenter<V
   /**
    * Must be called from {@link Fragment#onAttach(Activity)}
    *
-   * @param activity The activity the fragment is attached to
+   * @param context The context the fragment is attached to
    */
-  void onAttach(Activity activity);
+  void onAttach(Context context);
 
   /**
    * Must be called from {@link Fragment#onDetach()}

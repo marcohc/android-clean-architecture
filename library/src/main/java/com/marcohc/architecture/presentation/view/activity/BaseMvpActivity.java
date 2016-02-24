@@ -3,10 +3,10 @@ package com.marcohc.architecture.presentation.view.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.marcohc.architecture.presentation.mosby.mvp.MvpActivity;
-import com.marcohc.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.R;
 import com.marcohc.architecture.common.bus.BusProvider;
+import com.marcohc.architecture.presentation.mosby.mvp.MvpActivity;
+import com.marcohc.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
 import com.marcohc.toasteroid.Toasteroid;
 

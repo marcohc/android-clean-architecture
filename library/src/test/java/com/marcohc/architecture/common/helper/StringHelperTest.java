@@ -1,4 +1,4 @@
-package com.marcohc.helperoid;
+package com.marcohc.architecture.common.helper;
 
 import android.test.suitebuilder.annotation.LargeTest;
 

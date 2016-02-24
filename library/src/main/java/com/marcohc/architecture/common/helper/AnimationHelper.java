@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.marcohc.helperoid;
+package com.marcohc.architecture.common.helper;
 
 import android.content.Context;
 import android.view.View;
@@ -29,6 +29,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
 import com.marcohc.architecture.R;
+
 
 /**
  * Class to execute animations

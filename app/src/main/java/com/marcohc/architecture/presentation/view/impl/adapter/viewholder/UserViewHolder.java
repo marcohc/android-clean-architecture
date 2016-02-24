@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 import com.marcohc.architecture.domain.model.UserModel;
 import com.marcohc.architecture.sample.R;
 import com.marcohc.architecture.presentation.view.adapter.ViewHolderAbstractClass;
-import com.marcohc.helperoid.StringHelper;
+import com.marcohc.architecture.common.helper.StringHelper;
 
 import butterknife.ButterKnife;
 

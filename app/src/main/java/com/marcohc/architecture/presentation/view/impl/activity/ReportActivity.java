@@ -21,7 +21,7 @@ import com.marcohc.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.presentation.view.inter.ReportView;
 import com.marcohc.architecture.sample.R;
-import com.marcohc.helperoid.ScreenHelper;
+import com.marcohc.architecture.common.helper.ScreenHelper;
 
 import butterknife.Bind;
 import butterknife.OnClick;

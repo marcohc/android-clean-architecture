@@ -31,8 +31,8 @@ import com.marcohc.architecture.presentation.util.LocationHelper;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.architecture.presentation.view.impl.adapter.MapInfoWindowAdapter;
 import com.marcohc.architecture.presentation.view.inter.MapView;
-import com.marcohc.helperoid.PermissionHelper;
-import com.marcohc.helperoid.ScreenHelper;
+import com.marcohc.architecture.common.helper.PermissionHelper;
+import com.marcohc.architecture.common.helper.ScreenHelper;
 
 import java.util.Calendar;
 import java.util.List;
@@ -40,7 +40,6 @@ import java.util.List;
 import butterknife.Bind;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;

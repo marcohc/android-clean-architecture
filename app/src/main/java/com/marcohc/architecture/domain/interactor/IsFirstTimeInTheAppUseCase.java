@@ -1,6 +1,6 @@
 package com.marcohc.architecture.domain.interactor;
 
-import com.marcohc.helperoid.AppInfoHelper;
+import com.marcohc.architecture.common.helper.AppInfoHelper;
 
 import timber.log.Timber;
 

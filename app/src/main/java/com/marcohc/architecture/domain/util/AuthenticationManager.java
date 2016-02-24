@@ -2,9 +2,9 @@ package com.marcohc.architecture.domain.util;
 
 import com.marcohc.architecture.domain.model.UserModel;
 import com.marcohc.architecture.presentation.util.PreferencesConstants;
-import com.marcohc.helperoid.ParserHelper;
-import com.marcohc.helperoid.PreferencesHelper;
-import com.marcohc.helperoid.StringHelper;
+import com.marcohc.architecture.common.helper.ParserHelper;
+import com.marcohc.architecture.common.helper.PreferencesHelper;
+import com.marcohc.architecture.common.helper.StringHelper;
 
 import timber.log.Timber;
 

@@ -16,7 +16,7 @@
 
 package com.marcohc.architecture.presentation.mosby.mvp.delegate;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -92,7 +92,7 @@ public class FragmentMvpDelegateImpl<V extends MvpView, P extends MvpPresenter<V
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context context) {
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.marcohc.helperoid;
+package com.marcohc.architecture.common.helper;
 
 import android.app.AlertDialog;
 import android.content.Context;

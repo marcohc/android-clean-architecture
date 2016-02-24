@@ -16,7 +16,7 @@ import com.marcohc.architecture.presentation.util.NavigationManager;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.presentation.view.inter.UserDetailView;
 import com.marcohc.architecture.sample.R;
-import com.marcohc.helperoid.StringHelper;
+import com.marcohc.architecture.common.helper.StringHelper;
 
 import butterknife.Bind;
 import butterknife.OnClick;
