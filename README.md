@@ -77,7 +77,7 @@ License
 [2]: https://github.com/sockeqwe/mosby
 [3]: https://github.com/jakewharton/butterknife
 [4]: https://github.com/marcohc/toasteroid
-[5]: https://github.com/marcohc/helperoid
+[5]: https://github.com/marcohc/com.marcohc.helperoid
 [6]: https://github.com/chrisjenx/calligraphy
 [7]: https://github.com/Ereza/CustomActivityOnCrash
 [8]: https://github.com/JakeWharton/timber

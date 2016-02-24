@@ -14,15 +14,15 @@ buildscript {
 allprojects {
 
     ext {
-        androidApplicationId = 'com.marcohc.android.clean.architecture.sample'
+        androidApplicationId = 'com.marcohc.architecture.sample'
         androidBuildToolsVersion = "23.0.2"
         androidMinSdkVersion = 15
         androidTargetSdkVersion = 23
         androidCompileSdkVersion = 23
         androidVersionCode = 1
-        androidVersionName = "1.6.2"
+        androidVersionName = "2.0.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-        testApplicationId = 'com.marcohc.android.clean.architecture.sample.test'
+        testApplicationId = 'com.marcohc.architecture.sample.test'
     }
 
     repositories {

@@ -1,3 +1,16 @@
 <resources>
     <string name="loading">Loading…</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="select">Select</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="google_analytics_id" translatable="false">REPLACE_WITH_YOUR_REAL_ID</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="permissions">Permissions</string>
+    <string name="permission_settings">Please enable this permission in settings if you want to continue</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="settings">Settings</string>
 </resources>
