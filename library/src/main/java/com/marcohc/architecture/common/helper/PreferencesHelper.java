@@ -18,6 +18,8 @@ package com.marcohc.architecture.common.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.securepreferences.SecurePreferences;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,16 +42,30 @@ public class PreferencesHelper {
     private static PreferencesHelper instance;
 
     // ************************************************************************************************************************************************************************
-    // * Initialization methods
+    // * Constructor
     // ************************************************************************************************************************************************************************
 
     private PreferencesHelper(Context context) {
-        sharedPreferences = context.getSharedPreferences(String.format("%s_%s", context.getPackageName(), "preferences"), Context.MODE_PRIVATE);
+        String defaultName = String.format("%s_%s", context.getPackageName(), "preferences");
+        sharedPreferences = context.getSharedPreferences(defaultName, Context.MODE_PRIVATE);
     }
 
-    public PreferencesHelper(Context context, String sharedPreferencesName) {
-        sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
+    private PreferencesHelper(Context context, String uniqueId) {
+        String defaultName = String.format("%s_%s", context.getPackageName(), "preferences");
+        sharedPreferences = new SecurePreferences(context, uniqueId, defaultName);
     }
+
+    private PreferencesHelper(Context context, String sharedPreferencesName, String uniqueId) {
+        if (StringHelper.isEmpty(uniqueId)) {
+            sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
+        } else {
+            sharedPreferences = new SecurePreferences(context, uniqueId, sharedPreferencesName);
+        }
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * Initialization
+    // ************************************************************************************************************************************************************************
 
     public static void setUp(Context context) {
         if (context == null) {
@@ -62,8 +78,26 @@ public class PreferencesHelper {
         if (context == null) {
             throw new PreferencesHelperException("Context must not be null!");
         }
-        instance = new PreferencesHelper(context, sharedPreferencesName);
+        instance = new PreferencesHelper(context, sharedPreferencesName, null);
     }
+
+    public static void setUpWithEncryption(Context context) {
+        if (context == null) {
+            throw new PreferencesHelperException("Context must not be null!");
+        }
+        instance = new PreferencesHelper(context, AppInfoHelper.getUniqueId());
+    }
+
+    public static void setUpWithEncryption(Context context, String sharedPreferencesName) {
+        if (context == null) {
+            throw new PreferencesHelperException("Context must not be null!");
+        }
+        instance = new PreferencesHelper(context, sharedPreferencesName, AppInfoHelper.getUniqueId());
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * Initialization methods
+    // ************************************************************************************************************************************************************************
 
     public static PreferencesHelper getInstance() {
         if (instance == null) {

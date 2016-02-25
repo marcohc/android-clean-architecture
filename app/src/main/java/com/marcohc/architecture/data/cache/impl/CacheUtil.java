@@ -15,7 +15,7 @@ public class CacheUtil {
             BigInteger i = new BigInteger(1, m.digest());
             return String.format("%1$032x", i);
         } catch (NoSuchAlgorithmException e) {
-            Timber.e("CacheUtil.getKey: {key:%s}", key);
+            Timber.e("CipherHelper.getKey: {key:%s}", key);
         }
         return null;
     }
