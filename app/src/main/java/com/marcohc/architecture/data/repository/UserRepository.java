@@ -6,11 +6,7 @@ import com.marcohc.architecture.data.error.RestError;
 import com.marcohc.architecture.data.net.RestCallback;
 import com.marcohc.architecture.data.repository.datastore.factory.UserDataStoreFactory;
 import com.marcohc.architecture.domain.bus.request.GetUsersRequest;
-import com.marcohc.architecture.domain.bus.request.LogInRequest;
-import com.marcohc.architecture.domain.bus.request.SignUpRequest;
 import com.marcohc.architecture.domain.bus.response.data.GetUsersDataResponse;
-import com.marcohc.architecture.domain.bus.response.data.LogInDataResponse;
-import com.marcohc.architecture.domain.bus.response.data.SignUpDataResponse;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -43,37 +39,6 @@ public class UserRepository extends BusHandler {
     // ************************************************************************************************************************************************************************
     // * Event handler methods
     // ************************************************************************************************************************************************************************
-
-    @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onEventAsync(LogInRequest request) {
-        UserDataStoreFactory.getInstance().logIn(request.getUsername(), request.getPassword(), new RestCallback<JSONObject>() {
-            @Override
-            public void failure(RestError error) {
-                postDataError(new DataError(error.getMessage(), error.getCode()));
-            }
-
-            @Override
-            public void success(JSONObject response) {
-                post(new LogInDataResponse(response));
-            }
-        });
-    }
-
-    @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onEventAsync(SignUpRequest request) {
-        UserDataStoreFactory.getInstance().signUp(request.getUsername(), request.getPassword(),
-                new RestCallback<JSONObject>() {
-                    @Override
-                    public void failure(RestError error) {
-                        postDataError(new DataError(error.getMessage(), error.getCode()));
-                    }
-
-                    @Override
-                    public void success(JSONObject response) {
-                        post(new SignUpDataResponse(response));
-                    }
-                });
-    }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(GetUsersRequest request) {

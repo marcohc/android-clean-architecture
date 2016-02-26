@@ -1,9 +1,8 @@
 package com.marcohc.architecture.data.repository.datastore.factory;
 
-import com.marcohc.architecture.data.repository.datastore.UserDataStore;
-import com.marcohc.architecture.data.repository.datastore.datastores.disk.UserDiskDataSource;
-import com.marcohc.architecture.data.repository.datastore.datastores.rest.UserRestDataStore;
 import com.marcohc.architecture.data.net.RestCallback;
+import com.marcohc.architecture.data.repository.datastore.UserDataStore;
+import com.marcohc.architecture.data.repository.datastore.datastores.rest.UserRestDataStore;
 
 import org.json.JSONObject;
 
@@ -19,7 +18,6 @@ public class UserDataStoreFactory {
 
     private static UserDataStoreFactory instance;
     private final UserDataStore userCloudDataStore;
-    private final UserDataStore userDiskDataSource;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
@@ -27,7 +25,6 @@ public class UserDataStoreFactory {
 
     public UserDataStoreFactory() {
         userCloudDataStore = new UserRestDataStore();
-        userDiskDataSource = new UserDiskDataSource();
     }
 
     public static UserDataStoreFactory getInstance() {
@@ -41,24 +38,8 @@ public class UserDataStoreFactory {
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public void logIn(String username, String password, RestCallback<JSONObject> callback) {
-        userCloudDataStore.logIn(username, password, callback);
-    }
-
-    public void signUp(String username, String password, RestCallback<JSONObject> callback) {
-        userCloudDataStore.signUp(username, password, callback);
-    }
-
     public void getAll(RestCallback<JSONObject> callback) {
         userCloudDataStore.getAll(callback);
     }
-
-//    public void logOut() {
-//        userDiskDataSource.delete();
-//    }
-//
-//    public void put(UserEntity user) {
-//        userDiskDataSource.put(user);
-//    }
 
 }

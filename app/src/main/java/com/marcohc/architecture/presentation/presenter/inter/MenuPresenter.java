@@ -5,8 +5,6 @@ import com.marcohc.architecture.presentation.view.inter.MenuView;
 
 public interface MenuPresenter extends MvpPresenter<MenuView> {
 
-    void onLogOutContainerClick();
-
     void onMenuItemClick(int position);
 
 }

@@ -3,7 +3,6 @@ package com.marcohc.architecture.presentation.presenter.impl;
 import com.marcohc.architecture.common.bus.BusProvider;
 import com.marcohc.architecture.domain.bus.event.MenuItemClickEvent;
 import com.marcohc.architecture.domain.bus.event.MenuSelectItemEvent;
-import com.marcohc.architecture.domain.interactor.LogOutUseCase;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.architecture.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.architecture.presentation.view.inter.MenuView;
@@ -21,13 +20,6 @@ public class MenuPresenterImpl extends BasePresenter<MenuView> implements MenuPr
     @Override
     public void onMenuItemClick(int position) {
         BusProvider.post(new MenuItemClickEvent(position));
-    }
-
-    @Override
-    public void onLogOutContainerClick() {
-        if (new LogOutUseCase().execute()) {
-            getView().gotToAuthentication();
-        }
     }
 
     // ************************************************************************************************************************************************************************

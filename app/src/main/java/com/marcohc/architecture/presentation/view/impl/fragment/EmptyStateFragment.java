@@ -1,6 +1,5 @@
 package com.marcohc.architecture.presentation.view.impl.fragment;
 
-import android.animation.Animator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.marcohc.architecture.presentation.presenter.impl.EmptyStatePresenterImpl;
 import com.marcohc.architecture.presentation.presenter.inter.EmptyStatePresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
@@ -61,34 +58,9 @@ public class EmptyStateFragment extends BaseMvpFragment<EmptyStateView, EmptySta
 
     public void setVisible(boolean visible) {
         if (visible) {
-            if (noDataContainer.getVisibility() != View.VISIBLE) {
-                noDataContainer.setVisibility(View.VISIBLE);
-                YoYo.with(Techniques.Pulse).duration(1200).playOn(noDataContainer);
-            }
+            noDataContainer.setVisibility(View.VISIBLE);
         } else {
-            if (noDataContainer.getVisibility() == View.VISIBLE) {
-                noDataContainer.setVisibility(View.GONE);
-                YoYo.with(Techniques.FadeOut).withListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        if (noDataContainer != null) {
-                            noDataContainer.setVisibility(View.GONE);
-                        }
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-                    }
-                }).duration(250).playOn(noDataContainer);
-            }
+            noDataContainer.setVisibility(View.GONE);
         }
     }
 

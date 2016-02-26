@@ -1,19 +1,12 @@
 
 package com.marcohc.architecture.domain.model;
 
-import android.location.Location;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.clustering.ClusterItem;
-import com.marcohc.architecture.presentation.util.LocationHelper;
-
-import java.util.Random;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class UserModel extends BaseModel implements ClusterItem {
+public class UserModel extends BaseModel {
 
     private String key;
     private String gender;
@@ -33,17 +26,6 @@ public class UserModel extends BaseModel implements ClusterItem {
     private String tfn;
     private Picture picture;
     private String version;
-
-    @Override
-    public LatLng getPosition() {
-        Random random = new Random(System.currentTimeMillis());
-        Location location = LocationHelper.getLatestLocation();
-        if (location != null) {
-            return new LatLng(location.getLatitude() + (double) (random.nextInt(10) / 100), location.getLongitude());
-        } else {
-            return null;
-        }
-    }
 
     /**
      * @return The gender

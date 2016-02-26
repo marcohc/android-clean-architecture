@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * This class represents an asynchronous use case connected to the bus.
- * Always listening for {@link DataError} which occur in the data layer
+ * Always listening for {@link DataError} which occurs in the data layer
  */
 public abstract class AsynchronousUseCase extends BusHandler implements UseCase {
 

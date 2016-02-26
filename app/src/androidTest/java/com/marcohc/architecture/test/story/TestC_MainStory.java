@@ -4,16 +4,14 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.marcohc.architecture.sample.R;
 import com.marcohc.architecture.presentation.util.PreferencesConstants;
-import com.marcohc.architecture.presentation.view.impl.activity.LogInActivity;
 import com.marcohc.architecture.presentation.view.impl.activity.MainActivity;
+import com.marcohc.architecture.sample.R;
 import com.marcohc.architecture.test.util.Utils;
 
 import org.junit.Before;
@@ -65,26 +63,6 @@ public class TestC_MainStory extends ActivityInstrumentationTestCase2<MainActivi
         given = new Given();
         when = new When();
         then = new Then();
-
-        Espresso.registerIdlingResources(new IdlingResource() {
-
-            @Override
-            public String getName() {
-                return "Dialog idling resource";
-            }
-
-            @Override
-            public boolean isIdleNow() {
-                // ???
-                return getActivity().findViewById(R.id.buttonDefaultPositive) == null;
-            }
-
-            @Override
-            public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
-                // ???
-                callback = resourceCallback;
-            }
-        });
     }
 
     @Test
@@ -117,40 +95,6 @@ public class TestC_MainStory extends ActivityInstrumentationTestCase2<MainActivi
         then.dataIsFilled();
     }
 
-    @Test
-    public void test3LogOutCancel() {
-
-        Utils.showMessage(mActivity, "test3LogOutCancel");
-
-        Utils.waitSleeping(1000);
-
-        when.tapOnMenu();
-
-        when.tapOnLogOut();
-
-        when.tapOnCancelDialog();
-
-        then.userStaysInScreen();
-
-    }
-
-    @Test
-    public void test4LogOutOk() {
-
-        Utils.showMessage(mActivity, "test4LogOutOk");
-
-        Utils.waitSleeping(1000);
-
-        when.tapOnMenu();
-
-        when.tapOnLogOut();
-
-        when.tapOnAcceptDialog();
-
-        then.userGoesToLogin();
-
-    }
-
     public class Given {
 
     }
@@ -165,17 +109,6 @@ public class TestC_MainStory extends ActivityInstrumentationTestCase2<MainActivi
             onView(withId(R.id.drawerLayout)).perform(Utils.actionOpenDrawer());
         }
 
-        public void tapOnLogOut() {
-            onView(withId(R.id.logOutContainer)).perform(click());
-        }
-
-        public void tapOnCancelDialog() {
-            onView(withId(R.id.buttonDefaultNegative)).perform(click());
-        }
-
-        public void tapOnAcceptDialog() {
-            onView(withId(R.id.buttonDefaultPositive)).perform(click());
-        }
     }
 
     public class Then {
@@ -190,10 +123,6 @@ public class TestC_MainStory extends ActivityInstrumentationTestCase2<MainActivi
 
         public void userStaysInScreen() {
             Utils.assertThatIsOnActivity(MainActivity.class);
-        }
-
-        public void userGoesToLogin() {
-            Utils.assertThatIsOnActivity(LogInActivity.class);
         }
 
     }

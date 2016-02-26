@@ -5,7 +5,7 @@ android {
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
-    buildToolsVersion '23.0.2'
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
     defaultConfig {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
@@ -41,10 +41,10 @@ dependencies {
     // PRESENTATION
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Permissions
+    // Permissions - Added for helpers
     compile 'com.github.hotchemi:permissionsdispatcher:2.0.5'
 
-    // Analitycs
+    // Analitycs - Added for helpers
     compile 'com.google.android.gms:play-services-analytics:8.4.0'
 
     // Butter knife

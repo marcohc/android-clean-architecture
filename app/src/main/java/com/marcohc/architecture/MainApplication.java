@@ -5,15 +5,12 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
-import com.marcohc.architecture.data.repository.UserRepository;
-import com.marcohc.architecture.presentation.notification.NotificationManager;
-import com.marcohc.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
 import com.marcohc.architecture.common.helper.PreferencesHelper;
 import com.marcohc.architecture.common.helper.TimerLog;
+import com.marcohc.architecture.data.repository.UserRepository;
+import com.marcohc.architecture.presentation.util.AppConfigHelper;
 import com.squareup.leakcanary.LeakCanary;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheContextUtils;
-import com.vincentbrison.openlibraries.android.dualcache.lib.DualCacheLogUtils;
 
 import java.util.concurrent.Semaphore;
 
@@ -59,13 +56,10 @@ public class MainApplication extends MultiDexApplication {
                 Timber.d("1 - MainApplication - Start loading data");
 
                 setUpCustomCrash();
-                setUpFabric();
-                setUpCustomNotifications();
                 setUpPreferences();
                 setUpCalligraphy();
                 setUpAnalytics();
                 setUpRepositories();
-                setUpCache();
 
                 // Notify load finished
                 Timber.d("2 - MainApplication - Finish loading data");
@@ -82,13 +76,6 @@ public class MainApplication extends MultiDexApplication {
 
     private void setUpCustomCrash() {
         CustomActivityOnCrash.install(this);
-    }
-
-    private void setUpCache() {
-        if (AppConfigHelper.getInstance().isDevelopment()) {
-            DualCacheLogUtils.enableLog();
-        }
-        DualCacheContextUtils.setContext(getApplicationContext());
     }
 
     private void setUpLeakCanary() {
@@ -115,52 +102,11 @@ public class MainApplication extends MultiDexApplication {
         UserRepository.setUp();
     }
 
-    private void setUpCustomNotifications() {
-        // Used for custom notifications
-        NotificationManager.setUp(getApplicationContext());
-    }
-
-    private void setUpFabric() {
-        // TODO: Uncomment this to make Fabric work
-//        CrashlyticsCore core = new CrashlyticsCore.Builder()
-//                .disabled(isDevelopment())
-//                .build();
-//        Fabric.with(this, new Crashlytics.Builder().core(core).build());
-    }
-
     private void setUpTimber() {
         if (AppConfigHelper.getInstance().isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
-        } else {
-            // TODO: Uncomment this to make Timber and Fabric work together
-//            Timber.plant(new CrashlyticsTree());
         }
     }
-
-    // TODO: Uncomment this to make Timber and Fabric work together
-//    public class CrashlyticsTree extends Timber.Tree {
-//
-//        private static final String CRASHLYTICS_KEY_PRIORITY = "priority";
-//        private static final String CRASHLYTICS_KEY_TAG = "tag";
-//        private static final String CRASHLYTICS_KEY_MESSAGE = "message";
-//
-//        @Override
-//        protected void log(int priority, @Nullable String tag, @Nullable String message, @Nullable Throwable t) {
-//            if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
-//                return;
-//            }
-//
-//            Crashlytics.setInt(CRASHLYTICS_KEY_PRIORITY, priority);
-//            Crashlytics.setString(CRASHLYTICS_KEY_TAG, tag);
-//            Crashlytics.setString(CRASHLYTICS_KEY_MESSAGE, message);
-//
-//            if (t == null) {
-//                Crashlytics.logException(new Exception(message));
-//            } else {
-//                Crashlytics.logException(t);
-//            }
-//        }
-//    }
 
     private void setUpAnalytics() {
         AnalyticsHelper.setUp(this, !AppConfigHelper.getInstance().isProduction());

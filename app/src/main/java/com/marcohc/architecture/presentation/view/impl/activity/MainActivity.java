@@ -24,7 +24,6 @@ import com.marcohc.architecture.presentation.presenter.inter.MainPresenter;
 import com.marcohc.architecture.presentation.util.NavigationManager;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.presentation.view.impl.fragment.MyMapFragment;
 import com.marcohc.architecture.presentation.view.impl.fragment.UsersFragment;
 import com.marcohc.architecture.presentation.view.inter.MainView;
 import com.marcohc.architecture.sample.R;
@@ -205,15 +204,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
     private void menuClick(int position) {
 
-        switch (NavigationManager.SCREENS.values()[position]) {
-            case TUTORIAL:
-                startActivityForResult(new Intent(this, TutorialActivity.class), NavigationManager.TUTORIAL_REQUEST_CODE);
-                return;
-            case REPORT:
-                startActivityForResult(new Intent(this, ReportActivity.class), NavigationManager.REPORT_REQUEST_CODE);
-                return;
-        }
-
         // Update the main content by replacing fragments
         currentFragment = getFragment(position);
 
@@ -235,15 +225,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             case USERS_LIST:
                 actionBar.setTitle(getString(R.string.users_list));
                 break;
-            case TUTORIAL:
-                actionBar.setTitle(getString(R.string.tutorial));
-                break;
-            case MAP:
-                actionBar.setTitle(getString(R.string.map));
-                break;
-            case REPORT:
-                actionBar.setTitle(getString(R.string.report));
-                break;
         }
     }
 
@@ -263,9 +244,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             switch (NavigationManager.SCREENS.values()[position]) {
                 case USERS_LIST:
                     fragmentsMap.put(position, new UsersFragment());
-                    break;
-                case MAP:
-                    fragmentsMap.put(position, new MyMapFragment());
                     break;
             }
         }

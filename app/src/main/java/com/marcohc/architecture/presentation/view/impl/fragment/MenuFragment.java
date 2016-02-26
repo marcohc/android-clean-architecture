@@ -1,25 +1,20 @@
 package com.marcohc.architecture.presentation.view.impl.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.marcohc.architecture.domain.model.MenuItemModel;
 import com.marcohc.architecture.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.architecture.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.architecture.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.presentation.view.impl.activity.AuthenticationActivity;
 import com.marcohc.architecture.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.architecture.presentation.view.inter.MenuView;
 import com.marcohc.architecture.sample.BuildConfig;
@@ -29,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements MenuView {
@@ -96,38 +90,9 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
         presenter.onMenuItemClick(position);
     }
 
-    @OnClick(R.id.logOutContainer)
-    protected void onLogOutContainerClick() {
-        new MaterialDialog.Builder(getActivity())
-                .title(R.string.log_out_question)
-                .positiveText(R.string.yes)
-                .negativeText(R.string.no)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        presenter.onLogOutContainerClick();
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-    }
-
     // ************************************************************************************************************************************************************************
     // * View interface methods
     // ************************************************************************************************************************************************************************
-
-    @Override
-    public void gotToAuthentication() {
-        Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        getActivity().finish();
-    }
 
     @Override
     public void setSelectedMenuItem(int position) {

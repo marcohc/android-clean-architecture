@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 /**
- * This class represents an synchronous use case connected to the bus.
+ * This class represents a synchronous use case connected to the bus.
  */
 public abstract class SynchronousBusUseCase extends BusHandler implements UseCase {
 

@@ -1,16 +1,11 @@
 package com.marcohc.architecture.data.repository.datastore;
 
-import com.marcohc.architecture.data.repository.datastore.datastores.rest.RestDataSource;
 import com.marcohc.architecture.data.net.RestCallback;
-import com.marcohc.architecture.domain.entity.UserEntity;
 
 /**
- * Specific methods for this model go here. REST methods are excluded
+ * Specific methods for this model go here
  */
-public interface UserDataStore extends RestDataSource<UserEntity> {
+public interface UserDataStore {
 
-    void logIn(String username, String password, RestCallback callback);
-
-    void signUp(String username, String password, RestCallback callback);
-
+    void getAll(RestCallback callback);
 }
