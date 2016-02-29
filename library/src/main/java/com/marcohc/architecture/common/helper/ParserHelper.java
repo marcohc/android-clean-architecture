@@ -19,9 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +58,8 @@ public class ParserHelper {
                 }
                 object = objectMapper.readValue((String) value, valueType);
             }
-        } catch (IOException var4) {
-            Timber.e("ParserHelper", String.format("parse: %s", var4.getMessage()));
+        } catch (Exception e) {
+            Timber.e("parse: %s", e.getMessage());
         }
         return object;
     }
@@ -73,8 +71,8 @@ public class ParserHelper {
                 String e = objectMapper.writeValueAsString(value);
                 object = objectMapper.readValue(e, valueType);
             }
-        } catch (IOException e) {
-            Timber.e(String.format("parse: %s", e.getMessage()));
+        } catch (Exception e) {
+            Timber.e("parse: %s", e.getMessage());
         }
         return object;
     }
@@ -85,8 +83,8 @@ public class ParserHelper {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     list.add(parse(jsonArray.get(i).toString(), type));
-                } catch (JSONException e) {
-                    Timber.e(String.format("parseJsonStringArray: %s", e.getMessage()));
+                } catch (Exception e) {
+                    Timber.e("parseJsonStringArray: %s", e.getMessage());
                 }
             }
         }
@@ -98,8 +96,8 @@ public class ParserHelper {
         if (jsonString != null) {
             try {
                 list = parseJsonArray(new JSONArray(jsonString), type);
-            } catch (JSONException e) {
-                Timber.e(String.format("parseJsonStringArray: %s", e.getMessage()));
+            } catch (Exception e) {
+                Timber.e("parseJsonStringArray: %s", e.getMessage());
             }
         }
         return list;
@@ -111,7 +109,7 @@ public class ParserHelper {
             try {
                 jsonString = objectMapper.writeValueAsString(jsonObject);
             } catch (Exception e) {
-                Timber.e(String.format("toJsonString: %s", e.getMessage()));
+                Timber.e("toJsonString: %s", e.getMessage());
             }
         }
         return jsonString;
