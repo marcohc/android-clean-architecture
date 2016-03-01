@@ -1,4 +1,4 @@
-package com.marcohc.architecture.data.repository.datastore.datastores.rest.util;
+package com.marcohc.architecture.data.net;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

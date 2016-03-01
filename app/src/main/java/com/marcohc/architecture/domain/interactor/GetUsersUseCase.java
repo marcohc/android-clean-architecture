@@ -56,7 +56,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
             post(createResponse());
             unregisterFromBus();
         } else {
-            postAppError(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
+            postDomainError(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
         }
     }
 

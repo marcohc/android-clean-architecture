@@ -36,7 +36,7 @@ public abstract class AsynchronousUseCase extends BusHandler implements UseCase 
      */
     protected void handleDataError(DataError dataError) {
         DomainError appError = new DomainError(dataError.getMessage(), dataError.getCode());
-        postAppError(appError);
+        postDomainError(appError);
         unregisterFromBus();
     }
 
