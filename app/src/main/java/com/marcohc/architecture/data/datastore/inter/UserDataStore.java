@@ -1,4 +1,4 @@
-package com.marcohc.architecture.data.repository.datastore;
+package com.marcohc.architecture.data.datastore.inter;
 
 import com.marcohc.architecture.data.net.RestCallback;
 

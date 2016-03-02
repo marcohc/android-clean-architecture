@@ -4,7 +4,7 @@ import com.marcohc.architecture.common.bus.BusHandler;
 import com.marcohc.architecture.data.error.DataError;
 import com.marcohc.architecture.data.error.RestError;
 import com.marcohc.architecture.data.net.RestCallback;
-import com.marcohc.architecture.data.repository.datastore.factory.UserDataStoreFactory;
+import com.marcohc.architecture.data.factory.UserDataStoreFactory;
 import com.marcohc.architecture.domain.bus.request.GetUsersRequest;
 import com.marcohc.architecture.domain.bus.response.data.GetUsersDataResponse;
 

@@ -1,5 +1,5 @@
 
-package com.marcohc.architecture.data.repository.datastore.datastores.rest;
+package com.marcohc.architecture.data.service;
 
 import com.marcohc.architecture.data.net.RestCallback;
 

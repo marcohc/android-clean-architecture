@@ -1,8 +1,8 @@
-package com.marcohc.architecture.data.repository.datastore.factory;
+package com.marcohc.architecture.data.factory;
 
 import com.marcohc.architecture.data.net.RestCallback;
-import com.marcohc.architecture.data.repository.datastore.UserDataStore;
-import com.marcohc.architecture.data.repository.datastore.datastores.rest.UserRestDataStore;
+import com.marcohc.architecture.data.datastore.inter.UserDataStore;
+import com.marcohc.architecture.data.datastore.impl.UserRestDataStore;
 
 import org.json.JSONObject;
 

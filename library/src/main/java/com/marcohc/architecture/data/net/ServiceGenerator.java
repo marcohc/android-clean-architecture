@@ -1,11 +1,10 @@
-package com.marcohc.architecture.data.repository.datastore.datastores.rest.util;
+package com.marcohc.architecture.data.net;
 
 import android.util.Base64;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.marcohc.architecture.data.net.ItemTypeAdapterFactory;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
@@ -69,7 +68,6 @@ public class ServiceGenerator {
                     // create Base64 encodet string
                     String string = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
                     request.addHeader("Authorization", string);
-//                    request.addHeader("Accept", "application/json");
                 }
             });
         }
@@ -79,7 +77,6 @@ public class ServiceGenerator {
                 @Override
                 public void intercept(RequestFacade request) {
                     request.addHeader("Authorization", "Token " + token);
-//                    request.addHeader("Accept", "application/json");
                 }
             });
         }

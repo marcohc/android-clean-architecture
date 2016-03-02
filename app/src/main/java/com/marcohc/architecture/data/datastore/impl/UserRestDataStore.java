@@ -1,8 +1,9 @@
-package com.marcohc.architecture.data.repository.datastore.datastores.rest;
+package com.marcohc.architecture.data.datastore.impl;
 
 import com.marcohc.architecture.data.net.RestCallback;
-import com.marcohc.architecture.data.repository.datastore.UserDataStore;
-import com.marcohc.architecture.data.repository.datastore.datastores.rest.util.ServiceGenerator;
+import com.marcohc.architecture.data.datastore.inter.UserDataStore;
+import com.marcohc.architecture.data.datastore.inter.UserRestService;
+import com.marcohc.architecture.data.datastore.util.ServiceGenerator;
 import com.marcohc.architecture.data.util.NetworkManager;
 
 public class UserRestDataStore implements UserDataStore {
