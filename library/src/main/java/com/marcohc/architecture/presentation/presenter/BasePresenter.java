@@ -13,14 +13,15 @@ import timber.log.Timber;
 @SuppressWarnings("ConstantConditions")
 public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter<V> {
 
-    protected static final String LOG_TAG = "BasePresenter";
-
     @Override
     /**
      * To avoid toasts memory leaks
      */
     public void detachView(boolean retainInstance) {
         Toasteroid.dismiss();
+        if (isViewAttached()) {
+            getView().hideDialog();
+        }
         super.detachView(retainInstance);
     }
 
