@@ -1,0 +1,19 @@
+package com.marcohc.architecture.app.domain.model;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.marcohc.architecture.common.helper.ParserHelper;
+
+import java.util.Map;
+
+public abstract class BaseModel implements Model {
+
+    public String toJsonString() {
+        return ParserHelper.getInstance().toJsonString(this);
+    }
+
+    public Map<String, Object> toMap() {
+        return ParserHelper.getInstance().parse(this, new TypeReference<Map<String, Object>>() {
+        });
+    }
+
+}

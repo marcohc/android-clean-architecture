@@ -1,7 +1,7 @@
 package com.marcohc.architecture.common.bus.events.response.data;
 
 import com.marcohc.architecture.common.bus.events.BusEvent;
-import com.marcohc.architecture.data.error.DataError;
+import com.marcohc.architecture.app.data.error.DataError;
 
 /**
  * Common methods for data responses

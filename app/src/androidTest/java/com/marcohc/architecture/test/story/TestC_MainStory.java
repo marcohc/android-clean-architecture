@@ -9,9 +9,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.marcohc.architecture.presentation.util.PreferencesConstants;
-import com.marcohc.architecture.presentation.view.impl.activity.MainActivity;
-import com.marcohc.architecture.sample.R;
+import com.marcohc.architecture.app.R;
+import com.marcohc.architecture.app.presentation.util.PreferencesConstants;
+import com.marcohc.architecture.app.presentation.view.impl.activity.MainActivity;
 import com.marcohc.architecture.test.util.Utils;
 
 import org.junit.Before;
@@ -27,7 +27,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsAnything.anything;
 import static org.hamcrest.core.IsNull.notNullValue;

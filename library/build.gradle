@@ -12,6 +12,7 @@ android {
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         versionCode globalConfiguration.getAt("androidVersionCode")
+        consumerProguardFiles "proguard-library.pro"
     }
 
     compileOptions {

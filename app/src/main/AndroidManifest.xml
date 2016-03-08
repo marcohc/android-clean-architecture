@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marcohc.architecture.sample">
+    package="com.marcohc.architecture.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.marcohc.architecture.MainApplication"
+        android:name="com.marcohc.architecture.app.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         <!--ACTIVITIES-->
 
         <activity
-            android:name="com.marcohc.architecture.presentation.view.impl.activity.MainActivity"
+            android:name="com.marcohc.architecture.app.presentation.view.impl.activity.MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -26,7 +26,7 @@
         </activity>
 
         <activity
-            android:name="com.marcohc.architecture.presentation.view.impl.activity.UserDetailActivity"
+            android:name="com.marcohc.architecture.app.presentation.view.impl.activity.UserDetailActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

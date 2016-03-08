@@ -26,6 +26,15 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'marcohc'
+            keyPassword 'android'
+            storeFile file('keystore/keystore.jks')
+            storePassword 'android'
+        }
+    }
+
     buildTypes {
 
         debug {
@@ -34,11 +43,12 @@ android {
         }
 
         release {
-            debuggable false
-            minifyEnabled false
+            debuggable true
+            minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-            proguardFiles 'proguard-rules.pro'
+            proguardFiles 'proguard-app.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -89,10 +99,6 @@ dependencies {
 
     // Glide
     compile 'com.github.bumptech.glide:glide:3.6.1'
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // DATA
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // TESTING

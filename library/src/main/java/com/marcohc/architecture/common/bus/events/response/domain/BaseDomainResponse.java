@@ -1,7 +1,7 @@
 package com.marcohc.architecture.common.bus.events.response.domain;
 
 import com.marcohc.architecture.common.bus.events.BusEvent;
-import com.marcohc.architecture.presentation.error.AppError;
+import com.marcohc.architecture.app.presentation.error.AppError;
 
 /**
  * Common methods for domain responses
