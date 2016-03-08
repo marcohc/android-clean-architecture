@@ -1,6 +1,7 @@
 package com.marcohc.architecture.app.domain.mapper;
 
 import com.marcohc.architecture.app.domain.entity.UserEntity;
+import com.marcohc.architecture.domain.mapper.BaseMapper;
 import com.marcohc.architecture.app.domain.model.UserModel;
 
 public class UserMapper extends BaseMapper<UserModel, UserEntity> {

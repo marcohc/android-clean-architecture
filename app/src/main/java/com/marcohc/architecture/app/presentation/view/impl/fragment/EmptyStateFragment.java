@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.presentation.presenter.impl.EmptyStatePresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.EmptyStatePresenter;
-import com.marcohc.architecture.app.presentation.view.BaseView;
-import com.marcohc.architecture.app.presentation.view.fragment.BaseMvpFragment;
+import com.marcohc.architecture.presentation.view.BaseView;
+import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.architecture.app.presentation.view.inter.EmptyStateView;
 
 import butterknife.Bind;

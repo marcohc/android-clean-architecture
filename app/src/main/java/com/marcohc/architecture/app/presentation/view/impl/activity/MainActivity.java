@@ -23,8 +23,8 @@ import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.MainPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.app.presentation.view.activity.BaseMvpActivity;
-import com.marcohc.architecture.app.presentation.view.fragment.BaseMvpFragment;
+import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
+import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.architecture.app.presentation.view.impl.fragment.UsersFragment;
 import com.marcohc.architecture.app.presentation.view.inter.MainView;
 

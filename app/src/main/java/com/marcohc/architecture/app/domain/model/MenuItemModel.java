@@ -1,5 +1,7 @@
 package com.marcohc.architecture.app.domain.model;
 
+import com.marcohc.architecture.domain.model.BaseModel;
+
 public class MenuItemModel extends BaseModel {
 
     private String text;

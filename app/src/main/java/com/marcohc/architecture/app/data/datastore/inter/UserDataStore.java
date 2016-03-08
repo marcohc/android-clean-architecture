@@ -1,6 +1,6 @@
 package com.marcohc.architecture.app.data.datastore.inter;
 
-import com.marcohc.architecture.app.data.net.RestCallback;
+import com.marcohc.architecture.data.net.RestCallback;
 
 /**
  * Specific methods for this model go here

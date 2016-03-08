@@ -3,7 +3,7 @@ package com.marcohc.architecture.app.presentation.presenter.impl;
 import com.marcohc.architecture.common.bus.BusProvider;
 import com.marcohc.architecture.app.domain.bus.event.MenuItemClickEvent;
 import com.marcohc.architecture.app.domain.bus.event.MenuSelectItemEvent;
-import com.marcohc.architecture.app.presentation.presenter.BasePresenter;
+import com.marcohc.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.architecture.app.presentation.presenter.inter.MainPresenter;
 import com.marcohc.architecture.app.presentation.view.inter.MainView;
 

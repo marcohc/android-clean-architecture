@@ -1,6 +1,6 @@
 package com.marcohc.architecture.app.presentation.exception;
 
-import com.marcohc.architecture.app.presentation.error.AppError;
+import com.marcohc.architecture.presentation.error.AppError;
 
 /**
  * A representation error of the app in high level

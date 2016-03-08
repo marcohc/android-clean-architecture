@@ -1,5 +1,6 @@
 package com.marcohc.architecture.app.domain.interactor;
 
+import com.marcohc.architecture.domain.interactor.SynchronousUseCase;
 import com.marcohc.architecture.common.helper.AppInfoHelper;
 
 import timber.log.Timber;

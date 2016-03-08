@@ -15,8 +15,8 @@ import com.marcohc.architecture.app.domain.model.MenuItemModel;
 import com.marcohc.architecture.app.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
-import com.marcohc.architecture.app.presentation.view.adapter.BaseListAdapter;
-import com.marcohc.architecture.app.presentation.view.fragment.BaseMvpFragment;
+import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
+import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder.MenuViewHolder;
 import com.marcohc.architecture.app.presentation.view.inter.MenuView;
 

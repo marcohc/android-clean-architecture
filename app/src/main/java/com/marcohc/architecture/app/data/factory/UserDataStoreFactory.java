@@ -1,6 +1,6 @@
 package com.marcohc.architecture.app.data.factory;
 
-import com.marcohc.architecture.app.data.net.RestCallback;
+import com.marcohc.architecture.data.net.RestCallback;
 import com.marcohc.architecture.app.data.datastore.inter.UserDataStore;
 import com.marcohc.architecture.app.data.datastore.impl.UserRestDataStore;
 

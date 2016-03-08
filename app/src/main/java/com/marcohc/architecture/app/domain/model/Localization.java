@@ -3,6 +3,7 @@ package com.marcohc.architecture.app.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.marcohc.architecture.domain.model.BaseModel;
 
 import java.util.HashMap;
 import java.util.Map;

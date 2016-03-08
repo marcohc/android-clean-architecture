@@ -1,8 +1,8 @@
 package com.marcohc.architecture.app.data.datastore.impl;
 
 import com.marcohc.architecture.app.data.datastore.inter.UserDataStore;
-import com.marcohc.architecture.app.data.net.RestCallback;
-import com.marcohc.architecture.app.data.net.ServiceGenerator;
+import com.marcohc.architecture.data.net.RestCallback;
+import com.marcohc.architecture.data.net.ServiceGenerator;
 import com.marcohc.architecture.app.data.service.UserRestService;
 import com.marcohc.architecture.app.data.util.NetworkManager;
 

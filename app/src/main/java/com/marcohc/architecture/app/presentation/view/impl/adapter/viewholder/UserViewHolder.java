@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.app.presentation.view.adapter.ViewHolderAbstractClass;
+import com.marcohc.architecture.presentation.view.adapter.ViewHolderAbstractClass;
 import com.marcohc.architecture.common.helper.StringHelper;
 
 import butterknife.ButterKnife;

@@ -1,5 +1,6 @@
 package com.marcohc.architecture.app.domain.interactor;
 
+import com.marcohc.architecture.domain.interactor.SynchronousUseCase;
 import com.marcohc.architecture.app.domain.mapper.UserMapper;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.util.PreferencesConstants;

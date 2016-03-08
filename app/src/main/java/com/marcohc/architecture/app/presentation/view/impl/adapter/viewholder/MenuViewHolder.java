@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.MenuItemModel;
-import com.marcohc.architecture.app.presentation.view.adapter.ViewHolderAbstractClass;
+import com.marcohc.architecture.presentation.view.adapter.ViewHolderAbstractClass;
 
 import butterknife.ButterKnife;
 

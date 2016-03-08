@@ -14,7 +14,7 @@ import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.presenter.impl.UserDetailPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.UserDetailPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.app.presentation.view.activity.BaseMvpActivity;
+import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.app.presentation.view.inter.UserDetailView;
 import com.marcohc.architecture.common.helper.StringHelper;
 
