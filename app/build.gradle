@@ -82,7 +82,8 @@ android {
 
 dependencies {
 
-    compile project(':library')
+    compile project(':core')
+    compile project(':rest')
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // PRESENTATION

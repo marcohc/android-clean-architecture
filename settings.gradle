@@ -1,2 +1,3 @@
-include ':library'
+include ':core'
+include ':rest'
 include ':app'
