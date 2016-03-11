@@ -20,11 +20,11 @@ import android.content.Context;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.marcohc.architecture.R;
+import com.marcohc.architecture.analytics.R;
 
 /**
  * Class to track analytics events
- * <p>
+ * <p/>
  * Call {@link #setUp(Context, boolean)} method first
  * Set up your own {@link R.string.google_analytics_id}
  */

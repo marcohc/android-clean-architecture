@@ -46,9 +46,6 @@ dependencies {
     // Permissions - Added for helpers
     compile 'com.github.hotchemi:permissionsdispatcher:2.0.5'
 
-    // Analitycs - Added for helpers
-    compile 'com.google.android.gms:play-services-analytics:8.4.0'
-
     // Butter knife
     compile 'com.jakewharton:butterknife:7.0.1'
 

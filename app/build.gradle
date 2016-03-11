@@ -84,6 +84,7 @@ dependencies {
 
     compile project(':core')
     compile project(':rest')
+    compile project(':analytics')
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // PRESENTATION

@@ -5,11 +5,11 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
+import com.marcohc.architecture.app.data.repository.UserRepository;
+import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
 import com.marcohc.architecture.common.helper.PreferencesHelper;
 import com.marcohc.architecture.common.helper.TimerLog;
-import com.marcohc.architecture.app.data.repository.UserRepository;
-import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.concurrent.Semaphore;
