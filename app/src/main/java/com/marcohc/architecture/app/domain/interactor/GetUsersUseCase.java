@@ -5,16 +5,9 @@ import com.marcohc.architecture.app.domain.bus.response.data.GetUsersDataRespons
 import com.marcohc.architecture.app.domain.bus.response.domain.GetUsersDomainResponse;
 import com.marcohc.architecture.domain.error.DomainError;
 import com.marcohc.architecture.domain.interactor.AsynchronousUseCase;
-import com.marcohc.architecture.app.domain.mapper.UserMapper;
-import com.marcohc.architecture.app.domain.model.UserModel;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 public class GetUsersUseCase extends AsynchronousUseCase {
 
@@ -35,14 +28,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
 
     @Override
     protected GetUsersDomainResponse createResponse() {
-        JSONArray usersArray = null;
-        try {
-            usersArray = (JSONArray) responseFromServer.getResponse().get("results");
-        } catch (JSONException e) {
-        }
-        usersArray = clearUsersArray(usersArray);
-        List<UserModel> usersList = UserMapper.getInstance().parseModelJsonArray(usersArray);
-        return new GetUsersDomainResponse(usersList);
+        return new GetUsersDomainResponse(responseFromServer.getResponse());
     }
 
     // ************************************************************************************************************************************************************************
@@ -59,25 +45,5 @@ public class GetUsersUseCase extends AsynchronousUseCase {
         } else {
             postDomainError(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
         }
-    }
-
-    /**
-     * Clean up the response from the server
-     *
-     * @param usersArray
-     * @return
-     */
-    private JSONArray clearUsersArray(JSONArray usersArray) {
-
-        JSONArray aux = new JSONArray();
-        for (int i = 0; i < usersArray.length(); i++) {
-            try {
-                JSONObject json = usersArray.getJSONObject(i);
-                aux.put(json.get("user"));
-            } catch (JSONException ignored) {
-                break;
-            }
-        }
-        return aux;
     }
 }

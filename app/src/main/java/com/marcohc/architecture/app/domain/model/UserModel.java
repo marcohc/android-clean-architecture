@@ -11,8 +11,7 @@ public class UserModel extends BaseModel {
 
     private String key;
     private String gender;
-    private Name name;
-    private Localization location;
+    private String name;
     private String email;
     private String username;
     private String password;
@@ -25,7 +24,6 @@ public class UserModel extends BaseModel {
     private String phone;
     private String cell;
     private String tfn;
-    private Picture picture;
     private String version;
 
     /**
@@ -45,29 +43,15 @@ public class UserModel extends BaseModel {
     /**
      * @return The name
      */
-    public Name getName() {
+    public String getName() {
         return name;
     }
 
     /**
      * @param name The name
      */
-    public void setName(Name name) {
+    public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @return The location
-     */
-    public Localization getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location The location
-     */
-    public void setLocation(Localization location) {
-        this.location = location;
     }
 
     /**
@@ -236,20 +220,6 @@ public class UserModel extends BaseModel {
      */
     public void setTfn(String tfn) {
         this.tfn = tfn;
-    }
-
-    /**
-     * @return The picture
-     */
-    public Picture getPicture() {
-        return picture;
-    }
-
-    /**
-     * @param picture The picture
-     */
-    public void setPicture(Picture picture) {
-        this.picture = picture;
     }
 
     /**

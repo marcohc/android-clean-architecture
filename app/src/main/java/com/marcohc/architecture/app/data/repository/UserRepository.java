@@ -3,14 +3,16 @@ package com.marcohc.architecture.app.data.repository;
 import com.marcohc.architecture.app.data.factory.UserDataStoreFactory;
 import com.marcohc.architecture.app.domain.bus.request.GetUsersRequest;
 import com.marcohc.architecture.app.domain.bus.response.data.GetUsersDataResponse;
+import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.common.bus.BusHandler;
 import com.marcohc.architecture.data.error.DataError;
 import com.marcohc.architecture.data.error.RestError;
-import com.marcohc.architecture.data.net.RestCallback;
+import com.marcohc.architecture.data.net.DataCallback;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * All the data management must be here. Nothing related to business logic
@@ -42,14 +44,14 @@ public class UserRepository extends BusHandler {
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(GetUsersRequest request) {
-        UserDataStoreFactory.getInstance().getAll(new RestCallback<JSONObject>() {
+        UserDataStoreFactory.getInstance().getAll(new DataCallback<List<UserModel>>() {
             @Override
-            public void failure(RestError error) {
+            public void onFailure(RestError error) {
                 postDataError(new DataError(error.getMessage(), error.getCode()));
             }
 
             @Override
-            public void success(JSONObject response) {
+            public void onSuccess(List<UserModel> response) {
                 post(new GetUsersDataResponse(response));
             }
         });

@@ -34,13 +34,13 @@ public class UserViewHolder extends ViewHolderAbstractClass<UserModel> {
     @Override
     public void setUpView(Context context, UserModel model, int position) {
 
-        String image = model.getPicture().getThumbnail();
+        String image = "";
         if (!StringHelper.isEmpty(image)) {
             Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(userImage);
         } else {
             userImage.setImageResource(R.drawable.im_user_place_holder);
         }
-        usernameText.setText(model.getUsername());
+        usernameText.setText(model.getName());
         passwordText.setText(model.getPassword());
     }
 

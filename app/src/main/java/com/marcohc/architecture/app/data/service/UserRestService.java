@@ -1,13 +1,16 @@
 
 package com.marcohc.architecture.app.data.service;
 
-import com.marcohc.architecture.data.net.RestCallback;
+import com.marcohc.architecture.app.domain.model.UserModel;
 
-import retrofit.http.GET;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 public interface UserRestService {
 
-    @GET("/?results=25")
-    void getAll(RestCallback callback);
+    @GET("/users")
+    Call<List<UserModel>> getAll();
 
 }

@@ -5,17 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:listSelector="@android:color/transparent" />
+        android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/emptyStateFragment"
-        class="com.marcohc.architecture.app.presentation.view.impl.fragment.EmptyStateFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/empty_state_fragment" />
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:listSelector="@android:color/transparent" />
+
+        <fragment
+            android:id="@+id/emptyStateFragment"
+            class="com.marcohc.architecture.app.presentation.view.impl.fragment.EmptyStateFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/empty_state_fragment" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

@@ -2,7 +2,10 @@ package com.marcohc.architecture.app.presentation.view.impl.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -24,11 +27,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnItemClick;
 
-public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView {
+public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
+
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Bind(R.id.listView)
     ListView listView;
@@ -46,6 +52,7 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
         return R.layout.users_fragment;
     }
 
+    @NonNull
     @Override
     public UsersPresenter createPresenter() {
         return new UsersPresenterImpl();
@@ -56,6 +63,7 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
         super.onViewCreated(view, savedInstance);
         setUpListView();
         setUpEmptyStateFragment();
+        setUpSwipeRefreshLayout();
         presenter.onViewCreated();
     }
 
@@ -69,6 +77,11 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     private void setUpListView() {
         listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
         listView.setAdapter(listViewAdapter);
+    }
+
+    private void setUpSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary), ContextCompat.getColor(getActivity(), R.color.primary_dark));
     }
 
     // ************************************************************************************************************************************************************************
@@ -89,6 +102,7 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
 
     @Override
     public void loadData(List<UserModel> modelList) {
+        swipeRefreshLayout.setRefreshing(false);
         if (modelList.isEmpty()) {
             emptyStateFragment.setVisible(true);
             listView.setVisibility(View.GONE);
@@ -99,5 +113,10 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
             listViewAdapter.addThemAll(modelList);
             listViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.onRefresh();
     }
 }

@@ -25,6 +25,11 @@ public class UsersPresenterImpl extends BasePresenter<UsersView> implements User
     }
 
     @Override
+    public void onRefresh() {
+        new GetUsersUseCase().execute();
+    }
+
+    @Override
     public UserModel getUser() {
         return new GetCurrentUserUseCase().execute();
     }

@@ -8,15 +8,14 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.presenter.impl.UserDetailPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.UserDetailPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.app.presentation.view.inter.UserDetailView;
 import com.marcohc.architecture.common.helper.StringHelper;
+import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -99,11 +98,7 @@ public class UserDetailActivity extends BaseMvpActivity<UserDetailView, UserDeta
 
     @Override
     public void setUserData(UserModel user) {
-        if (!StringHelper.isEmpty(user.getPicture().getThumbnail())) {
-            Glide.with(this).load(user.getPicture().getThumbnail()).into(userImage);
-        }
-        usernameText.setText(user.getUsername());
-        addressText.setText(user.getLocation().getStreet());
+        usernameText.setText(user.getName());
         dateOfBirthAndEmailText.setText(user.getEmail());
     }
 

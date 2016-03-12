@@ -10,4 +10,5 @@ public interface UsersPresenter extends MvpPresenter<UsersView> {
 
     UserModel getUser();
 
+    void onRefresh();
 }

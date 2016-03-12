@@ -209,9 +209,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
 
         setTitleByPosition(NavigationManager.SCREENS.values()[position]);
 
-        NavigationManager.lastViewPosition = NavigationManager.currentViewPosition;
-        NavigationManager.currentViewPosition = position;
-
         if (currentFragment != null) {
             loadFragment(currentFragment);
             setTitle(currentFragment.getTag());

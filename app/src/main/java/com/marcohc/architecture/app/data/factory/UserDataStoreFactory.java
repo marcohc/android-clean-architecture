@@ -1,10 +1,11 @@
 package com.marcohc.architecture.app.data.factory;
 
-import com.marcohc.architecture.data.net.RestCallback;
-import com.marcohc.architecture.app.data.datastore.inter.UserDataStore;
 import com.marcohc.architecture.app.data.datastore.impl.UserRestDataStore;
+import com.marcohc.architecture.app.data.datastore.inter.UserDataStore;
+import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.data.net.DataCallback;
 
-import org.json.JSONObject;
+import java.util.List;
 
 /**
  * This class applies the logic of selecting which data source
@@ -38,7 +39,7 @@ public class UserDataStoreFactory {
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public void getAll(RestCallback<JSONObject> callback) {
+    public void getAll(DataCallback<List<UserModel>> callback) {
         userCloudDataStore.getAll(callback);
     }
 
