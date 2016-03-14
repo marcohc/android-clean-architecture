@@ -51,14 +51,14 @@ public class PreferencesHelper extends PreferencesMethods {
     // * Initialization
     // ************************************************************************************************************************************************************************
 
-    public static void setUp(Context context) {
+    public static synchronized void setUp(Context context) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
         instance = new PreferencesHelper(context);
     }
 
-    public static void setUp(Context context, String sharedPreferencesName) {
+    public static synchronized void setUp(Context context, String sharedPreferencesName) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
@@ -69,14 +69,14 @@ public class PreferencesHelper extends PreferencesMethods {
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public static PreferencesHelper getInstance() {
+    public static synchronized PreferencesHelper getInstance() {
         if (instance == null) {
             throw new PreferencesException("setUp(Context context) must be called first!");
         }
         return instance;
     }
 
-    public static void clearInstance() {
+    public static synchronized void clearInstance() {
         instance.sharedPreferences = null;
         instance = null;
     }

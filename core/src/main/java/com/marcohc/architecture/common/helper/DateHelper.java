@@ -208,18 +208,13 @@ public class DateHelper {
         }
     }
 
-    public static boolean isInLast24HoursOfCurrentDate(long time) {
+    public static boolean isInTheLast24HoursOfCurrentDate(long time) {
         Calendar currentCalendar = Calendar.getInstance();
         Calendar last24HoursCalendar = Calendar.getInstance();
         last24HoursCalendar.add(Calendar.HOUR, -24);
         Calendar calendarToCheck = Calendar.getInstance();
         calendarToCheck.setTimeInMillis(time);
-
-        if (currentCalendar.before(calendarToCheck) && last24HoursCalendar.after(calendarToCheck)) {
-            return true;
-        } else {
-            return false;
-        }
+        return calendarToCheck.before(currentCalendar) && calendarToCheck.after(last24HoursCalendar);
     }
 
     public static boolean areInTheSameMonth(Calendar calendarOne, Calendar calendarTwo) {

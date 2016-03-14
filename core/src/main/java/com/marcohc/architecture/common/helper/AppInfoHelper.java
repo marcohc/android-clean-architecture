@@ -56,13 +56,13 @@ public class AppInfoHelper {
     }
 
     public static boolean isFirstUseToday() {
-        long lastUseTime = PreferencesHelper.getInstance().getLong(LAST_APP_EXECUTION, System.currentTimeMillis());
-        return !DateHelper.isInTheSameDayOfCurrentDate(lastUseTime);
+        long lastUseTime = PreferencesHelper.getInstance().getLong(LAST_APP_EXECUTION, -1L);
+        return lastUseTime == -1 || !DateHelper.isInTheSameDayOfCurrentDate(lastUseTime);
     }
 
     public static boolean isFirstUseLast24Hours() {
-        long lastUseTime = PreferencesHelper.getInstance().getLong(LAST_APP_EXECUTION, System.currentTimeMillis());
-        return DateHelper.isInLast24HoursOfCurrentDate(lastUseTime);
+        long lastUseTime = PreferencesHelper.getInstance().getLong(LAST_APP_EXECUTION, -1L);
+        return lastUseTime == -1 || DateHelper.isInTheLast24HoursOfCurrentDate(lastUseTime);
     }
 
     public static String getUniqueId() {
