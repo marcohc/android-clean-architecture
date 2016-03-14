@@ -1,4 +1,5 @@
 include ':core'
 include ':rest'
 include ':analytics'
+include ':security'
 include ':app'

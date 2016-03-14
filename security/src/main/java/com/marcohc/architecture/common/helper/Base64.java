@@ -1,5 +1,5 @@
-package com.marcohc.architecture.common.helper;/*
- * Copyright (C) 2010 The Android Open Source Project
+/*
+ * Copyright (C) 2016 Marco Hernaiz Cao
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@ package com.marcohc.architecture.common.helper;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+package com.marcohc.architecture.common.helper;
 
 import java.io.UnsupportedEncodingException;
 

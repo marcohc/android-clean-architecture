@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface UserRestService {
 
-    @GET("/users")
+    @GET("users")
     Call<List<UserModel>> getAll();
 
 }

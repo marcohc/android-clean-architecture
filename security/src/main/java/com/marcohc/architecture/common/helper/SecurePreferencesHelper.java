@@ -17,59 +17,60 @@ package com.marcohc.architecture.common.helper;
 
 import android.content.Context;
 
+import com.securepreferences.SecurePreferences;
+
+
 /**
- * For managing shared preferences
- * <p>
+ * For managing shared preferences with encryption
+ * <p/>
  * Call {@link #setUp(Context)} method first or {@link #setUp(Context, String)} first
- * <p>
+ * <p/>
  * Default shared preferences name will be: <package_name>_preferences
  */
-public class PreferencesHelper extends PreferencesMethods {
+public class SecurePreferencesHelper extends PreferencesMethods {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    protected static PreferencesHelper instance;
+    protected static SecurePreferencesHelper instance;
 
     // ************************************************************************************************************************************************************************
     // * Constructor
     // ************************************************************************************************************************************************************************
 
-    private PreferencesHelper(Context context) {
+    private SecurePreferencesHelper(Context context, String uniqueId) {
         String defaultName = String.format("%s_%s", context.getPackageName(), "preferences");
-        sharedPreferences = context.getSharedPreferences(defaultName, Context.MODE_PRIVATE);
+        sharedPreferences = new SecurePreferences(context, uniqueId, defaultName);
     }
 
-    private PreferencesHelper(Context context, String sharedPreferencesName, String uniqueId) {
-        if (StringHelper.isEmpty(uniqueId)) {
-            sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
-        }
+    private SecurePreferencesHelper(Context context, String sharedPreferencesName, String uniqueId) {
+        sharedPreferences = new SecurePreferences(context, uniqueId, sharedPreferencesName);
     }
 
     // ************************************************************************************************************************************************************************
     // * Initialization
     // ************************************************************************************************************************************************************************
 
-    protected static void setUp(Context context) {
+    public static void setUp(Context context) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
-        instance = new PreferencesHelper(context);
+        instance = new SecurePreferencesHelper(context, AppInfoHelper.getUniqueId());
     }
 
-    protected static void setUp(Context context, String sharedPreferencesName) {
+    public static void setUp(Context context, String sharedPreferencesName) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
-        instance = new PreferencesHelper(context, sharedPreferencesName, null);
+        instance = new SecurePreferencesHelper(context, sharedPreferencesName, AppInfoHelper.getUniqueId());
     }
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public static PreferencesHelper getInstance() {
+    public static SecurePreferencesHelper getInstance() {
         if (instance == null) {
             throw new PreferencesException("setUp(Context context) must be called first!");
         }

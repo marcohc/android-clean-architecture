@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotEquals;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PreferencesHelperTest {
+public class SecurePreferencesHelperTest {
 
     Context context;
 
@@ -28,38 +28,38 @@ public class PreferencesHelperTest {
 
     @Test(expected = PreferencesMethods.PreferencesException.class)
     public void testSetUpThrowsException() {
-        PreferencesHelper.setUp(null);
+        SecurePreferencesHelper.setUp(null);
     }
 
     @Test
     public void testSetUpDoesNotThrowsException() {
-        PreferencesHelper.setUp(context);
+        SecurePreferencesHelper.setUp(context);
     }
 
     @Test(expected = PreferencesMethods.PreferencesException.class)
     public void testGetInstanceThrowsException() {
-        PreferencesHelper.clearInstance();
-        PreferencesHelper.getInstance();
+        SecurePreferencesHelper.clearInstance();
+        SecurePreferencesHelper.getInstance();
     }
 
     @Test
     public void testGetInstanceDoesNotThrowsException() {
-        PreferencesHelper.setUp(context);
-        assertNotEquals(PreferencesHelper.getInstance(), null);
+        SecurePreferencesHelper.setUp(context);
+        assertNotEquals(SecurePreferencesHelper.getInstance(), null);
     }
 
     @Test
     public void testGetStringCorrectValue() {
-        PreferencesHelper.setUp(context);
-        PreferencesHelper.getInstance().putString("KEY", "VALUE");
-        assertEquals(PreferencesHelper.getInstance().getString("KEY", null), "VALUE");
+        SecurePreferencesHelper.setUp(context);
+        SecurePreferencesHelper.getInstance().putString("KEY", "VALUE");
+        assertEquals(SecurePreferencesHelper.getInstance().getString("KEY", null), "VALUE");
     }
 
     @Test
     public void testGetStringWrongValue() {
-        PreferencesHelper.setUp(context);
-        PreferencesHelper.getInstance().putString("KEY", "VALUE");
-        assertNotEquals(PreferencesHelper.getInstance().getString("KEY", null), "ANOTHER_VALUE");
+        SecurePreferencesHelper.setUp(context);
+        SecurePreferencesHelper.getInstance().putString("KEY", "VALUE");
+        assertNotEquals(SecurePreferencesHelper.getInstance().getString("KEY", null), "ANOTHER_VALUE");
     }
 
 }

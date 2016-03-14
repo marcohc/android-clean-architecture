@@ -19,7 +19,7 @@ public abstract class DataCallback<T> implements Callback<T> {
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         // response.isSuccess() is true if the response code is 2xx
-        if (response.isSuccess()) {
+        if (response.isSuccessful()) {
             T body = response.body();
             onSuccess(body);
         }
