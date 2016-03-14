@@ -51,14 +51,14 @@ public class PreferencesHelper extends PreferencesMethods {
     // * Initialization
     // ************************************************************************************************************************************************************************
 
-    protected static void setUp(Context context) {
+    public static void setUp(Context context) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
         instance = new PreferencesHelper(context);
     }
 
-    protected static void setUp(Context context, String sharedPreferencesName) {
+    public static void setUp(Context context, String sharedPreferencesName) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
