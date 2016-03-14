@@ -64,9 +64,13 @@ public class ServiceGenerator {
         okHttpClientBuilder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                request.newBuilder().addHeader("Authorization", "Token " + token);
-                return chain.proceed(request);
+                Request originalRequest = chain.request();
+                Request.Builder requestBuilder = originalRequest.newBuilder()
+                        .header("Authorization", "Token " + token)
+                        .header("Accept", "application/json")
+                        .method(originalRequest.method(), originalRequest.body());
+                Request newRequest = requestBuilder.build();
+                return chain.proceed(newRequest);
             }
         });
     }
@@ -77,10 +81,14 @@ public class ServiceGenerator {
         okHttpClientBuilder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                String string = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-                request.newBuilder().addHeader("Authorization", string);
-                return chain.proceed(request);
+                Request originalRequest = chain.request();
+                String basicAuth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+                Request.Builder requestBuilder = originalRequest.newBuilder()
+                        .header("Authorization", basicAuth)
+                        .header("Accept", "application/json")
+                        .method(originalRequest.method(), originalRequest.body());
+                Request newRequest = requestBuilder.build();
+                return chain.proceed(newRequest);
             }
         });
     }
