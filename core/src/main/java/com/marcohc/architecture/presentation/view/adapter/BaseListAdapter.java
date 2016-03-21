@@ -21,19 +21,19 @@ public class BaseListAdapter<T extends BaseModel> extends ArrayAdapter<T> {
 
     // Class
     private final Context context;
-    private Class<? extends ViewHolder> viewHolderClass;
+    private Class<? extends BaseViewHolder> viewHolderClass;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public BaseListAdapter(Context context, int resource, Class<? extends ViewHolder> viewHolderClass) {
+    public BaseListAdapter(Context context, int resource, Class<? extends BaseViewHolder> viewHolderClass) {
         super(context, resource, new ArrayList<T>());
         this.context = context;
         this.viewHolderClass = viewHolderClass;
     }
 
-    public BaseListAdapter(Context context, int resource, List<T> items, Class<? extends ViewHolder> viewHolderClass) {
+    public BaseListAdapter(Context context, int resource, List<T> items, Class<? extends BaseViewHolder> viewHolderClass) {
         super(context, resource, items);
         this.context = context;
         this.viewHolderClass = viewHolderClass;
@@ -42,21 +42,21 @@ public class BaseListAdapter<T extends BaseModel> extends ArrayAdapter<T> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder = null;
+        BaseViewHolder baseViewHolder = null;
         if (null == convertView || null == convertView.getTag()) {
             try {
-                viewHolder = viewHolderClass.newInstance();
-                convertView = LayoutInflater.from(getContext()).inflate(viewHolder.getLayout(), null);
-                viewHolder.bindViews(convertView);
-                convertView.setTag(viewHolder);
+                baseViewHolder = viewHolderClass.newInstance();
+                convertView = LayoutInflater.from(getContext()).inflate(baseViewHolder.getLayout(), null);
+                baseViewHolder.bindViews(convertView);
+                convertView.setTag(baseViewHolder);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            baseViewHolder = (BaseViewHolder) convertView.getTag();
         }
 
-        viewHolder.setUpView(context, getItem(position), position);
+        baseViewHolder.setUpView(context, getItem(position), position);
 
         return convertView;
     }

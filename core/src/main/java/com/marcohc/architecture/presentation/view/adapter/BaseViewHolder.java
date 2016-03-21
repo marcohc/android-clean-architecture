@@ -7,7 +7,7 @@ import com.marcohc.architecture.domain.model.BaseModel;
 
 import butterknife.ButterKnife;
 
-public abstract class ViewHolder<T extends BaseModel> {
+public abstract class BaseViewHolder<T extends BaseModel> {
 
     abstract public int getLayout();
 

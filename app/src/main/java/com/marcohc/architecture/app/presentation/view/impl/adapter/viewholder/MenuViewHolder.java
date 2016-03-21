@@ -6,11 +6,11 @@ import android.widget.TextView;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.MenuItemModel;
-import com.marcohc.architecture.presentation.view.adapter.ViewHolder;
+import com.marcohc.architecture.presentation.view.adapter.BaseViewHolder;
 
 import butterknife.Bind;
 
-public class MenuViewHolder extends ViewHolder<MenuItemModel> {
+public class MenuViewHolder extends BaseViewHolder<MenuItemModel> {
 
     @Bind(R.id.menuImage)
     ImageView menuImage;
