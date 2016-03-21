@@ -1,22 +1,26 @@
 package com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.presentation.view.adapter.ViewHolderAbstractClass;
 import com.marcohc.architecture.common.helper.StringHelper;
+import com.marcohc.architecture.presentation.view.adapter.ViewHolder;
 
-import butterknife.ButterKnife;
+import butterknife.Bind;
 
-public class UserViewHolder extends ViewHolderAbstractClass<UserModel> {
+public class UserViewHolder extends ViewHolder<UserModel> {
 
+    @Bind(R.id.userImage)
     ImageView userImage;
+
+    @Bind(R.id.usernameText)
     TextView usernameText;
+
+    @Bind(R.id.passwordText)
     TextView passwordText;
 
     @Override
@@ -25,15 +29,7 @@ public class UserViewHolder extends ViewHolderAbstractClass<UserModel> {
     }
 
     @Override
-    public void findViewsById(View view) {
-        userImage = ButterKnife.findById(view, R.id.userImage);
-        usernameText = ButterKnife.findById(view, R.id.usernameText);
-        passwordText = ButterKnife.findById(view, R.id.passwordText);
-    }
-
-    @Override
     public void setUpView(Context context, UserModel model, int position) {
-
         String image = "";
         if (!StringHelper.isEmpty(image)) {
             Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(userImage);

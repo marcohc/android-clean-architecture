@@ -1,33 +1,26 @@
 package com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.MenuItemModel;
-import com.marcohc.architecture.presentation.view.adapter.ViewHolderAbstractClass;
+import com.marcohc.architecture.presentation.view.adapter.ViewHolder;
 
-import butterknife.ButterKnife;
+import butterknife.Bind;
 
-public class MenuViewHolder extends ViewHolderAbstractClass<MenuItemModel> {
+public class MenuViewHolder extends ViewHolder<MenuItemModel> {
 
+    @Bind(R.id.menuImage)
     ImageView menuImage;
+
+    @Bind(R.id.menuText)
     TextView menuText;
-    ViewGroup menuItemContainer;
 
     @Override
     public int getLayout() {
         return R.layout.menu_list_item;
-    }
-
-    @Override
-    public void findViewsById(View view) {
-        menuItemContainer = ButterKnife.findById(view, R.id.menuItemContainer);
-        menuImage = ButterKnife.findById(view, R.id.menuImage);
-        menuText = ButterKnife.findById(view, R.id.menuText);
     }
 
     @Override

@@ -5,12 +5,16 @@ import android.view.View;
 
 import com.marcohc.architecture.domain.model.BaseModel;
 
-public abstract class ViewHolderAbstractClass<T extends BaseModel> {
+import butterknife.ButterKnife;
+
+public abstract class ViewHolder<T extends BaseModel> {
 
     abstract public int getLayout();
 
-    abstract public void findViewsById(View view);
-
     abstract public void setUpView(Context context, T item, int position);
+
+    public void bindViews(View view) {
+        ButterKnife.bind(this, view);
+    }
 
 }
