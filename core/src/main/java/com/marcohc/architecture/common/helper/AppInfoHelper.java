@@ -37,9 +37,9 @@ public class AppInfoHelper {
     public static boolean isFirstAppExecution() {
         String firstAppStartValue = PreferencesHelper.getInstance().getString(IS_FIRST_APP_EXECUTION, null);
         boolean isFirstAppStart;
-        if (firstAppStartValue == null || firstAppStartValue.equals("false")) {
+        if (firstAppStartValue == null || firstAppStartValue.equals("true")) {
             isFirstAppStart = true;
-            PreferencesHelper.getInstance().putString(IS_FIRST_APP_EXECUTION, "true");
+            PreferencesHelper.getInstance().putString(IS_FIRST_APP_EXECUTION, "false");
         } else {
             isFirstAppStart = false;
             PreferencesHelper.getInstance().putString(IS_FIRST_APP_EXECUTION, "false");
@@ -48,7 +48,7 @@ public class AppInfoHelper {
     }
 
     public static void forceFirstAppExecution() {
-        PreferencesHelper.getInstance().putString(IS_FIRST_APP_EXECUTION, "false");
+        PreferencesHelper.getInstance().putString(IS_FIRST_APP_EXECUTION, "true");
     }
 
     public static void trackLastAppExecution() {
@@ -62,7 +62,7 @@ public class AppInfoHelper {
 
     public static boolean isFirstUseLast24Hours() {
         long lastUseTime = PreferencesHelper.getInstance().getLong(LAST_APP_EXECUTION, -1L);
-        return lastUseTime == -1 || DateHelper.isInTheLast24HoursOfCurrentDate(lastUseTime);
+        return lastUseTime == -1 || !DateHelper.isInTheLast24HoursOfCurrentDate(lastUseTime);
     }
 
     public static String getUniqueId() {

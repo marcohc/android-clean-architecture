@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
+import java.util.Calendar;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
@@ -36,6 +38,22 @@ public class AppInfoHelperTest {
     @Test
     public void testIsFirstAppExecutionFalse() {
         assertTrue(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+    }
+
+    @Test
+    public void testIsFirstAppExecutionTricky() {
+        assertTrue(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        AppInfoHelper.forceFirstAppExecution();
+        assertTrue(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertFalse(AppInfoHelper.isFirstAppExecution());
         assertFalse(AppInfoHelper.isFirstAppExecution());
     }
 
@@ -86,14 +104,18 @@ public class AppInfoHelperTest {
 
     @Test
     public void testIsFirstUseLast24HoursFalse() {
-        AppInfoHelper.trackLastAppExecution();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -3);
+        PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
         assertFalse(AppInfoHelper.isFirstUseLast24Hours());
     }
 
     @Test
     public void testIsFirstUseLast24HoursMix() {
         assertTrue(AppInfoHelper.isFirstUseLast24Hours());
-        AppInfoHelper.trackLastAppExecution();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, -15);
+        PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
         assertFalse(AppInfoHelper.isFirstUseLast24Hours());
         PreferencesHelper.getInstance().clear();
         assertTrue(AppInfoHelper.isFirstUseLast24Hours());
@@ -101,20 +123,27 @@ public class AppInfoHelperTest {
 
     @Test
     public void testIsFirstUseLast24HoursTrickyTrue1() {
-        PreferencesHelper.getInstance().putLong("last_app_execution", System.currentTimeMillis() - 3600 * 1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -24);
+        calendar.add(Calendar.MINUTE, -1);
+        PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
         assertTrue(AppInfoHelper.isFirstUseLast24Hours());
     }
 
     @Test
     public void testIsFirstUseLast24HoursTrickyTrue2() {
-        PreferencesHelper.getInstance().putLong("last_app_execution", System.currentTimeMillis() - 3600 * 12 * 1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -36);
+        PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
         assertTrue(AppInfoHelper.isFirstUseLast24Hours());
     }
 
     @Test
     public void testIsFirstUseLast24HoursTrickyFalse() {
-        PreferencesHelper.getInstance().putLong("last_app_execution", System.currentTimeMillis() - 3600 * 25 * 1000);
-        assertFalse(AppInfoHelper.isFirstUseLast24Hours());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
+        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
     }
 
     @Test

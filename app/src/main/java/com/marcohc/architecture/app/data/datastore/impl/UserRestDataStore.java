@@ -15,7 +15,7 @@ public class UserRestDataStore implements UserDataStore {
 
     @Override
     public void getAll(DataCallback<List<UserModel>> callback) {
-        UserRestService userRestService = ServiceGenerator.createService(UserRestService.class, JacksonConverterFactory.create(), NetworkManager.BASE_API_URL);
+        UserRestService userRestService = ServiceGenerator.getInstance().createService(UserRestService.class, JacksonConverterFactory.create(), NetworkManager.BASE_API_URL);
         userRestService.getAll().enqueue(callback);
     }
 
