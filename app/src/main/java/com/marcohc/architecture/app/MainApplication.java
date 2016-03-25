@@ -8,6 +8,7 @@ import android.support.multidex.MultiDexApplication;
 import com.marcohc.architecture.app.data.repository.UserRepository;
 import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
+import com.marcohc.architecture.common.helper.AppInfoHelper;
 import com.marcohc.architecture.common.helper.SecurePreferencesHelper;
 import com.marcohc.architecture.common.helper.TimerLog;
 import com.squareup.leakcanary.LeakCanary;
@@ -114,6 +115,7 @@ public class MainApplication extends MultiDexApplication {
 
     private void setUpPreferences() {
         SecurePreferencesHelper.setUp(this);
+        AppInfoHelper.setUp(SecurePreferencesHelper.getInstance());
     }
 
     private void setUpCalligraphy() {

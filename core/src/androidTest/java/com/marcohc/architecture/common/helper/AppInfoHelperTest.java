@@ -27,79 +27,80 @@ public class AppInfoHelperTest {
     public void before() {
         Context context = InstrumentationRegistry.getTargetContext();
         PreferencesHelper.setUp(context);
+        AppInfoHelper.setUp(PreferencesHelper.getInstance());
         PreferencesHelper.getInstance().clear();
     }
 
     @Test
     public void testIsFirstAppExecutionTrue() {
-        assertTrue(AppInfoHelper.isFirstAppExecution());
+        assertTrue(AppInfoHelper.getInstance().isFirstAppExecution());
     }
 
     @Test
     public void testIsFirstAppExecutionFalse() {
-        assertTrue(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertTrue(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
     }
 
     @Test
     public void testIsFirstAppExecutionTricky() {
-        assertTrue(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        AppInfoHelper.forceFirstAppExecution();
-        assertTrue(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
+        assertTrue(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        AppInfoHelper.getInstance().forceFirstAppExecution();
+        assertTrue(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
     }
 
     @Test
     public void testForceFirstAppExecution() {
-        assertTrue(AppInfoHelper.isFirstAppExecution());
-        assertFalse(AppInfoHelper.isFirstAppExecution());
-        AppInfoHelper.forceFirstAppExecution();
-        assertTrue(AppInfoHelper.isFirstAppExecution());
+        assertTrue(AppInfoHelper.getInstance().isFirstAppExecution());
+        assertFalse(AppInfoHelper.getInstance().isFirstAppExecution());
+        AppInfoHelper.getInstance().forceFirstAppExecution();
+        assertTrue(AppInfoHelper.getInstance().isFirstAppExecution());
     }
 
     @Test
     public void testIsFirstUseTodayTrue() {
-        assertTrue(AppInfoHelper.isFirstUseToday());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseTodayFalse() {
-        AppInfoHelper.trackLastAppExecution();
-        assertFalse(AppInfoHelper.isFirstUseToday());
+        AppInfoHelper.getInstance().trackLastAppExecution();
+        assertFalse(AppInfoHelper.getInstance().isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseTodayMix() {
-        assertTrue(AppInfoHelper.isFirstUseToday());
-        AppInfoHelper.trackLastAppExecution();
-        assertFalse(AppInfoHelper.isFirstUseToday());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseToday());
+        AppInfoHelper.getInstance().trackLastAppExecution();
+        assertFalse(AppInfoHelper.getInstance().isFirstUseToday());
         PreferencesHelper.getInstance().clear();
-        assertTrue(AppInfoHelper.isFirstUseToday());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseTodayTrickyFalse() {
         PreferencesHelper.getInstance().putLong("last_app_execution", System.currentTimeMillis() - 3600 * 1000);
-        assertFalse(AppInfoHelper.isFirstUseToday());
+        assertFalse(AppInfoHelper.getInstance().isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseTodayTrickyTrue() {
         PreferencesHelper.getInstance().putLong("last_app_execution", System.currentTimeMillis() - 3600 * 25 * 1000);
-        assertTrue(AppInfoHelper.isFirstUseToday());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseLast24HoursTrue() {
-        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseLast24Hours());
     }
 
     @Test
@@ -107,18 +108,18 @@ public class AppInfoHelperTest {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR_OF_DAY, -3);
         PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
-        assertFalse(AppInfoHelper.isFirstUseLast24Hours());
+        assertFalse(AppInfoHelper.getInstance().isFirstUseLast24Hours());
     }
 
     @Test
     public void testIsFirstUseLast24HoursMix() {
-        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseLast24Hours());
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, -15);
         PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
-        assertFalse(AppInfoHelper.isFirstUseLast24Hours());
+        assertFalse(AppInfoHelper.getInstance().isFirstUseLast24Hours());
         PreferencesHelper.getInstance().clear();
-        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseLast24Hours());
     }
 
     @Test
@@ -127,7 +128,7 @@ public class AppInfoHelperTest {
         calendar.add(Calendar.HOUR_OF_DAY, -24);
         calendar.add(Calendar.MINUTE, -1);
         PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
-        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseLast24Hours());
     }
 
     @Test
@@ -135,7 +136,7 @@ public class AppInfoHelperTest {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR_OF_DAY, -36);
         PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
-        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseLast24Hours());
     }
 
     @Test
@@ -143,18 +144,18 @@ public class AppInfoHelperTest {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         PreferencesHelper.getInstance().putLong("last_app_execution", calendar.getTimeInMillis());
-        assertTrue(AppInfoHelper.isFirstUseLast24Hours());
+        assertTrue(AppInfoHelper.getInstance().isFirstUseLast24Hours());
     }
 
     @Test
     public void testGetUniqueIdNotEmpty() {
-        assertNotNull(AppInfoHelper.getUniqueId());
-        assertFalse(StringHelper.isEmpty(AppInfoHelper.getUniqueId()));
+        assertNotNull(AppInfoHelper.getInstance().getUniqueId());
+        assertFalse(StringHelper.isEmpty(AppInfoHelper.getInstance().getUniqueId()));
     }
 
     @Test
     public void testGetUniqueIdEqual() {
-        assertEquals(AppInfoHelper.getUniqueId(), AppInfoHelper.getUniqueId());
+        assertEquals(AppInfoHelper.getInstance().getUniqueId(), AppInfoHelper.getInstance().getUniqueId());
     }
 
 }

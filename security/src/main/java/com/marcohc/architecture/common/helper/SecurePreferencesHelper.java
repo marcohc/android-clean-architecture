@@ -16,6 +16,7 @@
 package com.marcohc.architecture.common.helper;
 
 import android.content.Context;
+import android.os.Build;
 
 import com.securepreferences.SecurePreferences;
 
@@ -56,14 +57,14 @@ public class SecurePreferencesHelper extends PreferencesMethods {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
-        instance = new SecurePreferencesHelper(context, AppInfoHelper.getUniqueId());
+        instance = new SecurePreferencesHelper(context, getUniqueId());
     }
 
     public static void setUp(Context context, String sharedPreferencesName) {
         if (context == null) {
             throw new PreferencesException("Context must not be null!");
         }
-        instance = new SecurePreferencesHelper(context, sharedPreferencesName, AppInfoHelper.getUniqueId());
+        instance = new SecurePreferencesHelper(context, sharedPreferencesName, getUniqueId());
     }
 
     // ************************************************************************************************************************************************************************
@@ -80,5 +81,24 @@ public class SecurePreferencesHelper extends PreferencesMethods {
     public static void clearInstance() {
         instance.sharedPreferences = null;
         instance = null;
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * Private methods
+    // ************************************************************************************************************************************************************************
+
+    public static String getUniqueId() {
+        try {
+            return "35" + //we make this look like a valid IMEI
+                    Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
+                    Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 +
+                    Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
+                    Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 +
+                    Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
+                    Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
+                    Build.USER.length() % 10; //13 digits
+        } catch (Exception ignored) {
+            return "1234";
+        }
     }
 }
