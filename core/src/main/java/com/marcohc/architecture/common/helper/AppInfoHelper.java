@@ -28,7 +28,7 @@ import timber.log.Timber;
  * Class to retrieve information from user or device
  * * <p>
  * Call {@link #setUp(PreferencesMethods)} method first selecting the PreferencesHelper or SecurePreferencesHelper classes
- * <p/>
+ * <p>
  */
 public class AppInfoHelper {
 
@@ -39,12 +39,15 @@ public class AppInfoHelper {
     private static final String IS_FIRST_APP_EXECUTION = "is_first_app_start";
     private static final String LAST_APP_EXECUTION = "last_app_execution";
 
+
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
     private static AppInfoHelper instance;
     private final PreferencesMethods preferencesMethods;
+    private Long lastTimeClick;
+    private long timeBoundary = 400;
 
     // ************************************************************************************************************************************************************************
     // * Initialization
@@ -116,6 +119,19 @@ public class AppInfoHelper {
         } catch (Exception ignored) {
             return "1234";
         }
+    }
+
+    public boolean hasClickTooManyTimes() {
+        if (lastTimeClick == null || (System.currentTimeMillis() - lastTimeClick > timeBoundary)) {
+            lastTimeClick = System.currentTimeMillis();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void setTimeBoundary(long timeBoundary) {
+        this.timeBoundary = timeBoundary;
     }
 
     @SuppressWarnings("deprecation")
