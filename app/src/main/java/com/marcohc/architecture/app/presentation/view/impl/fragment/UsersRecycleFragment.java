@@ -18,7 +18,9 @@ import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.app.presentation.view.impl.activity.UserDetailActivity;
 import com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder.UserRecyclerViewHolder;
 import com.marcohc.architecture.app.presentation.view.inter.UsersView;
+import com.marcohc.architecture.presentation.view.adapter.BaseRecyclerAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
+import com.marcohc.toasteroid.Toasteroid;
 
 import java.util.List;
 
@@ -91,7 +93,8 @@ public class UsersRecycleFragment extends BaseMvpFragment<UsersView, UsersPresen
         UserModel user = recyclerViewAdapter.getItem(position);
         switch (view.getId()) {
             case R.id.userImage:
-                showInfo("User image click!");
+                Toasteroid.dismiss();
+                showInfo(String.format("Position: %d, User: %s)", position, user.toString()));
                 break;
             default:
                 Intent intent = new Intent(getActivity(), UserDetailActivity.class);
