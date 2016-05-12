@@ -1,9 +1,11 @@
 package com.marcohc.architecture.data.error;
 
+import com.marcohc.architecture.common.bus.events.BusEvent;
+
 /**
  * An error which occurs on the data layer
  */
-public class DataError {
+public class DataError implements BusEvent {
 
     private String message;
     private int code;

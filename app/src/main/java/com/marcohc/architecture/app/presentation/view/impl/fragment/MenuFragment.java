@@ -76,7 +76,7 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
         }
         normalIconsTypedArray.recycle();
 
-        menuListView.setAdapter(new BaseListAdapter<>(getActivity(), R.layout.menu_list_item, itemsList, MenuViewHolder.class));
+        menuListView.setAdapter(new BaseListAdapter<>(getActivity(), R.layout.menu_list_item, MenuViewHolder.class, itemsList));
     }
 
     // ************************************************************************************************************************************************************************

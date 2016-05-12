@@ -5,7 +5,7 @@ public class NavigationManager {
     public static final String USER = "user";
 
     public enum SCREENS {
-        USERS_LIST
+        USERS_LIST, USERS_RECYCLE
     }
 
 }

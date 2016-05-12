@@ -83,6 +83,7 @@ android {
 dependencies {
 
     compile project(':core')
+    compile project(':recycler')
     compile project(':rest')
     compile project(':analytics')
     compile project(':security')
@@ -93,8 +94,8 @@ dependencies {
 
     // Google
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
 
     // Leak canary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta1'
@@ -118,7 +119,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    androidTestCompile 'com.android.support:support-annotations:23.3.0'
+    androidTestCompile 'com.android.support:support-annotations:23.4.0'
 
     // Non instrumentation tests
     testCompile 'junit:junit:4.12'

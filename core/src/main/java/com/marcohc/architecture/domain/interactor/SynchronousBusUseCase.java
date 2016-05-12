@@ -26,7 +26,7 @@ public abstract class SynchronousBusUseCase extends BusHandler implements UseCas
      */
     protected void handleDataError(DataError dataError) {
         DomainError appError = new DomainError(dataError.getMessage(), dataError.getCode());
-        postDomainError(appError);
+        post(appError);
         unregisterFromBus();
     }
 

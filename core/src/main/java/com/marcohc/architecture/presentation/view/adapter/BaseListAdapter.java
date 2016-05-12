@@ -3,6 +3,7 @@ package com.marcohc.architecture.presentation.view.adapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,21 +22,25 @@ public class BaseListAdapter<T extends BaseModel> extends ArrayAdapter<T> {
 
     // Class
     private final Context context;
+    private final int layoutId;
     private Class<? extends BaseViewHolder> viewHolderClass;
+    private ChildViewClickListener listener;
 
     // ************************************************************************************************************************************************************************
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public BaseListAdapter(Context context, int resource, Class<? extends BaseViewHolder> viewHolderClass) {
-        super(context, resource, new ArrayList<T>());
+    public BaseListAdapter(Context context, @LayoutRes int layoutId, Class<? extends BaseViewHolder> viewHolderClass) {
+        super(context, layoutId, new ArrayList<T>());
         this.context = context;
+        this.layoutId = layoutId;
         this.viewHolderClass = viewHolderClass;
     }
 
-    public BaseListAdapter(Context context, int resource, List<T> items, Class<? extends BaseViewHolder> viewHolderClass) {
-        super(context, resource, items);
+    public BaseListAdapter(Context context, @LayoutRes int layoutId, Class<? extends BaseViewHolder> viewHolderClass, List<T> items) {
+        super(context, layoutId, items);
         this.context = context;
+        this.layoutId = layoutId;
         this.viewHolderClass = viewHolderClass;
     }
 
@@ -45,9 +50,16 @@ public class BaseListAdapter<T extends BaseModel> extends ArrayAdapter<T> {
         BaseViewHolder baseViewHolder = null;
         if (null == convertView || null == convertView.getTag()) {
             try {
+                convertView = LayoutInflater.from(getContext()).inflate(layoutId, null);
                 baseViewHolder = viewHolderClass.newInstance();
-                convertView = LayoutInflater.from(getContext()).inflate(baseViewHolder.getLayout(), null);
-                baseViewHolder.bindViews(convertView);
+                baseViewHolder.bindViews(convertView, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (listener != null) {
+                            listener.onChildViewClick(view, position);
+                        }
+                    }
+                });
                 convertView.setTag(baseViewHolder);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -70,5 +82,13 @@ public class BaseListAdapter<T extends BaseModel> extends ArrayAdapter<T> {
                 add(items.get(i));
             }
         }
+    }
+
+    public void setOnChildViewClick(ChildViewClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ChildViewClickListener {
+        void onChildViewClick(View view, int position);
     }
 }

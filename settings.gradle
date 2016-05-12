@@ -1,5 +1,6 @@
 include ':core'
 include ':rest'
+include ':recycler'
 include ':analytics'
 include ':security'
 include ':app'

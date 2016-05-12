@@ -3,9 +3,11 @@
 
     <string-array name="menu_text_array" translatable="false">
         <item>@string/users_list</item>
+        <item>@string/users_recycle</item>
     </string-array>
 
     <string-array name="menu_normal_icons_array" translatable="false">
+        <item>@drawable/ic_toasteroid_info</item>
         <item>@drawable/ic_toasteroid_info</item>
     </string-array>
 

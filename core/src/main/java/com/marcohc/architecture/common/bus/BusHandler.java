@@ -1,8 +1,6 @@
 package com.marcohc.architecture.common.bus;
 
 import com.marcohc.architecture.common.bus.events.BusEvent;
-import com.marcohc.architecture.data.error.DataError;
-import com.marcohc.architecture.domain.error.DomainError;
 
 /**
  * Extend from this class to get access to all useful bus methods
@@ -39,13 +37,5 @@ public abstract class BusHandler {
 
     protected void postSticky(BusEvent busEvent) {
         BusProvider.postSticky(busEvent);
-    }
-
-    protected void postDataError(DataError dataError) {
-        BusProvider.post(dataError);
-    }
-
-    protected void postDomainError(DomainError domainError) {
-        BusProvider.post(domainError);
     }
 }

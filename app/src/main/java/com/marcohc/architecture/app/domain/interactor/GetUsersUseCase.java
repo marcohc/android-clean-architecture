@@ -37,13 +37,12 @@ public class GetUsersUseCase extends AsynchronousUseCase {
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(GetUsersDataResponse responseFromServer) {
-
         this.responseFromServer = responseFromServer;
         if (!responseFromServer.hasError()) {
             post(createResponse());
             unregisterFromBus();
         } else {
-            postDomainError(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
+            post(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
         }
     }
 }

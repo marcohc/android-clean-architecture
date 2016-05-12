@@ -19,11 +19,6 @@ public class MenuViewHolder extends BaseViewHolder<MenuItemModel> {
     TextView menuText;
 
     @Override
-    public int getLayout() {
-        return R.layout.menu_list_item;
-    }
-
-    @Override
     public void setUpView(Context context, MenuItemModel model, int position) {
         menuText.setText(model.getText());
         menuImage.setImageResource(model.getIconId());

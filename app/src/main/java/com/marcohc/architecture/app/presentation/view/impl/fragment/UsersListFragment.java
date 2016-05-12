@@ -15,32 +15,33 @@ import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.presenter.impl.UsersPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
-import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.architecture.app.presentation.view.impl.activity.UserDetailActivity;
 import com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder.UserViewHolder;
 import com.marcohc.architecture.app.presentation.view.inter.UsersView;
+import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
+import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
+import com.marcohc.toasteroid.Toasteroid;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnItemClick;
 
-public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener {
+public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener, BaseListAdapter.ChildViewClickListener {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
+    // View
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Bind(R.id.listView)
     ListView listView;
 
+    // Class
     private BaseListAdapter<UserModel> listViewAdapter;
-    private UserModel user;
     private EmptyStateFragment emptyStateFragment;
 
     // ************************************************************************************************************************************************************************
@@ -49,7 +50,7 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.users_fragment;
+        return R.layout.users_list_fragment;
     }
 
     @NonNull
@@ -75,7 +76,8 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     }
 
     private void setUpListView() {
-        listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, new ArrayList<UserModel>(), UserViewHolder.class);
+        listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, UserViewHolder.class);
+        listViewAdapter.setOnChildViewClick(this);
         listView.setAdapter(listViewAdapter);
     }
 
@@ -90,10 +92,23 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
 
     @OnItemClick(R.id.listView)
     protected void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        user = listViewAdapter.getItem(position);
+        UserModel user = listViewAdapter.getItem(position);
         Intent intent = new Intent(getActivity(), UserDetailActivity.class);
         intent.putExtra(NavigationManager.USER, user.toJsonString());
         startActivity(intent);
+    }
+
+    @Override
+    public void onChildViewClick(View view, int position) {
+        UserModel user = listViewAdapter.getItem(position);
+        switch (view.getId()) {
+            case R.id.userImage:
+                Toasteroid.dismiss();
+                showInfo(String.format("Position: %d, User: %s)", position, user.toString()));
+                break;
+            default:
+                break;
+        }
     }
 
     // ************************************************************************************************************************************************************************
@@ -119,4 +134,5 @@ public class UsersFragment extends BaseMvpFragment<UsersView, UsersPresenter> im
     public void onRefresh() {
         presenter.onRefresh();
     }
+
 }

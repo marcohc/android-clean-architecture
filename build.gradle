@@ -15,12 +15,12 @@ allprojects {
 
     ext {
         androidApplicationId = 'com.marcohc.architecture.app'
-        androidBuildToolsVersion = "23.0.2"
+        androidBuildToolsVersion = "23.0.3"
         androidMinSdkVersion = 15
         androidTargetSdkVersion = 23
         androidCompileSdkVersion = 23
         androidVersionCode = 1
-        androidVersionName = "2.8.5"
+        androidVersionName = "2.9.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.marcohc.architecture.test'
     }

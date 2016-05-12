@@ -1,6 +1,5 @@
 package com.marcohc.architecture.app.presentation.view.impl.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,13 +22,11 @@ import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.MainPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
+import com.marcohc.architecture.app.presentation.view.impl.fragment.UsersListFragment;
+import com.marcohc.architecture.app.presentation.view.impl.fragment.UsersRecycleFragment;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.app.presentation.view.impl.fragment.UsersFragment;
 import com.marcohc.architecture.app.presentation.view.inter.MainView;
-
-import java.util.Map;
-import java.util.WeakHashMap;
 
 import butterknife.Bind;
 import timber.log.Timber;
@@ -51,8 +48,6 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     ViewGroup leftDrawerContainer;
 
     // Class
-    @SuppressLint("UseSparseArrays")
-    private Map<Integer, BaseMvpFragment> fragmentsMap;
     private MenuItem menuItem1;
     private MenuItem menuItem2;
     private int positionToGo;
@@ -222,6 +217,9 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
             case USERS_LIST:
                 actionBar.setTitle(getString(R.string.users_list));
                 break;
+            case USERS_RECYCLE:
+                actionBar.setTitle(getString(R.string.users_recycle));
+                break;
         }
     }
 
@@ -233,18 +231,14 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     }
 
     private BaseMvpFragment getFragment(int position) {
-        if (fragmentsMap == null || fragmentsMap.isEmpty()) {
-            fragmentsMap = new WeakHashMap<>();
+        switch (NavigationManager.SCREENS.values()[position]) {
+            case USERS_LIST:
+                return new UsersListFragment();
+            case USERS_RECYCLE:
+                return new UsersRecycleFragment();
+            default:
+                return null;
         }
-
-        if (!fragmentsMap.containsKey(position)) {
-            switch (NavigationManager.SCREENS.values()[position]) {
-                case USERS_LIST:
-                    fragmentsMap.put(position, new UsersFragment());
-                    break;
-            }
-        }
-        return fragmentsMap.get(position);
     }
 
     private void toggleLeftDrawer() {

@@ -1,7 +1,8 @@
 <resources>
 
     <string name="google_analytics_id" translatable="false">UA-XXXXXXXX-Y</string>
-    <string name="users_list">Users list</string>
+    <string name="users_list">Users list view</string>
+    <string name="users_recycle">Users recycle view</string>
     <string name="app_name">Clean Architecture Sample</string>
     <string name="ok">OK</string>
     <string name="password">Password</string>

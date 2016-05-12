@@ -47,7 +47,7 @@ public class UserRepository extends BusHandler {
         UserDataStoreFactory.getInstance().getAll(new DataCallback<List<UserModel>>() {
             @Override
             public void onFailure(RestError error) {
-                postDataError(new DataError(error.getMessage(), error.getCode()));
+                post(new DataError(error.getMessage(), error.getCode()));
             }
 
             @Override
