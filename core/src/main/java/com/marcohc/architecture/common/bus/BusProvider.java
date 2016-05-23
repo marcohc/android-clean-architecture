@@ -41,6 +41,10 @@ public final class BusProvider {
         }
     }
 
+    public static void removeEvent(Object event) {
+        getInstance().cancelEventDelivery(event);
+    }
+
     public static void removeStickyEvent(Object event) {
         getInstance().removeStickyEvent(event);
     }
@@ -51,7 +55,9 @@ public final class BusProvider {
 
     private static void log(Object event) {
         String name = event.getClass().getSimpleName();
-        if (name.contains("Request")) {
+        if (name.contains("Event")) {
+            Timber.v("Event: %s", name);
+        } else if (name.contains("Request")) {
             Timber.v("Request: %s", name);
         } else if (name.contains("DataResponse")) {
             Timber.v("DataResponse: %s", name);
