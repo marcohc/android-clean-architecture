@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.fragment;
+package com.marcohc.architecture.app.presentation.fragment.impl;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,9 @@ import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.presenter.impl.UsersPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.app.presentation.view.impl.activity.UserDetailActivity;
-import com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder.UserRecyclerViewHolder;
-import com.marcohc.architecture.app.presentation.view.inter.UsersView;
+import com.marcohc.architecture.app.presentation.activity.impl.UserDetailActivity;
+import com.marcohc.architecture.app.presentation.adapter.viewholder.UserRecyclerViewHolder;
+import com.marcohc.architecture.app.presentation.fragment.inter.UsersView;
 import com.marcohc.architecture.presentation.view.adapter.BaseRecyclerAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.toasteroid.Toasteroid;

@@ -5,7 +5,7 @@ import com.marcohc.architecture.app.domain.bus.event.MenuItemClickEvent;
 import com.marcohc.architecture.app.domain.bus.event.MenuSelectItemEvent;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
 import com.marcohc.architecture.app.presentation.presenter.inter.MenuPresenter;
-import com.marcohc.architecture.app.presentation.view.inter.MenuView;
+import com.marcohc.architecture.app.presentation.fragment.inter.MenuView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

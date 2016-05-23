@@ -39,6 +39,6 @@ android {
 dependencies {
 
     // Analitycs
-    compile 'com.google.android.gms:play-services-analytics:8.4.0'
+    compile 'com.google.android.gms:play-services-analytics:9.0.0'
 
 }

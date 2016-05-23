@@ -11,8 +11,8 @@ import android.test.suitebuilder.annotation.LargeTest;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.presentation.util.PreferencesConstants;
-import com.marcohc.architecture.app.presentation.view.impl.activity.MainActivity;
-import com.marcohc.architecture.app.presentation.view.impl.activity.UserDetailActivity;
+import com.marcohc.architecture.app.presentation.activity.impl.MainActivity;
+import com.marcohc.architecture.app.presentation.activity.impl.UserDetailActivity;
 import com.marcohc.architecture.test.util.Utils;
 
 import org.junit.Before;

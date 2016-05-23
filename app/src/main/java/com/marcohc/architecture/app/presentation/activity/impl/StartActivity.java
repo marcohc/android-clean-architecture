@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.activity;
+package com.marcohc.architecture.app.presentation.activity.impl;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,14 +7,15 @@ import android.support.annotation.NonNull;
 
 import com.marcohc.architecture.app.MainApplication;
 import com.marcohc.architecture.app.R;
+import com.marcohc.architecture.app.presentation.activity.inter.StartView;
 import com.marcohc.architecture.app.presentation.presenter.impl.StartPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.StartPresenter;
-import com.marcohc.architecture.app.presentation.view.inter.StartView;
+import com.marcohc.architecture.presentation.view.BaseView;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
 import timber.log.Timber;
 
-public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> implements StartView {
+public class StartActivity extends BaseMvpActivity<StartView, StartPresenter> implements BaseView {
 
 
     // ************************************************************************************************************************************************************************

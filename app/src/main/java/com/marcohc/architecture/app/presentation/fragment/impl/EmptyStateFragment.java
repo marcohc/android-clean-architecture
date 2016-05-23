@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.fragment;
+package com.marcohc.architecture.app.presentation.fragment.impl;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import com.marcohc.architecture.app.presentation.presenter.impl.EmptyStatePresen
 import com.marcohc.architecture.app.presentation.presenter.inter.EmptyStatePresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.app.presentation.view.inter.EmptyStateView;
+import com.marcohc.architecture.app.presentation.fragment.inter.EmptyStateView;
 
 import butterknife.Bind;
 

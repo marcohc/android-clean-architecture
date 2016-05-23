@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.inter;
+package com.marcohc.architecture.app.presentation.fragment.inter;
 
 import com.marcohc.architecture.presentation.view.BaseView;
 

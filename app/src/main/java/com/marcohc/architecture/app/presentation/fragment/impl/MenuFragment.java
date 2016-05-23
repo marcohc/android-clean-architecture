@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.fragment;
+package com.marcohc.architecture.app.presentation.fragment.impl;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,8 +17,8 @@ import com.marcohc.architecture.app.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder.MenuViewHolder;
-import com.marcohc.architecture.app.presentation.view.inter.MenuView;
+import com.marcohc.architecture.app.presentation.adapter.viewholder.MenuViewHolder;
+import com.marcohc.architecture.app.presentation.fragment.inter.MenuView;
 
 import java.util.ArrayList;
 import java.util.List;

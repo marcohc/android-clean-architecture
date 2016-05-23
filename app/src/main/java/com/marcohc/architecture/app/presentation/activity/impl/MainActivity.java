@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.activity;
+package com.marcohc.architecture.app.presentation.activity.impl;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -19,14 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.marcohc.architecture.app.R;
+import com.marcohc.architecture.app.presentation.activity.inter.MainView;
+import com.marcohc.architecture.app.presentation.fragment.impl.UsersListFragment;
+import com.marcohc.architecture.app.presentation.fragment.impl.UsersRecycleFragment;
 import com.marcohc.architecture.app.presentation.presenter.impl.MainPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.MainPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.app.presentation.view.impl.fragment.UsersListFragment;
-import com.marcohc.architecture.app.presentation.view.impl.fragment.UsersRecycleFragment;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.app.presentation.view.inter.MainView;
 
 import butterknife.Bind;
 import timber.log.Timber;

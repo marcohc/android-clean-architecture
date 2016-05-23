@@ -3,7 +3,7 @@ package com.marcohc.architecture.app.presentation.presenter.impl;
 import com.marcohc.architecture.app.domain.bus.response.domain.GetUsersDomainResponse;
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
 import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
-import com.marcohc.architecture.app.presentation.view.inter.UsersView;
+import com.marcohc.architecture.app.presentation.fragment.inter.UsersView;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
 
 import org.greenrobot.eventbus.Subscribe;

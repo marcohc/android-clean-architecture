@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.adapter.viewholder;
+package com.marcohc.architecture.app.presentation.adapter.viewholder;
 
 import android.content.Context;
 import android.widget.ImageView;

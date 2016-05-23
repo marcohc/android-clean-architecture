@@ -1,4 +1,4 @@
-package com.marcohc.architecture.app.presentation.view.impl.activity;
+package com.marcohc.architecture.app.presentation.activity.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.app.presentation.activity.inter.UserDetailView;
 import com.marcohc.architecture.app.presentation.presenter.impl.UserDetailPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.UserDetailPresenter;
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
-import com.marcohc.architecture.app.presentation.view.inter.UserDetailView;
 import com.marcohc.architecture.common.helper.StringHelper;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
