@@ -24,7 +24,7 @@ import com.marcohc.architecture.analytics.R;
 
 /**
  * Class to track analytics events
- * <p/>
+ * <p>
  * Call {@link #setUp(Context, boolean)} method first
  * Set up your own {@link R.string.google_analytics_id}
  */
@@ -41,6 +41,9 @@ public class AnalyticsHelper {
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
+    private AnalyticsHelper() {
+    }
+
     private AnalyticsHelper(Context context, boolean dryRun) {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(context);
         analytics.setLocalDispatchPeriod(1800);
@@ -53,7 +56,8 @@ public class AnalyticsHelper {
 
     public static AnalyticsHelper getInstance() {
         if (instance == null) {
-            throw new AnalyticsHelperException("setUp(Context context, boolean dryRun) must be called first!");
+            // Create empty instance, this won't work but it won't crash
+            instance = new AnalyticsHelper();
         }
         return instance;
     }
@@ -71,13 +75,15 @@ public class AnalyticsHelper {
 
     public void trackAnalyticsEvent(String screenName, String actionName, String value) {
         try {
-            HitBuilders.EventBuilder builder = new HitBuilders.EventBuilder();
-            builder.setCategory(screenName);
-            builder.setAction(actionName);
-            builder.setLabel(value);
-            analyticsTracker.setScreenName(screenName);
-            analyticsTracker.send(builder.build());
-            analyticsTracker.setScreenName(null);
+            if (analyticsTracker != null) {
+                HitBuilders.EventBuilder builder = new HitBuilders.EventBuilder();
+                builder.setCategory(screenName);
+                builder.setAction(actionName);
+                builder.setLabel(value);
+                analyticsTracker.setScreenName(screenName);
+                analyticsTracker.send(builder.build());
+                analyticsTracker.setScreenName(null);
+            }
         } catch (Exception ignored) {
         }
     }
