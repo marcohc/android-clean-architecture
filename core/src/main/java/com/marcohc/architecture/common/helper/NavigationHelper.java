@@ -32,13 +32,17 @@ import timber.log.Timber;
  */
 public class NavigationHelper {
 
-    @SuppressWarnings("deprecation")
     public static void goToAppInGooglePlay(Context context) {
         if (context != null) {
             String appPackageName = context.getPackageName();
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            context.startActivity(intent);
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                context.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                Timber.e("goToAppInGooglePlay: ", e);
+            }
         }
     }
 
