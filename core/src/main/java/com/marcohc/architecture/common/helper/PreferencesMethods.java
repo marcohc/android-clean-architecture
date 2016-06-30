@@ -74,6 +74,14 @@ public class PreferencesMethods {
         sharedPreferences.edit().putLong(key, value).apply();
     }
 
+    public Float getFloat(String key, Float defaultValue) {
+        return sharedPreferences.getFloat(key, defaultValue);
+    }
+
+    public void putFloat(String key, Float value) {
+        sharedPreferences.edit().putFloat(key, value).apply();
+    }
+
     public Integer getInt(String key, Integer defaultValue) {
         return sharedPreferences.getInt(key, defaultValue);
     }
