@@ -5,7 +5,7 @@ import com.marcohc.architecture.app.domain.bus.request.GetUsersRequest;
 import com.marcohc.architecture.app.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.common.bus.BusHandler;
-import com.marcohc.architecture.data.error.DataError;
+import com.marcohc.architecture.data.error.DataException;
 import com.marcohc.architecture.data.error.RestError;
 import com.marcohc.architecture.data.net.DataCallback;
 
@@ -47,7 +47,7 @@ public class UserRepository extends BusHandler {
         UserDataStoreFactory.getInstance().getAll(new DataCallback<List<UserModel>>() {
             @Override
             public void onFailure(RestError error) {
-                post(new DataError(error.getMessage(), error.getCode()));
+                post(new DataException(error.getMessage(), error.getCode()));
             }
 
             @Override

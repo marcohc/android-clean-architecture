@@ -1,20 +1,20 @@
 package com.marcohc.architecture.common.bus.events.response.data;
 
 import com.marcohc.architecture.common.bus.events.BusEvent;
-import com.marcohc.architecture.data.error.DataError;
+import com.marcohc.architecture.data.error.DataException;
 
 /**
  * Common methods for data responses
  */
 public abstract class BaseDataResponse implements BusEvent {
 
-    protected DataError error;
+    protected DataException error;
 
     public BaseDataResponse() {
         this.error = null;
     }
 
-    public BaseDataResponse(DataError error) {
+    public BaseDataResponse(DataException error) {
         this.error = error;
     }
 
@@ -22,11 +22,11 @@ public abstract class BaseDataResponse implements BusEvent {
         return error != null;
     }
 
-    public DataError getError() {
+    public DataException getError() {
         return error;
     }
 
-    public void setError(DataError error) {
+    public void setError(DataException error) {
         this.error = error;
     }
 

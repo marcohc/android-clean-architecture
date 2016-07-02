@@ -1,6 +1,6 @@
 package com.marcohc.architecture.presentation.presenter;
 
-import com.marcohc.architecture.domain.error.DomainError;
+import com.marcohc.architecture.domain.error.DomainException;
 import com.marcohc.architecture.presentation.mosby.mvp.MvpBasePresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
 import com.marcohc.toasteroid.Toasteroid;
@@ -132,7 +132,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(DomainError exception) {
+    public void onEventMainThread(DomainException exception) {
         handleException(exception);
     }
 
@@ -141,7 +141,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
      *
      * @param error the data exception error
      */
-    public void handleException(DomainError error) {
+    public void handleException(DomainException error) {
         hideDialog();
         if (isViewAttached()) {
             showError(error.getMessage());

@@ -3,7 +3,6 @@ package com.marcohc.architecture.app.domain.interactor;
 import com.marcohc.architecture.app.domain.bus.request.GetUsersRequest;
 import com.marcohc.architecture.app.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.architecture.app.domain.bus.response.domain.GetUsersDomainResponse;
-import com.marcohc.architecture.domain.error.DomainError;
 import com.marcohc.architecture.domain.interactor.AsynchronousUseCase;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -38,11 +37,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onEventAsync(GetUsersDataResponse responseFromServer) {
         this.responseFromServer = responseFromServer;
-        if (!responseFromServer.hasError()) {
-            post(createResponse());
-            unregisterFromBus();
-        } else {
-            post(new DomainError(responseFromServer.getError().getMessage(), responseFromServer.getError().getCode()));
-        }
+        post(createResponse());
+        unregisterFromBus();
     }
 }

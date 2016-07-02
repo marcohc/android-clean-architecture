@@ -1,20 +1,20 @@
 package com.marcohc.architecture.common.bus.events.response.domain;
 
 import com.marcohc.architecture.common.bus.events.BusEvent;
-import com.marcohc.architecture.presentation.error.AppError;
+import com.marcohc.architecture.domain.error.DomainException;
 
 /**
  * Common methods for domain responses
  */
 public abstract class BaseDomainResponse implements BusEvent {
 
-    protected AppError error;
+    protected DomainException error;
 
     public BaseDomainResponse() {
         this.error = null;
     }
 
-    public BaseDomainResponse(AppError error) {
+    public BaseDomainResponse(DomainException error) {
         this.error = error;
     }
 
@@ -22,11 +22,11 @@ public abstract class BaseDomainResponse implements BusEvent {
         return error != null;
     }
 
-    public AppError getError() {
+    public DomainException getError() {
         return error;
     }
 
-    public void setError(AppError error) {
+    public void setError(DomainException error) {
         this.error = error;
     }
 }
