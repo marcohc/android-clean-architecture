@@ -1,11 +1,11 @@
 package com.marcohc.architecture.app.domain.bus.response.data;
 
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.common.bus.events.response.data.BaseDataResponse;
+import com.marcohc.architecture.common.bus.BusEvent;
 
 import java.util.List;
 
-public class GetUsersDataResponse extends BaseDataResponse {
+public class GetUsersDataResponse implements BusEvent {
 
     private final List<UserModel> response;
 

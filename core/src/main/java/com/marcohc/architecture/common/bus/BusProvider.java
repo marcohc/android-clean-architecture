@@ -27,34 +27,34 @@ public final class BusProvider {
         getInstance().unregister(subscriber);
     }
 
-    public static void post(Object event) {
-        if (event != null) {
-            log(event);
-            getInstance().post(event);
+    public static void post(BusEvent busEvent) {
+        if (busEvent != null) {
+            log(busEvent);
+            getInstance().post(busEvent);
         }
     }
 
-    public static void postSticky(Object event) {
-        if (event != null) {
-            log(event);
-            getInstance().postSticky(event);
+    public static void postSticky(BusEvent busEvent) {
+        if (busEvent != null) {
+            log(busEvent);
+            getInstance().postSticky(busEvent);
         }
     }
 
-    public static void removeEvent(Object event) {
-        getInstance().cancelEventDelivery(event);
+    public static void removeEvent(BusEvent busEvent) {
+        getInstance().cancelEventDelivery(busEvent);
     }
 
-    public static void removeStickyEvent(Object event) {
-        getInstance().removeStickyEvent(event);
+    public static void removeStickyEvent(BusEvent busEvent) {
+        getInstance().removeStickyEvent(busEvent);
     }
 
     public static void removeAllStickyEvents() {
         getInstance().removeAllStickyEvents();
     }
 
-    private static void log(Object event) {
-        String name = event.getClass().getSimpleName();
+    private static void log(BusEvent busEvent) {
+        String name = busEvent.getClass().getSimpleName();
         if (name.contains("Event")) {
             Timber.v("Event: %s", name);
         } else if (name.contains("Request")) {

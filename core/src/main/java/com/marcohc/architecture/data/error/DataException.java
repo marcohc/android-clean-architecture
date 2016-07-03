@@ -1,6 +1,6 @@
 package com.marcohc.architecture.data.error;
 
-import com.marcohc.architecture.common.bus.events.BusEvent;
+import com.marcohc.architecture.common.bus.BusEvent;
 
 /**
  * An exception which occurs on the data layer

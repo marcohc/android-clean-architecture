@@ -1,7 +1,5 @@
 package com.marcohc.architecture.common.bus;
 
-import com.marcohc.architecture.common.bus.events.BusEvent;
-
 /**
  * Extend from this class to get access to all useful bus methods
  */

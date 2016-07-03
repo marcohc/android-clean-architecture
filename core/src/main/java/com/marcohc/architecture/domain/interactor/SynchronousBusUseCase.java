@@ -1,7 +1,7 @@
 package com.marcohc.architecture.domain.interactor;
 
 import com.marcohc.architecture.common.bus.BusHandler;
-import com.marcohc.architecture.common.bus.events.BusEvent;
+import com.marcohc.architecture.common.bus.BusEvent;
 import com.marcohc.architecture.data.error.DataException;
 import com.marcohc.architecture.domain.error.DomainException;
 

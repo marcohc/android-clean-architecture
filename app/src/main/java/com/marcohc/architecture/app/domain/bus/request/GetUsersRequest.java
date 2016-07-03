@@ -1,6 +1,6 @@
 package com.marcohc.architecture.app.domain.bus.request;
 
-import com.marcohc.architecture.common.bus.events.request.BaseRequest;
+import com.marcohc.architecture.common.bus.BusEvent;
 
-public class GetUsersRequest extends BaseRequest {
+public class GetUsersRequest implements BusEvent {
 }

@@ -1,6 +1,6 @@
 package com.marcohc.architecture.domain.error;
 
-import com.marcohc.architecture.common.bus.events.BusEvent;
+import com.marcohc.architecture.common.bus.BusEvent;
 
 /**
  * An error which occurs on the domain layer
