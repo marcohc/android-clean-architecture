@@ -34,6 +34,10 @@ public final class BusProvider {
         }
     }
 
+    public static void cancelEventDelivery(BusEvent busEvent) {
+        getInstance().cancelEventDelivery(busEvent);
+    }
+
     public static void postSticky(BusEvent busEvent) {
         if (busEvent != null) {
             log(busEvent);
@@ -41,8 +45,12 @@ public final class BusProvider {
         }
     }
 
-    public static void removeEvent(BusEvent busEvent) {
-        getInstance().cancelEventDelivery(busEvent);
+    public static <T> boolean containsStickyEvent(Class<T> clazz) {
+        return getInstance().getStickyEvent(clazz) != null;
+    }
+
+    public static <T> T getStickyEvent(Class<T> busEventClass) {
+        return getInstance().getStickyEvent(busEventClass);
     }
 
     public static void removeStickyEvent(BusEvent busEvent) {
