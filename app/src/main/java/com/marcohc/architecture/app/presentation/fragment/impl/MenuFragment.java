@@ -34,10 +34,10 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
 
     // View
 
-    @Bind(R.id.isDevelopmentText)
+    @BindView(R.id.isDevelopmentText)
     TextView isDevelopmentText;
 
-    @Bind(R.id.menuListView)
+    @BindView(R.id.menuListView)
     ListView menuListView;
 
     // Class

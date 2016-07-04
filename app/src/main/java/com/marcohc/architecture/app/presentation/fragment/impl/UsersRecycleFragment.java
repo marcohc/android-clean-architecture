@@ -12,19 +12,19 @@ import android.view.View;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.app.presentation.presenter.impl.UsersPresenterImpl;
-import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
-import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.app.presentation.activity.impl.UserDetailActivity;
 import com.marcohc.architecture.app.presentation.adapter.viewholder.UserRecyclerViewHolder;
 import com.marcohc.architecture.app.presentation.fragment.inter.UsersView;
+import com.marcohc.architecture.app.presentation.presenter.impl.UsersPresenterImpl;
+import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
+import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.presentation.view.adapter.BaseRecyclerAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.toasteroid.Toasteroid;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class UsersRecycleFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener, BaseRecyclerAdapter.ItemViewClickListener {
 
@@ -32,10 +32,10 @@ public class UsersRecycleFragment extends BaseMvpFragment<UsersView, UsersPresen
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private BaseRecyclerAdapter<UserModel, UserRecyclerViewHolder> recyclerViewAdapter;

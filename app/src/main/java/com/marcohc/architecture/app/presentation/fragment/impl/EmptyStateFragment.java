@@ -21,16 +21,16 @@ public class EmptyStateFragment extends BaseMvpFragment<EmptyStateView, EmptySta
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
-    @Bind(R.id.noDataContainer)
+    @BindView(R.id.noDataContainer)
     ViewGroup noDataContainer;
 
-    @Bind(R.id.noDataImage)
+    @BindView(R.id.noDataImage)
     ImageView noDataImage;
 
-    @Bind(R.id.noDataTitleText)
+    @BindView(R.id.noDataTitleText)
     TextView noDataTitleText;
 
-    @Bind(R.id.noDataSubtitleText)
+    @BindView(R.id.noDataSubtitleText)
     TextView noDataSubtitleText;
 
     // ************************************************************************************************************************************************************************

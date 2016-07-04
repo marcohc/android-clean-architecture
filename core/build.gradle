@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-apt'
 
 android {
 
@@ -43,26 +44,27 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Permissions - Added for helpers
-    compile 'com.github.hotchemi:permissionsdispatcher:2.0.5'
+    compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
 
     // Butter knife
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.1.0'
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
 
     // Toasteroid
     compile 'com.github.marcohc:toasteroid:2.1.4'
 
     // Calligraphy
-    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // DOMAIN
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Parsing
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.5'
 
     // Model mapper
-    compile 'org.modelmapper:modelmapper:0.7.5'
+    compile 'org.modelmapper:modelmapper:0.7.6'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // COMMON
@@ -72,10 +74,10 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
 
     // Custom crash
-    compile 'cat.ereza:customactivityoncrash:1.4.0'
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
 
     // Logging
-    compile 'com.jakewharton.timber:timber:4.1.0'
+    compile 'com.jakewharton.timber:timber:4.1.2'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // TEST

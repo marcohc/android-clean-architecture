@@ -12,19 +12,19 @@ import android.widget.ListView;
 
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.app.presentation.presenter.impl.UsersPresenterImpl;
-import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
-import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.app.presentation.activity.impl.UserDetailActivity;
 import com.marcohc.architecture.app.presentation.adapter.viewholder.UserViewHolder;
 import com.marcohc.architecture.app.presentation.fragment.inter.UsersView;
+import com.marcohc.architecture.app.presentation.presenter.impl.UsersPresenterImpl;
+import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
+import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 import com.marcohc.toasteroid.Toasteroid;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnItemClick;
 
 public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener, BaseListAdapter.ChildViewClickListener {
@@ -34,10 +34,10 @@ public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter
     // ************************************************************************************************************************************************************************
 
     // View
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ListView listView;
 
     // Class

@@ -19,14 +19,14 @@ public abstract class SynchronousBusUseCase extends BusHandler implements UseCas
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onDataError(DataException dataException) {
-        handleDataError(dataException);
+        handleDataException(dataException);
     }
 
     /**
      * Converts the {@link DataException} to {@link DomainException} to be handle by presenter.
      * Override this method if you want to customize your data error handling
      */
-    protected void handleDataError(DataException dataException) {
+    protected void handleDataException(DataException dataException) {
         DomainException appError = new DomainException(dataException.getMessage(), dataException.getCause());
         post(appError);
         unregisterFromBus();
