@@ -38,13 +38,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     // ************************************************************************************************************************************************************************
 
     // View
-    @BindView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.drawerLayout)
+    @Bind(R.id.drawerLayout)
     DrawerLayout drawerLayout;
 
-    @BindView(R.id.leftDrawerContainer)
+    @Bind(R.id.leftDrawerContainer)
     ViewGroup leftDrawerContainer;
 
     // Class

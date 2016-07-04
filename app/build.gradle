@@ -1,14 +1,5 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'android-apt'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
-}
 android {
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -102,7 +93,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
 
     // Glide
-    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // DATA

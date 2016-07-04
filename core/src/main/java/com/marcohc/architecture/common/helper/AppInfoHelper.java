@@ -106,6 +106,7 @@ public class AppInfoHelper {
         return lastUseTime == -1 || !DateHelper.isInTheLast24HoursOfCurrentDate(lastUseTime);
     }
 
+    @SuppressWarnings("deprecation")
     public String getUniqueId() {
         try {
             return "35" + //we make this look like a valid IMEI

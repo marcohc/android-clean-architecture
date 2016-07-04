@@ -24,7 +24,7 @@ import com.marcohc.toasteroid.Toasteroid;
 
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 
 public class UsersRecycleFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener, BaseRecyclerAdapter.ItemViewClickListener {
 
@@ -32,10 +32,10 @@ public class UsersRecycleFragment extends BaseMvpFragment<UsersView, UsersPresen
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    @BindView(R.id.swipeRefreshLayout)
+    @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.recyclerView)
+    @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private BaseRecyclerAdapter<UserModel, UserRecyclerViewHolder> recyclerViewAdapter;

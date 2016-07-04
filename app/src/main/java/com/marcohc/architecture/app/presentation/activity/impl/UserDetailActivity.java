@@ -17,7 +17,7 @@ import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.common.helper.StringHelper;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class UserDetailActivity extends BaseMvpActivity<UserDetailView, UserDetailPresenter> implements UserDetailView {
@@ -26,19 +26,19 @@ public class UserDetailActivity extends BaseMvpActivity<UserDetailView, UserDeta
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    @BindView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.userImage)
+    @Bind(R.id.userImage)
     ImageView userImage;
 
-    @BindView(R.id.usernameText)
+    @Bind(R.id.usernameText)
     TextView usernameText;
 
-    @BindView(R.id.addressText)
+    @Bind(R.id.addressText)
     TextView addressText;
 
-    @BindView(R.id.dateOfBirthAndEmailText)
+    @Bind(R.id.dateOfBirthAndEmailText)
     TextView dateOfBirthAndEmailText;
 
     // ************************************************************************************************************************************************************************

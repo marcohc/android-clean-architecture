@@ -11,18 +11,18 @@ import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.common.helper.StringHelper;
 import com.marcohc.architecture.presentation.view.adapter.BaseRecyclerViewHolder;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnClick;
 
 public class UserRecyclerViewHolder extends BaseRecyclerViewHolder<UserModel> {
 
-    @BindView(R.id.userImage)
+    @Bind(R.id.userImage)
     ImageView userImage;
 
-    @BindView(R.id.usernameText)
+    @Bind(R.id.usernameText)
     TextView usernameText;
 
-    @BindView(R.id.passwordText)
+    @Bind(R.id.passwordText)
     TextView passwordText;
 
     public UserRecyclerViewHolder(View itemView) {

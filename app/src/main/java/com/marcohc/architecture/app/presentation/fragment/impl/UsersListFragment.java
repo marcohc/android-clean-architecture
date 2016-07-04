@@ -24,7 +24,7 @@ import com.marcohc.toasteroid.Toasteroid;
 
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.OnItemClick;
 
 public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter> implements UsersView, SwipeRefreshLayout.OnRefreshListener, BaseListAdapter.ChildViewClickListener {
@@ -34,10 +34,10 @@ public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter
     // ************************************************************************************************************************************************************************
 
     // View
-    @BindView(R.id.swipeRefreshLayout)
+    @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.listView)
+    @Bind(R.id.listView)
     ListView listView;
 
     // Class
