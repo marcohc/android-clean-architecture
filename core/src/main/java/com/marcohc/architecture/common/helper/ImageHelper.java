@@ -64,7 +64,7 @@ public class ImageHelper {
     public static final int SELECT_PICTURE_FROM_GALLERY_REQUEST = 10;
     public static final int CAMERA_REQUEST = 20;
 
-    public static void showPickUpImageDialog(final Activity activity, final Uri file) {
+    public static void showPickUpPictureDialog(final Activity activity, final Uri file) {
         String[] values = {activity.getString(R.string.camera), activity.getString(R.string.gallery)};
         new AlertDialog.Builder(activity)
                 .setTitle(R.string.select)
@@ -72,32 +72,48 @@ public class ImageHelper {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
-                            pickImageFromCamera(activity, file);
+                            pickPictureFromCamera(activity, file);
                         } else if (which == 1) {
-                            pickImageFromGallery(activity);
+                            pickPictureFromGallery(activity);
                         }
                     }
                 })
                 .show();
     }
 
-    public static void pickImageFromCamera(Activity activity, Uri file) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-        activity.startActivityForResult(intent, CAMERA_REQUEST);
+    public static void pickPictureFromCamera(Activity activity, Uri uriFile) {
+        if (activity != null) {
+            if (checkCameraHardware(activity)) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(activity.getPackageManager()) != null) {
+                    if (uriFile != null) {
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFile);
+                    }
+                    activity.startActivityForResult(intent, CAMERA_REQUEST);
+                }
+            } else {
+                Timber.e("pickPictureFromCamera: there is no camera");
+            }
+        }
     }
 
-    public static void pickImageFromGallery(Activity activity) {
-        Intent intent;
-        if (Build.VERSION.SDK_INT < 19) {
-            intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-            intent.setType("image/*");
-            intent.putExtra("return-data", true);
-            activity.startActivityForResult(intent, SELECT_PICTURE_FROM_GALLERY_REQUEST);
-        } else {
-            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            activity.startActivityForResult(intent, SELECT_PICTURE_FROM_GALLERY_REQUEST);
+    public static void pickPictureFromGallery(Activity activity) {
+        if (activity != null) {
+            Intent intent;
+            if (Build.VERSION.SDK_INT < 19) {
+                intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                intent.setType("image/*");
+                intent.putExtra("return-data", true);
+                activity.startActivityForResult(intent, SELECT_PICTURE_FROM_GALLERY_REQUEST);
+            } else {
+                intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                activity.startActivityForResult(intent, SELECT_PICTURE_FROM_GALLERY_REQUEST);
+            }
         }
+    }
+
+    public static void pickPictureAsThumbnailFromCamera(Activity activity) {
+        pickPictureFromCamera(activity, null);
     }
 
     @SuppressLint("NewApi")
@@ -215,7 +231,7 @@ public class ImageHelper {
     // ************************************************************************************************************************************************************************
 
     public static int IMAGE_MAX_WIDTH = 1080;
-    public static int IMAGE_MAX_HEIGHT = 768;
+    public static int IMAGE_MAX_HEIGHT = 720;
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
@@ -429,23 +445,24 @@ public class ImageHelper {
     }
 
     public static String getImageEncodedInBase64(String mImageLocalPath, int quality) {
+        return getImageEncodedInBase64(mImageLocalPath, quality, IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT);
+    }
+
+    public static String getImageEncodedInBase64(String mImageLocalPath, int quality, int width, int height) {
 
         String encodedImage = null;
         try {
-            Bitmap bitmap = decodeSampledBitmapFromFile(mImageLocalPath, IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT);
+            Bitmap bitmap = decodeSampledBitmapFromFile(mImageLocalPath, width, height);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            byteArray = null;
             bitmap.recycle();
-            bitmap = null;
             System.gc();
         } catch (OutOfMemoryError e) {
             Timber.e("OutOfMemoryError: downloading image quality to %d", quality - 10);
-            return getImageEncodedInBase64(mImageLocalPath, quality - 10);
+            return getImageEncodedInBase64(mImageLocalPath, quality - 10, width, height);
         }
-
         return encodedImage;
     }
 
@@ -463,11 +480,8 @@ public class ImageHelper {
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
-
             return myBitmap;
-
         } catch (IOException e) {
-            e.printStackTrace();
             Timber.e("getBmpFromUrl: ", e.getMessage());
             return null;
         }
