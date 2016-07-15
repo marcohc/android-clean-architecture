@@ -35,8 +35,8 @@ public abstract class AsynchronousUseCase extends BusHandler implements UseCase 
      * Override this method if you want to customize your data error handling
      */
     protected void handleDataException(DataException dataException) {
-        DomainException appError = new DomainException(dataException.getMessage(), dataException.getCause());
-        post(appError);
+        DomainException domainException = new DomainException(dataException.getMessage(), dataException.getCause());
+        post(domainException);
         unregisterFromBus();
     }
 

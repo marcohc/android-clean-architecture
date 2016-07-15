@@ -1,13 +1,13 @@
-
 package com.marcohc.architecture.app.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.marcohc.architecture.domain.model.BaseModel;
+import com.marcohc.architecture.domain.model.BaseJsonModel;
+import com.marcohc.architecture.domain.model.Model;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class UserModel extends BaseModel {
+public class UserModel extends BaseJsonModel implements Model {
 
     private String key;
     private String gender;

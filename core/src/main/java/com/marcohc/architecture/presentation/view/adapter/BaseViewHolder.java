@@ -3,11 +3,11 @@ package com.marcohc.architecture.presentation.view.adapter;
 import android.content.Context;
 import android.view.View;
 
-import com.marcohc.architecture.domain.model.BaseModel;
+import com.marcohc.architecture.domain.model.BaseJsonModel;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseViewHolder<T extends BaseModel> {
+public abstract class BaseViewHolder<T extends BaseJsonModel> {
 
     private View.OnClickListener listener;
 

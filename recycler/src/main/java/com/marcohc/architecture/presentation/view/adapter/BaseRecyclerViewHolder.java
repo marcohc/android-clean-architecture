@@ -4,11 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.marcohc.architecture.domain.model.BaseModel;
+import com.marcohc.architecture.domain.model.BaseJsonModel;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseRecyclerViewHolder<T extends BaseModel> extends RecyclerView.ViewHolder {
+public abstract class BaseRecyclerViewHolder<T extends BaseJsonModel> extends RecyclerView.ViewHolder {
 
     private BaseRecyclerAdapter.ItemViewClickListener listener;
 

@@ -16,15 +16,12 @@
 
 package com.marcohc.architecture.common.helper;
 
-import android.annotation.SuppressLint;
-
 import java.util.Calendar;
 import java.util.Locale;
 
 /**
  * Calendar and date useful methods
  */
-@SuppressLint("DefaultLocale")
 public class DateHelper {
 
     // ************************************************************************************************************************************************************************
@@ -36,19 +33,19 @@ public class DateHelper {
     }
 
     public static String getCalendarCurrentMonthString() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         return FormatterHelper.getFirstCapitalize(String.format(Locale.getDefault(), "%tB", calendar));
     }
 
     public static String getCalendarLastMonthString() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
         return FormatterHelper.getFirstCapitalize(String.format(Locale.getDefault(), "%tB", calendar));
     }
 
     public static String getCalendarLastThreeMonthsString() {
         String text = "";
-        Calendar initCalendar = getCalendarCurrentMonth();
+        Calendar initCalendar = Calendar.getInstance();
         Calendar endCalendar = getCalendarThreeMonthsAgo();
         endCalendar.add(Calendar.MONTH, 1);
         text = FormatterHelper.getFirstCapitalize(String.format(Locale.getDefault(), "%tB", endCalendar).substring(0, 3));
@@ -58,7 +55,7 @@ public class DateHelper {
 
     public static String getCalendarLastSixMonthsString() {
         String text = "";
-        Calendar initCalendar = getCalendarCurrentMonth();
+        Calendar initCalendar = Calendar.getInstance();
         Calendar endCalendar = getCalendarSixMonthsAgo();
         endCalendar.add(Calendar.MONTH, 1);
         text = FormatterHelper.getFirstCapitalize(String.format(Locale.getDefault(), "%tB", endCalendar).substring(0, 3));
@@ -68,27 +65,27 @@ public class DateHelper {
 
     public static String getCalendarCurrentYearString() {
         String text = "";
-        Calendar calendar = getCalendarCurrentMonth();
+        Calendar calendar = Calendar.getInstance();
         text = String.valueOf(calendar.get(Calendar.YEAR));
         return text;
     }
 
-    public static Calendar getCalendarFirstDatCurrentMonth() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+    public static Calendar getCalendarFirstDayCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         getCalendarInitDay(calendar);
         return calendar;
     }
 
-    public static Calendar getCalendarLastDayMonth() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+    public static Calendar getCalendarLastDayCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         getCalendarEndDay(calendar);
         return calendar;
     }
 
     public static Calendar getCalendarFirstDayLastMonth() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         getCalendarInitDay(calendar);
@@ -96,7 +93,7 @@ public class DateHelper {
     }
 
     public static Calendar getCalendarLastDayLastMonth() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         getCalendarEndDay(calendar);
@@ -104,7 +101,7 @@ public class DateHelper {
     }
 
     public static Calendar getCalendarFirstDayTrimester() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         int month = getMonthTrimester(calendar.get(Calendar.MONTH));
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -113,7 +110,7 @@ public class DateHelper {
     }
 
     public static Calendar getCalendarLastDayTrimester() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         int month = getMonthTrimester(calendar.get(Calendar.MONTH));
         calendar.set(Calendar.MONTH, month + 2);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
@@ -122,21 +119,21 @@ public class DateHelper {
     }
 
     public static Calendar getCalendarThreeMonthsAgo() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -3);
         getCalendarInitDay(calendar);
         return calendar;
     }
 
     public static Calendar getCalendarSixMonthsAgo() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -6);
         getCalendarInitDay(calendar);
         return calendar;
     }
 
     public static Calendar getCalendarFirstDayCurrentYear() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         getCalendarInitDay(calendar);
@@ -144,7 +141,7 @@ public class DateHelper {
     }
 
     public static Calendar getCalendarLastDayCurrentYear() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, 11);
         calendar.set(Calendar.DAY_OF_MONTH, 31);
         getCalendarEndDay(calendar);
@@ -179,11 +176,6 @@ public class DateHelper {
         Calendar calendarToReturn = getCalendarFirstDayWeek(calendar);
         calendarToReturn.add(Calendar.DAY_OF_MONTH, 7);
         return calendarToReturn;
-    }
-
-    private static Calendar getCalendarCurrentMonth() {
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        return calendar;
     }
 
     private static int getMonthTrimester(int month) {

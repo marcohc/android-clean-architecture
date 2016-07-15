@@ -1,8 +1,8 @@
 package com.marcohc.architecture.app.domain.model;
 
-import com.marcohc.architecture.domain.model.BaseModel;
+import com.marcohc.architecture.domain.model.BaseJsonModel;
 
-public class MenuItemModel extends BaseModel {
+public class MenuItemModel extends BaseJsonModel {
 
     private String text;
     private int iconId;

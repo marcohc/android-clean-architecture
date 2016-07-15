@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.marcohc.architecture.domain.model.BaseModel;
+import com.marcohc.architecture.domain.model.BaseJsonModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public class BaseRecyclerAdapter<M extends BaseModel, T extends BaseRecyclerViewHolder> extends RecyclerView.Adapter<T> {
+public class BaseRecyclerAdapter<M extends BaseJsonModel, T extends BaseRecyclerViewHolder> extends RecyclerView.Adapter<T> {
 
     // ************************************************************************************************************************************************************************
     // * Attributes

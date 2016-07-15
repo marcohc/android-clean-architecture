@@ -18,7 +18,7 @@ public abstract class SynchronousBusUseCase extends BusHandler implements UseCas
     public abstract Object execute();
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onDataError(DataException dataException) {
+    public void onDataException(DataException dataException) {
         handleDataException(dataException);
     }
 
@@ -27,8 +27,8 @@ public abstract class SynchronousBusUseCase extends BusHandler implements UseCas
      * Override this method if you want to customize your data error handling
      */
     protected void handleDataException(DataException dataException) {
-        DomainException appError = new DomainException(dataException.getMessage(), dataException.getCause());
-        post(appError);
+        DomainException domainException = new DomainException(dataException.getMessage(), dataException.getCause());
+        post(domainException);
         unregisterFromBus();
     }
 
