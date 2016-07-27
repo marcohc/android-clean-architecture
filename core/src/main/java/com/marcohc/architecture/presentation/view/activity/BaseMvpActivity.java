@@ -30,12 +30,12 @@ public abstract class BaseMvpActivity<V extends BaseView, P extends MvpPresenter
 
     @Override
     public void showLoadingDialog() {
-        showDialog("", getResourceString(R.string.loading), true);
+        showDialog("", getString(R.string.loading), true);
     }
 
     @Override
     public void showLoadingDialog(boolean isCancelable) {
-        showDialog("", getResourceString(R.string.loading), isCancelable);
+        showDialog("", getString(R.string.loading), isCancelable);
     }
 
     @Override
@@ -90,16 +90,6 @@ public abstract class BaseMvpActivity<V extends BaseView, P extends MvpPresenter
     @Override
     public void showError(String error) {
         Toasteroid.show(this, error, Toasteroid.STYLES.ERROR);
-    }
-
-    @Override
-    public String getResourceString(int stringId) {
-        return getString(stringId);
-    }
-
-    @Override
-    public String getResourceString(int stringId, Object... formatArgs) {
-        return getString(stringId, formatArgs);
     }
 
     @Override

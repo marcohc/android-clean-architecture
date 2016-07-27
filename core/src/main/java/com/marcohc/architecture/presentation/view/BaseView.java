@@ -34,9 +34,9 @@ public interface BaseView extends MvpView {
 
     // Messages from string values
 
-    String getResourceString(int stringId);
+    String getString(int stringId);
 
-    String getResourceString(int stringId, Object... formatArgs);
+    String getString(int stringId, Object... formatArgs);
 
 
 }
