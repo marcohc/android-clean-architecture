@@ -89,6 +89,11 @@ public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter
         Toasteroid.show(getActivity(), error, Toasteroid.STYLES.ERROR);
     }
 
+    @Override
+    public String getQuantityString(int stringId, int quantity) {
+        return getResources().getQuantityString(stringId, quantity);
+    }
+
     /**
      * This method will be call by the parent activity when the back button is pressed
      *

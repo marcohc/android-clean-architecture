@@ -93,6 +93,11 @@ public abstract class BaseMvpActivity<V extends BaseView, P extends MvpPresenter
     }
 
     @Override
+    public String getQuantityString(int stringId, int quantity) {
+        return getResources().getQuantityString(stringId, quantity);
+    }
+
+    @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
