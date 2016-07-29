@@ -38,7 +38,7 @@ public interface BaseView extends MvpView {
 
     String getString(int stringId, Object... formatArgs);
 
-    String getQuantityString(int stringId, int quantity);
+    String getQuantityString(int stringId, int quantity, Object... formatArgs);
 
 
 }

@@ -90,8 +90,8 @@ public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter
     }
 
     @Override
-    public String getQuantityString(int stringId, int quantity) {
-        return getResources().getQuantityString(stringId, quantity);
+    public String getQuantityString(int stringId, int quantity, Object... formatArgs) {
+        return getResources().getQuantityString(stringId, quantity, formatArgs);
     }
 
     /**
