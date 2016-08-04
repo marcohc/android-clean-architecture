@@ -32,7 +32,7 @@ public class UsersPresenterImpl extends BasePresenter<UsersView> implements User
     // ************************************************************************************************************************************************************************
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(GetUsersDomainResponse event) {
+    public void onGetUsersDomainResponse(GetUsersDomainResponse event) {
         hideDialog();
         if (isViewAttached()) {
             getView().loadData(event.getUsersList());

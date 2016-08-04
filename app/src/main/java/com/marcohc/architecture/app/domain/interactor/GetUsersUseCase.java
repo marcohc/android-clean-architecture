@@ -36,7 +36,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
     // ************************************************************************************************************************************************************************
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onEventAsync(GetUsersDataResponse responseFromServer) {
+    public void onGetUsersDataResponse(GetUsersDataResponse responseFromServer) {
         this.responseFromServer = responseFromServer;
         post(createResponse());
         unregisterFromBus();

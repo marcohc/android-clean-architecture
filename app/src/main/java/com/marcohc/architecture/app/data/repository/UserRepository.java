@@ -43,7 +43,7 @@ public class UserRepository extends BusHandler {
     // ************************************************************************************************************************************************************************
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void onEventAsync(GetUsersRequest request) {
+    public void onGetUsersRequest(GetUsersRequest request) {
         UserDataStoreFactory.getInstance().getAll(new DataCallback<List<UserModel>>() {
             @Override
             public void onFailure(RestError error) {

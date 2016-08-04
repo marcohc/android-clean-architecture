@@ -20,7 +20,7 @@ import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 @SuppressLint({"SimpleDateFormat", "DefaultLocale"})
-public class MainApplication extends MultiDexApplication {
+public class Application extends MultiDexApplication {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -50,11 +50,11 @@ public class MainApplication extends MultiDexApplication {
             @Override
             protected Object doInBackground(Object[] params) {
 
-                TimerLog timer = new TimerLog("MainApplication.setUp");
+                TimerLog timer = new TimerLog("Application.setUp");
                 timer.start();
 
                 // Load all data
-                Timber.d("1 - MainApplication - Start loading data");
+                Timber.d("1 - Application - Start loading data");
 
                 setUpCustomCrash();
                 setUpPreferences();
@@ -63,9 +63,9 @@ public class MainApplication extends MultiDexApplication {
                 setUpRepositories();
 
                 // Notify load finished
-                Timber.d("2 - MainApplication - Finish loading data");
+                Timber.d("2 - Application - Finish loading data");
                 isAlreadyInitialized = true;
-                MainApplication.SEMAPHORE_1.release();
+                Application.SEMAPHORE_1.release();
 
                 timer.log();
 
@@ -99,7 +99,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void setUpRepositories() {
-        // TODO: Get all repositories by reflection and setUp them in order to connect to the bus
+        // TODO: Use Dagger to inject repositories
         UserRepository.setUp();
     }
 
@@ -133,13 +133,13 @@ public class MainApplication extends MultiDexApplication {
     /**
      * Used from other
      */
-    public static void waitUntilMainApplicationIsInitialized() {
+    public static void waitUntilApplicationIsInitialized() {
         try {
             if (!isAlreadyInitialized) {
-                Timber.d("Waiting for MainApplication to finish loading data...");
-                MainApplication.SEMAPHORE_1.acquire();
+                Timber.d("Waiting for Application to finish loading data...");
+                Application.SEMAPHORE_1.acquire();
             } else {
-                Timber.d("MainApplication already setUp");
+                Timber.d("Application already setUp");
             }
         } catch (InterruptedException ignored) {
         }

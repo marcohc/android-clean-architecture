@@ -5,4 +5,6 @@ import com.marcohc.architecture.presentation.mosby.mvp.MvpPresenter;
 
 public interface StartPresenter extends MvpPresenter<StartView> {
 
+    void onViewCreated();
+
 }

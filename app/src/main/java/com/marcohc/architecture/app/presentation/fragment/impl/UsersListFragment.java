@@ -62,10 +62,20 @@ public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
+        setUpView();
+    }
+
+    private void setUpView() {
         setUpListView();
         setUpEmptyStateFragment();
         setUpSwipeRefreshLayout();
         presenter.onViewCreated();
+    }
+
+    private void setUpListView() {
+        listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, UserViewHolder.class);
+        listViewAdapter.setOnChildViewClick(this);
+        listView.setAdapter(listViewAdapter);
     }
 
     private void setUpEmptyStateFragment() {
@@ -73,12 +83,6 @@ public class UsersListFragment extends BaseMvpFragment<UsersView, UsersPresenter
         emptyStateFragment.setTitle(getString(R.string.no_users_title));
         emptyStateFragment.setSubTitle(getString(R.string.no_users_subtitle));
         emptyStateFragment.setImage(R.drawable.im_user_place_holder);
-    }
-
-    private void setUpListView() {
-        listViewAdapter = new BaseListAdapter<>(getActivity(), R.layout.user_list_item, UserViewHolder.class);
-        listViewAdapter.setOnChildViewClick(this);
-        listView.setAdapter(listViewAdapter);
     }
 
     private void setUpSwipeRefreshLayout() {

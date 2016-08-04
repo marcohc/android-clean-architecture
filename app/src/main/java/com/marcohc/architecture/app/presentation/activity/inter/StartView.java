@@ -4,4 +4,5 @@ import com.marcohc.architecture.presentation.view.BaseView;
 
 public interface StartView extends BaseView {
 
+    void goToMain();
 }

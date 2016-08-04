@@ -21,14 +21,4 @@ public class UserDetailPresenterImpl extends BasePresenter<UserDetailView> imple
         }
     }
 
-    // ************************************************************************************************************************************************************************
-    // * Interactor handler methods
-    // ************************************************************************************************************************************************************************
-
-//        @Subscribe(threadMode = ThreadMode.MAIN) public void onEventMainThread(GetUsersDomainResponse event) {
-//        hideDialog();
-//        if (isViewAttached()) {
-//            getView().loadData(event.getUsersList());
-//        }
-//    }
 }
