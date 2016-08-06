@@ -22,7 +22,7 @@ public class StartPresenterImpl extends BasePresenter<StartView> implements Star
     }
 
     // Show splash screen and wait until Application has finished loading stuff
-    private class SetUpTask extends AsyncTask{
+    private class SetUpTask extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] params) {
@@ -39,10 +39,11 @@ public class StartPresenterImpl extends BasePresenter<StartView> implements Star
         @Override
         protected void onPostExecute(Object o) {
             Timber.d("3 - StartActivity: Going to main");
-            if (isViewAttached()) getView().goToMain();
+            if (isViewAttached()) {
+                getView().goToMain();
+            }
         }
     }
-
 
 
 }
