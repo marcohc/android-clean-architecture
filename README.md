@@ -8,12 +8,12 @@ Usage
 
 Take a look on the sample app or check the diagram:
 
-![Diagram] (https://github.com/marcohc/android-clean-architecture/blob/master/structure.png)
+![Diagram] (https://github.com/marcohc/android-clean-architecture/blob/master/architecture_diagram.png)
 
 Compatibility
 -------------
 
-This library is compatible from API 15.
+This library is compatible from API 16.
 
 Gradle
 ------
