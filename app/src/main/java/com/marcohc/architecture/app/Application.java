@@ -1,15 +1,13 @@
 package com.marcohc.architecture.app;
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.support.multidex.MultiDexApplication;
 
 import com.marcohc.architecture.app.data.repository.UserRepository;
 import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
 import com.marcohc.architecture.common.helper.AppInfoHelper;
-import com.marcohc.architecture.common.helper.SecurePreferencesHelper;
+import com.marcohc.architecture.common.helper.PreferencesHelper;
 import com.marcohc.architecture.common.helper.TimerLog;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -20,7 +18,7 @@ import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 @SuppressLint({"SimpleDateFormat", "DefaultLocale"})
-public class Application extends MultiDexApplication {
+public class Application extends android.app.Application {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -45,34 +43,33 @@ public class Application extends MultiDexApplication {
 
         setUpTimber();
 
-        // Loading task. Other classes must wait until the app is initialized
-        AsyncTask task = new AsyncTask() {
+        new Thread(new Runnable() {
             @Override
-            protected Object doInBackground(Object[] params) {
-
-                TimerLog timer = new TimerLog("Application.setUp");
-                timer.start();
+            public void run() {
+                TimerLog timer = TimerLog.getInstance("Application.setUp");
 
                 // Load all data
                 Timber.d("1 - Application - Start loading data");
 
                 setUpCustomCrash();
+                timer.logStep();
                 setUpPreferences();
+                timer.logStep();
                 setUpCalligraphy();
+                timer.logStep();
                 setUpAnalytics();
+                timer.logStep();
                 setUpRepositories();
+                timer.logStep();
 
                 // Notify load finished
                 Timber.d("2 - Application - Finish loading data");
                 isAlreadyInitialized = true;
                 Application.SEMAPHORE_1.release();
 
-                timer.log();
-
-                return null;
+                timer.logTotal();
             }
-        };
-        task.execute();
+        }).start();
     }
 
     private void setUpCustomCrash() {
@@ -114,8 +111,8 @@ public class Application extends MultiDexApplication {
     }
 
     private void setUpPreferences() {
-        SecurePreferencesHelper.setUp(this);
-        AppInfoHelper.setUp(SecurePreferencesHelper.getInstance());
+        PreferencesHelper.setUp(this);
+        AppInfoHelper.setUp(PreferencesHelper.getInstance());
     }
 
     private void setUpCalligraphy() {

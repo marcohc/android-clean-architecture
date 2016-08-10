@@ -14,7 +14,7 @@ android {
         versionName globalConfiguration.getAt("androidVersionName")
         testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
         testApplicationId globalConfiguration.getAt("testApplicationId")
-        multiDexEnabled true
+        multiDexEnabled false
     }
 
     signingConfigs {
@@ -49,9 +49,8 @@ android {
     }
 
     dexOptions {
-        // Not allowed with multidex
-        incremental false
-        preDexLibraries = false
+        dexInProcess true
+        preDexLibraries = true
         javaMaxHeapSize "4g"
     }
 
@@ -84,7 +83,6 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Google
-    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:support-v4:24.1.1'
 

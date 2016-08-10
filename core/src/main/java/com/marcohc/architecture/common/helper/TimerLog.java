@@ -7,24 +7,30 @@ import timber.log.Timber;
  */
 public class TimerLog {
 
-    private long timer;
+    private long setTimer;
+    private long totalTimer;
     private int stepNumber;
     private String tag;
 
-    public TimerLog(String tag) {
-        this.tag = tag;
+    public static TimerLog getInstance(String tag) {
+        TimerLog timerLog = new TimerLog();
+        timerLog.tag = tag;
+        timerLog.stepNumber = 1;
+        timerLog.setTimer = System.currentTimeMillis();
+        timerLog.totalTimer = System.currentTimeMillis();
+        return timerLog;
     }
 
-    public void start() {
-        stepNumber = 0;
-        Timber.d("%d - %s - Time: %d", stepNumber++, tag, 0);
-        timer = System.currentTimeMillis();
+    public Long logStep() {
+        Long difference = System.currentTimeMillis() - setTimer;
+        Timber.d("%s - Step %d: %d", tag, stepNumber++, difference);
+        setTimer = System.currentTimeMillis();
+        return difference;
     }
 
-    public Long log() {
-        Long difference = System.currentTimeMillis() - timer;
-        Timber.d("%d - %s - Time: %d", stepNumber++, tag, difference);
-        timer = System.currentTimeMillis();
+    public Long logTotal() {
+        Long difference = System.currentTimeMillis() - totalTimer;
+        Timber.d("%s - TOTAL: %d", tag, difference);
         return difference;
     }
 }

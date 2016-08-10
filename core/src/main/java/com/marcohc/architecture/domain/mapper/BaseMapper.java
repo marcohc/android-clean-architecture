@@ -1,9 +1,8 @@
 package com.marcohc.architecture.domain.mapper;
 
+import com.marcohc.architecture.common.helper.ParserHelper;
 import com.marcohc.architecture.domain.entity.Entity;
 import com.marcohc.architecture.domain.model.Model;
-import com.marcohc.architecture.common.helper.MapperHelper;
-import com.marcohc.architecture.common.helper.ParserHelper;
 
 import org.json.JSONArray;
 
@@ -59,11 +58,11 @@ public abstract class BaseMapper<M extends Model, E extends Entity> {
     }
 
     public M transform(E entity) {
-        return MapperHelper.getInstance().map(entity, modelClass);
+        return ParserHelper.getInstance().parse(entity, modelClass);
     }
 
     public E transform(M model) {
-        return MapperHelper.getInstance().map(model, entityClass);
+        return ParserHelper.getInstance().parse(model, entityClass);
     }
 
 }
