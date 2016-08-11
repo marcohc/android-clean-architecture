@@ -16,30 +16,36 @@ import butterknife.OnClick;
 
 public class UserViewHolder extends BaseViewHolder<UserModel> {
 
-    @Bind(R.id.userImage)
-    ImageView userImage;
+    // View
+    @Bind(R.id.userImageView)
+    ImageView userImageView;
 
-    @Bind(R.id.usernameText)
-    TextView usernameText;
+    @Bind(R.id.usernameTextView)
+    TextView usernameTextView;
 
-    @Bind(R.id.passwordText)
-    TextView passwordText;
+    @Bind(R.id.emailTextView)
+    TextView emailTextView;
+
+    // Class
+    private int position;
 
     @Override
     public void setUpView(Context context, UserModel model, int position) {
-        String image = "";
+        this.position = position;
+        String image = model.getPictureUrl();
         if (!StringHelper.isEmpty(image)) {
-            Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(userImage);
+            Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(userImageView);
         } else {
-            userImage.setImageResource(R.drawable.im_user_place_holder);
+            userImageView.setImageResource(R.drawable.im_user_place_holder);
         }
-        usernameText.setText(model.getName());
-        passwordText.setText(model.getPassword());
+        usernameTextView.setText(model.getName());
+        emailTextView.setText(model.getEmail());
     }
 
-    @OnClick(R.id.userImage)
+    // Catch events and pass them through this method
+    @OnClick(R.id.userImageView)
     protected void onUserImageClick(View view) {
-        onChildViewClick(view);
+        onChildViewClick(view, position);
     }
 
 }
