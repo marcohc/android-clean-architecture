@@ -16,12 +16,14 @@
 package com.marcohc.architecture.common.helper;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -68,8 +70,26 @@ public class ParserHelper {
         T object = null;
         try {
             if (value != null && valueType != null) {
-                String e = objectMapper.writeValueAsString(value);
-                object = objectMapper.readValue(e, valueType);
+                if (!String.class.isInstance(value)) {
+                    value = this.objectMapper.writeValueAsString(value);
+                }
+                object = objectMapper.readValue((String) value, valueType);
+            }
+        } catch (Exception e) {
+            Timber.e("parse: %s", e.getMessage());
+        }
+        return object;
+    }
+
+    public <T> T parse(Object value, Class<? extends Map> mapClass, Class<?> keyClass, Class<?> valueClass) {
+        T object = null;
+        try {
+            if (value != null && mapClass != null && keyClass != null && valueClass != null) {
+                if (!String.class.isInstance(value)) {
+                    value = this.objectMapper.writeValueAsString(value);
+                }
+                JavaType javaType = objectMapper.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
+                object = objectMapper.readValue((String) value, javaType);
             }
         } catch (Exception e) {
             Timber.e("parse: %s", e.getMessage());
