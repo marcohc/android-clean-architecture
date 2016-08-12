@@ -9,18 +9,18 @@ import butterknife.ButterKnife;
 
 public abstract class BaseViewHolder<T extends BaseJsonModel> {
 
-    private View.OnClickListener listener;
+    private BaseListAdapter.ChildViewClickListener listener;
 
     public abstract void setUpView(Context context, T item, int position);
 
-    public void bindViews(View view, View.OnClickListener listener) {
+    public void bindViews(View view, BaseListAdapter.ChildViewClickListener listener) {
         this.listener = listener;
         ButterKnife.bind(this, view);
     }
 
-    protected void onChildViewClick(View view) {
+    protected void onChildViewClick(View view, int position) {
         if (listener != null) {
-            listener.onClick(view);
+            listener.onChildViewClick(view, position);
         }
     }
 

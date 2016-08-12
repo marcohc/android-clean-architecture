@@ -5,7 +5,7 @@ import com.marcohc.architecture.presentation.view.BaseView;
 
 import java.util.List;
 
-public interface UsersView extends BaseView {
+public interface UsersListView extends BaseView {
 
     void loadData(List<UserModel> modelList);
 }

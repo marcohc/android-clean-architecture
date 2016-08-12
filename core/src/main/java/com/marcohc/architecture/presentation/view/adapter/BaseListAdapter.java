@@ -52,14 +52,7 @@ public class BaseListAdapter<T extends BaseJsonModel> extends ArrayAdapter<T> {
             try {
                 convertView = LayoutInflater.from(getContext()).inflate(layoutId, null);
                 baseViewHolder = viewHolderClass.newInstance();
-                baseViewHolder.bindViews(convertView, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (listener != null) {
-                            listener.onChildViewClick(view, position);
-                        }
-                    }
-                });
+                baseViewHolder.bindViews(convertView, listener);
                 convertView.setTag(baseViewHolder);
             } catch (Exception e) {
                 e.printStackTrace();

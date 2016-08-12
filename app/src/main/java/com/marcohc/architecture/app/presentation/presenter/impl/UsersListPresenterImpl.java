@@ -2,15 +2,15 @@ package com.marcohc.architecture.app.presentation.presenter.impl;
 
 import com.marcohc.architecture.app.domain.bus.response.domain.GetUsersDomainResponse;
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
-import com.marcohc.architecture.app.presentation.presenter.inter.UsersPresenter;
-import com.marcohc.architecture.app.presentation.fragment.inter.UsersView;
+import com.marcohc.architecture.app.presentation.presenter.inter.UsersListPresenter;
+import com.marcohc.architecture.app.presentation.fragment.inter.UsersListView;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 @SuppressWarnings("ConstantConditions")
-public class UsersPresenterImpl extends BasePresenter<UsersView> implements UsersPresenter {
+public class UsersListPresenterImpl extends BasePresenter<UsersListView> implements UsersListPresenter {
 
     // ************************************************************************************************************************************************************************
     // * View handler methods
