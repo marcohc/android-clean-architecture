@@ -22,15 +22,9 @@ public interface BaseView extends MvpView {
 
     // Toast
 
-    void showSuccess(String message);
+    void showMessage(String message);
 
-    void showInfo(String message);
-
-    void showDelete(String message);
-
-    void showWarning(String error);
-
-    void showError(String error);
+    void showError(String message);
 
     // Messages from string values
 

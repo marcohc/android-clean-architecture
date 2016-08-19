@@ -20,11 +20,10 @@ import com.marcohc.architecture.app.presentation.presenter.inter.UsersListPresen
 import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.toasteroid.Toasteroid;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnItemClick;
 
 public class UsersListFragment extends BaseMvpFragment<UsersListView, UsersListPresenter> implements UsersListView, SwipeRefreshLayout.OnRefreshListener, BaseListAdapter.ChildViewClickListener {
@@ -34,10 +33,10 @@ public class UsersListFragment extends BaseMvpFragment<UsersListView, UsersListP
     // ************************************************************************************************************************************************************************
 
     // View
-    @Bind(R.id.swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @Bind(R.id.listView)
+    @BindView(R.id.listView)
     ListView listView;
 
     // Class
@@ -107,8 +106,7 @@ public class UsersListFragment extends BaseMvpFragment<UsersListView, UsersListP
         UserModel model = listViewAdapter.getItem(position);
         switch (view.getId()) {
             case R.id.userImageView:
-                Toasteroid.dismiss();
-                showInfo(String.format("The user image of %s at position %d has been click", model != null ? model.getName() : "null", position));
+                showMessage(String.format("The user image of %s at position %d has been click", model != null ? model.getName() : "null", position));
                 break;
             default:
                 break;

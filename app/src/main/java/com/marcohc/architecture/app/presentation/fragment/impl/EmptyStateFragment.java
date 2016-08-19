@@ -8,29 +8,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.marcohc.architecture.app.R;
+import com.marcohc.architecture.app.presentation.fragment.inter.EmptyStateView;
 import com.marcohc.architecture.app.presentation.presenter.impl.EmptyStatePresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.EmptyStatePresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.app.presentation.fragment.inter.EmptyStateView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class EmptyStateFragment extends BaseMvpFragment<EmptyStateView, EmptyStatePresenter> implements BaseView {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
-    @Bind(R.id.noDataContainer)
+    @BindView(R.id.noDataContainer)
     ViewGroup noDataContainer;
 
-    @Bind(R.id.noDataImage)
+    @BindView(R.id.noDataImage)
     ImageView noDataImage;
 
-    @Bind(R.id.noDataTitleText)
+    @BindView(R.id.noDataTitleText)
     TextView noDataTitleText;
 
-    @Bind(R.id.noDataSubtitleText)
+    @BindView(R.id.noDataSubtitleText)
     TextView noDataSubtitleText;
 
     // ************************************************************************************************************************************************************************

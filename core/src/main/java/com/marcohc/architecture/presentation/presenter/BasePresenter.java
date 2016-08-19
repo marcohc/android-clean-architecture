@@ -3,7 +3,6 @@ package com.marcohc.architecture.presentation.presenter;
 import com.marcohc.architecture.domain.error.DomainException;
 import com.marcohc.architecture.presentation.mosby.mvp.MvpBasePresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
-import com.marcohc.toasteroid.Toasteroid;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -18,7 +17,6 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
      * To avoid toasts memory leaks
      */
     public void detachView(boolean retainInstance) {
-        Toasteroid.dismiss();
         if (isViewAttached()) {
             getView().hideDialog();
         }
@@ -81,42 +79,9 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
      *
      * @param message the message to be shown
      */
-    public void showSuccess(String message) {
+    public void showMessage(String message) {
         if (isViewAttached()) {
-            getView().showSuccess(message);
-        }
-    }
-
-    /**
-     * Shows message
-     *
-     * @param message the message to be shown
-     */
-    public void showInfo(String message) {
-        if (isViewAttached()) {
-            getView().showInfo(message);
-        }
-    }
-
-    /**
-     * Shows delete message
-     *
-     * @param message the message to be shown
-     */
-    public void showDelete(String message) {
-        if (isViewAttached()) {
-            getView().showDelete(message);
-        }
-    }
-
-    /**
-     * Shows warning message
-     *
-     * @param warningMessage the error message to be shown
-     */
-    public void showWarning(String warningMessage) {
-        if (isViewAttached()) {
-            getView().showWarning(warningMessage);
+            getView().showMessage(message);
         }
     }
 
@@ -132,7 +97,7 @@ public abstract class BasePresenter<V extends BaseView> extends MvpBasePresenter
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(DomainException exception) {
+    public void onDomainException(DomainException exception) {
         handleException(exception);
     }
 

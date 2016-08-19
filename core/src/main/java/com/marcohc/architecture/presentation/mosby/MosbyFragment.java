@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A base fragment that uses Icepick, Butterknife and FragmentArgs.
@@ -53,6 +54,8 @@ import butterknife.ButterKnife;
  * @since 1.0.0
  */
 public abstract class MosbyFragment extends Fragment {
+
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,13 +86,13 @@ public abstract class MosbyFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         injectDependencies();
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     /**
@@ -107,7 +110,5 @@ public abstract class MosbyFragment extends Fragment {
      * @return the layout resource or zero ("0"), if you don't want to have an UI
      */
     @LayoutRes
-    protected int getLayoutRes() {
-        return 0;
-    }
+    protected abstract int getLayoutRes();
 }

@@ -46,6 +46,6 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Recycler view
-    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
 
 }

@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0-beta1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -19,18 +20,13 @@ allprojects {
         androidTargetSdkVersion = 24
         androidCompileSdkVersion = 24
         androidVersionCode = 1
-        androidVersionName = "3.5.0"
+        androidVersionName = "3.6.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.marcohc.architecture.test'
     }
 
     repositories {
-        jcenter { url "http://jcenter.bintray.com/" }
-        maven { url "http://repo1.maven.org/maven2" }
-        maven { url 'https://clojars.org/repo/' }
-        maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url 'https://oss.sonatype.org/content/groups/public/' }
-        maven { url "https://jitpack.io" }
+        jcenter()
+//        maven { url "https://jitpack.io" }
     }
 }

@@ -28,7 +28,7 @@ import com.marcohc.architecture.app.presentation.util.NavigationManager;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import timber.log.Timber;
 
 public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> implements MainView {
@@ -38,13 +38,13 @@ public class MainActivity extends BaseMvpActivity<MainView, MainPresenter> imple
     // ************************************************************************************************************************************************************************
 
     // View
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.drawerLayout)
+    @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
 
-    @Bind(R.id.leftDrawerContainer)
+    @BindView(R.id.leftDrawerContainer)
     ViewGroup leftDrawerContainer;
 
     // Class

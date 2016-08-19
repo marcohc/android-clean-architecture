@@ -7,8 +7,8 @@
     </string-array>
 
     <string-array name="menu_normal_icons_array" translatable="false">
-        <item>@drawable/ic_toasteroid_info</item>
-        <item>@drawable/ic_toasteroid_info</item>
+        <item>@android:drawable/ic_dialog_info</item>
+        <item>@android:drawable/ic_dialog_info</item>
     </string-array>
 
 </resources>

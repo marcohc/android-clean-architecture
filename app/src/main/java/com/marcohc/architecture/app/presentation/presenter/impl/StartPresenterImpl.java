@@ -2,7 +2,7 @@ package com.marcohc.architecture.app.presentation.presenter.impl;
 
 import android.os.AsyncTask;
 
-import com.marcohc.architecture.app.Application;
+import com.marcohc.architecture.app.MainApplication;
 import com.marcohc.architecture.app.presentation.activity.inter.StartView;
 import com.marcohc.architecture.app.presentation.presenter.inter.StartPresenter;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
@@ -21,17 +21,17 @@ public class StartPresenterImpl extends BasePresenter<StartView> implements Star
         new SetUpTask().execute();
     }
 
-    // Show splash screen and wait until Application has finished loading stuff
+    // Show splash screen and wait until MainApplication has finished loading stuff
     private class SetUpTask extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] params) {
 
-            Timber.d("2 - StartActivity: Waiting for Application to finish loading data");
+            Timber.d("2 - StartActivity: Waiting for MainApplication to finish loading data");
 
             // Do your initialization stuff here
 
-            Application.waitUntilApplicationIsInitialized();
+            MainApplication.waitUntilApplicationIsInitialized();
 
             return null;
         }

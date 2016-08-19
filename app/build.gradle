@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
 
@@ -83,24 +84,26 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Google
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+
+    // ButterKnife
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+
+    // Custom crash
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
 
     // Leak canary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
-    // Roboto Calendar
-    compile 'com.github.marcohc:robotocalendarview:2.0.0'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // DATA
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    compile 'com.squareup.retrofit2:converter-jackson:2.0.0'
+    compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // TESTING
@@ -111,10 +114,10 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support:support-annotations:24.1.1'
+    androidTestCompile 'com.android.support:support-annotations:24.2.0'
 
     // Non instrumentation tests
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.mockito:mockito-core:2.0.106-beta'
 
 }

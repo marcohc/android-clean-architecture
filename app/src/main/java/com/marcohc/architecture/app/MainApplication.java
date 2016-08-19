@@ -18,7 +18,7 @@ import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 @SuppressLint({"SimpleDateFormat", "DefaultLocale"})
-public class Application extends android.app.Application {
+public class MainApplication extends android.app.Application {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -46,10 +46,10 @@ public class Application extends android.app.Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                TimerLog timer = TimerLog.getInstance("Application.setUp");
+                TimerLog timer = TimerLog.getInstance("MainApplication.setUp");
 
                 // Load all data
-                Timber.d("1 - Application - Start loading data");
+                Timber.d("1 - MainApplication - Start loading data");
 
                 setUpCustomCrash();
                 timer.logStep();
@@ -63,9 +63,9 @@ public class Application extends android.app.Application {
                 timer.logStep();
 
                 // Notify load finished
-                Timber.d("2 - Application - Finish loading data");
+                Timber.d("2 - MainApplication - Finish loading data");
                 isAlreadyInitialized = true;
-                Application.SEMAPHORE_1.release();
+                MainApplication.SEMAPHORE_1.release();
 
                 timer.logTotal();
             }
@@ -133,10 +133,10 @@ public class Application extends android.app.Application {
     public static void waitUntilApplicationIsInitialized() {
         try {
             if (!isAlreadyInitialized) {
-                Timber.d("Waiting for Application to finish loading data...");
-                Application.SEMAPHORE_1.acquire();
+                Timber.d("Waiting for MainApplication to finish loading data...");
+                MainApplication.SEMAPHORE_1.acquire();
             } else {
-                Timber.d("Application already setUp");
+                Timber.d("MainApplication already setUp");
             }
         } catch (InterruptedException ignored) {
         }

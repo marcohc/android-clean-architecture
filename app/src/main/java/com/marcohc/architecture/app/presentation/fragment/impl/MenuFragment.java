@@ -12,18 +12,18 @@ import android.widget.TextView;
 import com.marcohc.architecture.app.BuildConfig;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.MenuItemModel;
+import com.marcohc.architecture.app.presentation.adapter.viewholder.MenuViewHolder;
+import com.marcohc.architecture.app.presentation.fragment.inter.MenuView;
 import com.marcohc.architecture.app.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.MenuPresenter;
 import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
 import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
-import com.marcohc.architecture.app.presentation.adapter.viewholder.MenuViewHolder;
-import com.marcohc.architecture.app.presentation.fragment.inter.MenuView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnItemClick;
 
 public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> implements MenuView {
@@ -34,10 +34,10 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
 
     // View
 
-    @Bind(R.id.isDevelopmentText)
+    @BindView(R.id.isDevelopmentText)
     TextView isDevelopmentText;
 
-    @Bind(R.id.menuListView)
+    @BindView(R.id.menuListView)
     ListView menuListView;
 
     // Class

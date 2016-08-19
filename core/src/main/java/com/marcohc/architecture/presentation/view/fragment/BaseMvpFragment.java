@@ -1,13 +1,13 @@
 package com.marcohc.architecture.presentation.view.fragment;
 
 import android.app.ProgressDialog;
+import android.widget.Toast;
 
 import com.marcohc.architecture.R;
 import com.marcohc.architecture.common.bus.BusProvider;
 import com.marcohc.architecture.presentation.mosby.mvp.MvpFragment;
 import com.marcohc.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
-import com.marcohc.toasteroid.Toasteroid;
 
 public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements BaseView {
 
@@ -65,28 +65,13 @@ public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter
     }
 
     @Override
-    public void showSuccess(String message) {
-        Toasteroid.show(getActivity(), message, Toasteroid.STYLES.SUCCESS);
+    public void showMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showInfo(String message) {
-        Toasteroid.show(getActivity(), message, Toasteroid.STYLES.INFO);
-    }
-
-    @Override
-    public void showDelete(String message) {
-        Toasteroid.show(getActivity(), message, Toasteroid.STYLES.DELETE);
-    }
-
-    @Override
-    public void showWarning(String warningMessage) {
-        Toasteroid.show(getActivity(), warningMessage, Toasteroid.STYLES.WARNING);
-    }
-
-    @Override
-    public void showError(String error) {
-        Toasteroid.show(getActivity(), error, Toasteroid.STYLES.ERROR);
+    public void showError(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

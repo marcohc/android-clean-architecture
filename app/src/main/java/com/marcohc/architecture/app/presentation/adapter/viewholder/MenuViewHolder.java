@@ -8,14 +8,14 @@ import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.MenuItemModel;
 import com.marcohc.architecture.presentation.view.adapter.BaseViewHolder;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class MenuViewHolder extends BaseViewHolder<MenuItemModel> {
 
-    @Bind(R.id.menuImage)
+    @BindView(R.id.menuImage)
     ImageView menuImage;
 
-    @Bind(R.id.menuText)
+    @BindView(R.id.menuText)
     TextView menuText;
 
     @Override
