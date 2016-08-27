@@ -1,11 +1,16 @@
 package com.marcohc.architecture.domain.interactor;
 
 /**
- * This class represents an synchronous use case not connected to the bus.
+ * This class represents an synchronous use case
  * Used for simple business logic
  */
-public abstract class SynchronousUseCase implements UseCase {
+public abstract class SynchronousUseCase<T> implements UseCase {
 
-    public abstract Object execute();
+    /**
+     * Executes the logic of the use case
+     *
+     * @return the result of your use case
+     */
+    public abstract T execute();
 
 }

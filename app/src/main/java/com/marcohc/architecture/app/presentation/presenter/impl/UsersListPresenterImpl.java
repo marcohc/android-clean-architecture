@@ -2,12 +2,15 @@ package com.marcohc.architecture.app.presentation.presenter.impl;
 
 import com.marcohc.architecture.app.domain.bus.response.domain.GetUsersDomainResponse;
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
+import com.marcohc.architecture.app.domain.interactor.IsUserLoggedInUseCase;
 import com.marcohc.architecture.app.presentation.presenter.inter.UsersListPresenter;
 import com.marcohc.architecture.app.presentation.fragment.inter.UsersListView;
 import com.marcohc.architecture.presentation.presenter.BasePresenter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import timber.log.Timber;
 
 @SuppressWarnings("ConstantConditions")
 public class UsersListPresenterImpl extends BasePresenter<UsersListView> implements UsersListPresenter {
@@ -19,6 +22,11 @@ public class UsersListPresenterImpl extends BasePresenter<UsersListView> impleme
     @Override
     public void onViewCreated() {
         showLoadingDialog();
+
+        // Example of using an synchronous use case
+        Timber.v("Is today a good day? %s", new IsUserLoggedInUseCase().execute());
+
+        // Using an asynchronous use case
         new GetUsersUseCase().execute();
     }
 

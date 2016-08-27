@@ -18,11 +18,18 @@ public abstract class AsynchronousUseCase extends BusHandler implements UseCase 
 
     protected abstract BusEvent createResponse();
 
-    public void execute() {
+    /**
+     * Executes the logic of the use case
+     *
+     * @return null, the use case is executed asynchronously so the result will be delivered in other ways
+     */
+    @Override
+    public Void execute() {
         BusEvent request = createRequest();
         if (request != null) {
             post(request);
         }
+        return null;
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
