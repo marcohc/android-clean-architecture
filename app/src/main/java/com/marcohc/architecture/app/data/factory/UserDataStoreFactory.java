@@ -2,7 +2,7 @@ package com.marcohc.architecture.app.data.factory;
 
 import com.marcohc.architecture.app.data.datastore.impl.UserRestDataStore;
 import com.marcohc.architecture.app.data.datastore.inter.UserDataStore;
-import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.data.net.DataCallback;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class UserDataStoreFactory {
     // * Initialization methods
     // ************************************************************************************************************************************************************************
 
-    public void getAll(DataCallback<List<UserModel>> callback) {
+    public void getAll(DataCallback<List<UserEntity>> callback) {
         userCloudDataStore.getAll(callback);
     }
 

@@ -1,6 +1,6 @@
 package com.marcohc.architecture.app.data.datastore.inter;
 
-import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.data.net.DataCallback;
 
 import java.util.List;
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface UserDataStore {
 
-    void getAll(DataCallback<List<UserModel>> callback);
+    void getAll(DataCallback<List<UserEntity>> callback);
 }

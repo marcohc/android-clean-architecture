@@ -4,8 +4,6 @@ import com.marcohc.architecture.common.helper.ParserHelper;
 import com.marcohc.architecture.domain.entity.Entity;
 import com.marcohc.architecture.domain.model.Model;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,14 +37,6 @@ public abstract class BaseMapper<M extends Model, E extends Entity> {
             }
         }
         return entitiesList;
-    }
-
-    public List<M> parseModelJsonArray(JSONArray modelJsonArray) {
-        return ParserHelper.getInstance().parseJsonArray(modelJsonArray, modelClass);
-    }
-
-    public List<E> parseEntityJsonArray(JSONArray entityJsonArray) {
-        return ParserHelper.getInstance().parseJsonArray(entityJsonArray, entityClass);
     }
 
     public M parseModel(String json) {

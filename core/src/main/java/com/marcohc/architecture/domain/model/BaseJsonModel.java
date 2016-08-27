@@ -1,6 +1,6 @@
 package com.marcohc.architecture.domain.model;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.gson.reflect.TypeToken;
 import com.marcohc.architecture.common.helper.ParserHelper;
 
 import java.util.Map;
@@ -12,7 +12,8 @@ public class BaseJsonModel {
     }
 
     public Map<String, Object> toMap() {
-        return ParserHelper.getInstance().parse(this, new TypeReference<Map<String, Object>>() {});
+        return ParserHelper.getInstance().parse(this, new TypeToken<Map<String, Object>>() {
+        });
     }
 
 }

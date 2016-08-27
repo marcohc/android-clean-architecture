@@ -15,15 +15,13 @@
  */
 package com.marcohc.architecture.common.helper;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import android.support.annotation.Nullable;
 
-import org.json.JSONArray;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 import timber.log.Timber;
 
@@ -32,17 +30,30 @@ import timber.log.Timber;
  */
 public class ParserHelper {
 
-    private static ParserHelper instance;
+    // ************************************************************************************************************************************************************************
+    // * Constants
+    // ************************************************************************************************************************************************************************
 
-    private ObjectMapper objectMapper;
+    private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
+
+    // ************************************************************************************************************************************************************************
+    // * Attributes
+    // ************************************************************************************************************************************************************************
+
+    private final GsonBuilder gsonBuilder;
+    private final Gson gson;
+
+    // ************************************************************************************************************************************************************************
+    // * Constructors
+    // ************************************************************************************************************************************************************************
 
     private ParserHelper() {
-        objectMapper = new ObjectMapper();
+        gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer(ISO_FORMAT));
+        gson = gsonBuilder.create();
     }
 
-    // ************************************************************************************************************************************************************************
-    // * Public methods
-    // ************************************************************************************************************************************************************************
+    private static ParserHelper instance;
 
     public static ParserHelper getInstance() {
         if (instance == null) {
@@ -51,14 +62,21 @@ public class ParserHelper {
         return instance;
     }
 
-    public <T> T parse(Object value, Class<T> valueType) {
+
+    // ************************************************************************************************************************************************************************
+    // * Public methods
+    // ************************************************************************************************************************************************************************
+
+    @Nullable
+    public <T> T parse(Object jsonObject, Class<T> clazz) {
         T object = null;
         try {
-            if (value != null && valueType != null) {
-                if (!String.class.isInstance(value)) {
-                    value = objectMapper.writeValueAsString(value);
+            if (jsonObject != null && clazz != null) {
+                // Convert to json string first
+                if (!String.class.isInstance(jsonObject)) {
+                    jsonObject = gson.toJson(jsonObject);
                 }
-                object = objectMapper.readValue((String) value, valueType);
+                object = gson.fromJson((String) jsonObject, clazz);
             }
         } catch (Exception e) {
             Timber.e("parse: %s", e.getMessage());
@@ -66,14 +84,16 @@ public class ParserHelper {
         return object;
     }
 
-    public <T> T parse(Object value, TypeReference<T> valueType) {
+    @Nullable
+    public <T> T parse(Object jsonObject, TypeToken<T> typeToken) {
         T object = null;
         try {
-            if (value != null && valueType != null) {
-                if (!String.class.isInstance(value)) {
-                    value = this.objectMapper.writeValueAsString(value);
+            if (jsonObject != null && typeToken != null) {
+                // Convert to json string first
+                if (!String.class.isInstance(jsonObject)) {
+                    jsonObject = gson.toJson(jsonObject);
                 }
-                object = objectMapper.readValue((String) value, valueType);
+                object = gson.fromJson((String) jsonObject, typeToken.getType());
             }
         } catch (Exception e) {
             Timber.e("parse: %s", e.getMessage());
@@ -81,53 +101,12 @@ public class ParserHelper {
         return object;
     }
 
-    public <T> T parse(Object value, Class<? extends Map> mapClass, Class<?> keyClass, Class<?> valueClass) {
-        T object = null;
-        try {
-            if (value != null && mapClass != null && keyClass != null && valueClass != null) {
-                if (!String.class.isInstance(value)) {
-                    value = this.objectMapper.writeValueAsString(value);
-                }
-                JavaType javaType = objectMapper.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
-                object = objectMapper.readValue((String) value, javaType);
-            }
-        } catch (Exception e) {
-            Timber.e("parse: %s", e.getMessage());
-        }
-        return object;
-    }
-
-    public <T> List<T> parseJsonArray(JSONArray jsonArray, Class<T> type) {
-        List<T> list = new ArrayList<>();
-        if (jsonArray != null) {
-            for (int i = 0; i < jsonArray.length(); i++) {
-                try {
-                    list.add(parse(jsonArray.get(i).toString(), type));
-                } catch (Exception e) {
-                    Timber.e("parseJsonStringArray: %s", e.getMessage());
-                }
-            }
-        }
-        return list;
-    }
-
-    public <T> List<T> parseJsonStringArray(String jsonString, Class<T> type) {
-        List<T> list = new ArrayList<>();
-        if (jsonString != null) {
-            try {
-                list = parseJsonArray(new JSONArray(jsonString), type);
-            } catch (Exception e) {
-                Timber.e("parseJsonStringArray: %s", e.getMessage());
-            }
-        }
-        return list;
-    }
-
+    @Nullable
     public String toJsonString(Object jsonObject) {
         String jsonString = "";
         if (jsonObject != null) {
             try {
-                jsonString = objectMapper.writeValueAsString(jsonObject);
+                jsonString = gson.toJson(jsonObject);
             } catch (Exception e) {
                 Timber.e("toJsonString: %s", e.getMessage());
             }
@@ -140,7 +119,7 @@ public class ParserHelper {
      *
      * @return ObjectMapper
      */
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
+    public GsonBuilder getGsonBuilder() {
+        return gsonBuilder;
     }
 }

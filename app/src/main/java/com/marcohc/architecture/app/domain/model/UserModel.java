@@ -1,13 +1,8 @@
 package com.marcohc.architecture.app.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.marcohc.architecture.domain.model.BaseJsonModel;
 import com.marcohc.architecture.domain.model.Model;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class UserModel extends BaseJsonModel implements Model {
 
     // ************************************************************************************************************************************************************************
@@ -25,19 +20,6 @@ public class UserModel extends BaseJsonModel implements Model {
     public UserModel() {
         name = "Unknown";
         email = "Unknown";
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Business logic
-    // ************************************************************************************************************************************************************************
-
-    @JsonIgnore
-    public String getEmailDomain() {
-        String emailDomain = "";
-        if (email != null && email.contains("@")) {
-            emailDomain = email.substring(email.indexOf("@"), email.length());
-        }
-        return emailDomain;
     }
 
     // ************************************************************************************************************************************************************************

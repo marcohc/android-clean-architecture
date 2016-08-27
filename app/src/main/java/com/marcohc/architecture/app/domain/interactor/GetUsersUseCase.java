@@ -3,10 +3,14 @@ package com.marcohc.architecture.app.domain.interactor;
 import com.marcohc.architecture.app.domain.bus.request.GetUsersRequest;
 import com.marcohc.architecture.app.domain.bus.response.data.GetUsersDataResponse;
 import com.marcohc.architecture.app.domain.bus.response.domain.GetUsersDomainResponse;
+import com.marcohc.architecture.app.domain.mapper.UserMapper;
+import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.domain.interactor.AsynchronousUseCase;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 public class GetUsersUseCase extends AsynchronousUseCase {
 
@@ -14,7 +18,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private GetUsersDataResponse responseFromServer;
+    private List<UserModel> modelList;
 
     // ************************************************************************************************************************************************************************
     // * Bus events factory methods
@@ -27,7 +31,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
 
     @Override
     protected GetUsersDomainResponse createResponse() {
-        return new GetUsersDomainResponse(responseFromServer.getResponse());
+        return new GetUsersDomainResponse(modelList);
     }
 
 
@@ -37,7 +41,7 @@ public class GetUsersUseCase extends AsynchronousUseCase {
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onGetUsersDataResponse(GetUsersDataResponse responseFromServer) {
-        this.responseFromServer = responseFromServer;
+        modelList = UserMapper.getInstance().parseEntityList(responseFromServer.getEntityList());
         post(createResponse());
         unregisterFromBus();
     }

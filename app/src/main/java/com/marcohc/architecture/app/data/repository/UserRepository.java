@@ -3,7 +3,7 @@ package com.marcohc.architecture.app.data.repository;
 import com.marcohc.architecture.app.data.factory.UserDataStoreFactory;
 import com.marcohc.architecture.app.domain.bus.request.GetUsersRequest;
 import com.marcohc.architecture.app.domain.bus.response.data.GetUsersDataResponse;
-import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.common.bus.BusHandler;
 import com.marcohc.architecture.data.error.DataException;
 import com.marcohc.architecture.data.error.RestError;
@@ -44,14 +44,14 @@ public class UserRepository extends BusHandler {
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onGetUsersRequest(GetUsersRequest request) {
-        UserDataStoreFactory.getInstance().getAll(new DataCallback<List<UserModel>>() {
+        UserDataStoreFactory.getInstance().getAll(new DataCallback<List<UserEntity>>() {
             @Override
             public void onFailure(RestError error) {
                 post(new DataException(error.getMessage(), error.getCode()));
             }
 
             @Override
-            public void onSuccess(List<UserModel> response) {
+            public void onSuccess(List<UserEntity> response) {
                 post(new GetUsersDataResponse(response));
             }
         });

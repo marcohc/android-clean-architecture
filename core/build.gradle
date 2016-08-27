@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'android-apt'
 
 android {
 
@@ -44,7 +45,7 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Butter knife
-    compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
 
     // Calligraphy
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
@@ -54,7 +55,7 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Parsing
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.1'
+    compile 'com.google.code.gson:gson:2.7'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // COMMON
