@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -97,7 +98,7 @@ public class ParseHelperTest {
     }
 
     @Test
-    public void testMapPojos() {
+    public void testMapBetweenPojos() {
         String jsonString = "{\"name\":\"MyName\",\"date\":1472292095978,\"fooType\":\"one\",\"timestamp\":1472292095978,\"dateFromLong\":1472292095978}";
         Entity entity = ParserHelper.getInstance().parse(jsonString, Entity.class);
         Assert.assertNotNull(entity);
@@ -108,6 +109,22 @@ public class ParseHelperTest {
         Assert.assertNotNull(model.timestamp);
         Assert.assertNotNull(model.dateFromLong);
         Assert.assertNotNull(model.fooType);
+    }
+
+    @Test
+    public void testParseGenerics() {
+        String jsonString = "[{\"name\":\"MyName\",\"date\":\"1997-07-16T19:20:30.45+01:00\",\"fooType\":\"one\",\"timestamp\":1472292095978,\"dateFromLong\":1472292095978}]";
+        List<Model> modelList = ParserHelper.getInstance().parseCollection(jsonString, new GenericCollection<List, Model>(List.class, Model.class) {
+        });
+        Assert.assertNotNull(modelList);
+    }
+
+    @Test
+    public void testParseGenerics2() {
+        String jsonString = "{\"key\": {\"name\":\"MyName\",\"date\":\"1997-07-16T19:20:30.45+01:00\",\"fooType\":\"one\",\"timestamp\":1472292095978,\"dateFromLong\":1472292095978}}";
+        Map<String, Model> modelList = ParserHelper.getInstance().parseMap(jsonString, new GenericMap<HashMap, String, Model>(HashMap.class, String.class, Model.class) {
+        });
+        Assert.assertNotNull(modelList);
     }
 
 }

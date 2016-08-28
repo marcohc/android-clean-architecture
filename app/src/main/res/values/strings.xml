@@ -35,5 +35,5 @@
     <string name="error">Error</string>
     <string name="no_users_subtitle">Add a new user tapping on + button</string>
     <string name="permission_location_never_ask">Location permission is denied</string>
-    <string name="permission_location_rationale">Location permission is needed to display your position on the map. Do you want to allow it?</string>
+    <string name="permission_location_rationale">Location permission is needed to display your position on the mapClass. Do you want to allow it?</string>
 </resources>

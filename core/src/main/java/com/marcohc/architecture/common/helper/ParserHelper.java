@@ -102,6 +102,40 @@ public class ParserHelper {
     }
 
     @Nullable
+    public <T, Collection, Value> T parseCollection(Object jsonObject, GenericCollection<Collection, Value> genericCollection) {
+        T object = null;
+        try {
+            if (jsonObject != null && genericCollection != null) {
+                // Convert to json string first
+                if (!String.class.isInstance(jsonObject)) {
+                    jsonObject = gson.toJson(jsonObject);
+                }
+                object = gson.fromJson((String) jsonObject, genericCollection);
+            }
+        } catch (Exception e) {
+            Timber.e("parse: %s", e.getMessage());
+        }
+        return object;
+    }
+
+    @Nullable
+    public <T, Map, Key, Value> T parseMap(Object jsonObject, GenericMap<Map, Key, Value> genericCollection) {
+        T object = null;
+        try {
+            if (jsonObject != null && genericCollection != null) {
+                // Convert to json string first
+                if (!String.class.isInstance(jsonObject)) {
+                    jsonObject = gson.toJson(jsonObject);
+                }
+                object = gson.fromJson((String) jsonObject, genericCollection);
+            }
+        } catch (Exception e) {
+            Timber.e("parse: %s", e.getMessage());
+        }
+        return object;
+    }
+
+    @Nullable
     public String toJsonString(Object jsonObject) {
         String jsonString = "";
         if (jsonObject != null) {
