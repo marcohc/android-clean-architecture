@@ -37,8 +37,17 @@ class DateDeserializer implements JsonSerializer<Date>, JsonDeserializer<Date> {
     @Override
     public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
         synchronized (localFormat) {
-            String dateFormatAsString = enUsFormat.format(src);
-            return new JsonPrimitive(dateFormatAsString);
+            if (typeOfSrc == Date.class) {
+                return new JsonPrimitive(src.getTime());
+            } else if (typeOfSrc == Timestamp.class) {
+                return new JsonPrimitive(src.getTime());
+            } else if (typeOfSrc == java.sql.Date.class) {
+                return new JsonPrimitive(src.getTime());
+            } else if (typeOfSrc == Long.class) {
+                return new JsonPrimitive(src.getTime());
+            } else {
+                throw new IllegalArgumentException(getClass() + " cannot deserialize to " + typeOfSrc);
+            }
         }
     }
 

@@ -98,7 +98,7 @@ public class ParseHelperTest {
     }
 
     @Test
-    public void testMapBetweenPojos() {
+    public void testMapBetweenPojosFromEntityToModel() {
         String jsonString = "{\"name\":\"MyName\",\"date\":1472292095978,\"fooType\":\"one\",\"timestamp\":1472292095978,\"dateFromLong\":1472292095978}";
         Entity entity = ParserHelper.getInstance().parse(jsonString, Entity.class);
         Assert.assertNotNull(entity);
@@ -109,6 +109,20 @@ public class ParseHelperTest {
         Assert.assertNotNull(model.timestamp);
         Assert.assertNotNull(model.dateFromLong);
         Assert.assertNotNull(model.fooType);
+    }
+
+    @Test
+    public void testMapBetweenPojosFromModelToEntity() {
+        String jsonString = "{\"name\":\"MyName\",\"date\":\"2016-07-16T19:20:30.45+01:00\",\"fooType\":\"one\",\"timestamp\":1472292095978,\"dateFromLong\":1472292095978}";
+        Model model = ParserHelper.getInstance().parse(jsonString, Model.class);
+        Assert.assertNotNull(model);
+        Entity entity = ParserHelper.getInstance().parse(model, Entity.class);
+        Assert.assertNotNull(entity);
+        Assert.assertNotNull(entity.name);
+        Assert.assertNotNull(entity.date);
+        Assert.assertNotNull(entity.timestamp);
+        Assert.assertNotNull(entity.dateFromLong);
+        Assert.assertNotNull(entity.fooType);
     }
 
     @Test
