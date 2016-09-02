@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.StrictMode;
 
 import com.marcohc.architecture.app.data.repository.UserRepository;
-import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
+import com.marcohc.architecture.app.presentation.util.BuildConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
 import com.marcohc.architecture.common.helper.AppInfoHelper;
 import com.marcohc.architecture.common.helper.PreferencesHelper;
@@ -36,7 +36,7 @@ public class MainApplication extends android.app.Application {
 
         super.onCreate();
 
-        if (AppConfigHelper.getInstance().isDevelopment()) {
+        if (BuildConfigHelper.getInstance().isDevelopment()) {
             setUpStrictMode();
             setUpLeakCanary();
         }
@@ -101,13 +101,13 @@ public class MainApplication extends android.app.Application {
     }
 
     private void setUpTimber() {
-        if (AppConfigHelper.getInstance().isDevelopment()) {
+        if (BuildConfigHelper.getInstance().isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
         }
     }
 
     private void setUpAnalytics() {
-        AnalyticsHelper.setUp(this, !AppConfigHelper.getInstance().isProduction());
+        AnalyticsHelper.setUp(this, !BuildConfigHelper.getInstance().isProduction());
     }
 
     private void setUpPreferences() {

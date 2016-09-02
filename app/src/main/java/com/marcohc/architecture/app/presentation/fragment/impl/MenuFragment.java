@@ -16,7 +16,7 @@ import com.marcohc.architecture.app.presentation.adapter.viewholder.MenuViewHold
 import com.marcohc.architecture.app.presentation.fragment.inter.MenuView;
 import com.marcohc.architecture.app.presentation.presenter.impl.MenuPresenterImpl;
 import com.marcohc.architecture.app.presentation.presenter.inter.MenuPresenter;
-import com.marcohc.architecture.app.presentation.util.AppConfigHelper;
+import com.marcohc.architecture.app.presentation.util.BuildConfigHelper;
 import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 import com.marcohc.architecture.presentation.view.fragment.BaseMvpFragment;
 
@@ -109,8 +109,8 @@ public class MenuFragment extends BaseMvpFragment<MenuView, MenuPresenter> imple
     }
 
     private void setDevelopmentText() {
-        if (!AppConfigHelper.getInstance().isProduction()) {
-            isDevelopmentText.setText(String.format("%s / %s / %s", AppConfigHelper.getInstance().getBuildVariantName(), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+        if (!BuildConfigHelper.getInstance().isProduction()) {
+            isDevelopmentText.setText(String.format("%s / %s / %s", BuildConfigHelper.getInstance().getBuildVariantName(), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
             isDevelopmentText.setVisibility(View.VISIBLE);
         } else {
             isDevelopmentText.setVisibility(View.GONE);

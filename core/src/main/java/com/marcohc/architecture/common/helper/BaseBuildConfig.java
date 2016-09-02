@@ -21,7 +21,7 @@ package com.marcohc.architecture.common.helper;
  * <p/>
  * Extends this class and call constructor
  */
-public abstract class BaseAppConfig {
+public abstract class BaseBuildConfig {
 
     // ************************************************************************************************************************************************************************
     // * Constants
@@ -38,7 +38,7 @@ public abstract class BaseAppConfig {
 
     private String buildType;
 
-    protected BaseAppConfig(String buildType) {
+    protected BaseBuildConfig(String buildType) {
         this.buildType = buildType;
     }
 
