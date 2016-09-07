@@ -1,10 +1,14 @@
 package com.marcohc.architecture.common.helper;
 
+import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
 import junit.framework.Assert;
 
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,16 +18,34 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 @RunWith(MockitoJUnitRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ParseHelperTest {
 
-    private class Model {
+    // ************************************************************************************************************************************************************************
+    // * Constants
+    // ************************************************************************************************************************************************************************
+
+    private static final int MAX_ITEMS = 2500;
+
+    // ************************************************************************************************************************************************************************
+    // * Attributes
+    // ************************************************************************************************************************************************************************
+
+    private static List<Model> manyModelList;
+    private static Map<Integer, Model> manyModelMap;
+    private static String manyJsonModelList;
+    private static String manyJsonModelMap;
+
+    private static class Model {
         private String name;
         private Date date;
         private Timestamp timestamp;
@@ -31,7 +53,7 @@ public class ParseHelperTest {
         private FooType fooType;
     }
 
-    private class Entity {
+    private static class Entity {
         private String name;
         private Long date;
         private Long timestamp;
@@ -43,18 +65,53 @@ public class ParseHelperTest {
         @SerializedName("one")
         ONE,
         @SerializedName("two")
-        TWO;
+        TWO
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * Initialization methods
+    // ************************************************************************************************************************************************************************
+
+    @SuppressLint("UseSparseArrays")
+    @BeforeClass
+    public static void setUp() throws ParseException {
+        ParserHelper.getInstance();
+        manyModelList = new ArrayList<>();
+        manyModelMap = new HashMap<>();
+        for (int i = 0; i < MAX_ITEMS; i++) {
+            Model model = createRandomModel();
+            manyModelList.add(model);
+            manyModelMap.put(model.hashCode(), model);
+        }
+        manyJsonModelList = ParserHelper.getInstance().toJsonString(manyModelList);
+        manyJsonModelMap = ParserHelper.getInstance().toJsonString(manyModelMap);
+    }
+
+    @NonNull
+    private static Model createRandomModel() throws ParseException {
+        Model model = new Model();
+        Random random = new Random(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault());
+        model.name = "MyName" + random.nextInt(MAX_ITEMS);
+        model.date = dateFormat.parse("1997-07-16T19:20:30+0200");
+        model.timestamp = new Timestamp(random.nextLong());
+        model.dateFromLong = new Date(random.nextLong());
+        model.fooType = random.nextBoolean() ? FooType.ONE : FooType.TWO;
+        return model;
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * Tests
+    // ************************************************************************************************************************************************************************
+
+    @Test
+    public void testGsonBuilderNotNull() {
+        Assert.assertNotNull(ParserHelper.getInstance().getGsonBuilder());
     }
 
     @Test
     public void testToJsonString() throws ParseException {
-        Model model = new Model();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        model.name = "MyName";
-        model.date = dateFormat.parse("1997-07-16T19:20:30+0200");
-        model.timestamp = new Timestamp(1472292095978L);
-        model.dateFromLong = new Date(1472292095978L);
-        model.fooType = FooType.ONE;
+        Model model = createRandomModel();
         Assert.assertNotNull(ParserHelper.getInstance().toJsonString(model));
     }
 
@@ -139,6 +196,28 @@ public class ParseHelperTest {
         Map<String, Model> modelList = ParserHelper.getInstance().parseMap(jsonString, new GenericMap<HashMap, String, Model>(HashMap.class, String.class, Model.class) {
         });
         Assert.assertNotNull(modelList);
+    }
+
+    @Test
+    public void testToJsonStringWithManyItems() throws ParseException {
+        String jsonList = ParserHelper.getInstance().toJsonString(manyModelList);
+        Assert.assertNotNull(jsonList);
+    }
+
+    @Test
+    public void testParseListWithManyItems() throws ParseException {
+        List<Model> modelList = ParserHelper.getInstance().parseCollection(manyJsonModelList, new GenericCollection<ArrayList, Model>(ArrayList.class, Model.class) {
+        });
+        Assert.assertTrue(modelList instanceof ArrayList);
+        Assert.assertNotNull(modelList);
+    }
+
+    @Test
+    public void testParseMapWithManyItems() throws ParseException {
+        Map<String, Model> modelMap = ParserHelper.getInstance().parseMap(manyJsonModelMap, new GenericMap<HashMap, Integer, Model>(HashMap.class, Integer.class, Model.class) {
+        });
+        Assert.assertTrue(modelMap instanceof HashMap);
+        Assert.assertNotNull(modelMap);
     }
 
 }
