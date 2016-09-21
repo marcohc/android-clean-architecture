@@ -2,123 +2,99 @@ package com.marcohc.architecture.presentation.view.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.AnyThread;
 import android.support.annotation.CallSuper;
-import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.support.annotation.PluralsRes;
+import android.support.annotation.UiThread;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
-import com.marcohc.architecture.R;
-import com.marcohc.architecture.common.bus.BusProvider;
-import com.marcohc.architecture.presentation.view.BaseView;
+import com.marcohc.architecture.common.utils.Preconditions;
+import com.marcohc.architecture.presentation.view.BaseMvpView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements BaseView {
+/**
+ * Base fragment which contains common methods.
+ * <p>
+ * Override it for specific common methods in fragments
+ *
+ * @param <V> the BaseMvpView type the superclass is implementing
+ * @param <P> the type of MvpPresenter which will handle the logic of the class
+ * @author Marco Hernaiz
+ * @since 09/08/16
+ */
+public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements BaseMvpView {
 
-    private ProgressDialog dialog;
-    private Unbinder unbinder;
+    @Nullable
+    private ProgressDialog mDialog;
+    private Unbinder mUnbinder;
+    private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        BusProvider.register(presenter);
-    }
-
-    @Override
-    public void onStop() {
-        BusProvider.unregister(presenter);
-        super.onStop();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        int layoutRes = getLayoutRes();
-        if (layoutRes == 0) {
-            throw new IllegalArgumentException("getLayoutRes() returned 0, which is not allowed. If you don't want to use getLayoutRes() but implement your own view for this "
-                    + "fragment manually, then you have to override onCreateView();");
-        } else {
-            return inflater.inflate(layoutRes, container, false);
-        }
-    }
-
+    /**
+     * Override to bind views with ButterKnife.
+     */
     @CallSuper
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstance) {
-        super.onViewCreated(view, savedInstance);
-        unbinder = ButterKnife.bind(this, view);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mUnbinder = ButterKnife.bind(this, view);
     }
 
+    /**
+     * Override to unbind views with ButterKnife.
+     */
+    @CallSuper
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @LayoutRes
-    protected abstract int getLayoutRes();
-
-    @Override
-    public void showLoadingDialog() {
-        showDialog("", getString(R.string.loading), true);
-    }
-
-    @Override
-    public void showLoadingDialog(boolean isCancelable) {
-        showDialog("", getString(R.string.loading), isCancelable);
-    }
-
-    @Override
-    public void showDialog(String message) {
-        showDialog("", message, true);
-    }
-
-    @Override
-    public void showDialog(String message, boolean isCancelable) {
-        showDialog("", message, isCancelable);
-    }
-
-    @Override
-    public void showDialog(String title, String message) {
-        showDialog(title, message, false);
-    }
-
-    @Override
-    public void showDialog(String title, String message, boolean isCancelable) {
-        hideDialog();
-        dialog = ProgressDialog.show(getActivity(), title, message, true);
-        dialog.setCancelable(isCancelable);
-    }
-
-    @Override
-    public void hideDialog() {
-        if (dialog != null) {
-            dialog.dismiss();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
         }
     }
 
+    @UiThread
     @Override
-    public void showMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    public void showDialog(@Nullable String message) {
+        if (isFragmentAlive()) {
+            hideDialog();
+            mDialog = ProgressDialog.show(getActivity(), null, message);
+            mDialog.show();
+        }
     }
 
+    @UiThread
     @Override
-    public void showError(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    public void hideDialog() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
     }
 
+    @UiThread
     @Override
-    public String getQuantityString(int stringId, int quantity, Object... formatArgs) {
+    public void showMessage(@Nullable String message) {
+        if (isFragmentAlive()) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @NonNull
+    @Override
+    public String getQuantityString(@PluralsRes int stringId, int quantity, Object... formatArgs) {
         return getResources().getQuantityString(stringId, quantity, formatArgs);
     }
 
     /**
-     * This method will be call by the parent activity when the back button is pressed
+     * This method will be call by the parent activity when the back button is pressed.
      *
      * @return true if fragment handle the event or false otherwise
      */
@@ -126,4 +102,36 @@ public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter
         return false;
     }
 
+    /**
+     * Run runnable in main thread.
+     *
+     * @param runnable the runnable to execute
+     */
+    @AnyThread
+    protected void runOnUiThreadIfFragmentAlive(@NonNull final Runnable runnable) {
+        Preconditions.checkNotNull(runnable, "runnable");
+
+        if (Looper.myLooper() == Looper.getMainLooper() && isFragmentAlive()) {
+            runnable.run();
+        } else {
+            mMainThreadHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (isFragmentAlive()) {
+                        runnable.run();
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * Check if fragment still alive (attached, added, not removing, activity not null and view still not null.
+     *
+     * @return <code>true</code> if fragment still alive, other wise <code>false</code>
+     */
+    private boolean isFragmentAlive() {
+        boolean isAlive = getActivity() != null && isAdded() && !isDetached();
+        return isAlive && getView() != null && !isRemoving();
+    }
 }

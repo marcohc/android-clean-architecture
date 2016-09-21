@@ -8,6 +8,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
     }
 }
 
@@ -20,7 +21,7 @@ allprojects {
         androidTargetSdkVersion = 24
         androidCompileSdkVersion = 24
         androidVersionCode = 1
-        androidVersionName = "4.0.0"
+        androidVersionName = "4.0.0-beta1"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         testApplicationId = 'com.marcohc.architecture.test'
     }

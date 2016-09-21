@@ -1,25 +1,36 @@
 package com.marcohc.architecture.app.domain.model;
 
-import com.marcohc.architecture.domain.model.BaseJsonModel;
+import com.google.gson.annotations.SerializedName;
 import com.marcohc.architecture.domain.model.Model;
 
-public class UserModel extends BaseJsonModel implements Model {
+/**
+ * User model.
+ *
+ * @author Marco Hernaiz
+ * @since 08/08/16
+ */
+public class UserModel implements Model {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
     // ************************************************************************************************************************************************************************
 
-    private String name;
-    private String email;
-    private String pictureUrl;
+    @SerializedName("name")
+    private String mName;
+
+    @SerializedName("email")
+    private String mEmail;
+
+    @SerializedName("pictureUrl")
+    private String mPictureUrl;
 
     // ************************************************************************************************************************************************************************
     // * Constructors
     // ************************************************************************************************************************************************************************
 
     public UserModel() {
-        name = "Unknown";
-        email = "Unknown";
+        mName = "Unknown";
+        mEmail = "Unknown";
     }
 
     // ************************************************************************************************************************************************************************
@@ -27,26 +38,26 @@ public class UserModel extends BaseJsonModel implements Model {
     // ************************************************************************************************************************************************************************
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mEmail = email;
     }
 
     public String getPictureUrl() {
-        return pictureUrl;
+        return mPictureUrl;
     }
 
     public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
+        this.mPictureUrl = pictureUrl;
     }
 }

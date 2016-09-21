@@ -60,7 +60,7 @@ public class NavigationHelper {
     }
 
     public static void openImage(Context context, String path) {
-        if (context != null && !StringHelper.isEmpty(path)) {
+        if (context != null && !StringHelper.isBlank(path)) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse("file://" + path), "image/*");
@@ -96,7 +96,7 @@ public class NavigationHelper {
     }
 
     public static void shareApp(Context context, String shareText) {
-        if (context != null && !StringHelper.isEmpty(shareText)) {
+        if (context != null && !StringHelper.isBlank(shareText)) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);

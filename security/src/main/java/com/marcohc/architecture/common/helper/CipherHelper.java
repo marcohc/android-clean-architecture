@@ -29,7 +29,7 @@ import timber.log.Timber;
 public class CipherHelper {
 
     public static String getMd5Hash(String key) {
-        if (!StringHelper.isEmpty(key)) {
+        if (!StringHelper.isBlank(key)) {
             try {
                 MessageDigest m = MessageDigest.getInstance("MD5");
                 m.update(key.getBytes(), 0, key.length());
@@ -44,7 +44,7 @@ public class CipherHelper {
 
     public static String encrypt(String text) {
         String base64EncryptedString = "";
-        if (!StringHelper.isEmpty(text)) {
+        if (!StringHelper.isBlank(text)) {
             try {
                 String secretKey = getSecretKey();
                 MessageDigest md = MessageDigest.getInstance("MD5");
@@ -68,7 +68,7 @@ public class CipherHelper {
 
     public static String decrypt(String text) {
         String base64EncryptedString = "";
-        if (!StringHelper.isEmpty(text)) {
+        if (!StringHelper.isBlank(text)) {
             try {
                 String secretKey = getSecretKey();
                 byte[] message = Base64.decode(text.getBytes("utf-8"), Base64.DEFAULT);

@@ -150,7 +150,7 @@ public class AppInfoHelperTest {
     @Test
     public void testGetUniqueIdNotEmpty() {
         assertNotNull(AppInfoHelper.getInstance().getUniqueId());
-        assertFalse(StringHelper.isEmpty(AppInfoHelper.getInstance().getUniqueId()));
+        assertFalse(StringHelper.isBlank(AppInfoHelper.getInstance().getUniqueId()));
     }
 
     @Test

@@ -3,12 +3,12 @@ package com.marcohc.architecture.app;
 import android.annotation.SuppressLint;
 import android.os.StrictMode;
 
-import com.marcohc.architecture.app.data.repository.UserRepository;
+import com.marcohc.architecture.app.internal.di.ApplicationInjector;
 import com.marcohc.architecture.app.presentation.util.BuildConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
 import com.marcohc.architecture.common.helper.AppInfoHelper;
 import com.marcohc.architecture.common.helper.PreferencesHelper;
-import com.marcohc.architecture.common.helper.TimerLog;
+import com.marcohc.architecture.common.timer.Timer;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.concurrent.Semaphore;
@@ -46,7 +46,7 @@ public class MainApplication extends android.app.Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                TimerLog timer = TimerLog.getInstance("MainApplication.setUp");
+                Timer timer = new Timer("MainApplication.setUp");
 
                 // Load all data
                 Timber.d("1 - MainApplication - Start loading data");
@@ -59,7 +59,7 @@ public class MainApplication extends android.app.Application {
                 timer.logStep();
                 setUpAnalytics();
                 timer.logStep();
-                setUpRepositories();
+                setUpDagger();
                 timer.logStep();
 
                 // Notify load finished
@@ -95,11 +95,6 @@ public class MainApplication extends android.app.Application {
                 .build());
     }
 
-    private void setUpRepositories() {
-        // TODO: Use Dagger to inject repositories
-        UserRepository.setUp();
-    }
-
     private void setUpTimber() {
         if (BuildConfigHelper.getInstance().isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
@@ -108,6 +103,10 @@ public class MainApplication extends android.app.Application {
 
     private void setUpAnalytics() {
         AnalyticsHelper.setUp(this, !BuildConfigHelper.getInstance().isProduction());
+    }
+
+    private void setUpDagger() {
+        ApplicationInjector.inject(MainApplication.this);
     }
 
     private void setUpPreferences() {

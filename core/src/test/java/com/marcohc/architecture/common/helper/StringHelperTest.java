@@ -18,22 +18,22 @@ public class StringHelperTest {
 
     @Test
     public void testIsEmptyWithNull() {
-        assertThat(StringHelper.isEmpty(null), is(true));
+        assertThat(StringHelper.isBlank(null), is(true));
     }
 
     @Test
     public void testIsEmptyWithEmpty() {
-        assertThat(StringHelper.isEmpty(""), is(true));
+        assertThat(StringHelper.isBlank(""), is(true));
     }
 
     @Test
     public void testIsEmptyWithSpaces() {
-        assertThat(StringHelper.isEmpty("   "), is(false));
+        assertThat(StringHelper.isBlank("   "), is(false));
     }
 
     @Test
     public void testIsEmptyWithText() {
-        assertThat(StringHelper.isEmpty("I'm not empty!"), is(false));
+        assertThat(StringHelper.isBlank("I'm not empty!"), is(false));
     }
 
     @Test

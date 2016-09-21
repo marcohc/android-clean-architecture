@@ -1,5 +1,7 @@
 package com.marcohc.architecture.common.helper;
 
+import android.support.annotation.Nullable;
+
 import java.util.regex.Pattern;
 
 public class StringHelper {
@@ -24,8 +26,24 @@ public class StringHelper {
         return isValid;
     }
 
-    public static boolean isEmpty(final String text) {
-        return text == null || text.isEmpty();
+    /**
+     * Check if the parameters is blank.
+     *
+     * @param text the text to check
+     * @return true if is blank, false otherwise
+     */
+    public static boolean isBlank(@Nullable final CharSequence text) {
+        return text == null || text.toString().trim().isEmpty();
+    }
+
+    /**
+     * Check if the parameters is blank.
+     *
+     * @param text the text to check
+     * @return true if is blank, false otherwise
+     */
+    public static boolean isBlank(@Nullable final String text) {
+        return text == null || text.trim().isEmpty();
     }
 
 }

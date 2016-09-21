@@ -1,98 +1,88 @@
 package com.marcohc.architecture.presentation.presenter;
 
-import com.marcohc.architecture.domain.error.DomainException;
-import com.marcohc.architecture.presentation.view.BaseView;
+import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.marcohc.architecture.R;
+import com.marcohc.architecture.data.executor.JobExecutor;
+import com.marcohc.architecture.domain.exception.DomainException;
+import com.marcohc.architecture.domain.interactor.BaseSubscriber;
+import com.marcohc.architecture.domain.interactor.UseCase;
+import com.marcohc.architecture.presentation.view.BaseMvpView;
 
 import timber.log.Timber;
 
-@SuppressWarnings("ConstantConditions")
-public abstract class BaseMvpPresenter<V extends BaseView> extends MvpNullObjectBasePresenter<V> {
+/**
+ * Base presenter which contains common methods.
+ * <p>
+ * Override it for specific common methods in presenters.
+ *
+ * @param <V> the MvpView which will handle this presenter
+ * @author Marco Hernaiz
+ * @since 08/08/16
+ */
+public abstract class BaseMvpPresenter<V extends BaseMvpView> extends MvpNullObjectBasePresenter<V> {
 
-    @Override
     /**
-     * To avoid toasts memory leaks
+     * To avoid dialog memory leaks.
      */
+    @Override
     public void detachView(boolean retainInstance) {
         getView().hideDialog();
         super.detachView(retainInstance);
     }
 
     /**
-     * Shows or hides dialog with "Loading..." text by default
+     * Shows or hides dialog with "Loading..." text by default.
      */
-    public void showLoadingDialog() {
-        getView().showLoadingDialog();
+    protected void showLoadingDialog() {
+        getView().showDialog(getView().getString(R.string.loading));
     }
 
     /**
-     * Shows dialog with message
+     * Shows dialog with message.
      *
      * @param message dialog message
      */
-    public void showDialog(String message) {
+    protected void showDialog(String message) {
         getView().showDialog(message);
     }
 
-    /**
-     * Shows dialog with message
-     *
-     * @param message dialog message
-     */
-    public void showDialog(String title, String message) {
-        getView().showDialog(title, message);
-    }
-
-    /**
-     * Shows dialog with message
-     *
-     * @param message dialog message
-     */
-    public void showDialog(String title, String message, boolean isCancelable) {
-        getView().showDialog(title, message, isCancelable);
-    }
-
-    /**
-     * Shows or hides dialog with "Loading..." text by default
-     */
-    public void hideDialog() {
+    protected void hideDialog() {
         getView().hideDialog();
     }
 
     /**
-     * Shows success message
+     * Shows message.
      *
      * @param message the message to be shown
      */
-    public void showMessage(String message) {
+    protected void showMessage(String message) {
         getView().showMessage(message);
     }
 
     /**
-     * Shows error message
+     * Handles the error logging the error.
      *
-     * @param errorMessage the error message to be shown
+     * @param exception the data exception error
      */
-    public void showError(String errorMessage) {
-        getView().showError(errorMessage);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDomainException(DomainException exception) {
-        handleException(exception);
+    public <E extends DomainException> void handleException(E exception) {
+        hideDialog();
+        Timber.e("Exception: %s", exception.getMessage());
     }
 
     /**
-     * Handles the error showing a fancy Toasteroid and logging the error
+     * Executes a use case using the JobExecutor.
+     * <p>
+     * It'll be executed in the pool thread and returned in the MainThread
      *
-     * @param error the data exception error
+     * @param useCase    use case to execute
+     * @param subscriber the subscriber for Rx
      */
-    public void handleException(DomainException error) {
-        hideDialog();
-        showError(error.getMessage());
-        Timber.e("Exception: %s", error.getMessage());
+    @UiThread
+    protected void executeUseCase(@NonNull UseCase useCase, @NonNull BaseSubscriber subscriber) {
+        Timber.d("executeUseCase: %s", useCase.getClass().getSimpleName());
+        JobExecutor.getInstance().executeUseCase(useCase, subscriber);
     }
 
 }

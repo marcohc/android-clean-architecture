@@ -1,24 +1,18 @@
 package com.marcohc.architecture.data.error;
 
-import com.marcohc.architecture.common.bus.BusEvent;
-
 /**
- * An exception which occurs on the data layer
+ * An exception which occurs on the data layer.
+ *
+ * @author Marco Hernaiz
+ * @since 09/08/16
  */
-public class DataException extends Exception implements BusEvent {
-
-    private int code;
+public class DataException extends Exception {
 
     public DataException() {
     }
 
     public DataException(String detailMessage) {
         super(detailMessage);
-    }
-
-    public DataException(String detailMessage, int code) {
-        super(detailMessage);
-        this.code = code;
     }
 
     public DataException(String detailMessage, Throwable throwable) {
@@ -29,11 +23,4 @@ public class DataException extends Exception implements BusEvent {
         super(throwable);
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
 }

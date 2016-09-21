@@ -3,24 +3,40 @@ package com.marcohc.architecture.presentation.view.adapter;
 import android.content.Context;
 import android.view.View;
 
-import com.marcohc.architecture.domain.model.BaseJsonModel;
+import com.marcohc.architecture.domain.model.Model;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseViewHolder<T extends BaseJsonModel> {
+/**
+ * Base fragment which contains common methods.
+ * <p>
+ * Override it for specific common methods in fragments
+ *
+ * @param <M> the model which will be rendered
+ * @author Marco Hernaiz
+ * @since 09/08/16
+ */
+public abstract class BaseViewHolder<M extends Model> {
 
-    private BaseListAdapter.ChildViewClickListener listener;
+    private BaseListAdapter.ChildViewClickListener mListener;
 
-    public abstract void setUpView(Context context, T item, int position);
+    /**
+     * Called by the {@link BaseListAdapter} to set up the view.
+     *
+     * @param context  the context
+     * @param model    the model
+     * @param position the position
+     */
+    protected abstract void setUpView(Context context, M model, int position);
 
-    public void bindViews(View view, BaseListAdapter.ChildViewClickListener listener) {
-        this.listener = listener;
+    void bindViews(View view, BaseListAdapter.ChildViewClickListener listener) {
+        this.mListener = listener;
         ButterKnife.bind(this, view);
     }
 
     protected void onChildViewClick(View view, int position) {
-        if (listener != null) {
-            listener.onChildViewClick(view, position);
+        if (mListener != null) {
+            mListener.onChildViewClick(view, position);
         }
     }
 

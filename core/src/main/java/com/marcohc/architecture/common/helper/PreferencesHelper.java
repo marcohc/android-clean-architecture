@@ -42,7 +42,7 @@ public class PreferencesHelper extends PreferencesMethods {
     }
 
     private PreferencesHelper(Context context, String sharedPreferencesName, String uniqueId) {
-        if (StringHelper.isEmpty(uniqueId)) {
+        if (StringHelper.isBlank(uniqueId)) {
             sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
         }
     }
