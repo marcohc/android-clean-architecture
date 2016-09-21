@@ -32,18 +32,14 @@ public abstract class BaseMvpPresenter<V extends BaseMvpView> extends MvpNullObj
         super.detachView(retainInstance);
     }
 
-    /**
-     * Shows or hides dialog with "Loading..." text by default.
-     */
     protected void showLoadingDialog() {
         getView().showDialog(getView().getString(R.string.loading));
     }
 
-    /**
-     * Shows dialog with message.
-     *
-     * @param message dialog message
-     */
+    public void showDialog(String title, String message, boolean isCancelable) {
+        getView().showDialog(title, message, isCancelable);
+    }
+
     protected void showDialog(String message) {
         getView().showDialog(message);
     }
@@ -52,29 +48,14 @@ public abstract class BaseMvpPresenter<V extends BaseMvpView> extends MvpNullObj
         getView().hideDialog();
     }
 
-    /**
-     * Shows message.
-     *
-     * @param message the message to be shown
-     */
     protected void showMessage(String message) {
         getView().showMessage(message);
     }
 
-    /**
-     * Shows error.
-     *
-     * @param message the message to be shown
-     */
     protected void showError(String message) {
         getView().showError(message);
     }
 
-    /**
-     * Handles the error logging the error.
-     *
-     * @param exception the data exception error
-     */
     public <E extends DomainException> void handleException(E exception) {
         hideDialog();
         Timber.e("Exception: %s", exception.getMessage());
