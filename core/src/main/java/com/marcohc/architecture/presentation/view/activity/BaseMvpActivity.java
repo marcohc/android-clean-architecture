@@ -40,6 +40,10 @@ public abstract class BaseMvpActivity<V extends BaseMvpView, P extends MvpPresen
     @Nullable
     private ProgressDialog dialog;
 
+    // ************************************************************************************************************************************************************************
+    // * Attributes
+    // ************************************************************************************************************************************************************************
+
     /**
      * @return The layout id that will be used on {@link AppCompatActivity#setContentView(int)}
      */
@@ -74,6 +78,29 @@ public abstract class BaseMvpActivity<V extends BaseMvpView, P extends MvpPresen
      */
     protected abstract void onViewCreated(@Nullable final Bundle savedInstanceState);
 
+    /**
+     * When content is changed, ButterKnife will bind the view so is not needed to call from outside.
+     */
+    @Override
+    @CallSuper
+    public void onContentChanged() {
+        super.onContentChanged();
+        ButterKnife.bind(this);
+    }
+
+    /**
+     * Used by Calligraphy.
+     */
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * BaseMvpView methods
+    // ************************************************************************************************************************************************************************
+
+    @UiThread
     @Override
     public void showDialog(String message) {
         showDialog("", message, true);
@@ -107,36 +134,10 @@ public abstract class BaseMvpActivity<V extends BaseMvpView, P extends MvpPresen
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    // ************************************************************************************************************************************************************************
-    // * BaseMvpView interface methods
-    // ************************************************************************************************************************************************************************
-
     @AnyThread
     @NonNull
     @Override
     public String getQuantityString(@PluralsRes int stringId, int quantity, Object... formatArgs) {
         return getResources().getQuantityString(stringId, quantity, formatArgs);
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Auxiliary UI methods
-    // ************************************************************************************************************************************************************************
-
-    /**
-     * When content is changed, ButterKnife will bind the view so is not needed to call from outside.
-     */
-    @Override
-    @CallSuper
-    public void onContentChanged() {
-        super.onContentChanged();
-        ButterKnife.bind(this);
-    }
-
-    /**
-     * Used by Calligraphy.
-     */
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

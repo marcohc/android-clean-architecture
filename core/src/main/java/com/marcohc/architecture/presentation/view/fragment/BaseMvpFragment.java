@@ -6,11 +6,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.AnyThread;
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
 import android.support.annotation.UiThread;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -33,10 +36,30 @@ import butterknife.Unbinder;
  */
 public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements BaseMvpView {
 
+    private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
     @Nullable
-    private ProgressDialog mDialog;
-    private Unbinder mUnbinder;
-    private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
+    private ProgressDialog dialog;
+    private Unbinder unbinder;
+
+    /**
+     * Return the layout resource like R.layout.my_layout
+     *
+     * @return the layout resource or zero ("0"), if you don't want to have an UI
+     */
+    @LayoutRes
+    protected abstract int getLayoutRes();
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        int layoutRes = getLayoutRes();
+        if (layoutRes == 0) {
+            throw new IllegalArgumentException("getLayoutRes() returned 0, which is not allowed. "
+                    + "If you don't want to use getLayoutRes() but implement your own view for this "
+                    + "fragment manually, then you have to override onCreateView();");
+        } else {
+            return inflater.inflate(layoutRes, container, false);
+        }
+    }
 
     /**
      * Override to bind views with ButterKnife.
@@ -45,7 +68,7 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mUnbinder = ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
     }
 
     /**
@@ -55,42 +78,9 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
+        if (unbinder != null) {
+            unbinder.unbind();
         }
-    }
-
-    @UiThread
-    @Override
-    public void showDialog(@Nullable String message) {
-        if (isFragmentAlive()) {
-            hideDialog();
-            mDialog = ProgressDialog.show(getActivity(), null, message);
-            mDialog.show();
-        }
-    }
-
-    @UiThread
-    @Override
-    public void hideDialog() {
-        if (mDialog != null) {
-            mDialog.dismiss();
-            mDialog = null;
-        }
-    }
-
-    @UiThread
-    @Override
-    public void showMessage(@Nullable String message) {
-        if (isFragmentAlive()) {
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @NonNull
-    @Override
-    public String getQuantityString(@PluralsRes int stringId, int quantity, Object... formatArgs) {
-        return getResources().getQuantityString(stringId, quantity, formatArgs);
     }
 
     /**
@@ -114,7 +104,7 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
         if (Looper.myLooper() == Looper.getMainLooper() && isFragmentAlive()) {
             runnable.run();
         } else {
-            mMainThreadHandler.post(new Runnable() {
+            mainThreadHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     if (isFragmentAlive()) {
@@ -133,5 +123,52 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
     private boolean isFragmentAlive() {
         boolean isAlive = getActivity() != null && isAdded() && !isDetached();
         return isAlive && getView() != null && !isRemoving();
+    }
+
+    // ************************************************************************************************************************************************************************
+    // * BaseMvpView methods
+    // ************************************************************************************************************************************************************************
+
+    @UiThread
+    @Override
+    public void showDialog(@Nullable String message) {
+        if (isFragmentAlive()) {
+            hideDialog();
+            dialog = ProgressDialog.show(getActivity(), null, message);
+            dialog.show();
+        }
+    }
+
+    @UiThread
+    @Override
+    public void showDialog(String title, String message, boolean isCancelable) {
+        if (isFragmentAlive()) {
+            hideDialog();
+            dialog = ProgressDialog.show(getActivity(), title, message, true);
+            dialog.setCancelable(isCancelable);
+        }
+    }
+
+    @UiThread
+    @Override
+    public void hideDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
+
+    @UiThread
+    @Override
+    public void showMessage(@Nullable String message) {
+        if (isFragmentAlive()) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @NonNull
+    @Override
+    public String getQuantityString(@PluralsRes int stringId, int quantity, Object... formatArgs) {
+        return getResources().getQuantityString(stringId, quantity, formatArgs);
     }
 }

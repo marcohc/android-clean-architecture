@@ -62,6 +62,15 @@ public abstract class BaseMvpPresenter<V extends BaseMvpView> extends MvpNullObj
     }
 
     /**
+     * Shows error.
+     *
+     * @param message the message to be shown
+     */
+    protected void showError(String message) {
+        getView().showError(message);
+    }
+
+    /**
      * Handles the error logging the error.
      *
      * @param exception the data exception error

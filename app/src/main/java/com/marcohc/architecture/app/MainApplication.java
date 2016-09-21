@@ -46,7 +46,7 @@ public class MainApplication extends android.app.Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Timer timer = new Timer("MainApplication.setUp");
+                Timer timer = Timer.getInstance("MainApplication.setUp");
 
                 // Load all data
                 Timber.d("1 - MainApplication - Start loading data");

@@ -10,16 +10,20 @@ import timber.log.Timber;
  */
 public class Timer {
 
-    private long mStepTime;
-    private long mTotalTime;
-    private int mStepNumber;
-    private String mTag;
+    private long stepTime;
+    private long totalTime;
+    private int stepNumber;
+    private String tag;
 
-    public Timer(String tag) {
-        this.mTag = tag;
-        mStepNumber = 1;
-        mStepTime = System.currentTimeMillis();
-        mTotalTime = System.currentTimeMillis();
+    public static Timer getInstance(String tag) {
+        return new Timer(tag);
+    }
+
+    private Timer(String tag) {
+        this.tag = tag;
+        stepNumber = 1;
+        stepTime = System.currentTimeMillis();
+        totalTime = System.currentTimeMillis();
     }
 
     /**
@@ -28,9 +32,22 @@ public class Timer {
      * @return the step time
      */
     public Long logStep() {
-        Long difference = System.currentTimeMillis() - mStepTime;
-        Timber.d("%s - Step %d: %d", mTag, mStepNumber++, difference);
-        mStepTime = System.currentTimeMillis();
+        Long difference = System.currentTimeMillis() - stepTime;
+        Timber.d("%s - Step %d: %d", tag, stepNumber++, difference);
+        stepTime = System.currentTimeMillis();
+        return difference;
+    }
+
+    /**
+     * Prints a log with the step time.
+     *
+     * @param subTag sub tag used in the log
+     * @return the step time
+     */
+    public Long logStep(String subTag) {
+        Long difference = System.currentTimeMillis() - stepTime;
+        Timber.d("%s (%s) - Step %d: %d", android.R.attr.tag, subTag, stepNumber++, difference);
+        stepTime = System.currentTimeMillis();
         return difference;
     }
 
@@ -40,8 +57,8 @@ public class Timer {
      * @return the total time
      */
     public Long logTotal() {
-        Long difference = System.currentTimeMillis() - mTotalTime;
-        Timber.d("%s - TOTAL: %d", mTag, difference);
+        Long difference = System.currentTimeMillis() - totalTime;
+        Timber.d("%s - TOTAL: %d", tag, difference);
         return difference;
     }
 }
