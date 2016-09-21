@@ -6,11 +6,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.AnyThread;
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
 import android.support.annotation.UiThread;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -37,6 +40,26 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
     private ProgressDialog dialog;
     private Unbinder unbinder;
     private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+
+    /**
+     * Return the layout resource like R.layout.my_layout
+     *
+     * @return the layout resource or zero ("0"), if you don't want to have an UI
+     */
+    @LayoutRes
+    protected abstract int getLayoutRes();
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        int layoutRes = getLayoutRes();
+        if (layoutRes == 0) {
+            throw new IllegalArgumentException("getLayoutRes() returned 0, which is not allowed. "
+                    + "If you don't want to use getLayoutRes() but implement your own view for this "
+                    + "fragment manually, then you have to override onCreateView();");
+        } else {
+            return inflater.inflate(layoutRes, container, false);
+        }
+    }
 
     /**
      * Override to bind views with ButterKnife.
