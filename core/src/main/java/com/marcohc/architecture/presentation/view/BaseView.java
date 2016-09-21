@@ -1,6 +1,6 @@
 package com.marcohc.architecture.presentation.view;
 
-import com.marcohc.architecture.presentation.mosby.mvp.MvpView;
+import com.hannesdorfmann.mosby.mvp.MvpView;
 
 public interface BaseView extends MvpView {
 

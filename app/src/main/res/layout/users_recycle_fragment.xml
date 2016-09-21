@@ -18,7 +18,7 @@
 
         <fragment
             android:id="@+id/emptyStateFragment"
-            class="com.marcohc.architecture.app.presentation.fragment.impl.EmptyStateFragment"
+            class="com.marcohc.architecture.app.presentation.story.emptystate.EmptyStateFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/empty_state_fragment" />

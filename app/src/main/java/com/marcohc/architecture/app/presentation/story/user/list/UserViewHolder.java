@@ -1,0 +1,51 @@
+package com.marcohc.architecture.app.presentation.story.user.list;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.marcohc.architecture.app.R;
+import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.common.helper.StringHelper;
+import com.marcohc.architecture.presentation.view.adapter.BaseViewHolder;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class UserViewHolder extends BaseViewHolder<UserModel> {
+
+    // View
+    @BindView(R.id.userImageView)
+    ImageView userImageView;
+
+    @BindView(R.id.usernameTextView)
+    TextView usernameTextView;
+
+    @BindView(R.id.emailTextView)
+    TextView emailTextView;
+
+    // Class
+    private int position;
+
+    @Override
+    public void setUpView(Context context, UserModel model, int position) {
+        this.position = position;
+        String image = model.getPictureUrl();
+        if (!StringHelper.isEmpty(image)) {
+            Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(userImageView);
+        } else {
+            userImageView.setImageResource(R.drawable.im_user_place_holder);
+        }
+        usernameTextView.setText(model.getName());
+        emailTextView.setText(model.getEmail());
+    }
+
+    // Catch events and pass them through this method
+    @OnClick(R.id.userImageView)
+    protected void onUserImageClick(View view) {
+        onChildViewClick(view, position);
+    }
+
+}

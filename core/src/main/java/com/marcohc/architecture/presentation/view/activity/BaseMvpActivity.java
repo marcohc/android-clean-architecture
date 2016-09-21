@@ -1,20 +1,63 @@
 package com.marcohc.architecture.presentation.view.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.R;
 import com.marcohc.architecture.common.bus.BusProvider;
-import com.marcohc.architecture.presentation.mosby.mvp.MvpActivity;
-import com.marcohc.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
 
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseMvpActivity<V extends BaseView, P extends MvpPresenter<V>> extends MvpActivity<V, P> implements BaseView {
 
     private ProgressDialog dialog;
+
+    /**
+     * @return The layout id that will be used on {@link AppCompatActivity#setContentView(int)}
+     */
+    @LayoutRes
+    protected abstract int getLayoutId();
+
+    @CallSuper
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        injectDependencies();
+
+        setContentView(getLayoutId());
+        ButterKnife.bind(this);
+        onViewCreated(savedInstanceState);
+    }
+
+    /**
+     * Override and place your injection code here. Will be called at {@link AppCompatActivity#onCreate(Bundle)}
+     * before super was called.
+     */
+    protected void injectDependencies() {
+
+    }
+
+    /**
+     * Called from {@link AppCompatActivity#onCreate(Bundle)}
+     * after {@link AppCompatActivity#setContentView(int)} and {@link ButterKnife#bind(Activity)} was called.
+     * <p>
+     * This method can be used for initialize {@link android.view.View}
+     *
+     * @param savedInstanceState If non-null, this activity is being re-constructed
+     *                           from a previous saved state as given here.
+     */
+    protected abstract void onViewCreated(@Nullable final Bundle savedInstanceState);
 
     @Override
     public void onStart() {

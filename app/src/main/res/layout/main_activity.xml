@@ -34,7 +34,7 @@
 
             <fragment
                 android:id="@+id/menuFragment"
-                class="com.marcohc.architecture.app.presentation.fragment.impl.MenuFragment"
+                class="com.marcohc.architecture.app.presentation.story.menu.MenuFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout="@layout/menu_fragment" />

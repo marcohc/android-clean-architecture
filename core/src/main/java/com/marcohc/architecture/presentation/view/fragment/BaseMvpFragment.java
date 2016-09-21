@@ -1,17 +1,28 @@
 package com.marcohc.architecture.presentation.view.fragment;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.hannesdorfmann.mosby.mvp.MvpFragment;
+import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.R;
 import com.marcohc.architecture.common.bus.BusProvider;
-import com.marcohc.architecture.presentation.mosby.mvp.MvpFragment;
-import com.marcohc.architecture.presentation.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.presentation.view.BaseView;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements BaseView {
 
     private ProgressDialog dialog;
+    private Unbinder unbinder;
 
     @Override
     public void onStart() {
@@ -24,6 +35,33 @@ public abstract class BaseMvpFragment<V extends BaseView, P extends MvpPresenter
         BusProvider.unregister(presenter);
         super.onStop();
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        int layoutRes = getLayoutRes();
+        if (layoutRes == 0) {
+            throw new IllegalArgumentException("getLayoutRes() returned 0, which is not allowed. If you don't want to use getLayoutRes() but implement your own view for this "
+                    + "fragment manually, then you have to override onCreateView();");
+        } else {
+            return inflater.inflate(layoutRes, container, false);
+        }
+    }
+
+    @CallSuper
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
+        unbinder = ButterKnife.bind(this, view);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @LayoutRes
+    protected abstract int getLayoutRes();
 
     @Override
     public void showLoadingDialog() {
