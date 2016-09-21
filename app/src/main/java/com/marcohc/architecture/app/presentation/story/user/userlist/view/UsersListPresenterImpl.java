@@ -117,7 +117,7 @@ class UsersListPresenterImpl extends BaseMvpPresenter<UsersListView> implements 
     private void requestData(boolean useCache) {
         showLoadingDialog();
         getView().enableCancelButton(true);
-        mTimer = new Timer("GetUsersUseCase");
+        mTimer = Timer.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, useCache);
         executeUseCase(mGetUsersUseCase, new UserListSubscriber());
     }
@@ -125,7 +125,7 @@ class UsersListPresenterImpl extends BaseMvpPresenter<UsersListView> implements 
     private void requestFreshData() {
         showLoadingDialog();
         getView().enableCancelButton(true);
-        mTimer = new Timer("GetUsersUseCase");
+        mTimer = Timer.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, false);
         executeUseCase(mGetUsersUseCase, new UserListSubscriber());
     }
