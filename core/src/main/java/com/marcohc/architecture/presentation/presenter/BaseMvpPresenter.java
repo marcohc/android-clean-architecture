@@ -1,13 +1,7 @@
 package com.marcohc.architecture.presentation.presenter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
-
 import com.marcohc.architecture.R;
-import com.marcohc.architecture.data.executor.JobExecutor;
 import com.marcohc.architecture.domain.exception.DomainException;
-import com.marcohc.architecture.domain.interactor.BaseSubscriber;
-import com.marcohc.architecture.domain.interactor.UseCase;
 import com.marcohc.architecture.presentation.view.BaseMvpView;
 
 import timber.log.Timber;
@@ -59,20 +53,6 @@ public abstract class BaseMvpPresenter<V extends BaseMvpView> extends MvpNullObj
     public <E extends DomainException> void handleException(E exception) {
         hideDialog();
         Timber.e("Exception: %s", exception.getMessage());
-    }
-
-    /**
-     * Executes a use case using the JobExecutor.
-     * <p>
-     * It'll be executed in the pool thread and returned in the MainThread
-     *
-     * @param useCase    use case to execute
-     * @param subscriber the subscriber for Rx
-     */
-    @UiThread
-    protected void executeUseCase(@NonNull UseCase useCase, @NonNull BaseSubscriber subscriber) {
-        Timber.d("executeUseCase: %s", useCase.getClass().getSimpleName());
-        JobExecutor.getInstance().executeUseCase(useCase, subscriber);
     }
 
 }

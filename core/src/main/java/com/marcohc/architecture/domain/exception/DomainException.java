@@ -6,7 +6,7 @@ package com.marcohc.architecture.domain.exception;
  * @author Marco Hernaiz
  * @since 09/08/16
  */
-public class DomainException extends Exception {
+public class DomainException extends Throwable {
 
     public DomainException() {
     }

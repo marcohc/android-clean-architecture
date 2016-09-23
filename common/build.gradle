@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'android-apt'
+
+android {
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        consumerProguardFiles "proguard-library.pro"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+    }
+}
+
+dependencies {
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Common
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Annotations
+    compile 'com.android.support:support-annotations:24.2.1'
+
+    // Logging
+    compile 'com.jakewharton.timber:timber:4.3.1'
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // TEST
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.106-beta'
+
+}

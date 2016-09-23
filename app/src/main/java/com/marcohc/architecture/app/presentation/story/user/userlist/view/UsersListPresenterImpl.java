@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
 import com.marcohc.architecture.app.domain.model.UserModel;
+import com.marcohc.architecture.app.presentation.mvp.BasePresenter;
 import com.marcohc.architecture.common.timer.Timer;
 import com.marcohc.architecture.domain.exception.DomainException;
-import com.marcohc.architecture.domain.interactor.BaseSubscriber;
-import com.marcohc.architecture.presentation.presenter.BaseMvpPresenter;
+import com.marcohc.architecture.rx.domain.interactor.BaseSubscriber;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @author Marco Hernaiz
  * @since 08/08/16
  */
-class UsersListPresenterImpl extends BaseMvpPresenter<UsersListView> implements UsersListPresenter {
+class UsersListPresenterImpl extends BasePresenter<UsersListView> implements UsersListPresenter {
 
     // ************************************************************************************************************************************************************************
     // * Attributes

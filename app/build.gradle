@@ -74,10 +74,10 @@ android {
 dependencies {
 
     compile project(':core')
-    compile project(':recycler')
     compile project(':rest')
     compile project(':analytics')
     compile project(':security')
+    compile project(':rx')
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // PRESENTATION

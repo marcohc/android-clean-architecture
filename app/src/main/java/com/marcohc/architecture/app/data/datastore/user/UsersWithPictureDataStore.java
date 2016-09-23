@@ -5,7 +5,7 @@ import com.marcohc.architecture.app.data.service.user.UsersWithPictureService;
 import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.app.domain.entity.UsersWithPictureEntity;
 import com.marcohc.architecture.app.domain.mapper.UserMapper;
-import com.marcohc.architecture.data.net.ServiceGenerator;
+import com.marcohc.architecture.rx.data.net.ServiceGenerator;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.app.domain.mapper.UserMapper;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.domain.exception.DomainException;
-import com.marcohc.architecture.domain.interactor.BaseUseCase;
+import com.marcohc.architecture.rx.domain.interactor.BaseRxUseCase;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import rx.Observable;
  * @author Marco Hernaiz
  * @since 08/08/16
  */
-public class GetUsersUseCase extends BaseUseCase<List<UserModel>, List<UserEntity>> {
+public class GetUsersUseCase extends BaseRxUseCase<List<UserModel>, List<UserEntity>> {
 
     // ************************************************************************************************************************************************************************
     // * Attributes

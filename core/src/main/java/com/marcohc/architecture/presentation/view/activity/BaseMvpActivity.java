@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
-import com.marcohc.architecture.presentation.bus.BusProvider;
 import com.marcohc.architecture.presentation.view.BaseMvpView;
 
 import butterknife.ButterKnife;
@@ -50,18 +49,6 @@ public abstract class BaseMvpActivity<V extends BaseMvpView, P extends MvpPresen
      */
     @LayoutRes
     protected abstract int getLayoutId();
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        BusProvider.register(presenter);
-    }
-
-    @Override
-    public void onStop() {
-        BusProvider.unregister(presenter);
-        super.onStop();
-    }
 
     @CallSuper
     @Override

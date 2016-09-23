@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.common.utils.Preconditions;
-import com.marcohc.architecture.presentation.bus.BusProvider;
 import com.marcohc.architecture.presentation.view.BaseMvpView;
 
 import butterknife.ButterKnife;
@@ -60,18 +59,6 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
         } else {
             return inflater.inflate(layoutRes, container, false);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        BusProvider.register(presenter);
-    }
-
-    @Override
-    public void onStop() {
-        BusProvider.unregister(presenter);
-        super.onStop();
     }
 
     /**
