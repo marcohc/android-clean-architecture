@@ -23,8 +23,8 @@ public abstract class BaseRxMvpPresenter<V extends BaseMvpView> extends BaseMvpP
      */
     @UiThread
     protected void executeUseCase(@NonNull RxUseCase useCase, @NonNull BaseSubscriber subscriber) {
-        Timber.d("executeHighPriorityUseCase: %s", useCase.getClass().getSimpleName());
-        RxJobExecutor.getInstance().executeHighPriorityUseCase(useCase, subscriber);
+        Timber.d("executeUseCase: %s", useCase.getClass().getSimpleName());
+        RxJobExecutor.getInstance().executeUseCase(useCase, subscriber);
     }
 
 }

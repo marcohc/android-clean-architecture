@@ -2,7 +2,10 @@ package com.marcohc.architecture.domain.executor;
 
 import android.support.annotation.NonNull;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,6 +30,7 @@ public class PriorityJobExecutor {
     // * Constants
     // ************************************************************************************************************************************************************************
 
+    protected final ThreadPoolExecutor threadPoolExecutor;
     protected final PriorityThreadPoolExecutor highPriorityThreadPoolExecutor;
     protected final PriorityThreadPoolExecutor lowPriorityThreadPoolExecutor;
 
@@ -36,6 +40,8 @@ public class PriorityJobExecutor {
 
     protected PriorityJobExecutor() {
         ThreadFactory threadFactory = new JobThreadFactory();
+        BlockingQueue<Runnable> linkedBlockingQueue = new LinkedBlockingQueue<>();
+        this.threadPoolExecutor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, linkedBlockingQueue, threadFactory);
         this.highPriorityThreadPoolExecutor = new PriorityThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, threadFactory);
         this.lowPriorityThreadPoolExecutor = new PriorityThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, threadFactory);
     }
@@ -56,6 +62,10 @@ public class PriorityJobExecutor {
     // ************************************************************************************************************************************************************************
     // * Execution methods
     // ************************************************************************************************************************************************************************
+
+    protected void executeRunnable(Runnable runnable) {
+        threadPoolExecutor.execute(runnable);
+    }
 
     protected void executeHighPriorityRunnable(PriorityRunnable priorityRunnable) {
         highPriorityThreadPoolExecutor.submit(priorityRunnable);

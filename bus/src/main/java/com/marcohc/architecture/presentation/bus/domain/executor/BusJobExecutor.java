@@ -32,7 +32,7 @@ public final class BusJobExecutor extends PriorityJobExecutor {
      * @param useCase the use case to execute
      */
     public void executeHighPriorityUseCase(final BusUseCase useCase) {
-        highPriorityThreadPoolExecutor.submit(new PriorityRunnable(Priority.HIGH) {
+        threadPoolExecutor.submit(new PriorityRunnable(Priority.HIGH) {
             @Override
             public void run() {
                 useCase.execute();
