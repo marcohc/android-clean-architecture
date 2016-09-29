@@ -67,11 +67,11 @@ public class PriorityJobExecutor {
         threadPoolExecutor.execute(runnable);
     }
 
-    protected void executeHighPriorityRunnable(PriorityRunnable priorityRunnable) {
+    public void executeHighPriorityRunnable(PriorityRunnable priorityRunnable) {
         highPriorityThreadPoolExecutor.submit(priorityRunnable);
     }
 
-    protected void executeLowPriorityRunnable(PriorityRunnable priorityRunnable) {
+    public void executeLowPriorityRunnable(PriorityRunnable priorityRunnable) {
         lowPriorityThreadPoolExecutor.submit(priorityRunnable);
     }
 
