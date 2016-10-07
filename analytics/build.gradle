@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.ben-manes.versions'
 
 android {
 
@@ -40,6 +41,6 @@ android {
 dependencies {
 
     // Analitycs
-    compile 'com.google.android.gms:play-services-analytics:9.4.0'
+    compile 'com.google.android.gms:play-services-analytics:9.6.1'
 
 }

@@ -5,6 +5,8 @@ import com.marcohc.architecture.domain.executor.PriorityJobExecutor;
 import com.marcohc.architecture.domain.executor.PriorityRunnable;
 import com.marcohc.architecture.presentation.bus.domain.interactor.BusUseCase;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * Executor with a thread pool.
  *
@@ -32,7 +34,7 @@ public final class BusJobExecutor extends PriorityJobExecutor {
      * @param useCase the use case to execute
      */
     public void executeHighPriorityUseCase(final BusUseCase useCase) {
-        threadPoolExecutor.submit(new PriorityRunnable(Priority.HIGH) {
+        highPriorityThreadPoolExecutor.submit(new PriorityRunnable(Priority.HIGH) {
             @Override
             public void run() {
                 useCase.execute();
@@ -52,6 +54,10 @@ public final class BusJobExecutor extends PriorityJobExecutor {
                 useCase.execute();
             }
         });
+    }
+
+    public ThreadPoolExecutor getThreadPoolExecutor() {
+        return threadPoolExecutor;
     }
 
 }
