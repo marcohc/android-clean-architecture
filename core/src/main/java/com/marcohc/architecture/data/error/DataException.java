@@ -6,7 +6,7 @@ package com.marcohc.architecture.data.error;
  * @author Marco Hernaiz
  * @since 09/08/16
  */
-public class DataException extends Throwable {
+public class DataException extends Exception {
 
     public DataException() {
     }
