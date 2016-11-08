@@ -1,14 +1,11 @@
 package com.marcohc.architecture.app.presentation.story.user.userlist.view;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.mvp.BasePresenter;
 import com.marcohc.architecture.common.timer.Timer;
 import com.marcohc.architecture.domain.exception.DomainException;
-import com.marcohc.architecture.rx.domain.interactor.BaseSubscriber;
+import com.marcohc.architecture.rx.domain.interactor.SimpleSubscriber;
 
 import java.util.List;
 
@@ -83,18 +80,19 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     /**
      * Subscriber which gets the response from {@link GetUsersUseCase}.
      */
-    private final class UserListSubscriber extends BaseSubscriber<List<UserModel>> {
+    private final class UserListSubscriber extends SimpleSubscriber<List<UserModel>> {
+
         @Override
-        protected void onSuccess(@Nullable List<UserModel> domainResponse) {
-            hideDialog();
-            getView().enableCancelButton(false);
-            getView().renderModelList(domainResponse);
-            getView().setTimeSpent(mTimer.logTotal());
+        public void onError(Throwable throwable) {
+            handleException((DomainException) throwable);
         }
 
         @Override
-        protected void onFailure(@NonNull Throwable throwable) {
-            handleException((DomainException) throwable);
+        public void onNext(List<UserModel> modelList) {
+            hideDialog();
+            getView().enableCancelButton(false);
+            getView().renderModelList(modelList);
+            getView().setTimeSpent(mTimer.logTotal());
         }
     }
 

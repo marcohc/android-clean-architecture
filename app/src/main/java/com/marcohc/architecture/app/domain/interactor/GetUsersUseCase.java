@@ -1,19 +1,18 @@
 package com.marcohc.architecture.app.domain.interactor;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.marcohc.architecture.app.data.repository.user.UserRepository;
 import com.marcohc.architecture.app.data.repository.user.UserRepositoryImpl;
 import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.app.domain.mapper.UserMapper;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.domain.exception.DomainException;
 import com.marcohc.architecture.rx.domain.interactor.BaseRxUseCase;
 
 import java.util.List;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Get a list of users.
@@ -21,7 +20,7 @@ import rx.Observable;
  * @author Marco Hernaiz
  * @since 08/08/16
  */
-public class GetUsersUseCase extends BaseRxUseCase<List<UserModel>, List<UserEntity>> {
+public class GetUsersUseCase extends BaseRxUseCase<List<UserModel>> {
 
     // ************************************************************************************************************************************************************************
     // * Attributes
@@ -47,28 +46,13 @@ public class GetUsersUseCase extends BaseRxUseCase<List<UserModel>, List<UserEnt
 
     @NonNull
     @Override
-    protected Observable<List<UserEntity>> getObservable() {
-        return mUserRepository.getAll(mWithPicture, mUseCache);
-    }
-
-    @Nullable
-    @Override
-    protected List<UserModel> transformData(@NonNull List<UserEntity> dataResponse) {
-        return UserMapper.getInstance().transformEntityList(dataResponse);
-    }
-
-    @Override
-    protected void doBusinessLogic(@Nullable List<UserModel> domainResponse) {
-        // Do business logic here, in this case, nothing
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Error handling methods
-    // ************************************************************************************************************************************************************************
-
-    @Override
-    protected void onDataException(@NonNull Throwable throwable) throws DomainException {
-        // Catch and throw you exceptions here
+    protected Observable<List<UserModel>> getObservable() {
+        return mUserRepository.getAll(mWithPicture, mUseCache).map(new Func1<List<UserEntity>, List<UserModel>>() {
+            @Override
+            public List<UserModel> call(List<UserEntity> userEntities) {
+                return UserMapper.getInstance().transformEntityList(userEntities);
+            }
+        });
     }
 
 }

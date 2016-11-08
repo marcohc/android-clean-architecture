@@ -1,8 +1,8 @@
 package com.marcohc.architecture.rx.domain.executor;
 
 import com.marcohc.architecture.domain.executor.PriorityJobExecutor;
-import com.marcohc.architecture.rx.domain.interactor.BaseSubscriber;
 import com.marcohc.architecture.rx.domain.interactor.RxUseCase;
+import com.marcohc.architecture.rx.domain.interactor.SimpleSubscriber;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,7 +35,7 @@ public final class RxJobExecutor extends PriorityJobExecutor {
      * @param subscriber the subscriber where you want to get the response
      */
     @SuppressWarnings("unchecked")
-    public void executeUseCase(final RxUseCase useCase, final BaseSubscriber subscriber) {
+    public void executeUseCase(final RxUseCase useCase, final SimpleSubscriber subscriber) {
         useCase.execute(subscriber, Schedulers.from(threadPoolExecutor), AndroidSchedulers.mainThread());
     }
 

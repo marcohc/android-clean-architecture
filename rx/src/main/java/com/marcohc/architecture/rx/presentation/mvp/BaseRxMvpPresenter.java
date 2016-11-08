@@ -6,8 +6,8 @@ import android.support.annotation.UiThread;
 import com.marcohc.architecture.presentation.presenter.BaseMvpPresenter;
 import com.marcohc.architecture.presentation.view.BaseMvpView;
 import com.marcohc.architecture.rx.domain.executor.RxJobExecutor;
-import com.marcohc.architecture.rx.domain.interactor.BaseSubscriber;
 import com.marcohc.architecture.rx.domain.interactor.RxUseCase;
+import com.marcohc.architecture.rx.domain.interactor.SimpleSubscriber;
 
 import timber.log.Timber;
 
@@ -22,7 +22,7 @@ public abstract class BaseRxMvpPresenter<V extends BaseMvpView> extends BaseMvpP
      * @param subscriber the subscriber for Rx
      */
     @UiThread
-    protected void executeUseCase(@NonNull RxUseCase useCase, @NonNull BaseSubscriber subscriber) {
+    protected void executeUseCase(@NonNull RxUseCase useCase, @NonNull SimpleSubscriber subscriber) {
         Timber.d("executeUseCase: %s", useCase.getClass().getSimpleName());
         RxJobExecutor.getInstance().executeUseCase(useCase, subscriber);
     }

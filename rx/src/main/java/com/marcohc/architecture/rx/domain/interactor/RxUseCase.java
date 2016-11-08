@@ -14,7 +14,7 @@ import rx.Scheduler;
 public interface RxUseCase<M> {
 
     /**
-     * Creates the subscription with the parameters. Implement {@link BaseRxUseCase#transformData(Object)} and put your business logic there.
+     * Creates the subscription with the parameters.
      * <p>
      * Override it if you want to do a custom subscription management
      *
@@ -22,7 +22,7 @@ public interface RxUseCase<M> {
      * @param subscribeOn "in which thread you want the use case executed"
      * @param observeOn   "in which thread you want to get the data back"
      */
-    void execute(@NonNull BaseSubscriber<M> subscriber, @NonNull Scheduler subscribeOn, @NonNull Scheduler observeOn);
+    void execute(@NonNull SimpleSubscriber<M> subscriber, @NonNull Scheduler subscribeOn, @NonNull Scheduler observeOn);
 
     /**
      * Cancel the current use case unsubscribing from current {@link rx.Subscription}.

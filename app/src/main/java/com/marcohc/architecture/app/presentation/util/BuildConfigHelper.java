@@ -10,7 +10,7 @@ public class BuildConfigHelper extends BaseBuildConfig {
 
     private static BuildConfigHelper instance;
 
-    protected BuildConfigHelper(String buildType) {
+    private BuildConfigHelper(String buildType) {
         super(buildType);
     }
 
