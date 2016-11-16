@@ -1,6 +1,5 @@
 package com.marcohc.architecture.presentation.view.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,6 +19,7 @@ import com.hannesdorfmann.mosby.mvp.MvpFragment;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.marcohc.architecture.common.utils.Preconditions;
 import com.marcohc.architecture.presentation.view.BaseMvpView;
+import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -36,8 +36,6 @@ import butterknife.Unbinder;
  */
 public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresenter<V>> extends MvpFragment<V, P> implements BaseMvpView {
 
-    @Nullable
-    private ProgressDialog dialog;
     private Unbinder unbinder;
     private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
@@ -54,8 +52,8 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
         int layoutRes = getLayoutRes();
         if (layoutRes == 0) {
             throw new IllegalArgumentException("getLayoutRes() returned 0, which is not allowed. "
-                    + "If you don't want to use getLayoutRes() but implement your own view for this "
-                    + "fragment manually, then you have to override onCreateView();");
+                                                       + "If you don't want to use getLayoutRes() but implement your own view for this "
+                                                       + "fragment manually, then you have to override onCreateView();");
         } else {
             return inflater.inflate(layoutRes, container, false);
         }
@@ -134,8 +132,7 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
     public void showDialog(@Nullable String message) {
         if (isFragmentAlive()) {
             hideDialog();
-            dialog = ProgressDialog.show(getActivity(), null, message);
-            dialog.show();
+            ((BaseMvpActivity) getActivity()).showDialog(message);
         }
     }
 
@@ -144,17 +141,17 @@ public abstract class BaseMvpFragment<V extends BaseMvpView, P extends MvpPresen
     public void showDialog(String title, String message, boolean isCancelable) {
         if (isFragmentAlive()) {
             hideDialog();
-            dialog = ProgressDialog.show(getActivity(), title, message, true);
-            dialog.setCancelable(isCancelable);
+            if (getActivity() instanceof BaseMvpActivity) {
+                ((BaseMvpActivity) getActivity()).showDialog(title, message, isCancelable);
+            }
         }
     }
 
     @UiThread
     @Override
     public void hideDialog() {
-        if (dialog != null) {
-            dialog.dismiss();
-            dialog = null;
+        if (getActivity() instanceof BaseMvpActivity) {
+            ((BaseMvpActivity) getActivity()).hideDialog();
         }
     }
 
