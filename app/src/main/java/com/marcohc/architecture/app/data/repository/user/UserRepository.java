@@ -15,12 +15,19 @@ import rx.Observable;
 public interface UserRepository {
 
     /**
-     * Get all users based on parameters.
+     * Get all users with picture based on parameters.
      *
-     * @param withPicture get users with picture
-     * @param useCache    use the cache
+     * @param useCache use the cache
      * @return the Observable with a list of users
      */
-    Observable<List<UserEntity>> getAll(boolean withPicture, boolean useCache);
+    Observable<List<UserEntity>> getAllWithPicture(boolean useCache);
+
+    /**
+     * Get all users without picture based on parameters.
+     *
+     * @param useCache use the cache
+     * @return the Observable with a list of users
+     */
+    Observable<List<UserEntity>> getAllWithoutPicture(boolean useCache);
 
 }

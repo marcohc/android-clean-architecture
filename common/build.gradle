@@ -46,16 +46,16 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Annotations
-    compile 'com.android.support:support-annotations:25.0.0'
+    compile 'com.android.support:support-annotations:25.1.0'
 
     // Logging
-    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile 'com.jakewharton.timber:timber:4.4.0'
 
     //////////////////////////////////////////////////////////////////////////////////////////////
     // TEST
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.106-beta'
+    testCompile 'org.mockito:mockito-core:2.5.3'
 
 }

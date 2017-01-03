@@ -23,28 +23,12 @@ import timber.log.Timber;
  */
 public final class UserCache implements DataCache<List<UserEntity>> {
 
-    // ************************************************************************************************************************************************************************
-    // * Constants
-    // ************************************************************************************************************************************************************************
-
-    // Keys for the cache
-    public static final String ALL_WITH_PICTURE = "all_with_picture";
-    public static final String ALL_WITHOUT_PICTURE = "all_without_picture";
-
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
     private static UserCache sInstance;
     private DualCache<String> mCache;
     private static final long CACHE_EXPIRATION_TIME = 3600 * 1000;
     private static final String CACHE_NAME = UserCache.class.getSimpleName() + BuildConfig.VERSION_NAME;
     private static final int TEST_APP_VERSION = BuildConfig.VERSION_CODE;
     private static final int RAM_MAX_SIZE = 1024 * 1024 * 512;
-
-    // ************************************************************************************************************************************************************************
-    // * Constructors
-    // ************************************************************************************************************************************************************************
 
     private UserCache() {
         ApplicationInjector.getApplicationComponent().inject(this);
@@ -54,10 +38,6 @@ public final class UserCache implements DataCache<List<UserEntity>> {
                 .useSerializerInDisk(RAM_MAX_SIZE, true, jsonSerializer, ApplicationInjector.getApplicationComponent().provideContext())
                 .build();
     }
-
-    // ************************************************************************************************************************************************************************
-    // * Singleton access method
-    // ************************************************************************************************************************************************************************
 
     /**
      * Get singleton instance.
@@ -70,10 +50,6 @@ public final class UserCache implements DataCache<List<UserEntity>> {
         }
         return sInstance;
     }
-
-    // ************************************************************************************************************************************************************************
-    // * Cache methods
-    // ************************************************************************************************************************************************************************
 
     @Override
     public boolean isCached(String key) {
@@ -161,10 +137,6 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     public void clear() {
         mCache.invalidate();
     }
-
-    // ************************************************************************************************************************************************************************
-    // * Auxiliary methods
-    // ************************************************************************************************************************************************************************
 
     private String getTimeToken(String key) {
         return key + "_timestamp";

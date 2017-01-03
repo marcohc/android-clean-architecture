@@ -22,17 +22,9 @@ import rx.functions.Func1;
  */
 public class GetUsersUseCase extends BaseRxUseCase<List<UserModel>> {
 
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
     private final boolean mWithPicture;
     private final boolean mUseCache;
     private final UserRepository mUserRepository;
-
-    // ************************************************************************************************************************************************************************
-    // * Constructors
-    // ************************************************************************************************************************************************************************
 
     public GetUsersUseCase(boolean withPicture, boolean useCache) {
         mWithPicture = withPicture;
@@ -40,19 +32,28 @@ public class GetUsersUseCase extends BaseRxUseCase<List<UserModel>> {
         mUserRepository = new UserRepositoryImpl();
     }
 
-    // ************************************************************************************************************************************************************************
-    // * Use case execution
-    // ************************************************************************************************************************************************************************
-
     @NonNull
     @Override
     protected Observable<List<UserModel>> getObservable() {
-        return mUserRepository.getAll(mWithPicture, mUseCache).map(new Func1<List<UserEntity>, List<UserModel>>() {
-            @Override
-            public List<UserModel> call(List<UserEntity> userEntities) {
-                return UserMapper.getInstance().transformEntityList(userEntities);
-            }
-        });
+        if (mWithPicture) {
+            return mUserRepository
+                    .getAllWithPicture(mUseCache)
+                    .map(new Func1<List<UserEntity>, List<UserModel>>() {
+                        @Override
+                        public List<UserModel> call(List<UserEntity> userEntities) {
+                            return UserMapper.getInstance().transformEntityList(userEntities);
+                        }
+                    });
+        } else {
+            return mUserRepository
+                    .getAllWithoutPicture(mUseCache)
+                    .map(new Func1<List<UserEntity>, List<UserModel>>() {
+                        @Override
+                        public List<UserModel> call(List<UserEntity> userEntities) {
+                            return UserMapper.getInstance().transformEntityList(userEntities);
+                        }
+                    });
+        }
     }
 
 }

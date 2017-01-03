@@ -35,39 +35,26 @@ import butterknife.OnItemClick;
  */
 public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListPresenter> implements UsersListView, SwipeRefreshLayout.OnRefreshListener, BaseListAdapter.ChildViewClickListener {
 
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
-    // View
+    //region Attributes
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-
     @BindView(R.id.usersDataSourceSwitch)
     SwitchCompat mUsersDataSourceSwitch;
-
     @BindView(R.id.cacheSwitch)
     SwitchCompat mCacheSwitch;
-
     @BindView(R.id.listView)
     ListView mListView;
-
     @BindView(R.id.timeSpentTextView)
     TextView mTimeSpentTextView;
-
     @BindView(R.id.cancelButton)
     Button mCancelButton;
 
-    // Class
     private BaseListAdapter<UserModel> mListViewAdapter;
+    //endregion
 
-    // ************************************************************************************************************************************************************************
-    // * Initialization methods
-    // ************************************************************************************************************************************************************************
-
+    //region Set up methods
     @NonNull
     @Override
     public UsersListPresenter createPresenter() {
@@ -125,11 +112,9 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary), ContextCompat.getColor(this, R.color.primary_dark));
     }
+    //endregion
 
-    // ************************************************************************************************************************************************************************
-    // * Event handler methods
-    // ************************************************************************************************************************************************************************
-
+    //region Event handler methods
     @OnItemClick(R.id.listView)
     protected void onItemClick(int position) {
         presenter.onItemClick(mListViewAdapter.getItem(position));
@@ -157,11 +142,9 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
     public void onRefresh() {
         presenter.onRefresh();
     }
+    //endregion
 
-    // ************************************************************************************************************************************************************************
-    // * View interface methods
-    // ************************************************************************************************************************************************************************
-
+    //region View interface methods
     @Override
     public void renderModelList(@Nullable List<UserModel> modelList) {
         mSwipeRefreshLayout.setRefreshing(false);
@@ -194,5 +177,6 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
     public void enableCancelButton(boolean enable) {
         mCancelButton.setEnabled(enable);
     }
+    //endregion
 
 }

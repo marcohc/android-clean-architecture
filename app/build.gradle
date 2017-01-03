@@ -85,7 +85,7 @@ dependencies {
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     // Google
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
 
     // Butterknife
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
@@ -119,7 +119,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support:support-annotations:25.0.0'
+    androidTestCompile 'com.android.support:support-annotations:25.1.0'
 
     // Non instrumentation tests
     testCompile 'junit:junit:4.12'

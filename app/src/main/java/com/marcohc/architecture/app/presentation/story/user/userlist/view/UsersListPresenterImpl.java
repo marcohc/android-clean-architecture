@@ -1,11 +1,11 @@
 package com.marcohc.architecture.app.presentation.story.user.userlist.view;
 
+import android.support.annotation.NonNull;
+
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.mvp.BasePresenter;
 import com.marcohc.architecture.common.timer.Timer;
-import com.marcohc.architecture.domain.exception.DomainException;
-import com.marcohc.architecture.rx.domain.interactor.SimpleSubscriber;
 
 import java.util.List;
 
@@ -15,21 +15,16 @@ import java.util.List;
  * @author Marco Hernaiz
  * @since 08/08/16
  */
-class UsersListPresenterImpl extends BasePresenter<UsersListView> implements UsersListPresenter {
+class UsersListPresenterImpl extends BasePresenter<UsersListView> implements UsersListPresenter, GetUsersSubscriber.GetUsersListener {
 
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
+    //region Attributes
     private boolean mDataSourceWithPicture = false;
     private boolean mUseCache = false;
     private Timer mTimer;
     private GetUsersUseCase mGetUsersUseCase;
+    //endregion
 
-    // ************************************************************************************************************************************************************************
-    // * View handler methods
-    // ************************************************************************************************************************************************************************
-
+    //region Presenter interface methods
     @Override
     public void onViewCreated() {
         showLoadingDialog();
@@ -72,52 +67,32 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
             mGetUsersUseCase.cancel();
         }
     }
+    //endregion
 
-    // ************************************************************************************************************************************************************************
-    // * Interactor handler methods
-    // ************************************************************************************************************************************************************************
-
-    /**
-     * Subscriber which gets the response from {@link GetUsersUseCase}.
-     */
-    private final class UserListSubscriber extends SimpleSubscriber<List<UserModel>> {
-
-        @Override
-        public void onError(Throwable throwable) {
-            handleException((DomainException) throwable);
-        }
-
-        @Override
-        public void onNext(List<UserModel> modelList) {
-            hideDialog();
-            getView().enableCancelButton(false);
-            getView().renderModelList(modelList);
-            getView().setTimeSpent(mTimer.logTotal());
-        }
+    //region Subscription methods
+    @Override
+    public void onUserListSuccess(@NonNull List<UserModel> modelList) {
+        hideDialog();
+        getView().enableCancelButton(false);
+        getView().renderModelList(modelList);
+        getView().setTimeSpent(mTimer.logTotal());
     }
-
-    // ************************************************************************************************************************************************************************
-    // * Error handling methods
-    // ************************************************************************************************************************************************************************
 
     @Override
-    public <E extends DomainException> void handleException(E exception) {
+    public void onUserListFailure(@NonNull Throwable throwable) {
         getView().showRefreshSpinner(false);
         getView().enableCancelButton(false);
-        showMessage(exception.getMessage());
-        super.handleException(exception);
+        showMessage(throwable.getMessage());
     }
+    //endregion
 
-    // ************************************************************************************************************************************************************************
-    // * Auxiliary methods
-    // ************************************************************************************************************************************************************************
-
+    //region Private methods
     private void requestData(boolean useCache) {
         showLoadingDialog();
         getView().enableCancelButton(true);
         mTimer = Timer.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, useCache);
-        executeUseCase(mGetUsersUseCase, new UserListSubscriber());
+        executeUseCase(mGetUsersUseCase, new GetUsersSubscriber(this));
     }
 
     private void requestFreshData() {
@@ -125,7 +100,8 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
         getView().enableCancelButton(true);
         mTimer = Timer.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, false);
-        executeUseCase(mGetUsersUseCase, new UserListSubscriber());
+        executeUseCase(mGetUsersUseCase, new GetUsersSubscriber(this));
     }
+    //endregion
 
 }
