@@ -17,6 +17,10 @@ package com.marcohc.architecture.common.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import com.marcohc.architecture.common.utils.Preconditions;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,94 +28,50 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * For extend from PreferencesHelper classes
- * <p>
- * Call {@link #setUp(Context)} method first or {@link #setUp(Context, String)} first
- * <p>
- * Default shared preferences name will be: <package_name>_preferences
+ * Service use to
  */
 public class PreferencesMethods {
 
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
     protected SharedPreferences sharedPreferences;
 
-    // ************************************************************************************************************************************************************************
-    // * Public methods
-    // ************************************************************************************************************************************************************************
+    public PreferencesMethods(Context context, String sharedPreferencesName) {
+        sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
+    }
 
-    public void remove(String key) {
-        sharedPreferences.edit().remove(key).apply();
+    public PreferencesMethods(Context context) {
+        String defaultName = String.format("%s_%s", context.getPackageName(), "preferences");
+        sharedPreferences = context.getSharedPreferences(defaultName, Context.MODE_PRIVATE);
+    }
+
+    protected PreferencesMethods() {
+        // Used for extension
     }
 
     public void clear() {
         sharedPreferences.edit().clear().apply();
     }
 
-    public String getString(String key, String defaultValue) {
-        return sharedPreferences.getString(key, defaultValue);
+    public boolean getBoolean(@NonNull String key, boolean defaultValue) {
+        return sharedPreferences.getBoolean(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    public void putString(String key, String value) {
-        sharedPreferences.edit().putString(key, value).apply();
+    public float getFloat(@NonNull String key, float defaultValue) {
+        return sharedPreferences.getFloat(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    public Boolean getBoolean(String key, Boolean defaultValue) {
-        return sharedPreferences.getBoolean(key, defaultValue);
+    public int getInt(@NonNull String key, int defaultValue) {
+        return sharedPreferences.getInt(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    public void putBoolean(String key, Boolean value) {
-        sharedPreferences.edit().putBoolean(key, value).apply();
+    @NonNull
+    public Long getLong(@NonNull String key, long defaultValue) {
+        return sharedPreferences.getLong(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    public Long getLong(String key, Long defaultValue) {
-        return sharedPreferences.getLong(key, defaultValue);
-    }
-
-    public void putLong(String key, Long value) {
-        sharedPreferences.edit().putLong(key, value).apply();
-    }
-
-    public Float getFloat(String key, Float defaultValue) {
-        return sharedPreferences.getFloat(key, defaultValue);
-    }
-
-    public void putFloat(String key, Float value) {
-        sharedPreferences.edit().putFloat(key, value).apply();
-    }
-
-    public Integer getInt(String key, Integer defaultValue) {
-        return sharedPreferences.getInt(key, defaultValue);
-    }
-
-    public void putInt(String key, Integer value) {
-        sharedPreferences.edit().putInt(key, value).apply();
-    }
-
-    public void putStringList(String key, List<String> values) {
-        Set<String> setValues = new HashSet<>(values);
-        sharedPreferences.edit().putStringSet(key, setValues).apply();
-    }
-
-    public List<String> getStringList(String key) {
-        List<String> stringList = new ArrayList<>();
-        Set<String> setValues = sharedPreferences.getStringSet(key, null);
-        if (setValues != null) {
-            stringList.addAll(setValues);
-        }
-        return stringList;
-    }
-
-    public void putLongList(String key, List<Long> values) {
-        Set<String> setValues = new HashSet<>(getStringListFromLongList(values));
-        sharedPreferences.edit().putStringSet(key, setValues).apply();
-    }
-
-    public List<Long> getLongList(String key) {
+    @NonNull
+    public List<Long> getLongList(@NonNull String key) {
         List<Long> longList = new ArrayList<>();
-        Set<String> setValues = sharedPreferences.getStringSet(key, null);
+        Set<String> setValues = sharedPreferences.getStringSet(Preconditions.checkNotNull(key), null);
         if (setValues != null) {
             List<String> stringList = new ArrayList<>();
             stringList.addAll(setValues);
@@ -120,19 +80,57 @@ public class PreferencesMethods {
         return longList;
     }
 
-    // ************************************************************************************************************************************************************************
-    // * Auxiliary methods
-    // ************************************************************************************************************************************************************************
-
-    private List<Long> getLongListFromStringList(List<String> stringList) {
-        List<Long> longList = new ArrayList<>();
-        for (String item : stringList) {
-            longList.add(Long.valueOf(item));
-        }
-        return longList;
+    @Nullable
+    public String getString(@NonNull String key, @Nullable String defaultValue) {
+        return sharedPreferences.getString(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    private List<String> getStringListFromLongList(List<Long> longList) {
+    @NonNull
+    public List<String> getStringList(@NonNull String key) {
+        List<String> stringList = new ArrayList<>();
+        Set<String> setValues = sharedPreferences.getStringSet(Preconditions.checkNotNull(key), null);
+        if (setValues != null) {
+            stringList.addAll(setValues);
+        }
+        return stringList;
+    }
+
+    public void putBoolean(@NonNull String key, boolean value) {
+        sharedPreferences.edit().putBoolean(Preconditions.checkNotNull(key), value).apply();
+    }
+
+    public void putFloat(@NonNull String key, float value) {
+        sharedPreferences.edit().putFloat(Preconditions.checkNotNull(key), value).apply();
+    }
+
+    public void putInt(@NonNull String key, int value) {
+        sharedPreferences.edit().putInt(Preconditions.checkNotNull(key), value).apply();
+    }
+
+    public void putLong(@NonNull String key, long value) {
+        sharedPreferences.edit().putLong(Preconditions.checkNotNull(key), value).apply();
+    }
+
+    public void putLongList(@NonNull String key, List<Long> values) {
+        Set<String> setValues = new HashSet<>(getStringListFromLongList(values));
+        sharedPreferences.edit().putStringSet(Preconditions.checkNotNull(key), setValues).apply();
+    }
+
+    public void putString(@NonNull String key, @Nullable String value) {
+        sharedPreferences.edit().putString(Preconditions.checkNotNull(key), value).apply();
+    }
+
+    public void putStringList(@NonNull String key, @NonNull List<String> values) {
+        Set<String> setValues = new HashSet<>(Preconditions.checkNotNull(values));
+        sharedPreferences.edit().putStringSet(Preconditions.checkNotNull(key), setValues).apply();
+    }
+
+    public void remove(@NonNull String key) {
+        sharedPreferences.edit().remove(key).apply();
+    }
+
+    private static List<String> getStringListFromLongList(@NonNull List<Long> longList) {
+        Preconditions.checkNotNull(longList);
         List<String> stringList = new ArrayList<>();
         for (Long item : longList) {
             stringList.add(String.valueOf(item));
@@ -140,12 +138,12 @@ public class PreferencesMethods {
         return stringList;
     }
 
-    // ************************************************************************************************************************************************************************
-    // * Initialization exception
-    // ************************************************************************************************************************************************************************
-
-    public static class PreferencesException extends RuntimeException {
-        public PreferencesException(String s) {
+    private static List<Long> getLongListFromStringList(@NonNull List<String> stringList) {
+        Preconditions.checkNotNull(stringList);
+        List<Long> longList = new ArrayList<>();
+        for (String item : stringList) {
+            longList.add(Long.valueOf(item));
         }
+        return longList;
     }
 }

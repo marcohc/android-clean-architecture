@@ -18,66 +18,15 @@ package com.marcohc.architecture.common.helper;
 import android.content.Context;
 
 /**
- * For managing shared preferences
- * <p>
- * Call {@link #setUp(Context)} method first or {@link #setUp(Context, String)} first
- * <p>
- * Default shared preferences name will be: <package_name>_preferences
+ * For managing shared preferences.
  */
 public class PreferencesHelper extends PreferencesMethods {
 
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
-    private static PreferencesHelper instance;
-
-    // ************************************************************************************************************************************************************************
-    // * Constructor
-    // ************************************************************************************************************************************************************************
-
-    private PreferencesHelper(Context context) {
-        String defaultName = String.format("%s_%s", context.getPackageName(), "preferences");
-        sharedPreferences = context.getSharedPreferences(defaultName, Context.MODE_PRIVATE);
+    public PreferencesHelper(Context context) {
+        super(context);
     }
 
-    private PreferencesHelper(Context context, String sharedPreferencesName, String uniqueId) {
-        if (StringHelper.isBlank(uniqueId)) {
-            sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
-        }
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Initialization
-    // ************************************************************************************************************************************************************************
-
-    public static synchronized void setUp(Context context) {
-        if (context == null) {
-            throw new PreferencesException("Context must not be null!");
-        }
-        instance = new PreferencesHelper(context);
-    }
-
-    public static synchronized void setUp(Context context, String sharedPreferencesName) {
-        if (context == null) {
-            throw new PreferencesException("Context must not be null!");
-        }
-        instance = new PreferencesHelper(context, sharedPreferencesName, null);
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Initialization methods
-    // ************************************************************************************************************************************************************************
-
-    public static synchronized PreferencesHelper getInstance() {
-        if (instance == null) {
-            throw new PreferencesException("setUp(Context context) must be called first!");
-        }
-        return instance;
-    }
-
-    public static synchronized void clearInstance() {
-        instance.sharedPreferences = null;
-        instance = null;
+    public PreferencesHelper(Context context, String sharedPreferencesName) {
+        super(context, sharedPreferencesName);
     }
 }

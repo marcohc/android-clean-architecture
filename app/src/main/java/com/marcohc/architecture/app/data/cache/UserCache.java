@@ -23,17 +23,17 @@ import timber.log.Timber;
  */
 public final class UserCache implements DataCache<List<UserEntity>> {
 
-    private static UserCache sInstance;
-    private DualCache<String> mCache;
     private static final long CACHE_EXPIRATION_TIME = 3600 * 1000;
     private static final String CACHE_NAME = UserCache.class.getSimpleName() + BuildConfig.VERSION_NAME;
     private static final int TEST_APP_VERSION = BuildConfig.VERSION_CODE;
     private static final int RAM_MAX_SIZE = 1024 * 1024 * 512;
+    private static UserCache sInstance;
+    private final DualCache<String> mCache;
 
     private UserCache() {
         ApplicationInjector.getApplicationComponent().inject(this);
         CacheSerializer<String> jsonSerializer = new JsonSerializer<>(String.class);
-        mCache = new Builder<>(CACHE_NAME, TEST_APP_VERSION, String.class)
+        mCache = new Builder<String>(CACHE_NAME, TEST_APP_VERSION)
                 .useSerializerInRam(RAM_MAX_SIZE, jsonSerializer)
                 .useSerializerInDisk(RAM_MAX_SIZE, true, jsonSerializer, ApplicationInjector.getApplicationComponent().provideContext())
                 .build();
@@ -49,6 +49,18 @@ public final class UserCache implements DataCache<List<UserEntity>> {
             sInstance = new UserCache();
         }
         return sInstance;
+    }
+
+    @Override
+    public void clear() {
+        mCache.invalidate();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<UserEntity> get(String key) {
+        String jsonStored = mCache.get(key);
+        return ParserHelper.getInstance().parseCollection(jsonStored, new GenericCollection<>(List.class, UserEntity.class));
     }
 
     @Override
@@ -103,13 +115,6 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<UserEntity> get(String key) {
-        String jsonStored = mCache.get(key);
-        return ParserHelper.getInstance().parseCollection(jsonStored, new GenericCollection<>(List.class, UserEntity.class));
-    }
-
-    @Override
     public void put(String key, List<UserEntity> item) {
 
         if (StringHelper.isBlank(key)) {
@@ -131,11 +136,6 @@ public final class UserCache implements DataCache<List<UserEntity>> {
 
         mCache.delete(key);
         mCache.delete(getTimeToken(key));
-    }
-
-    @Override
-    public void clear() {
-        mCache.invalidate();
     }
 
     private String getTimeToken(String key) {

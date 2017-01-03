@@ -6,30 +6,15 @@ import android.os.StrictMode;
 import com.marcohc.architecture.app.internal.di.ApplicationInjector;
 import com.marcohc.architecture.app.presentation.util.BuildConfigHelper;
 import com.marcohc.architecture.common.helper.AnalyticsHelper;
-import com.marcohc.architecture.common.helper.AppInfoHelper;
-import com.marcohc.architecture.common.helper.PreferencesHelper;
 import com.marcohc.architecture.common.timer.Timer;
 import com.squareup.leakcanary.LeakCanary;
-
-import java.util.concurrent.Semaphore;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-@SuppressLint({"SimpleDateFormat", "DefaultLocale"})
+@SuppressLint({ "SimpleDateFormat", "DefaultLocale" })
 public class MainApplication extends android.app.Application {
-
-    // ************************************************************************************************************************************************************************
-    // * Attributes
-    // ************************************************************************************************************************************************************************
-
-    public final static Semaphore SEMAPHORE_1 = new Semaphore(0);
-    private static Boolean isAlreadyInitialized = false;
-
-    // ************************************************************************************************************************************************************************
-    // * Initialization methods
-    // ************************************************************************************************************************************************************************
 
     @Override
     public void onCreate() {
@@ -43,33 +28,24 @@ public class MainApplication extends android.app.Application {
 
         setUpTimber();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Timer timer = Timer.getInstance("MainApplication.setUp");
+        Timer timer = Timer.getInstance("MainApplication.setUp");
 
-                // Load all data
-                Timber.d("1 - MainApplication - Start loading data");
+        // Load all data
+        Timber.d("1 - MainApplication - Start loading data");
 
-                setUpCustomCrash();
-                timer.logStep();
-                setUpPreferences();
-                timer.logStep();
-                setUpCalligraphy();
-                timer.logStep();
-                setUpAnalytics();
-                timer.logStep();
-                setUpDagger();
-                timer.logStep();
+        setUpCustomCrash();
+        timer.logStep();
+        setUpCalligraphy();
+        timer.logStep();
+        setUpAnalytics();
+        timer.logStep();
+        setUpDagger();
+        timer.logStep();
 
-                // Notify load finished
-                Timber.d("2 - MainApplication - Finish loading data");
-                isAlreadyInitialized = true;
-                MainApplication.SEMAPHORE_1.release();
+        // Notify load finished
+        Timber.d("2 - MainApplication - Finish loading data");
 
-                timer.logTotal();
-            }
-        }).start();
+        timer.logTotal();
     }
 
     private void setUpCustomCrash() {
@@ -82,17 +58,17 @@ public class MainApplication extends android.app.Application {
 
     private void setUpStrictMode() {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectAll()
-                .penaltyLog()
-                .build());
+                                           .detectDiskReads()
+                                           .detectDiskWrites()
+                                           .detectAll()
+                                           .penaltyLog()
+                                           .build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects()
-                .detectLeakedClosableObjects()
-                .penaltyLog()
-                .penaltyDeath()
-                .build());
+                                       .detectLeakedSqlLiteObjects()
+                                       .detectLeakedClosableObjects()
+                                       .penaltyLog()
+                                       .penaltyDeath()
+                                       .build());
     }
 
     private void setUpTimber() {
@@ -109,35 +85,11 @@ public class MainApplication extends android.app.Application {
         ApplicationInjector.inject(MainApplication.this);
     }
 
-    private void setUpPreferences() {
-        PreferencesHelper.setUp(this);
-        AppInfoHelper.setUp(PreferencesHelper.getInstance());
-    }
-
     private void setUpCalligraphy() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
-                .setFontAttrId(com.marcohc.architecture.R.attr.fontPath)
-                .build()
+                                              .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                                              .setFontAttrId(com.marcohc.architecture.R.attr.fontPath)
+                                              .build()
         );
-    }
-
-    // ************************************************************************************************************************************************************************
-    // * Other methods
-    // ************************************************************************************************************************************************************************
-
-    /**
-     * Used from other
-     */
-    public static void waitUntilApplicationIsInitialized() {
-        try {
-            if (!isAlreadyInitialized) {
-                Timber.d("Waiting for MainApplication to finish loading data...");
-                MainApplication.SEMAPHORE_1.acquire();
-            } else {
-                Timber.d("MainApplication already setUp");
-            }
-        } catch (InterruptedException ignored) {
-        }
     }
 }

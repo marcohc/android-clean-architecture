@@ -12,6 +12,20 @@ import android.support.annotation.Nullable;
 public interface DataCache<E> {
 
     /**
+     * Clear the entire cache.
+     */
+    void clear();
+
+    /**
+     * Return the cached object which belongs to this key or null otherwise.
+     *
+     * @param key the object key
+     * @return the object store or null
+     */
+    @Nullable
+    E get(@Nullable String key);
+
+    /**
      * Check if the object which belongs to this key exists.
      *
      * @param key the object key
@@ -28,15 +42,6 @@ public interface DataCache<E> {
     boolean isValid(@Nullable String key);
 
     /**
-     * Return the cached object which belongs to this key or null otherwise.
-     *
-     * @param key the object key
-     * @return the object store or null
-     */
-    @Nullable
-    E get(@Nullable String key);
-
-    /**
      * Put the pair key and item inside of the cache.
      *
      * @param key  the object key
@@ -50,9 +55,4 @@ public interface DataCache<E> {
      * @param key the object key
      */
     void remove(@Nullable String key);
-
-    /**
-     * Clear the entire cache.
-     */
-    void clear();
 }
