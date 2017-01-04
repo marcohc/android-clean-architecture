@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public class StringHelper {
 
-    private static Pattern pattern;
     private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    private static Pattern pattern;
 
     /**
      * Validate hex with regular expression

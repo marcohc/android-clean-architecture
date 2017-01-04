@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.marcohc.architecture.common.service.AppInfoService;
-import com.marcohc.architecture.common.service.AppInfoServiceImpl;
+import com.marcohc.architecture.common.service.appinfo.AppInfoService;
+import com.marcohc.architecture.common.service.appinfo.AppInfoServiceImpl;
+import com.marcohc.architecture.common.service.preference.PreferencesService;
+import com.marcohc.architecture.common.service.preferences.PreferencesServiceImpl;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -23,14 +25,14 @@ import static junit.framework.Assert.assertTrue;
 public class AppInfoServiceTest {
 
     private AppInfoService appInfoService;
-    private PreferencesMethods preferenceMethods;
+    private PreferencesService mPreferencesService;
 
     @Before
     public void before() {
         Context context = InstrumentationRegistry.getTargetContext();
-        appInfoService = new AppInfoServiceImpl(context);
-        preferenceMethods = new PreferencesMethods(context);
-        preferenceMethods.clear();
+        appInfoService = new AppInfoServiceImpl(new PreferencesServiceImpl(context));
+        mPreferencesService = new PreferencesServiceImpl(context);
+        mPreferencesService.clear();
     }
 
     @Test
@@ -84,19 +86,19 @@ public class AppInfoServiceTest {
         assertTrue(appInfoService.isFirstUseToday());
         appInfoService.trackLastAppExecution();
         assertFalse(appInfoService.isFirstUseToday());
-        preferenceMethods.clear();
+        mPreferencesService.clear();
         assertTrue(appInfoService.isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseTodayTrickyFalse() {
-        preferenceMethods.putLong("last_app_execution", System.currentTimeMillis() - 3600 * 1000);
+        mPreferencesService.putLong("last_app_execution", System.currentTimeMillis() - 3600 * 1000);
         assertFalse(appInfoService.isFirstUseToday());
     }
 
     @Test
     public void testIsFirstUseTodayTrickyTrue() {
-        preferenceMethods.putLong("last_app_execution", System.currentTimeMillis() - 3600 * 25 * 1000);
+        mPreferencesService.putLong("last_app_execution", System.currentTimeMillis() - 3600 * 25 * 1000);
         assertTrue(appInfoService.isFirstUseToday());
     }
 
@@ -109,7 +111,7 @@ public class AppInfoServiceTest {
     public void testIsFirstUseLast24HoursFalse() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR_OF_DAY, -3);
-        preferenceMethods.putLong("last_app_execution", calendar.getTimeInMillis());
+        mPreferencesService.putLong("last_app_execution", calendar.getTimeInMillis());
         assertFalse(appInfoService.isFirstUseLast24Hours());
     }
 
@@ -118,9 +120,9 @@ public class AppInfoServiceTest {
         assertTrue(appInfoService.isFirstUseLast24Hours());
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, -15);
-        preferenceMethods.putLong("last_app_execution", calendar.getTimeInMillis());
+        mPreferencesService.putLong("last_app_execution", calendar.getTimeInMillis());
         assertFalse(appInfoService.isFirstUseLast24Hours());
-        preferenceMethods.clear();
+        mPreferencesService.clear();
         assertTrue(appInfoService.isFirstUseLast24Hours());
     }
 
@@ -129,7 +131,7 @@ public class AppInfoServiceTest {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR_OF_DAY, -24);
         calendar.add(Calendar.MINUTE, -1);
-        preferenceMethods.putLong("last_app_execution", calendar.getTimeInMillis());
+        mPreferencesService.putLong("last_app_execution", calendar.getTimeInMillis());
         assertTrue(appInfoService.isFirstUseLast24Hours());
     }
 
@@ -137,7 +139,7 @@ public class AppInfoServiceTest {
     public void testIsFirstUseLast24HoursTrickyTrue2() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR_OF_DAY, -36);
-        preferenceMethods.putLong("last_app_execution", calendar.getTimeInMillis());
+        mPreferencesService.putLong("last_app_execution", calendar.getTimeInMillis());
         assertTrue(appInfoService.isFirstUseLast24Hours());
     }
 
@@ -145,7 +147,7 @@ public class AppInfoServiceTest {
     public void testIsFirstUseLast24HoursTrickyFalse() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        preferenceMethods.putLong("last_app_execution", calendar.getTimeInMillis());
+        mPreferencesService.putLong("last_app_execution", calendar.getTimeInMillis());
         assertTrue(appInfoService.isFirstUseLast24Hours());
     }
 

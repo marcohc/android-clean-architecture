@@ -15,29 +15,28 @@ import static org.junit.Assert.assertNotEquals;
 
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SecurePreferencesTest {
+public class SecurePreferencesServiceImplTest {
 
     Context context;
 
-    private SecurePreferences securePreferences;
+    private SecurePreferencesServiceImpl mSecurePreferencesServiceImpl;
 
     @Before
     public void before() {
         context = InstrumentationRegistry.getTargetContext();
-        securePreferences = new SecurePreferences(context);
-        
+        mSecurePreferencesServiceImpl = new SecurePreferencesServiceImpl(context);
     }
 
     @Test
     public void testGetStringCorrectValue() {
-        securePreferences.putString("KEY", "VALUE");
-        assertEquals(securePreferences.getString("KEY", null), "VALUE");
+        mSecurePreferencesServiceImpl.putString("KEY", "VALUE");
+        assertEquals(mSecurePreferencesServiceImpl.getString("KEY", null), "VALUE");
     }
 
     @Test
     public void testGetStringWrongValue() {
-        securePreferences.putString("KEY", "VALUE");
-        assertNotEquals(securePreferences.getString("KEY", null), "ANOTHER_VALUE");
+        mSecurePreferencesServiceImpl.putString("KEY", "VALUE");
+        assertNotEquals(mSecurePreferencesServiceImpl.getString("KEY", null), "ANOTHER_VALUE");
     }
 
 }

@@ -1,4 +1,4 @@
-package com.marcohc.architecture.common.service;
+package com.marcohc.architecture.common.service.appinfo;
 
 public interface AppInfoService {
 

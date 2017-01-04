@@ -17,133 +17,99 @@ package com.marcohc.architecture.common.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.marcohc.architecture.common.service.preference.PreferencesService;
 import com.marcohc.architecture.common.utils.Preconditions;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
- * Service use to
+ * Used for managing shared preferences with encryption.
  */
-public class PreferencesMethods {
+public class SecurePreferencesServiceImpl implements PreferencesService {
 
-    protected SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
-    public PreferencesMethods(Context context, String sharedPreferencesName) {
-        sharedPreferences = context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE);
-    }
-
-    public PreferencesMethods(Context context) {
+    public SecurePreferencesServiceImpl(Context context) {
         String defaultName = String.format("%s_%s", context.getPackageName(), "preferences");
-        sharedPreferences = context.getSharedPreferences(defaultName, Context.MODE_PRIVATE);
+        String uniqueId = getUniqueId();
+        sharedPreferences = new com.securepreferences.SecurePreferences(context, uniqueId, defaultName);
     }
 
-    protected PreferencesMethods() {
-        // Used for extension
-    }
-
+    @Override
     public void clear() {
         sharedPreferences.edit().clear().apply();
     }
 
+    @Override
     public boolean getBoolean(@NonNull String key, boolean defaultValue) {
         return sharedPreferences.getBoolean(Preconditions.checkNotNull(key), defaultValue);
     }
 
+    @Override
     public float getFloat(@NonNull String key, float defaultValue) {
         return sharedPreferences.getFloat(Preconditions.checkNotNull(key), defaultValue);
     }
 
+    @Override
     public int getInt(@NonNull String key, int defaultValue) {
         return sharedPreferences.getInt(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    @NonNull
-    public Long getLong(@NonNull String key, long defaultValue) {
+    @Override
+    public long getLong(@NonNull String key, long defaultValue) {
         return sharedPreferences.getLong(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    @NonNull
-    public List<Long> getLongList(@NonNull String key) {
-        List<Long> longList = new ArrayList<>();
-        Set<String> setValues = sharedPreferences.getStringSet(Preconditions.checkNotNull(key), null);
-        if (setValues != null) {
-            List<String> stringList = new ArrayList<>();
-            stringList.addAll(setValues);
-            longList = getLongListFromStringList(stringList);
-        }
-        return longList;
-    }
-
+    @Override
     @Nullable
     public String getString(@NonNull String key, @Nullable String defaultValue) {
         return sharedPreferences.getString(Preconditions.checkNotNull(key), defaultValue);
     }
 
-    @NonNull
-    public List<String> getStringList(@NonNull String key) {
-        List<String> stringList = new ArrayList<>();
-        Set<String> setValues = sharedPreferences.getStringSet(Preconditions.checkNotNull(key), null);
-        if (setValues != null) {
-            stringList.addAll(setValues);
-        }
-        return stringList;
-    }
-
+    @Override
     public void putBoolean(@NonNull String key, boolean value) {
         sharedPreferences.edit().putBoolean(Preconditions.checkNotNull(key), value).apply();
     }
 
+    @Override
     public void putFloat(@NonNull String key, float value) {
         sharedPreferences.edit().putFloat(Preconditions.checkNotNull(key), value).apply();
     }
 
+    @Override
     public void putInt(@NonNull String key, int value) {
         sharedPreferences.edit().putInt(Preconditions.checkNotNull(key), value).apply();
     }
 
+    @Override
     public void putLong(@NonNull String key, long value) {
         sharedPreferences.edit().putLong(Preconditions.checkNotNull(key), value).apply();
     }
 
-    public void putLongList(@NonNull String key, List<Long> values) {
-        Set<String> setValues = new HashSet<>(getStringListFromLongList(values));
-        sharedPreferences.edit().putStringSet(Preconditions.checkNotNull(key), setValues).apply();
-    }
-
+    @Override
     public void putString(@NonNull String key, @Nullable String value) {
         sharedPreferences.edit().putString(Preconditions.checkNotNull(key), value).apply();
     }
 
-    public void putStringList(@NonNull String key, @NonNull List<String> values) {
-        Set<String> setValues = new HashSet<>(Preconditions.checkNotNull(values));
-        sharedPreferences.edit().putStringSet(Preconditions.checkNotNull(key), setValues).apply();
-    }
-
+    @Override
     public void remove(@NonNull String key) {
         sharedPreferences.edit().remove(key).apply();
     }
 
-    private static List<String> getStringListFromLongList(@NonNull List<Long> longList) {
-        Preconditions.checkNotNull(longList);
-        List<String> stringList = new ArrayList<>();
-        for (Long item : longList) {
-            stringList.add(String.valueOf(item));
+    private static String getUniqueId() {
+        try {
+            // We make this look like a valid IMEI
+            return "35" +
+                    Build.BOARD.length() % 10 + Build.BRAND.length() % 10
+                    + Build.DEVICE.length() % 10 + Build.DISPLAY.length() % 10
+                    + Build.HOST.length() % 10 + Build.ID.length() % 10
+                    + Build.MANUFACTURER.length() % 10 + Build.MODEL.length() % 10
+                    + Build.PRODUCT.length() % 10 + Build.TAGS.length() % 10
+                    + Build.TYPE.length() % 10 + Build.USER.length() % 10; //13 digits
+        } catch (Exception ignored) {
+            return "1234";
         }
-        return stringList;
-    }
-
-    private static List<Long> getLongListFromStringList(@NonNull List<String> stringList) {
-        Preconditions.checkNotNull(stringList);
-        List<Long> longList = new ArrayList<>();
-        for (String item : stringList) {
-            longList.add(Long.valueOf(item));
-        }
-        return longList;
     }
 }

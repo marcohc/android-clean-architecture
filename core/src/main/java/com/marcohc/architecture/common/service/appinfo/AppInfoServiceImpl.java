@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.marcohc.architecture.common.service;
-
-import android.content.Context;
+package com.marcohc.architecture.common.service.appinfo;
 
 import com.marcohc.architecture.common.helper.DateHelper;
-import com.marcohc.architecture.common.helper.PreferencesMethods;
+import com.marcohc.architecture.common.service.preference.PreferencesService;
 
 /**
  * Class to retrieve information from user or device.
@@ -27,10 +25,10 @@ public class AppInfoServiceImpl implements AppInfoService {
 
     private static final String IS_FIRST_APP_EXECUTION = "is_first_app_start";
     private static final String LAST_APP_EXECUTION = "last_app_execution";
-    private final PreferencesMethods mPreferenceService;
+    private final PreferencesService mPreferenceService;
 
-    public AppInfoServiceImpl(Context context) {
-        mPreferenceService = new PreferencesMethods(context);
+    public AppInfoServiceImpl(PreferencesService preferenceService) {
+        mPreferenceService = preferenceService;
     }
 
     @Override
