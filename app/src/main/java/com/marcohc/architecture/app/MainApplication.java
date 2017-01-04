@@ -5,7 +5,6 @@ import android.os.StrictMode;
 
 import com.marcohc.architecture.app.internal.di.ApplicationInjector;
 import com.marcohc.architecture.app.presentation.util.BuildConfigHelper;
-import com.marcohc.architecture.common.helper.AnalyticsHelper;
 import com.marcohc.architecture.common.timer.Timer;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -36,8 +35,6 @@ public class MainApplication extends android.app.Application {
         setUpCustomCrash();
         timer.logStep();
         setUpCalligraphy();
-        timer.logStep();
-        setUpAnalytics();
         timer.logStep();
         setUpDagger();
         timer.logStep();
@@ -75,10 +72,6 @@ public class MainApplication extends android.app.Application {
         if (BuildConfigHelper.getInstance().isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
         }
-    }
-
-    private void setUpAnalytics() {
-        AnalyticsHelper.setUp(this, !BuildConfigHelper.getInstance().isProduction());
     }
 
     private void setUpDagger() {
