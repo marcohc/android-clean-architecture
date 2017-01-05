@@ -3,7 +3,7 @@ package com.marcohc.architecture.common.util.utils;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.marcohc.architecture.common.util.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringUtils;
 
 /**
  * An adaptation of Guava's {@code com.google.common.base.Preconditions} that is specially tailored
@@ -97,7 +97,7 @@ public final class Preconditions {
      */
     @NonNull
     public static <T extends CharSequence> T nonBlank(@Nullable T value, String name) {
-        if (StringHelper.isBlank(value)) {
+        if (StringUtils.isBlank(value)) {
             final IllegalArgumentException exception = new IllegalArgumentException(name + " must not be blank.");
 
             exception.setStackTrace(getStackTrace(exception));

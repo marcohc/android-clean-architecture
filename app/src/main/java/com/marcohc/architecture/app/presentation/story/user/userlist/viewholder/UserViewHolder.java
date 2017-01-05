@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.common.util.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringUtils;
 import com.marcohc.architecture.presentation.view.adapter.BaseViewHolder;
 
 import butterknife.BindView;
@@ -35,7 +35,7 @@ public class UserViewHolder extends BaseViewHolder<UserModel> {
     public void setUpView(Context context, UserModel model, int position) {
         String image = model.getPictureUrl();
         this.mPosition = position;
-        if (!StringHelper.isBlank(image)) {
+        if (!StringUtils.isBlank(image)) {
             Glide.with(context).load(image).error(R.drawable.im_user_place_holder).into(mUserImageView);
         } else {
             mUserImageView.setImageResource(R.drawable.im_user_place_holder);

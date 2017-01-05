@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.common.util.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringUtils;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
 import butterknife.BindView;
@@ -98,7 +98,7 @@ public class UserDetailActivity extends BaseMvpActivity<UserDetailView, UserDeta
     @Override
     public void renderModel(@NonNull UserModel model) {
         String image = model.getPictureUrl();
-        if (!StringHelper.isBlank(image)) {
+        if (!StringUtils.isBlank(image)) {
             Glide.with(this).load(image).error(R.drawable.im_user_place_holder).into(mUserImageView);
         } else {
             mUserImageView.setImageResource(R.drawable.im_user_place_holder);

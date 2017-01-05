@@ -23,7 +23,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.webkit.MimeTypeMap;
 
-import com.marcohc.architecture.common.util.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringUtils;
 
 import java.io.File;
 
@@ -62,7 +62,7 @@ public class NavigationUtils {
     }
 
     public static void openImage(Context context, String path) {
-        if (context != null && !StringHelper.isBlank(path)) {
+        if (context != null && !StringUtils.isBlank(path)) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse("file://" + path), "image/*");
@@ -98,7 +98,7 @@ public class NavigationUtils {
     }
 
     public static void shareApp(Context context, String shareText) {
-        if (context != null && !StringHelper.isBlank(shareText)) {
+        if (context != null && !StringUtils.isBlank(shareText)) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);

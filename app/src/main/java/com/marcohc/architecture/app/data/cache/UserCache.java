@@ -3,7 +3,7 @@ package com.marcohc.architecture.app.data.cache;
 import com.marcohc.architecture.app.BuildConfig;
 import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.app.internal.di.ApplicationInjector;
-import com.marcohc.architecture.common.util.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringUtils;
 import com.marcohc.architecture.data.cache.DataCache;
 import com.marcohc.architecture.parser.GenericCollection;
 import com.marcohc.architecture.parser.Parser;
@@ -66,7 +66,7 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     @Override
     public boolean isCached(String key) {
 
-        if (StringHelper.isBlank(key)) {
+        if (StringUtils.isBlank(key)) {
             Timber.e("isCached: key is null!");
             return false;
         }
@@ -83,7 +83,7 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     @Override
     public boolean isValid(String key) {
 
-        if (StringHelper.isBlank(key)) {
+        if (StringUtils.isBlank(key)) {
             Timber.e("isValid: key is null!");
             return false;
         }
@@ -117,7 +117,7 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     @Override
     public void put(String key, List<UserEntity> item) {
 
-        if (StringHelper.isBlank(key)) {
+        if (StringUtils.isBlank(key)) {
             Timber.e("put: key is null!");
             return;
         }
@@ -129,7 +129,7 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     @Override
     public void remove(String key) {
 
-        if (StringHelper.isBlank(key)) {
+        if (StringUtils.isBlank(key)) {
             Timber.e("remove: key is null!");
             return;
         }
