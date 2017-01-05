@@ -22,7 +22,7 @@ import java.math.RoundingMode;
 /**
  * Math methods
  */
-public class MathHelper {
+public class MathUtils {
 
     public static double round(Double value) {
         return new BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
