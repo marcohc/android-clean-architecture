@@ -3,10 +3,10 @@ package com.marcohc.architecture.app.data.cache;
 import com.marcohc.architecture.app.BuildConfig;
 import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.app.internal.di.ApplicationInjector;
-import com.marcohc.architecture.common.helper.GenericCollection;
-import com.marcohc.architecture.common.helper.ParserHelper;
-import com.marcohc.architecture.common.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringHelper;
 import com.marcohc.architecture.data.cache.DataCache;
+import com.marcohc.architecture.parser.GenericCollection;
+import com.marcohc.architecture.parser.Parser;
 import com.vincentbrison.openlibraries.android.dualcache.Builder;
 import com.vincentbrison.openlibraries.android.dualcache.CacheSerializer;
 import com.vincentbrison.openlibraries.android.dualcache.DualCache;
@@ -60,7 +60,7 @@ public final class UserCache implements DataCache<List<UserEntity>> {
     @SuppressWarnings("unchecked")
     public List<UserEntity> get(String key) {
         String jsonStored = mCache.get(key);
-        return ParserHelper.getInstance().parseCollection(jsonStored, new GenericCollection<>(List.class, UserEntity.class));
+        return Parser.parseCollection(jsonStored, new GenericCollection<>(List.class, UserEntity.class));
     }
 
     @Override
@@ -122,7 +122,7 @@ public final class UserCache implements DataCache<List<UserEntity>> {
             return;
         }
 
-        mCache.put(key, ParserHelper.getInstance().toJsonString(item));
+        mCache.put(key, Parser.toJsonString(item));
         mCache.put(getTimeToken(key), String.valueOf(System.currentTimeMillis()));
     }
 

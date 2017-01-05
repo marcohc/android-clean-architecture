@@ -1,6 +1,8 @@
 package com.marcohc.architecture.app.data.cache;
 
-import com.marcohc.architecture.common.helper.ParserHelper;
+import android.support.annotation.Nullable;
+
+import com.marcohc.architecture.parser.Parser;
 import com.vincentbrison.openlibraries.android.dualcache.CacheSerializer;
 
 /**
@@ -16,13 +18,15 @@ public class JsonSerializer<T> implements CacheSerializer<T> {
         this.mClazz = clazz;
     }
 
+    @Nullable
     @Override
     public T fromString(String jsonString) {
-        return ParserHelper.getInstance().parse(jsonString, mClazz);
+        return Parser.parse(jsonString, mClazz);
     }
 
+    @Nullable
     @Override
     public String toString(T object) {
-        return ParserHelper.getInstance().toJsonString(object);
+        return Parser.toJsonString(object);
     }
 }

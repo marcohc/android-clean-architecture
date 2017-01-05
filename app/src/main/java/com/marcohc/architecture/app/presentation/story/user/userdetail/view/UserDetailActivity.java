@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.common.helper.StringHelper;
+import com.marcohc.architecture.common.util.helper.StringHelper;
 import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
 
 import butterknife.BindView;

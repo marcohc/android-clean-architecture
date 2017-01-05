@@ -1,0 +1,5 @@
+<resources>
+    <string name="com.marcohc.architecture.common.util.camera">Camera</string>
+    <string name="com.marcohc.architecture.common.util.gallery">Gallery</string>
+    <string name="com.marcohc.architecture.common.util.select">Select</string>
+</resources>

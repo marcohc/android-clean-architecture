@@ -2,7 +2,7 @@ package com.marcohc.architecture.rx.domain.interactor;
 
 import android.support.annotation.NonNull;
 
-import com.marcohc.architecture.common.utils.Preconditions;
+import com.marcohc.architecture.common.util.utils.Preconditions;
 import com.marcohc.architecture.rx.domain.executor.RxJobExecutor;
 
 import rx.Observable;

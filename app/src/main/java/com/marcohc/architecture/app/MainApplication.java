@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.StrictMode;
 
 import com.marcohc.architecture.app.internal.di.ApplicationInjector;
-import com.marcohc.architecture.app.presentation.util.BuildConfigHelper;
-import com.marcohc.architecture.common.timer.Timer;
+import com.marcohc.architecture.app.presentation.util.BuildConfigUtils;
+import com.marcohc.architecture.common.util.TimerUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -20,14 +20,14 @@ public class MainApplication extends android.app.Application {
 
         super.onCreate();
 
-        if (BuildConfigHelper.getInstance().isDevelopment()) {
+        if (BuildConfigUtils.getInstance().isDevelopment()) {
             setUpStrictMode();
             setUpLeakCanary();
         }
 
         setUpTimber();
 
-        Timer timer = Timer.getInstance("MainApplication.setUp");
+        TimerUtils timer = TimerUtils.getInstance("MainApplication.setUp");
 
         // Load all data
         Timber.d("1 - MainApplication - Start loading data");
@@ -69,7 +69,7 @@ public class MainApplication extends android.app.Application {
     }
 
     private void setUpTimber() {
-        if (BuildConfigHelper.getInstance().isDevelopment()) {
+        if (BuildConfigUtils.getInstance().isDevelopment()) {
             Timber.plant(new Timber.DebugTree());
         }
     }

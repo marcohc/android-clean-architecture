@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.mvp.BasePresenter;
-import com.marcohc.architecture.common.timer.Timer;
+import com.marcohc.architecture.common.util.TimerUtils;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     //region Attributes
     private boolean mDataSourceWithPicture = false;
     private boolean mUseCache = false;
-    private Timer mTimer;
+    private TimerUtils mTimer;
     private GetUsersUseCase mGetUsersUseCase;
     //endregion
 
@@ -90,7 +90,7 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     private void requestData(boolean useCache) {
         showLoadingDialog();
         getView().enableCancelButton(true);
-        mTimer = Timer.getInstance("GetUsersUseCase");
+        mTimer = TimerUtils.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, useCache);
         executeUseCase(mGetUsersUseCase, new GetUsersSubscriber(this));
     }
@@ -98,7 +98,7 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     private void requestFreshData() {
         showLoadingDialog();
         getView().enableCancelButton(true);
-        mTimer = Timer.getInstance("GetUsersUseCase");
+        mTimer = TimerUtils.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, false);
         executeUseCase(mGetUsersUseCase, new GetUsersSubscriber(this));
     }

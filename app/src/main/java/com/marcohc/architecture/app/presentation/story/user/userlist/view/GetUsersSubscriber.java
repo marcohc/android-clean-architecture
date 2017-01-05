@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.marcohc.architecture.app.domain.interactor.GetUsersUseCase;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.common.utils.Preconditions;
+import com.marcohc.architecture.common.util.utils.Preconditions;
 import com.marcohc.architecture.rx.domain.interactor.SimpleSubscriber;
 
 import java.lang.ref.WeakReference;
