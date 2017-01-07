@@ -81,7 +81,7 @@ public class MainApplication extends android.app.Application {
     private void setUpCalligraphy() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                                               .setDefaultFontPath("fonts/Roboto-Regular.ttf")
-                                              .setFontAttrId(com.marcohc.architecture.R.attr.fontPath)
+                                              .setFontAttrId(R.attr.fontPath)
                                               .build()
         );
     }

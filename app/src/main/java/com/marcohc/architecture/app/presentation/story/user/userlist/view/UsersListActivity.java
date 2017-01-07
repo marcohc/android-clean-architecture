@@ -1,8 +1,10 @@
 package com.marcohc.architecture.app.presentation.story.user.userlist.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -13,13 +15,14 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.marcohc.architecture.aca.presentation.adapter.BaseListAdapter;
+import com.marcohc.architecture.aca.presentation.mvp.BaseMvpActivity;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.navigation.Navigator;
 import com.marcohc.architecture.app.presentation.story.user.userlist.viewholder.UserViewHolder;
-import com.marcohc.architecture.presentation.view.activity.BaseMvpActivity;
-import com.marcohc.architecture.presentation.view.adapter.BaseListAdapter;
 
 import java.util.List;
 
@@ -52,6 +55,7 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
     Button mCancelButton;
 
     private BaseListAdapter<UserModel> mListViewAdapter;
+    private ProgressDialog dialog;
     //endregion
 
     //region Set up methods
@@ -145,6 +149,17 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
     //endregion
 
     //region View interface methods
+
+    @Override
+    public void enableCancelButton(boolean enable) {
+        mCancelButton.setEnabled(enable);
+    }
+
+    @Override
+    public void goToUserDetail(@NonNull UserModel model) {
+        Navigator.goToUserDetail(this, model);
+    }
+
     @Override
     public void renderModelList(@Nullable List<UserModel> modelList) {
         mSwipeRefreshLayout.setRefreshing(false);
@@ -159,8 +174,14 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
     }
 
     @Override
-    public void goToUserDetail(@NonNull UserModel model) {
-        Navigator.goToUserDetail(this, model);
+    public void setTimeSpent(@NonNull Long timeSpentInMilliseconds) {
+        mTimeSpentTextView.setText(String.format("%d %s", timeSpentInMilliseconds, "ms"));
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        hideDialog();
+        dialog = ProgressDialog.show(this, null, getString(R.string.loading), true);
     }
 
     @Override
@@ -168,15 +189,21 @@ public class UsersListActivity extends BaseMvpActivity<UsersListView, UsersListP
         mSwipeRefreshLayout.setRefreshing(show);
     }
 
+    @UiThread
     @Override
-    public void setTimeSpent(@NonNull Long timeSpentInMilliseconds) {
-        mTimeSpentTextView.setText(String.format("%d %s", timeSpentInMilliseconds, "ms"));
+    public void hideDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 
+    @UiThread
     @Override
-    public void enableCancelButton(boolean enable) {
-        mCancelButton.setEnabled(enable);
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
     //endregion
 
 }

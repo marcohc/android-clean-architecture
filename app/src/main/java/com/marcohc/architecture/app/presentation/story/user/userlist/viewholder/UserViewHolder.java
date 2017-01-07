@@ -6,10 +6,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.marcohc.architecture.aca.presentation.adapter.BaseViewHolder;
 import com.marcohc.architecture.app.R;
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.common.util.helper.StringUtils;
-import com.marcohc.architecture.presentation.view.adapter.BaseViewHolder;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,7 +46,7 @@ public class UserViewHolder extends BaseViewHolder<UserModel> {
 
     // Catch events and pass them through this method
     @OnClick(R.id.userImageView)
-    protected void onUserImageClick(View view) {
+    void onUserImageClick(View view) {
         onChildViewClick(view, mPosition);
     }
 

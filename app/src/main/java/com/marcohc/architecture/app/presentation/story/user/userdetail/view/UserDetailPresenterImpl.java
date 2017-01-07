@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.marcohc.architecture.app.domain.model.UserModel;
 import com.marcohc.architecture.app.presentation.navigation.Navigator;
-import com.marcohc.architecture.presentation.presenter.BaseMvpPresenter;
+import com.marcohc.architecture.aca.presentation.mvp.BaseMvpPresenter;
 
 import dagger.internal.Preconditions;
 

@@ -3,7 +3,7 @@ package com.marcohc.architecture.app.domain.mapper;
 import com.marcohc.architecture.app.domain.entity.UserEntity;
 import com.marcohc.architecture.app.domain.entity.UsersWithPictureEntity;
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.domain.mapper.BaseMapper;
+import com.marcohc.architecture.aca.domain.mapper.BaseMapper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package com.marcohc.architecture.app.presentation.story.user.userdetail.view;
 import android.support.annotation.NonNull;
 
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.presentation.view.BaseMvpView;
+import com.marcohc.architecture.aca.presentation.mvp.BaseMvpView;
 
 /**
  * View which displays the detail of a {@link UserModel}.

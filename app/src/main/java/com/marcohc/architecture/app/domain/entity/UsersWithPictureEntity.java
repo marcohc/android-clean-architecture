@@ -1,7 +1,7 @@
 package com.marcohc.architecture.app.domain.entity;
 
 import com.google.gson.annotations.SerializedName;
-import com.marcohc.architecture.domain.entity.Entity;
+import com.marcohc.architecture.aca.domain.entity.Entity;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.marcohc.architecture.app.domain.model.UserModel;
-import com.marcohc.architecture.presentation.view.BaseMvpView;
+import com.marcohc.architecture.aca.presentation.mvp.BaseMvpView;
 
 import java.util.List;
 
@@ -16,13 +16,19 @@ import java.util.List;
  */
 interface UsersListView extends BaseMvpView {
 
-    void renderModelList(@Nullable List<UserModel> modelList);
+    void enableCancelButton(boolean enable);
 
     void goToUserDetail(@NonNull UserModel model);
 
-    void showRefreshSpinner(boolean show);
+    void hideDialog();
+
+    void renderModelList(@Nullable List<UserModel> modelList);
 
     void setTimeSpent(@NonNull Long timeSpentInMilliseconds);
 
-    void enableCancelButton(boolean enable);
+    void showLoadingDialog();
+
+    void showMessage(String format);
+
+    void showRefreshSpinner(boolean show);
 }

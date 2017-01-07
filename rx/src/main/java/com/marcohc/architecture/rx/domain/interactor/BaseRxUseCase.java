@@ -2,8 +2,8 @@ package com.marcohc.architecture.rx.domain.interactor;
 
 import android.support.annotation.NonNull;
 
+import com.marcohc.architecture.common.thread.JobExecutor;
 import com.marcohc.architecture.common.util.utils.Preconditions;
-import com.marcohc.architecture.rx.domain.executor.RxJobExecutor;
 
 import rx.Observable;
 import rx.Scheduler;
@@ -32,7 +32,7 @@ public abstract class BaseRxUseCase<M> implements RxUseCase<M> {
     protected abstract Observable<M> getObservable();
 
     /**
-     * Execute the use case. This method is called through {@link RxJobExecutor},
+     * Execute the use case. This method is called through {@link JobExecutor},
      * but you can override it handle Rx as you like.
      *
      * @param subscriber the subscriber

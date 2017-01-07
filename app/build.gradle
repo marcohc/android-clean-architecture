@@ -75,6 +75,7 @@ android {
 dependencies {
 
     compile project(':aca')
+    compile project(':cache')
     compile project(':rest')
     compile project(':analytics')
     compile project(':security')

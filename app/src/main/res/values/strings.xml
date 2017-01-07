@@ -1,5 +1,5 @@
 <resources>
-
+    <string name="loading">Loading…</string>
     <string name="google_analytics_id" translatable="false">UA-XXXXXXXX-Y</string>
     <string name="user_detail">User detail</string>
     <string name="time_spent">Time spent:</string>

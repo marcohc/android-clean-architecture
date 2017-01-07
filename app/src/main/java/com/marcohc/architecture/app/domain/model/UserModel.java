@@ -1,7 +1,7 @@
 package com.marcohc.architecture.app.domain.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.marcohc.architecture.domain.model.Model;
+import com.marcohc.architecture.aca.domain.model.Model;
 
 /**
  * User model.

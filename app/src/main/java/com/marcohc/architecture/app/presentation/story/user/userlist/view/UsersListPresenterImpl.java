@@ -27,7 +27,7 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     //region Presenter interface methods
     @Override
     public void onViewCreated() {
-        showLoadingDialog();
+        getView().showLoadingDialog();
         requestFreshData();
     }
 
@@ -72,7 +72,7 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     //region Subscription methods
     @Override
     public void onUserListSuccess(@NonNull List<UserModel> modelList) {
-        hideDialog();
+        getView().hideDialog();
         getView().enableCancelButton(false);
         getView().renderModelList(modelList);
         getView().setTimeSpent(mTimer.logTotal());
@@ -82,13 +82,13 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     public void onUserListFailure(@NonNull Throwable throwable) {
         getView().showRefreshSpinner(false);
         getView().enableCancelButton(false);
-        showMessage(throwable.getMessage());
+        getView().showMessage(throwable.getMessage());
     }
     //endregion
 
     //region Private methods
     private void requestData(boolean useCache) {
-        showLoadingDialog();
+        getView().showLoadingDialog();
         getView().enableCancelButton(true);
         mTimer = TimerUtils.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, useCache);
@@ -96,7 +96,7 @@ class UsersListPresenterImpl extends BasePresenter<UsersListView> implements Use
     }
 
     private void requestFreshData() {
-        showLoadingDialog();
+        getView().showLoadingDialog();
         getView().enableCancelButton(true);
         mTimer = TimerUtils.getInstance("GetUsersUseCase");
         mGetUsersUseCase = new GetUsersUseCase(mDataSourceWithPicture, false);
