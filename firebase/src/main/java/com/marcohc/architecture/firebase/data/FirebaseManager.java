@@ -35,12 +35,6 @@ public final class FirebaseManager {
         databaseReference = firebaseInstance.getReferenceFromUrl(serverUrl);
     }
 
-    //    public static void keepDataFresh(String userKey) {
-    //        databaseReference.child(ACCOUNTS_PATH).child(userKey).keepSynced(true);
-    //        databaseReference.child(RECORDS_PATH).child(userKey).keepSynced(true);
-    //        databaseReference.child(CATEGORIES_PATH).child(userKey).keepSynced(true);
-    //    }
-
     public static DatabaseReference getFirebaseInstance() {
         return databaseReference;
     }

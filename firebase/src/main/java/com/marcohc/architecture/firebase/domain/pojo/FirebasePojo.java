@@ -1,4 +1,4 @@
-package com.marcohc.architecture.firebase.domain.entity;
+package com.marcohc.architecture.firebase.domain.pojo;
 
 import android.support.annotation.Nullable;
 
@@ -7,7 +7,7 @@ import com.marcohc.architecture.aca.domain.model.BaseJsonModel;
 import java.io.Serializable;
 import java.util.Map;
 
-public class FirebaseEntity extends BaseJsonModel implements Serializable {
+public class FirebasePojo extends BaseJsonModel implements Serializable {
 
     protected String key;
 
@@ -26,8 +26,8 @@ public class FirebaseEntity extends BaseJsonModel implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (object != null && object instanceof FirebaseEntity && key != null) {
-            FirebaseEntity model = (FirebaseEntity) object;
+        if (object != null && object instanceof FirebasePojo && key != null) {
+            FirebasePojo model = (FirebasePojo) object;
             return key.equals(model.getKey());
         }
         return false;
