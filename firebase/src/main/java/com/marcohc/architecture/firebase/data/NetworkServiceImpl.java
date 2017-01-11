@@ -1,15 +1,15 @@
-package com.marcohc.architecture.firebase.domain.service;
+package com.marcohc.architecture.firebase.data;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkServiceImpl implements NetworkService {
+class NetworkServiceImpl implements NetworkService {
 
     private static final Boolean LOCK = false;
     private final Context context;
 
-    public NetworkServiceImpl(Context context) {
+    NetworkServiceImpl(Context context) {
         this.context = context;
     }
 
