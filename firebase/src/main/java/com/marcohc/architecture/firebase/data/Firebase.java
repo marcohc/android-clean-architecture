@@ -44,6 +44,13 @@ public final class Firebase {
         return databaseReference.child(path).push().getKey();
     }
 
+    public static void keepSync(@NonNull String path, boolean keepSynced) {
+        checkInitialization();
+        Preconditions.checkNotNull(path, "path");
+        Timber.v("keepSync: %s", path);
+        databaseReference.child(path).keepSynced(keepSynced);
+    }
+
     private static void checkInitialization() {
         if (databaseReference == null) {
             throw new ExceptionInInitializerError("You must call setUp method first!");
