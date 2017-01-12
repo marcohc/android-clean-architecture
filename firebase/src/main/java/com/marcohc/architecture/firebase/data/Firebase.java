@@ -88,7 +88,7 @@ public final class Firebase {
         return databaseReference.child(path);
     }
 
-    private static Task<DataSnapshot> get(@NonNull Query query) {
+    public static Task<DataSnapshot> get(@NonNull Query query) {
         checkInitialization();
         Preconditions.checkNotNull(query);
         Timber.v("getQuery: %s", query.getRef().toString());
