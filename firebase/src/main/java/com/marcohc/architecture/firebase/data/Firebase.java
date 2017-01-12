@@ -20,7 +20,6 @@ import timber.log.Timber;
 
 public final class Firebase {
 
-    private static FirebaseDatabase firebaseInstance;
     private static DatabaseReference databaseReference;
     private static NetworkService networkService;
 
@@ -31,7 +30,7 @@ public final class Firebase {
         Preconditions.checkNotNull(serverUrl, "serverUrl");
         Preconditions.checkNotNull(context, "context");
         networkService = new NetworkServiceImpl(context);
-        firebaseInstance = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseInstance = FirebaseDatabase.getInstance();
         firebaseInstance.setLogLevel(Logger.Level.DEBUG);
         firebaseInstance.setPersistenceEnabled(true);
         databaseReference = firebaseInstance.getReferenceFromUrl(serverUrl);
@@ -63,7 +62,7 @@ public final class Firebase {
         return get(databaseReference.child(path));
     }
 
-    public static Task<DataSnapshot> get(@NonNull DatabaseReference databaseReference) {
+    private static Task<DataSnapshot> get(@NonNull DatabaseReference databaseReference) {
         checkInitialization();
         Preconditions.checkNotNull(databaseReference, "databaseReference");
         Timber.v("getDatabase: %s", databaseReference.toString());
@@ -83,7 +82,13 @@ public final class Firebase {
         return task;
     }
 
-    public static Task<DataSnapshot> get(@NonNull Query query) {
+    public static Query createQuery(@NonNull String path) {
+        checkInitialization();
+        Preconditions.checkNotNull(path, "path");
+        return databaseReference.child(path);
+    }
+
+    private static Task<DataSnapshot> get(@NonNull Query query) {
         checkInitialization();
         Preconditions.checkNotNull(query);
         Timber.v("getQuery: %s", query.getRef().toString());
@@ -137,7 +142,7 @@ public final class Firebase {
         return saveValue(value, databaseReference.child(path));
     }
 
-    public static Task<Void> saveValue(@NonNull Object value, @NonNull DatabaseReference databaseReference) {
+    private static Task<Void> saveValue(@NonNull Object value, @NonNull DatabaseReference databaseReference) {
         checkInitialization();
         Preconditions.checkNotNull(value, "value");
         Preconditions.checkNotNull(databaseReference, "databaseReference");
