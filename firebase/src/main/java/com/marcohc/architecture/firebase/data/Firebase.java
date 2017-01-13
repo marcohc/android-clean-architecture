@@ -26,14 +26,12 @@ public final class Firebase {
     private Firebase() {
     }
 
-    public static void setUp(@NonNull String serverUrl, @NonNull Context context) {
-        Preconditions.checkNotNull(serverUrl, "serverUrl");
-        Preconditions.checkNotNull(context, "context");
-        networkService = new NetworkServiceImpl(context);
-        FirebaseDatabase firebaseInstance = FirebaseDatabase.getInstance();
-        firebaseInstance.setLogLevel(Logger.Level.DEBUG);
-        firebaseInstance.setPersistenceEnabled(true);
-        databaseReference = firebaseInstance.getReferenceFromUrl(serverUrl);
+    //region Public static methods
+
+    public static Query createQuery(@NonNull String path) {
+        checkInitialization();
+        Preconditions.checkNotNull(path, "path");
+        return databaseReference.child(path);
     }
 
     public static String generateKey(@NonNull String path) {
@@ -43,49 +41,10 @@ public final class Firebase {
         return databaseReference.child(path).push().getKey();
     }
 
-    public static void keepSync(@NonNull String path, boolean keepSynced) {
-        checkInitialization();
-        Preconditions.checkNotNull(path, "path");
-        Timber.v("keepSync: %s", path);
-        databaseReference.child(path).keepSynced(keepSynced);
-    }
-
-    private static void checkInitialization() {
-        if (databaseReference == null) {
-            throw new ExceptionInInitializerError("You must call setUp method first!");
-        }
-    }
-
     public static Task<DataSnapshot> get(@NonNull String path) {
         checkInitialization();
         Preconditions.checkNotNull(path, "path");
         return get(databaseReference.child(path));
-    }
-
-    private static Task<DataSnapshot> get(@NonNull DatabaseReference databaseReference) {
-        checkInitialization();
-        Preconditions.checkNotNull(databaseReference, "databaseReference");
-        Timber.v("getDatabase: %s", databaseReference.toString());
-        final TaskCompletionSource<DataSnapshot> taskCompletionSource = new TaskCompletionSource<>();
-        Task<DataSnapshot> task = taskCompletionSource.getTask();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                taskCompletionSource.setResult(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                taskCompletionSource.setException(databaseError.toException());
-            }
-        });
-        return task;
-    }
-
-    public static Query createQuery(@NonNull String path) {
-        checkInitialization();
-        Preconditions.checkNotNull(path, "path");
-        return databaseReference.child(path);
     }
 
     public static Task<DataSnapshot> get(@NonNull Query query) {
@@ -106,6 +65,13 @@ public final class Firebase {
             }
         });
         return task;
+    }
+
+    public static void keepSync(@NonNull String path, boolean keepSynced) {
+        checkInitialization();
+        Preconditions.checkNotNull(path, "path");
+        Timber.v("keepSync: %s", path);
+        databaseReference.child(path).keepSynced(keepSynced);
     }
 
     /**
@@ -142,6 +108,70 @@ public final class Firebase {
         return saveValue(value, databaseReference.child(path));
     }
 
+    public static Task<Void> delete(@NonNull String path) {
+        checkInitialization();
+        Preconditions.checkNotNull(path);
+        Timber.v("delete: %s", path);
+        final TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+        Task<Void> task = taskCompletionSource.getTask();
+        if (networkService.isOnline()) {
+            databaseReference.setValue(null, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    if (databaseError != null) {
+                        taskCompletionSource.setException(databaseError.toException());
+                    } else {
+                        taskCompletionSource.setResult(null);
+                    }
+                }
+            });
+        } else {
+            databaseReference.setValue(null);
+            taskCompletionSource.setResult(null);
+        }
+        return task;
+    }
+
+    public static void setUp(@NonNull String serverUrl, @NonNull Context context) {
+        Preconditions.checkNotNull(serverUrl, "serverUrl");
+        Preconditions.checkNotNull(context, "context");
+        networkService = new NetworkServiceImpl(context);
+        FirebaseDatabase firebaseInstance = FirebaseDatabase.getInstance();
+        firebaseInstance.setLogLevel(Logger.Level.DEBUG);
+        firebaseInstance.setPersistenceEnabled(true);
+        databaseReference = firebaseInstance.getReferenceFromUrl(serverUrl);
+    }
+
+    //endregion
+
+    //region Private static methods
+
+    private static void checkInitialization() {
+        if (databaseReference == null) {
+            throw new ExceptionInInitializerError("You must call setUp method first!");
+        }
+    }
+
+    private static Task<DataSnapshot> get(@NonNull DatabaseReference databaseReference) {
+        checkInitialization();
+        Preconditions.checkNotNull(databaseReference, "databaseReference");
+        Timber.v("getDatabase: %s", databaseReference.toString());
+        final TaskCompletionSource<DataSnapshot> taskCompletionSource = new TaskCompletionSource<>();
+        Task<DataSnapshot> task = taskCompletionSource.getTask();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taskCompletionSource.setResult(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                taskCompletionSource.setException(databaseError.toException());
+            }
+        });
+        return task;
+    }
+
     private static Task<Void> saveValue(@NonNull Object value, @NonNull DatabaseReference databaseReference) {
         checkInitialization();
         Preconditions.checkNotNull(value, "value");
@@ -166,5 +196,7 @@ public final class Firebase {
         }
         return task;
     }
+
+    //endregion
 
 }
