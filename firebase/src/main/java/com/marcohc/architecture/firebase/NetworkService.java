@@ -1,4 +1,4 @@
-package com.marcohc.architecture.firebase.data;
+package com.marcohc.architecture.firebase;
 
 interface NetworkService {
 

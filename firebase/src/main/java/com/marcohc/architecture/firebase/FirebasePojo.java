@@ -1,4 +1,4 @@
-package com.marcohc.architecture.firebase.domain.pojo;
+package com.marcohc.architecture.firebase;
 
 import android.support.annotation.Nullable;
 

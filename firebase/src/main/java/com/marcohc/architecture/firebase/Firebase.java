@@ -1,4 +1,4 @@
-package com.marcohc.architecture.firebase.data;
+package com.marcohc.architecture.firebase;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
