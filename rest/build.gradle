@@ -40,13 +40,11 @@ android {
 
 dependencies {
 
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // DATA
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Annotations
+    compile 'com.android.support:support-annotations:25.1.0'
 
     // Rest
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
 }

@@ -2,7 +2,7 @@ package com.marcohc.architecture.app.data.datastore.user;
 
 import com.marcohc.architecture.app.data.service.user.UsersWithoutPictureService;
 import com.marcohc.architecture.app.domain.entity.UserEntity;
-import com.marcohc.architecture.rx.data.net.ServiceGenerator;
+import com.marcohc.architecture.rx.data.net.ServiceFactory;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class UsersWithoutPictureDataStore implements UserCloudDataStore {
     @Override
     public Observable<List<UserEntity>> getAll() {
 
-        UsersWithoutPictureService service = ServiceGenerator.getInstance().createService(
+        UsersWithoutPictureService service = ServiceFactory.createService(
                 UsersWithoutPictureService.class,
                 GsonConverterFactory.create(),
                 RxJavaCallAdapterFactory.create(),
