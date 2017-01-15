@@ -7,7 +7,7 @@ import com.google.android.gms.tasks.Task;
 
 public abstract class SimpleContinuation<A, B> implements Continuation<A, B> {
 
-    public abstract B success(A result);
+    public abstract B success(@NonNull A result);
 
     @Override
     public B then(@NonNull Task<A> task) throws Exception {
