@@ -28,10 +28,49 @@ public final class Firebase {
 
     //region Public static methods
 
+    public static String buildPath(@NonNull String... pathItems) {
+        Preconditions.checkNotNull(pathItems, "pathItems");
+        StringBuilder stringBuilder = new StringBuilder("");
+        int pathItemsLength = pathItems.length;
+        String item;
+        for (int i = 0; i < pathItemsLength; i++) {
+            item = Preconditions.checkNotNull(pathItems[i], "pathItems[i]");
+            stringBuilder.append(item);
+            if (i + 1 < pathItemsLength) {
+                stringBuilder.append('/');
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     public static Query createQuery(@NonNull String path) {
         checkInitialization();
         Preconditions.checkNotNull(path, "path");
         return databaseReference.child(path);
+    }
+
+    public static Task<Void> delete(@NonNull String path) {
+        checkInitialization();
+        Preconditions.checkNotNull(path);
+        Timber.v("delete: %s", path);
+        final TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+        Task<Void> task = taskCompletionSource.getTask();
+        if (networkService.isOnline()) {
+            databaseReference.setValue(null, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    if (databaseError != null) {
+                        taskCompletionSource.setException(databaseError.toException());
+                    } else {
+                        taskCompletionSource.setResult(null);
+                    }
+                }
+            });
+        } else {
+            databaseReference.setValue(null);
+            taskCompletionSource.setResult(null);
+        }
+        return task;
     }
 
     public static String generateKey(@NonNull String path) {
@@ -106,30 +145,6 @@ public final class Firebase {
         Preconditions.checkNotNull(value);
         Preconditions.checkNotNull(path);
         return saveValue(value, databaseReference.child(path));
-    }
-
-    public static Task<Void> delete(@NonNull String path) {
-        checkInitialization();
-        Preconditions.checkNotNull(path);
-        Timber.v("delete: %s", path);
-        final TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
-        Task<Void> task = taskCompletionSource.getTask();
-        if (networkService.isOnline()) {
-            databaseReference.setValue(null, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    if (databaseError != null) {
-                        taskCompletionSource.setException(databaseError.toException());
-                    } else {
-                        taskCompletionSource.setResult(null);
-                    }
-                }
-            });
-        } else {
-            databaseReference.setValue(null);
-            taskCompletionSource.setResult(null);
-        }
-        return task;
     }
 
     public static void setUp(@NonNull String serverUrl, @NonNull Context context) {
