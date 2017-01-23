@@ -12,10 +12,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
 import com.marcohc.architecture.common.util.utils.Preconditions;
 
 import java.util.Map;
 
+import rx.Observable;
 import timber.log.Timber;
 
 public final class Firebase {
@@ -84,6 +86,13 @@ public final class Firebase {
         checkInitialization();
         Preconditions.checkNotNull(path, "path");
         return get(databaseReference.child(path));
+    }
+
+    public static Observable<DataSnapshot> getObservable(@NonNull String path) {
+        checkInitialization();
+        Preconditions.checkNotNull(path);
+        Timber.v("get: %s", path);
+        return RxFirebaseDatabase.observeSingleValueEvent(databaseReference.child(path));
     }
 
     public static Task<DataSnapshot> get(@NonNull Query query) {
