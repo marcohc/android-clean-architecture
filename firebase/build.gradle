@@ -42,7 +42,7 @@ dependencies {
 
     compile project(':aca')
 
-    def firebaseVersion = '10.0.1'
+    def firebaseVersion = '10.2.0'
 
     // Firebase
     compile "com.google.firebase:firebase-database:${firebaseVersion}"
