@@ -21,9 +21,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.webkit.MimeTypeMap;
 
 import com.marcohc.architecture.common.util.helper.StringUtils;
+import com.marcohc.architecture.common.util.utils.Preconditions;
 
 import java.io.File;
 
@@ -32,37 +35,40 @@ import timber.log.Timber;
 /**
  * Common intent methods
  */
-public class NavigationUtils {
+public final class NavigationUtils {
 
-    public static void goToAppInGooglePlay(Context context) {
-        if (context != null) {
-            String appPackageName = context.getPackageName();
-            try {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                context.startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                Timber.e("goToAppInGooglePlay: ", e);
-            }
-        }
+    private NavigationUtils() {
     }
 
-    public static void goToSettings(Context context) {
-        if (context != null) {
-            Intent intent = new Intent();
-            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            intent.addCategory(Intent.CATEGORY_DEFAULT);
-            intent.setData(Uri.parse("package:" + context.getPackageName()));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    public static void goToAppInGooglePlay(@NonNull Context context) {
+        Preconditions.checkNotNull(context, "context");
+        String appPackageName = context.getPackageName();
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            Timber.e("goToAppInGooglePlay: ", e);
         }
     }
 
-    public static void openImage(Context context, String path) {
-        if (context != null && !StringUtils.isBlank(path)) {
+    public static void goToSettings(@NonNull Context context) {
+        Preconditions.checkNotNull(context, "context");
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(intent);
+    }
+
+    public static void openImage(@NonNull Context context, @NonNull String path) {
+        Preconditions.checkNotNull(context, "context");
+        Preconditions.checkNotNull(path, "path");
+        if (!StringUtils.isBlank(path)) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse("file://" + path), "image/*");
@@ -70,8 +76,10 @@ public class NavigationUtils {
         }
     }
 
-    public static void openDocument(Context context, File file) {
-        if (context != null && file != null && file.exists()) {
+    public static void openDocument(@NonNull Context context, @NonNull File file) {
+        Preconditions.checkNotNull(context, "context");
+        Preconditions.checkNotNull(file, "file");
+        if (file.exists()) {
             try {
                 MimeTypeMap map = MimeTypeMap.getSingleton();
                 String ext = MimeTypeMap.getFileExtensionFromUrl(file.getName());
@@ -97,8 +105,10 @@ public class NavigationUtils {
         }
     }
 
-    public static void shareApp(Context context, String shareText) {
-        if (context != null && !StringUtils.isBlank(shareText)) {
+    public static void shareApp(@NonNull Context context, @NonNull String shareText) {
+        Preconditions.checkNotNull(context, "context");
+        Preconditions.checkNotNull(shareText, "shareText");
+        if (!StringUtils.isBlank(shareText)) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
@@ -107,7 +117,19 @@ public class NavigationUtils {
         }
     }
 
-    public static void sendEmail(Context context, String dialogTitle, String[] recipients, String subject, String body, String path) {
+    public static void sendEmail(@NonNull Context context,
+                                 @NonNull String dialogTitle,
+                                 @NonNull String[] recipients,
+                                 @NonNull String subject,
+                                 @NonNull String body,
+                                 @Nullable String path) {
+
+        Preconditions.checkNotNull(context, "context");
+        Preconditions.checkNotNull(dialogTitle, "dialogTitle");
+        Preconditions.checkNotNull(recipients, "recipients");
+        Preconditions.checkNotNull(subject, "subject");
+        Preconditions.checkNotNull(body, "body");
+
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
         intent.putExtra(Intent.EXTRA_EMAIL, recipients);
